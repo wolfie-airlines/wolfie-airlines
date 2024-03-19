@@ -1,0 +1,3 @@
+C:/Users/szymo/OneDrive/Dokumenty/GitHub/7b365783-gr71-repo/lab1/cmake-build-debug/CMakeFiles/untitled1.dir
+C:/Users/szymo/OneDrive/Dokumenty/GitHub/7b365783-gr71-repo/lab1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/szymo/OneDrive/Dokumenty/GitHub/7b365783-gr71-repo/lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
