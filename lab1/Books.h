@@ -1,4 +1,3 @@
-
 #ifndef LAB1_BOOKS_H
 #define LAB1_BOOKS_H
 
@@ -19,6 +18,10 @@ namespace library {
             std::ostringstream oss;
             for (const auto &book : books) {
                 oss << book.ToString() << std::endl;
+            }
+
+            if (books.empty()) {
+                oss << "Ksiegarnia jest obecnie pusta :D." << std::endl;
             }
             return oss.str();
         }

@@ -3,18 +3,18 @@
 
 #pragma once
 #include <string>
+#include "Authors.h"
 
 namespace library {
     class Book {
-        std::string author; // Zamienić na klasę authors zamiast stringa
+        Authors author;
         std::string title;
         std::string description;
     public:
-        Book(const std::string &author, const std::string &title, const std::string &description) : author(author), title(title), description(description) {
-        }
+        Book(const Authors& author, const std::string &title, const std::string &description) : author(author), title(title), description(description) {}
 
         std::string ToString() const noexcept {
-            return author + " - " + title + (description.empty() ? "" : " - " + description);
+            return author.ToString() + " - " + title + (description.empty() ? "" : " - " + description);
         }
     };
 };

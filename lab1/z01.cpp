@@ -1,16 +1,16 @@
 #include <iostream>
-#include "Book.h"
+#include "Authors.h"
 #include "Books.h"
 #include "Vector.h"
 
 int main() {
-    library::Book book("Mickiewicz", "Pan Tadeusz", "Epopeja narodowa Polski");
-    std::cout << book.ToString() << std::endl;
+    library::Authors author1("Adam", "Mickiewicz");
+    library::Authors author2("Henryk", "Sienkiewicz");
 
-    // konstruktor domyślny w zupełności wystarczy
     library::Books books;
-    books.AddBook(library::Book("Mickiewicz", "Dziady", "Dramat narodowy"));
-    books.AddBook(library::Book("Sienkiewicz", "Potop", "Historia Polski w czasach potopu szwedzkiego"));
+    books.AddBook(library::Book(author1, "Pan Tadeusz", "Epopeja narodowa Polski"));
+    books.AddBook(library::Book(author1, "Dziady", "Dramat narodowy"));
+    books.AddBook(library::Book(author2, "Potop", "Historia Polski w czasach potopu szwedzkiego"));
     std::cout << books.ToString() << std::endl;
 
     library::Vector vector(5, 3.14);
