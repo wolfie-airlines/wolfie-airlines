@@ -10,7 +10,7 @@ namespace library {
         double* data;
 
     public:
-        Vector(const size_t size, const double value = 0.0) : size(size), data(new double[size]) {
+        explicit Vector(const size_t size, const double value = 0.0) : size(size), data(new double[size]) {
             for (size_t i = 0; i < size; i++) {
                 data[i] = value;
             }
@@ -20,7 +20,7 @@ namespace library {
             delete[] data;
         }
 
-        std::string ToString() const noexcept {
+        [[nodiscard]] std::string ToString() const noexcept {
             std::ostringstream oss;
             for (size_t i = 0; i < size; i++) {
                 oss << data[i] << std::endl;

@@ -14,7 +14,7 @@ namespace library {
             books.push_back(book);
         }
 
-        std::string ToString() const noexcept {
+        [[nodiscard]] std::string ToString() const noexcept {
             std::ostringstream oss;
             for (const auto &book : books) {
                 oss << book.ToString() << std::endl;

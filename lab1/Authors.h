@@ -2,16 +2,17 @@
 #define LAB1_AUTHORS_H
 
 #include <string>
+#include <utility>
 
 namespace library {
     class Authors {
         std::string name;
         std::string surname;
     public:
-        Authors(const std::string &name, const std::string &surname) : name(name), surname(surname) {
+        Authors(std::string name, std::string surname) : name(std::move(name)), surname(std::move(surname)) {
         }
 
-        std::string ToString() const noexcept {
+        [[nodiscard]] std::string ToString() const noexcept {
             return name + " " + surname;
         }
     };

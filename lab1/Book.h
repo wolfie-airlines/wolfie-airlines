@@ -3,6 +3,7 @@
 
 #pragma once
 #include <string>
+#include <utility>
 #include "Authors.h"
 
 namespace library {
@@ -11,9 +12,9 @@ namespace library {
         std::string title;
         std::string description;
     public:
-        Book(const Authors& author, const std::string &title, const std::string &description) : author(author), title(title), description(description) {}
+        Book(Authors  author, std::string title, std::string description) : author(std::move(author)), title(std::move(title)), description(std::move(description)) {}
 
-        std::string ToString() const noexcept {
+        [[nodiscard]] std::string ToString() const noexcept {
             return author.ToString() + " - " + title + (description.empty() ? "" : " - " + description);
         }
     };
