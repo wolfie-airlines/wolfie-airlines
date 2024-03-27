@@ -18,7 +18,7 @@ namespace library {
             }
         }
 
-        Vector(const size_t size, const std::function<double(const size_t)>&f) : size(size), data(new double[size]) {
+        [[maybe_unused]] Vector(const size_t size, const std::function<double(const size_t)>&f) : size(size), data(new double[size]) {
             for (size_t i = 0; i < size; i++) {
                 data[i] = f(i);
             }
@@ -121,10 +121,48 @@ namespace library {
             return *this;
         }
 
+        double operator*(const library::Vector& v) const {
+            if (size != v.size) {
+                throw std::exception();
+            }
+            double scalar = 0;
+            for (size_t i = 0; i < size; i++) {
+                scalar += data[i] * v.data[i];
+            }
+            return scalar;
+        }
+
+        // Niekoniecznie jest to poprawne matematycznie ale można powiedzieć że się uparłem :D
+        double operator/(const library::Vector& v) const {
+            if (size != v.size) {
+                throw std::exception();
+            }
+            double scalar = 0;
+            for (size_t i = 0; i < size; i++) {
+                scalar += data[i] / v.data[i];
+            }
+            return scalar;
+        }
+
+        library::Vector& operator--() noexcept {
+            for (size_t i = 0; i < size; i++) {
+                --data[i];
+            }
+            return *this;
+        }
+
         library::Vector operator++(int) noexcept {
             library::Vector v(*this);
             for (size_t i = 0; i < size; i++) {
                 ++data[i];
+            }
+            return v;
+        }
+
+        library::Vector operator--(int) noexcept {
+            library::Vector v(*this);
+            for (size_t i = 0; i < size; i++) {
+                --data[i];
             }
             return v;
         }

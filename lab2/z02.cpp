@@ -25,5 +25,15 @@ int main() {
     ++v;
     std::cout<< v.ToString() << std::endl;
 
+    --v;
+    std::cout<< v.ToString() << std::endl;
+
+    double scalar = v * v2;
+    std::cout << scalar << std::endl;
+
+    double division = v / v2;
+
+    std::cout << division << std::endl;
+
     return 0;
 }
