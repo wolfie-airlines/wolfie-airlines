@@ -16,6 +16,10 @@ namespace library {
             }
         }
 
+        Vector(const library::Vector& v): size(v.size), data(new double[size]) {
+            memcpy(data, v.data, sizeof(*data) * size);
+        }
+
         ~Vector() noexcept {
             delete[] data;
         }
