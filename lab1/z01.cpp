@@ -16,5 +16,13 @@ int main() {
     library::Vector vector(5, 3.14);
     std::cout << vector.ToString() << std::endl;
 
+    library::Vector v2(std::move(vector));
+
+    std::cout << vector.ToString() << std::endl;
+    std::cout << v2.ToString() << std::endl;
+
+    library::Vector v(5, [](const size_t i) { return i * i; });
+    std::cout << v.ToString() << std::endl;
+
     return 0;
 }
