@@ -1,0 +1,3 @@
+C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/CMakeFiles/airport.dir
+C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/CMakeFiles/rebuild_cache.dir
