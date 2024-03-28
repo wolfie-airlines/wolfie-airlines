@@ -400,3 +400,7 @@ FodyWeavers.xsd
 # Cmake-debug
 */cmake-build-debug/CMakeFiles/
 */cmake-build-debug/*
+
+*/.idea/*
+
+/airport/vcpkg_installed/*
