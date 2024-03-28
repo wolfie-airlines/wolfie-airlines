@@ -84,17 +84,16 @@ int main(int argc, char* argv[]) {
                 } else {
                     errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
                 }
-            } else { // Jeśli użytkownik jest zalogowany, wyświetlamy ekran użytkownika
+            } else {
                 auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserScreen(currentUser)));
                 ftxui::Render(userScreen, *CreateUserScreen(currentUser));
                 std::cout << userScreen.ToString() << '\0' << std::endl;
 
-                // Obsługa interakcji na ekranie użytkownika
                 std::string userChoice;
                 std::cin >> userChoice;
-                if (userChoice == "quit") {
+                if (userChoice == "logout") {
                     logoutFunction();
-                    isLoggedIn = false; // Wylogowanie użytkownika
+                    isLoggedIn = false;
                 }
             }
         }
