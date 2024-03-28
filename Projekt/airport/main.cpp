@@ -3,12 +3,10 @@
 
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
-#include "ftxui/screen/string.hpp"
-
 #include <bsoncxx/builder/basic/document.hpp>
-#include <bsoncxx/json.hpp>
 #include "EnvParser.h"
 #include "Authentication.h"
+#include "functions.h"
 
 int main(int argc, char* argv[]) {
     mongocxx::instance inst;
@@ -42,9 +40,8 @@ int main(int argc, char* argv[]) {
                                         ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                         ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
 
-                                        // zawsze na samym końcu bo to jest wprowadzanie inputu
                                         ftxui::separator(),
-                                        ftxui::hbox({ftxui::text(L"Wprowadź numer akcji, którą chcesz wykonać:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                        ftxui::hbox({ftxui::text(L"Wprowadź numer akcji, którą chcesz wykonać poniżej:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
                                 });
             return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
         };
@@ -69,7 +66,12 @@ int main(int argc, char* argv[]) {
             std::cin >> email;
             std::cout << "Podaj hasło: ";
             std::cin >> password;
-            auth.registerUser(username, email, password);
+            bool validRegister = auth.registerUser(username, email, password);
+            if(validRegister) {
+                validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
+            } else {
+                errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+            }
         } else if (choice == 2) {
             std::string username, password;
             std::cout << "Podaj nazwę użytkownika: ";
@@ -78,7 +80,7 @@ int main(int argc, char* argv[]) {
             std::cin >> password;
             auth.authenticateUser(username, password);
         } else {
-            std::cout << "Nieprawidłowy wybór." << std::endl;
+            errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
         }
     } catch (const std::exception& ex) {
         std::cout << "Blad operacji: " << ex.what() << std::endl;

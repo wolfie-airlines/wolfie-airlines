@@ -81,6 +81,14 @@ build CMakeFiles\airport.dir\User.cpp.obj: CXX_COMPILER__airport_unscanned_Debug
   TARGET_COMPILE_PDB = CMakeFiles\airport.dir\
   TARGET_PDB = airport.pdb
 
+build CMakeFiles\airport.dir\functions.cpp.obj: CXX_COMPILER__airport_unscanned_Debug C$:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\functions.cpp || cmake_object_order_depends_target_airport
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi /utf-8
+  INCLUDES = -external:IC:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug\_deps\ftxui-src\include -external:IC:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug\vcpkg_installed\x64-windows\include\bsoncxx\v_noabi -external:IC:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug\vcpkg_installed\x64-windows\include -external:IC:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug\vcpkg_installed\x64-windows\include\mongocxx\v_noabi -external:W0
+  OBJECT_DIR = CMakeFiles\airport.dir
+  OBJECT_FILE_DIR = CMakeFiles\airport.dir
+  TARGET_COMPILE_PDB = CMakeFiles\airport.dir\
+  TARGET_PDB = airport.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target airport
@@ -89,7 +97,7 @@ build CMakeFiles\airport.dir\User.cpp.obj: CXX_COMPILER__airport_unscanned_Debug
 #############################################
 # Link the executable airport.exe
 
-build airport.exe: CXX_EXECUTABLE_LINKER__airport_Debug CMakeFiles\airport.dir\main.cpp.obj CMakeFiles\airport.dir\EnvParser.cpp.obj CMakeFiles\airport.dir\Authentication.cpp.obj CMakeFiles\airport.dir\User.cpp.obj | _deps\ftxui-build\ftxui-screen.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-component.lib vcpkg_installed\x64-windows\debug\lib\mongocxx-v_noabi-dhs-mdd.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-screen.lib vcpkg_installed\x64-windows\debug\lib\bsoncxx-v_noabi-dhs-mdd.lib || _deps\ftxui-build\ftxui-component.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-screen.lib
+build airport.exe: CXX_EXECUTABLE_LINKER__airport_Debug CMakeFiles\airport.dir\main.cpp.obj CMakeFiles\airport.dir\EnvParser.cpp.obj CMakeFiles\airport.dir\Authentication.cpp.obj CMakeFiles\airport.dir\User.cpp.obj CMakeFiles\airport.dir\functions.cpp.obj | _deps\ftxui-build\ftxui-screen.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-component.lib vcpkg_installed\x64-windows\debug\lib\mongocxx-v_noabi-dhs-mdd.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-screen.lib vcpkg_installed\x64-windows\debug\lib\bsoncxx-v_noabi-dhs-mdd.lib || _deps\ftxui-build\ftxui-component.lib _deps\ftxui-build\ftxui-dom.lib _deps\ftxui-build\ftxui-screen.lib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = _deps\ftxui-build\ftxui-screen.lib  _deps\ftxui-build\ftxui-dom.lib  _deps\ftxui-build\ftxui-component.lib  vcpkg_installed\x64-windows\debug\lib\mongocxx-v_noabi-dhs-mdd.lib  _deps\ftxui-build\ftxui-dom.lib  _deps\ftxui-build\ftxui-screen.lib  vcpkg_installed\x64-windows\debug\lib\bsoncxx-v_noabi-dhs-mdd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
