@@ -3,15 +3,6 @@
   "version-string" : "1.0.0",
   "builtin-baseline" : "3c76dc55f8bd2b7f4824bcd860055094bfbbb9ea",
   "dependencies" : [ {
-    "name" : "opengl",
-    "version>=" : "2022-12-04#3"
-  }, {
-    "name" : "glew",
-    "version>=" : "2.2.0#3"
-  }, {
-    "name" : "sdl2",
-    "version>=" : "2.30.1"
-  }, {
     "name" : "mongo-cxx-driver",
     "version>=" : "3.10.1"
   } ]

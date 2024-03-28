@@ -1,5 +1,7 @@
 # ninja log v5
-5	3018	7333353487285152	CMakeFiles/airport.dir/main.cpp.obj	53de5ea651ef1031
-3019	4032	7333353489492668	airport.exe	dae8591860876608
-4	3279	7333354764874966	CMakeFiles/airport.dir/main.cpp.obj	6770187857f8d591
-3280	4495	7333354768885104	airport.exe	b2a5d7704bda98b5
+6	1238	7333376221365123	CMakeFiles/airport.dir/EnvParser.cpp.obj	9567ae6ca1ac0ea3
+0	2990	7333376238829166	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
+2996	4151	7333376242704650	airport.exe	644e43a2ed727cd7
+9	1228	7333381610412596	CMakeFiles/airport.dir/EnvParser.cpp.obj	9567ae6ca1ac0ea3
+3	3069	7333381628732379	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
+3070	4092	7333381630776250	airport.exe	644e43a2ed727cd7
