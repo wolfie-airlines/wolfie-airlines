@@ -1,12 +1,13 @@
 #include <cstdlib>
 #include <iostream>
+#include <future>
 
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 #include <bsoncxx/builder/basic/document.hpp>
 #include "EnvParser.h"
 #include "Authentication.h"
-#include "functions.h"
+#include "printFunctions.h"
 
 int main(int argc, char* argv[]) {
     mongocxx::instance inst;
@@ -34,62 +35,73 @@ int main(int argc, char* argv[]) {
             return EXIT_FAILURE;
         }
 
-        auto summary = [&] {
-            auto content = ftxui::vbox({
-                                        ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
-                                        ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                        ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+        bool isLoggedIn = false;
+        User currentUser;
+        while (true) {
+            if (!isLoggedIn) {
+                auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateScreen()));
+                ftxui::Render(screen, *CreateScreen());
+                std::cout << screen.ToString() << '\0' << std::endl;
 
-                                        ftxui::separator(),
-                                        ftxui::hbox({ftxui::text(L"Wprowadź numer akcji, którą chcesz wykonać poniżej:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                });
-            return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
-        };
+                std::string choice;
+                std::cin >> choice;
 
-        auto document = ftxui::vbox({summary()});
+                if (choice == "1") {
+                    std::string username, email, password;
+                    std::cout << "Podaj nazwę użytkownika: ";
+                    std::cin >> username;
+                    std::cout << "Podaj email: ";
+                    std::cin >> email;
+                    std::cout << "Podaj hasło: ";
+                    std::cin >> password;
+                    bool validRegister = auth.registerUser(username, email, password);
+                    if (validRegister) {
+                        validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
+                    } else {
+                        errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+                    }
+                } else if (choice == "2") {
+                    std::string username, password;
+                    std::cout << "Podaj nazwę użytkownika: ";
+                    std::cin >> username;
+                    std::cout << "Podaj hasło: ";
+                    std::cin >> password;
+                    std::promise<bool> promise;
 
-        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+                    auth.authenticateUser(username, password, std::move(promise), currentUser);
+                    std::future<bool> future = promise.get_future();
 
-        auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
-        Render(screen, document);
+                    bool validLogin = future.get();
 
-        std::cout << screen.ToString() << '\0' << std::endl;
-
-        std::string choice;
-        std::cin >> choice;
-
-        while(true) {
-            if(choice == "quit" || choice == "cancel" || choice == "exit") {
-                break;
-            }
-            else if (choice == "1") {
-                std::string username, email, password;
-                std::cout << "Podaj nazwę użytkownika: ";
-                std::cin >> username;
-                std::cout << "Podaj email: ";
-                std::cin >> email;
-                std::cout << "Podaj hasło: ";
-                std::cin >> password;
-                bool validRegister = auth.registerUser(username, email, password);
-                if (validRegister) {
-                    validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
+                    if (validLogin) {
+                        isLoggedIn = true;
+                    }else {
+                        errorFunction("Logowanie nie powiodło się.", "Spróbuj ponownie z innymi danymi.");
+                    }
+                } else if (choice == "quit") {
+                    seeyaFunction();
+                    break;
                 } else {
-                    errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+                    errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
                 }
-            } else if (choice == "2") {
-                std::string username, password;
-                std::cout << "Podaj nazwę użytkownika: ";
-                std::cin >> username;
-                std::cout << "Podaj hasło: ";
-                std::cin >> password;
-                auth.authenticateUser(username, password);
-            } else {
-                errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+            } else { // Jeśli użytkownik jest zalogowany, wyświetlamy ekran użytkownika
+                auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserScreen(currentUser)));
+                ftxui::Render(userScreen, *CreateUserScreen(currentUser));
+                std::cout << userScreen.ToString() << '\0' << std::endl;
+
+                // Obsługa interakcji na ekranie użytkownika
+                std::string userChoice;
+                std::cin >> userChoice;
+                if (userChoice == "quit") {
+                    logoutFunction();
+                    isLoggedIn = false; // Wylogowanie użytkownika
+                }
             }
         }
-
     } catch (const std::exception& ex) {
         std::cout << "Blad operacji: " << ex.what() << std::endl;
         return EXIT_FAILURE;
     }
+
+    return EXIT_SUCCESS; // Wyjście z programu
 }
