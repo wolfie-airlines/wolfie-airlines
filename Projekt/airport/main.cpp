@@ -55,33 +55,39 @@ int main(int argc, char* argv[]) {
 
         std::cout << screen.ToString() << '\0' << std::endl;
 
-                int choice;
+        std::string choice;
         std::cin >> choice;
 
-        if (choice == 1) {
-            std::string username, email, password;
-            std::cout << "Podaj nazwę użytkownika: ";
-            std::cin >> username;
-            std::cout << "Podaj email: ";
-            std::cin >> email;
-            std::cout << "Podaj hasło: ";
-            std::cin >> password;
-            bool validRegister = auth.registerUser(username, email, password);
-            if(validRegister) {
-                validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
-            } else {
-                errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+        while(true) {
+            if(choice == "quit" || choice == "cancel" || choice == "exit") {
+                break;
             }
-        } else if (choice == 2) {
-            std::string username, password;
-            std::cout << "Podaj nazwę użytkownika: ";
-            std::cin >> username;
-            std::cout << "Podaj hasło: ";
-            std::cin >> password;
-            auth.authenticateUser(username, password);
-        } else {
-            errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+            else if (choice == "1") {
+                std::string username, email, password;
+                std::cout << "Podaj nazwę użytkownika: ";
+                std::cin >> username;
+                std::cout << "Podaj email: ";
+                std::cin >> email;
+                std::cout << "Podaj hasło: ";
+                std::cin >> password;
+                bool validRegister = auth.registerUser(username, email, password);
+                if (validRegister) {
+                    validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
+                } else {
+                    errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+                }
+            } else if (choice == "2") {
+                std::string username, password;
+                std::cout << "Podaj nazwę użytkownika: ";
+                std::cin >> username;
+                std::cout << "Podaj hasło: ";
+                std::cin >> password;
+                auth.authenticateUser(username, password);
+            } else {
+                errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+            }
         }
+
     } catch (const std::exception& ex) {
         std::cout << "Blad operacji: " << ex.what() << std::endl;
         return EXIT_FAILURE;

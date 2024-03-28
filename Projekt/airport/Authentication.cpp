@@ -13,7 +13,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("username", username));
     document.append(bsoncxx::builder::basic::kvp("email", email));
     document.append(bsoncxx::builder::basic::kvp("password", password));
-    document.append(bsoncxx::builder::basic::kvp("saldo", 0)); // jak rejestruje sie to saldo = 0
+    document.append(bsoncxx::builder::basic::kvp("saldo", 0.0)); // jak rejestruje sie to saldo = 0
 
     auto result = _collection.insert_one(document.view());
     return result ? true : false;
@@ -31,6 +31,7 @@ bool Authentication::authenticateUser(const std::string& username, const std::st
         auto email = (std::string) userView["email"].get_string().value;
         std::cout << email << std::endl;
         auto saldo = userView["saldo"].get_double().value;
+        std::cout << saldo << std::endl;
         User user{username, email, saldo};
           return true;
     } else {
