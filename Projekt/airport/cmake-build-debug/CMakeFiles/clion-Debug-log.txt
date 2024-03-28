@@ -13,6 +13,6 @@ mongo-cxx-driver provides CMake targets:
     target_link_libraries(main PRIVATE $<IF:$<TARGET_EXISTS:mongo::mongocxx_static>,mongo::mongocxx_static,mongo::mongocxx_shared>)
 
 -- Running vcpkg install - done
--- Configuring done (3.6s)
+-- Configuring done (3.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug

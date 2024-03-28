@@ -1,7 +1,17 @@
 # ninja log v5
-6	1238	7333376221365123	CMakeFiles/airport.dir/EnvParser.cpp.obj	9567ae6ca1ac0ea3
-0	2990	7333376238829166	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
-2996	4151	7333376242704650	airport.exe	644e43a2ed727cd7
 9	1228	7333381610412596	CMakeFiles/airport.dir/EnvParser.cpp.obj	9567ae6ca1ac0ea3
-3	3069	7333381628732379	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
-3070	4092	7333381630776250	airport.exe	644e43a2ed727cd7
+3411	4494	7333396242635534	airport.exe	644e43a2ed727cd7
+3	3311	7333416909770826	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
+17	1146	7333407291104342	CMakeFiles/airport.dir/User.cpp.obj	4276fcf66e1a3b79
+10	3992	7333407319469349	CMakeFiles/airport.dir/Authentication.cpp.obj	3bb393264dbdcd15
+9	650	7333417283969577	CMakeFiles/airport.dir/User.cpp.obj	4276fcf66e1a3b79
+3	3089	7333417308307407	CMakeFiles/airport.dir/Authentication.cpp.obj	3bb393264dbdcd15
+3090	4151	7333417310084438	airport.exe	e0887fe71e581385
+4	3009	7333418800885967	CMakeFiles/airport.dir/Authentication.cpp.obj	3bb393264dbdcd15
+3010	4028	7333418802969133	airport.exe	e0887fe71e581385
+4	3032	7333419786197392	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
+3033	4052	7333419788375096	airport.exe	e0887fe71e581385
+10	628	7333421643297378	CMakeFiles/airport.dir/User.cpp.obj	4276fcf66e1a3b79
+4	3100	7333421667948035	CMakeFiles/airport.dir/main.cpp.obj	6aa30075fbc601b0
+16	3116	7333421668088093	CMakeFiles/airport.dir/Authentication.cpp.obj	3bb393264dbdcd15
+3117	4132	7333421670383691	airport.exe	e0887fe71e581385
