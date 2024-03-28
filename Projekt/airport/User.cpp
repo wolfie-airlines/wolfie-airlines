@@ -10,3 +10,7 @@ std::string User::getEmail() const { return email; }
 double User::getSaldo() const { return saldo; }
 
 void User::setSaldo(double newSaldo) { saldo = newSaldo; }
+
+User User::getUser() {
+    return {};
+}

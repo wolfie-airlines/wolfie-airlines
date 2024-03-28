@@ -1,0 +1,21 @@
+# ninja log v5
+0	69	7333443927637703	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	5547320ad03d1be9
+0	69	7333443927637703	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	5547320ad03d1be9
+70	3495	7333443961898095	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	8b376b820918c356
+70	3495	7333443961898095	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	8b376b820918c356
+3496	4666	7333443973597059	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	f3c511dc987c4b6e
+3496	4666	7333443973597059	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	f3c511dc987c4b6e
+4666	4744	7333443974379430	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	843ac2bcac35d6e3
+4666	4744	7333443974379430	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	843ac2bcac35d6e3
+4744	4816	7333443975099452	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	a8f71a35bd761011
+4744	4816	7333443975099452	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	a8f71a35bd761011
+4817	4886	7333443975800468	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build	896f8086978bdff2
+4817	4886	7333443975800468	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build	896f8086978bdff2
+4887	4960	7333443976528688	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install	8060babcf736644c
+4887	4960	7333443976528688	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install	8060babcf736644c
+4960	5035	7333443977288744	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	f0e2a59feba6c21f
+4960	5035	7333443977288744	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	f0e2a59feba6c21f
+5035	5135	7333443978300398	CMakeFiles/ftxui-populate-complete	7f019a457fa9943f
+5035	5135	7333443978300398	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	7f019a457fa9943f
+5035	5135	7333443978300398	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate-complete	7f019a457fa9943f
+5035	5135	7333443978300398	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	7f019a457fa9943f

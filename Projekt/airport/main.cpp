@@ -1,6 +1,10 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "ftxui/dom/elements.hpp"
+#include "ftxui/screen/screen.hpp"
+#include "ftxui/screen/string.hpp"
+
 #include <bsoncxx/builder/basic/document.hpp>
 #include <bsoncxx/json.hpp>
 #include "EnvParser.h"
@@ -27,22 +31,34 @@ int main(int argc, char* argv[]) {
         // testowy dokument dla pingu do kolekcji
         auto result = collection.insert_one(make_document(kvp("ping", 1)));
 
-        if (result) {
-            std::cout << "Spingowano baze danych." << std::endl;
-        } else {
+        if (!result) {
             std::cout << "Nie udalo sie..." << std::endl;
             return EXIT_FAILURE;
         }
 
-        // testowy wysyłany ping do bazy danych
-        auto ping_result = db.run_command(make_document(kvp("ping", 1)));
+        auto summary = [&] {
+            auto content = ftxui::vbox({
+                                        ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
+                                        ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                        ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
 
-        std::cout << bsoncxx::to_json(ping_result) << std::endl;
+                                        // zawsze na samym końcu bo to jest wprowadzanie inputu
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::text(L"Wprowadź numer akcji, którą chcesz wykonać:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                });
+            return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+        };
 
-        std::cout << "Zaloguj się lub zarejestruj, aby kontynuować." << std::endl;
-        std::cout << "1. Zarejestruj" << std::endl;
-        std::cout << "2. Zaloguj" << std::endl;
-        int choice;
+        auto document = ftxui::vbox({summary()});
+
+        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+        auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+        Render(screen, document);
+
+        std::cout << screen.ToString() << '\0' << std::endl;
+
+                int choice;
         std::cin >> choice;
 
         if (choice == 1) {
