@@ -86,6 +86,8 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             if (userChoice == "logout") {
                 logoutFunction();
                 isLoggedIn = false;
+            } else if(userChoice == "3") {
+                handleFlightOptions(flightConnection);
             }
         }
     }

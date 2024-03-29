@@ -79,3 +79,29 @@ FlightConnection FlightConnection::findConnection(const std::string& departCity,
     }
     return FlightConnection{"", "", "", "", "", 0};
 }
+
+std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double minPrice, double maxPrice) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("price", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("$gte", minPrice),
+                    bsoncxx::builder::basic::kvp("$lte", maxPrice)
+            ))
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    std::vector<FlightConnection> connections;
+
+    for (auto&& doc : cursor) {
+        bsoncxx::document::view view = doc;
+        auto flightId = (std::string) view["identifier"].get_string().value;
+        auto depCity = (std::string) view["departureCity"].get_string().value;
+        auto destCity = (std::string) view["destinationCity"].get_string().value;
+        auto depTime = (std::string) view["departureTime"].get_string().value;
+        auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+        double flightPrice = view["price"].get_double().value;
+        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, flightPrice);
+    }
+
+    return connections;
+}

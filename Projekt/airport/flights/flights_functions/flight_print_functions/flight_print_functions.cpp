@@ -14,7 +14,7 @@ int CreateFlightChoiceScreen() {
             "Wyświetl listę wszystkich lotów",
             "Znajdź połączenie (podając miasto wylotu i przylotu)",
             "Znajdź połączenie (podając Indentyfikator <ID> lotu)",
-            "Znajdź połączenie (podając przedział cenowy, np. 100-200)",
+            "Znajdź połączenie (podając przedział cenowy)",
             "Znajdź połączenie (podając miasto wylotu) - zwróci wszystkie połączenia z tego miasta",
             "Znajdź połączenie (podając miasto przylotu) - zwróci wszystkie połączenia do tego miasta",
             "↩️ Wróć do menu głównego",
@@ -60,7 +60,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
     int pageSize = 9;
     int currentPage = 1;
     int totalPages = (connections.size() + pageSize - 1) / pageSize;
-    std::string menuPageString = pageSizeString(totalPages);
+    std::string menuPageString = totalPages == 1 ? " " : pageSizeString(totalPages);
 
 
     while (true) {
@@ -85,10 +85,11 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
                                              ftxui::separator(),
                                              ftxui::vbox(document),
                                              ftxui::separator(),
-                                             ftxui::hbox({ftxui::text("Strona " + std::to_string(currentPage) + "/" + std::to_string(totalPages)) | ftxui::bold}) | color(ftxui::Color::Green) | ftxui::hcenter ,
-                                             ftxui::hbox({ftxui::text("Przełączaj się między stronami wpisując numer strony: " + menuPageString) | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter ,
+                                             totalPages != 1 ? ftxui::text("Strona " + std::to_string(currentPage) + "/" + std::to_string(totalPages)) | ftxui::bold | ftxui::hcenter : ftxui::text(" ") | ftxui::bold | ftxui::hcenter,
+                                             totalPages != 1 ? ftxui::hbox({ftxui::text("Przełączaj się między stronami wpisując numer strony: " + menuPageString) | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter : ftxui::text("To wszystkie loty jakie byliśmy w stanie znaleźć.") | ftxui::bold | ftxui::hcenter,
                                              ftxui::hbox({ftxui::text("Możesz zamknąć menu wpisując: quit/cancel/exit") | ftxui::bold}) | color(ftxui::Color::DarkOrange) | ftxui::hcenter ,
                                      }) | style;
+
 
         auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
         ftxui::Render(userScreen, container);
@@ -104,4 +105,37 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
         int inputPage = std::stoi(input);
         currentPage = std::clamp(inputPage, 1, totalPages);
     }
+}
+
+void CreateFoundFlightScreen(FlightConnection& connection) {
+    auto make_box = [](const std::string &title, int dimx, int dimy, const std::string &content) {
+        return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
+                      ftxui::text(content) | ftxui::hcenter | ftxui::dim) |
+               size(ftxui::WIDTH, ftxui::EQUAL, dimx);
+    };
+
+    auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border |
+                 size(ftxui::HEIGHT, ftxui::GREATER_THAN, 10);
+
+    std::vector<ftxui::Element> boxes;
+
+    auto container = ftxui::vbox({
+        ftxui::hbox({
+            ftxui::text(L" ZNALEZIONE POŁĄCZENIE") | ftxui::bold}) | color(ftxui::Color::Blue) | ftxui::hcenter ,
+            ftxui::separator(),
+            ftxui::vbox({
+                ftxui::hbox({
+                    make_box("ID LOTU", 25, 5, connection.getIdentifier()),
+                    make_box("CZAS WYLOTU", 50, 5, connection.getDepartureTime()),
+                    make_box("MIEJSCE WYLOTU", 50, 5, connection.getDepartureCity()),
+                    make_box("MIEJSCE PRZYLOTU", 50, 5, connection.getDestinationCity()),
+                    make_box("GODZINA PRZYLOTU", 50, 5, connection.getArrivalTime()),
+                    make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
+                    }),
+                }),
+            }) | style;
+
+        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
+        ftxui::Render(userScreen, container);
+        std::cout << userScreen.ToString() << '\0' << std::endl;
 }

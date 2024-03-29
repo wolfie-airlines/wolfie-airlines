@@ -27,10 +27,21 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         std::cout << departureCity << " -> " << destinationCity << std::endl;
 
         if (connection.getDepartureCity() == departureCity && connection.getDestinationCity() == destinationCity) {
-            std::cout << connection.getDepartureCity() << " -> " << connection.getDestinationCity() << " | " << connection.getDepartureTime() << " -> " << connection.getArrivalTime() << " | " << connection.getPrice() << std::endl;
+           CreateFoundFlightScreen(connection);
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
+    } else if (answer == 3) {
+        //wybór lotów
+        double minPrice, maxPrice;
+        std::cout << "Podaj minimalną kwotę: ";
+        std::cin >> minPrice;
+        std::cout << "Podaj maksymalną kwotę: ";
+        std::cin >> maxPrice;
+
+        std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
+        CreateAllFlightsScreen(connections);
+
     } else if(answer == 7 ) {
         return;
     } else {
