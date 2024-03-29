@@ -1,13 +1,8 @@
 #include <cstdlib>
 #include <iostream>
-#include <future>
-
-#include "ftxui/dom/elements.hpp"
-#include "ftxui/screen/screen.hpp"
 #include <bsoncxx/builder/basic/document.hpp>
 #include "env/EnvParser.h"
 #include "authentication/Authentication.h"
-#include "functions/printFunctions.h"
 #include "flights/FlightConnection.h"
 #include "functions/handlingFunctions.h"
 
