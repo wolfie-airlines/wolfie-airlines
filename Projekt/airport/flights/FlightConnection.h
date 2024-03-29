@@ -42,5 +42,5 @@ FlightConnection(
     std::vector<FlightConnection> findConnectionByPrice(double &minPrice, double &maxPrice);
     FlightConnection findConnectionById(const std::string& id);
     std::vector<FlightConnection> findConnectionsByDeparture(const std::string &departureCity);
-
+    std::vector<FlightConnection> findConnectionsByDestination(const std::string &destinationCity);
 };

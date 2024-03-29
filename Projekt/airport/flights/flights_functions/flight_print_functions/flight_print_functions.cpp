@@ -86,7 +86,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
                                              ftxui::separator(),
                                              totalPages != 1 ? ftxui::text("Strona " + std::to_string(currentPage) + "/" + std::to_string(totalPages)) | ftxui::bold | ftxui::hcenter : ftxui::text(" ") | ftxui::bold | ftxui::hcenter,
                                              totalPages != 1 ? ftxui::hbox({ftxui::text("Przełączaj się między stronami wpisując numer strony: " + menuPageString) | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter : ftxui::text("To wszystkie loty jakie byliśmy w stanie znaleźć.") | ftxui::bold | ftxui::hcenter,
-                                             ftxui::hbox({ftxui::text("Możesz zamknąć menu wpisując: quit/cancel/exit") | ftxui::bold}) | color(ftxui::Color::DarkOrange) | ftxui::hcenter ,
+                                             totalPages != 1 ? ftxui::hbox({ftxui::text("Możesz zamknąć menu wpisując: quit/cancel/exit") | ftxui::bold}) | color(ftxui::Color::DarkOrange) | ftxui::hcenter : ftxui::text("Dziękujemy za skorzystanie z naszych usług!") | color(ftxui::Color::DarkOliveGreen2) | ftxui::bold | ftxui::hcenter,
                                      }) | style;
 
 
@@ -94,15 +94,19 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
         ftxui::Render(userScreen, container);
         std::cout << userScreen.ToString() << '\0' << std::endl;
 
-        std::string input;
-        std::cin >> input;
+        if(totalPages != 1 ) {
+            std::string input;
+            std::cin >> input;
 
-        if (input == "quit" || input == "cancel" || input == "exit") {
+            if (input == "quit" || input == "cancel" || input == "exit") {
+                break;
+            }
+
+            int inputPage = std::stoi(input);
+            currentPage = std::clamp(inputPage, 1, totalPages);
+        } else {
             break;
         }
-
-        int inputPage = std::stoi(input);
-        currentPage = std::clamp(inputPage, 1, totalPages);
     }
 }
 

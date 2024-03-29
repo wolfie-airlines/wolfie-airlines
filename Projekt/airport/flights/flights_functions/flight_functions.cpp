@@ -61,7 +61,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         }
 
     } else if (answer == 4) {
-        //szukanie po mieście wylotu - zwraca wszystkie loty z tego miasta
+        //szukanie po mieście wylotu - zwraca wszystkie loty z tego miasta (1 lbu wiecej)
         std::string departureCity;
         std::cout << "Podaj miasto wylotu: ";
         std::cin >> departureCity;
@@ -77,7 +77,26 @@ void handleFlightOptions(FlightConnection& flightConnection) {
             }
         }
 
-    } else if(answer == 7 ) {
+    } else if (answer == 5) {
+        //szukanie po mieście przylotu - zwraca wszystkie loty do tego miasta (wektor)
+        std::string destinationCity;
+        std::cout << "Podaj miasto przylotu: ";
+        std::cin >> destinationCity;
+
+        std::vector<FlightConnection> connections = flightConnection.findConnectionsByDestination(destinationCity);
+        if(connections.empty()) {
+            errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        } else {
+            if(connections.size() == 1) {
+                CreateFoundFlightScreen(connections[0]);
+            } else {
+                CreateAllFlightsScreen(connections);
+            }
+        }
+
+    }
+
+    else if(answer == 7 ) {
         return;
     } else {
         errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
