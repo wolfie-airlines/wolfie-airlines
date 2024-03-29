@@ -37,7 +37,15 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         std::cin >> maxPrice;
 
         std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
-        CreateAllFlightsScreen(connections);
+        if(connections.empty()) {
+            errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        } else {
+            if(connections.size() == 1) {
+                CreateFoundFlightScreen(connections[0]);
+            } else {
+                CreateAllFlightsScreen(connections);
+            }
+        }
 
     } else if(answer == 7 ) {
         return;

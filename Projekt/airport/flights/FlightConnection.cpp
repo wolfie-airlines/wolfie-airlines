@@ -80,7 +80,7 @@ FlightConnection FlightConnection::findConnection(const std::string& departCity,
     return FlightConnection{"", "", "", "", "", 0};
 }
 
-std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double minPrice, double maxPrice) {
+std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double &minPrice, double &maxPrice) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("price", bsoncxx::builder::basic::make_document(
                     bsoncxx::builder::basic::kvp("$gte", minPrice),
