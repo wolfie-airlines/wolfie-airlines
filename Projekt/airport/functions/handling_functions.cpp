@@ -8,6 +8,7 @@
 #include "../flights/FlightConnection.h"
 #include "printFunctions.h"
 #include "../flights/flights_functions/flight_functions.h"
+#include "../user/user_functions/user_print_functions/user_print_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;

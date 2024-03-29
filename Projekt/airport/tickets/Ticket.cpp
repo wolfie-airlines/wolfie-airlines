@@ -1,31 +1,46 @@
 #include "Ticket.h"
+
+#include <utility>
 #include "bsoncxx/json.hpp"
 #include "mongocxx/v_noabi/mongocxx/client.hpp"
 
-std::string Ticket::getTicketId() const {
-    return _ticket_id;
+Ticket::Ticket(
+        mongocxx::client _client,
+        std::string ticketId,
+        std::shared_ptr<FlightConnection> &flightConnection,
+        double price,
+        User user,
+        const mongocxx::client &client,
+        const std::string &db_name,
+        const std::string &collection_name
+) : ticketId(std::move(ticketId)), flightConnection(flightConnection), price(price), user(std::move(user)),
+    _client(client), _db(_client[db_name]), _collection(_db[collection_name]) {}
+
+std::string Ticket::getTicketId()  {
+    return ticketId;
 }
 
-FlightConnection & Ticket::getTicketFlight() const {
-    return _flightConnection;
+std::shared_ptr<FlightConnection> Ticket::getTicketFlight() {
+    return flightConnection;
 }
 
 double Ticket::getTicketPrice() const {
-    return _price;
+    return price;
 }
 
 User Ticket::getTicketUser() const {
-    return _user;
+    return user;
 }
 
 void Ticket::saveTicket() {
-    bsoncxx::document::value ticket_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("ticket_id", _ticket_id),
-            bsoncxx::builder::basic::kvp("flight_id", _flightConnection.getIdentifier()),
-            bsoncxx::builder::basic::kvp("user_username", _user.getUsername()),
-            bsoncxx::builder::basic::kvp("price", _price)
-    );
+    // Implementacja zapisu biletu do bazy danych
+    bsoncxx::builder::stream::document document{};
 
-    bsoncxx::document::view ticket_view = ticket_builder.view();
-    _collection.insert_one(ticket_view);
+    document << "ticketId" << ticketId
+             << "price" << price
+             << "user" << bsoncxx::types::b_utf8{user.getUsername()}; // Zakładając, że getUsername() zwraca nazwę użytkownika
+
+    bsoncxx::document::value doc_value = document.extract();
+
+    _collection.insert_one(std::move(doc_value));
 }
