@@ -8,6 +8,7 @@
 
 
 int CreateFlightChoiceScreen();
-std::shared_ptr<ftxui::Element> CreateFlightsScreen(const std::vector<FlightConnection>& connections);
+void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections);
+std::string pageSizeString(int totalPages);
 
 #endif // FLIGHT_PRINT_FUNCTIONS_H

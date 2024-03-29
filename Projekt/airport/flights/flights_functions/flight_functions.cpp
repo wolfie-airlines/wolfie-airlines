@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "ftxui/screen/screen.hpp"
-#include "ftxui/dom/elements.hpp"
 #include "../FlightConnection.h"
 #include "flight_functions.h"
 #include "../../functions/printFunctions.h"
@@ -13,9 +11,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
     if (answer == 0) {
         //wszystkie możliwe loty
         std::vector<FlightConnection> connections = flightConnection.findAllConnections();
-        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateFlightsScreen(connections)));
-        ftxui::Render(userScreen, *CreateFlightsScreen(connections));
-        std::cout << userScreen.ToString() << '\0' << std::endl;
+        CreateAllFlightsScreen(connections);
 
     } else if (answer == 1) {
         //wybór lotów
@@ -35,7 +31,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
-    } else if(answer == 3 ) {
+    } else if(answer == 7 ) {
         return;
     } else {
         errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");

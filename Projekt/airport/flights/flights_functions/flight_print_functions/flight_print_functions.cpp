@@ -29,8 +29,20 @@ int CreateFlightChoiceScreen() {
     return selected;
 }
 
+std::string pageSizeString(int totalPages) {
+    //budowanie napisu dla menu w formie slashy
+    std::string result;
+    for (int i = 1; i <= totalPages; i++) {
+        result += std::to_string(i);
+        if (i != totalPages) {
+            result += "/";
+        }
+    }
+    return result;
+}
 
-std::shared_ptr<ftxui::Element> CreateFlightsScreen(const std::vector<FlightConnection>& connections) {
+
+void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
     auto make_box = [](const std::string &title, int dimx, int dimy, const std::string &content) {
         return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
                       ftxui::text(content) | ftxui::hcenter | ftxui::dim) |
@@ -45,26 +57,51 @@ std::shared_ptr<ftxui::Element> CreateFlightsScreen(const std::vector<FlightConn
 
     ftxui::Elements document;
 
-    for (int i=0; i < 8; i++) {
-        document.push_back(ftxui::hbox({
-                                               make_box("ID LOTU", 25, 5, connections[i].getIdentifier()),
-                                               make_box("CZAS WYLOTU", 50, 5, connections[i].getDepartureTime()),
-                                               make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
-                                               make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
-                                               make_box("GODZINA PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
-                                               make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
-                                       }));
+    int pageSize = 9;
+    int currentPage = 1;
+    int totalPages = (connections.size() + pageSize - 1) / pageSize;
+    std::string menuPageString = pageSizeString(totalPages);
+
+
+    while (true) {
+        int startIndex = (currentPage - 1) * pageSize;
+        int endIndex = std::min<int>(startIndex + pageSize, connections.size());
+
+        document.clear();
+        for (int i = startIndex; i < endIndex; i++) {
+            document.push_back(ftxui::hbox({
+                                                   make_box("ID LOTU", 25, 5, connections[i].getIdentifier()),
+                                                   make_box("CZAS WYLOTU", 50, 5, connections[i].getDepartureTime()),
+                                                   make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
+                                                   make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
+                                                   make_box("GODZINA PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
+                                                   make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
+                                           }));
+        }
+
+        auto container = ftxui::vbox({
+                                             ftxui::hbox({
+                                             ftxui::text(L" MENU POŁĄCZEŃ") | ftxui::bold}) | color(ftxui::Color::Blue) | ftxui::hcenter ,
+                                             ftxui::separator(),
+                                             ftxui::vbox(document),
+                                             ftxui::separator(),
+                                             ftxui::hbox({ftxui::text("Strona " + std::to_string(currentPage) + "/" + std::to_string(totalPages)) | ftxui::bold}) | color(ftxui::Color::Green) | ftxui::hcenter ,
+                                             ftxui::hbox({ftxui::text("Przełączaj się między stronami wpisując numer strony: " + menuPageString) | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter ,
+                                             ftxui::hbox({ftxui::text("Możesz zamknąć menu wpisując: quit/cancel/exit") | ftxui::bold}) | color(ftxui::Color::DarkOrange) | ftxui::hcenter ,
+                                     }) | style;
+
+        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
+        ftxui::Render(userScreen, container);
+        std::cout << userScreen.ToString() << '\0' << std::endl;
+
+        std::string input;
+        std::cin >> input;
+
+        if (input == "quit" || input == "cancel" || input == "exit") {
+            break;
+        }
+
+        int inputPage = std::stoi(input);
+        currentPage = std::clamp(inputPage, 1, totalPages);
     }
-
-    auto container = ftxui::vbox({
-                                         ftxui::hbox({
-                                                             ftxui::text(L" MENU POŁĄCZEŃ") | ftxui::bold}) | color(ftxui::Color::Blue) | ftxui::hcenter ,
-                                         ftxui::separator(),
-                                         ftxui::vbox(document),
-                                         ftxui::separator(),
-                                         ftxui::hbox({ftxui::text(L"Strona 1/4") | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter ,
-                                         ftxui::hbox({ftxui::text(L"Przełączaj się między stronami wpisując 1-4") | ftxui::bold}) | color(ftxui::Color::YellowLight) | ftxui::hcenter ,
-                                 }) | style;
-    return std::make_shared<ftxui::Element>(container);
 }
-
