@@ -13,6 +13,5 @@ void logoutFunction();
 void seeyaFunction();
 std::shared_ptr<ftxui::Element> CreateScreen();
 std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user);
-std::shared_ptr<ftxui::Element> CreateFlightsScreen(const std::vector<FlightConnection>& connections);
 
 #endif // FUNCTIONS_H

@@ -5,7 +5,6 @@
 
 void handleRegistration(Authentication& auth);
 bool handleLogin(Authentication& auth, User& currentUser);
-void handleFlightOptions(FlightConnection& flightConnection);
 void handleUserMenu(User& currentUser);
 void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, FlightConnection& flightConnection);
 void handleMenu();

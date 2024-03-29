@@ -12,8 +12,12 @@ add_executable(airport main.cpp
         functions/printFunctions.cpp
         flights/FlightConnection.h
         flights/FlightConnection.cpp
-        functions/handlingFunctions.cpp
-        functions/handlingFunctions.h
+        functions/handling_functions.cpp
+        functions/handling_functions.h
+        flights/flights_functions/flight_functions.h
+        flights/flights_functions/flight_functions.cpp
+        flights/flights_functions/flight_print_functions/flight_print_functions.h
+        flights/flights_functions/flight_print_functions/flight_print_functions.cpp
 )
 
 include(FetchContent)

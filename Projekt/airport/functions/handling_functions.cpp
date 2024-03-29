@@ -7,6 +7,7 @@
 #include "../authentication/Authentication.h"
 #include "../flights/FlightConnection.h"
 #include "printFunctions.h"
+#include "../flights/flights_functions/flight_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -42,41 +43,6 @@ bool handleLogin(Authentication& auth, User& currentUser) {
     } else {
         errorFunction("Logowanie nie powiodło się.", "Spróbuj ponownie z innymi danymi.");
         return false;
-    }
-}
-
-void handleFlightOptions(FlightConnection& flightConnection) {
-    std::cout << "Chciałbyś zobaczyć listę wszystkich lotów?" << std::endl;
-    std::cout << "Wpisz 'tak' lub 'nie'." << std::endl;
-    std::string answer;
-    std::cin >> answer;
-    if (answer == "tak") {
-        //wszystkie możliwe loty
-        std::vector<FlightConnection> connections = flightConnection.findAllConnections();
-        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateFlightsScreen(connections)));
-        ftxui::Render(userScreen, *CreateFlightsScreen(connections));
-        std::cout << userScreen.ToString() << '\0' << std::endl;
-
-    } else if (answer == "nie") {
-        //wybór lotów
-        std::string departureCity, destinationCity;
-        std::cout << "Podaj miasto wylotu: ";
-        std::cin >> departureCity;
-        std::cout << "Podaj miasto przylotu: ";
-        std::cin >> destinationCity;
-
-        FlightConnection connection = flightConnection.findConnection(departureCity, destinationCity);
-
-        std::cout << connection.getDepartureCity() << " -> " << connection.getDestinationCity() << " | " << connection.getDepartureTime() << " -> " << connection.getArrivalTime() << " | " << connection.getPrice() << std::endl;
-        std::cout << departureCity << " -> " << destinationCity << std::endl;
-
-        if (connection.getDepartureCity() == departureCity && connection.getDestinationCity() == destinationCity) {
-            std::cout << connection.getDepartureCity() << " -> " << connection.getDestinationCity() << " | " << connection.getDepartureTime() << " -> " << connection.getArrivalTime() << " | " << connection.getPrice() << std::endl;
-        } else {
-            errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
-        }
-    } else {
-        errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
     }
 }
 
