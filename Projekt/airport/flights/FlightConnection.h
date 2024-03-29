@@ -7,6 +7,7 @@
 
 class FlightConnection {
 private:
+    std::string flight_id;
     std::string departureCity;
     std::string destinationTime;
     std::string arrivalTime;
@@ -22,6 +23,7 @@ public:
             : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
 
 FlightConnection(
+        const std::string &flight_id,
         const std::string& departureCity,
         const std::string& destinationCity,
         const std::string& departureTime,
@@ -33,9 +35,11 @@ FlightConnection(
     std::string getDestinationCity() const;
     std::string getDepartureTime() const;
     std::string getArrivalTime() const;
+    std::string getIdentifier() const;
     double getPrice() const;
     std::vector<FlightConnection> findAllConnections();
     FlightConnection findConnection(const std::string &departureCity, const std::string &destinationCity);
+
 
 
 };

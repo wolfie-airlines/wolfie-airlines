@@ -53,9 +53,10 @@ void handleFlightOptions(FlightConnection& flightConnection) {
     if (answer == "tak") {
         //wszystkie możliwe loty
         std::vector<FlightConnection> connections = flightConnection.findAllConnections();
-        for (const auto& connection : connections) {
-            std::cout << connection.getDepartureCity() << " -> " << connection.getDestinationCity() << " | " << connection.getDepartureTime() << " -> " << connection.getArrivalTime() << " | " << connection.getPrice() << std::endl;
-        }
+        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateFlightsScreen(connections)));
+        ftxui::Render(userScreen, *CreateFlightsScreen(connections));
+        std::cout << userScreen.ToString() << '\0' << std::endl;
+
     } else if (answer == "nie") {
         //wybór lotów
         std::string departureCity, destinationCity;
