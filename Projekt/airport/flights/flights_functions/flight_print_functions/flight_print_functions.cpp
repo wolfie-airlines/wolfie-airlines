@@ -114,8 +114,7 @@ void CreateFoundFlightScreen(FlightConnection& connection) {
                size(ftxui::WIDTH, ftxui::EQUAL, dimx);
     };
 
-    auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border |
-                 size(ftxui::HEIGHT, ftxui::GREATER_THAN, 10);
+    auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border;
 
     std::vector<ftxui::Element> boxes;
 

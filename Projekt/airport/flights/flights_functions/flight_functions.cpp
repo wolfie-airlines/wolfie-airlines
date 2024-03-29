@@ -23,9 +23,6 @@ void handleFlightOptions(FlightConnection& flightConnection) {
 
         FlightConnection connection = flightConnection.findConnection(departureCity, destinationCity);
 
-        std::cout << connection.getDepartureCity() << " -> " << connection.getDestinationCity() << " | " << connection.getDepartureTime() << " -> " << connection.getArrivalTime() << " | " << connection.getPrice() << std::endl;
-        std::cout << departureCity << " -> " << destinationCity << std::endl;
-
         if (connection.getDepartureCity() == departureCity && connection.getDestinationCity() == destinationCity) {
            CreateFoundFlightScreen(connection);
         } else {
