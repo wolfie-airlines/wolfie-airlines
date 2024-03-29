@@ -8,8 +8,8 @@ add_executable(airport main.cpp
         env/EnvParser.cpp
         authentication/Authentication.cpp
         user/User.cpp
-        functions/printFunctions.h
-        functions/printFunctions.cpp
+        functions/info_print_functions.h
+        functions/info_print_functions.cpp
         flights/FlightConnection.h
         flights/FlightConnection.cpp
         functions/handling_functions.cpp
@@ -21,8 +21,8 @@ add_executable(airport main.cpp
         tickets/Ticket.h
         tickets/Ticket.cpp
         tickets/tickets_functions/tickets_print_functions/tickets_print_functions.cpp
-        user/user_functions/user_print_functions/user_print_functions.h
-        user/user_functions/user_print_functions/user_print_functions.cpp
+        user/user_functions/user_print_functions.h
+        user/user_functions/user_print_functions.cpp
 )
 
 include(FetchContent)

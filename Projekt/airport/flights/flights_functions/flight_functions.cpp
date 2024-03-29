@@ -3,7 +3,7 @@
 #include <vector>
 #include "../FlightConnection.h"
 #include "flight_functions.h"
-#include "../../functions/printFunctions.h"
+#include "../../functions/info_print_functions.h"
 #include "flight_print_functions/flight_print_functions.h"
 
 void handleFlightOptions(FlightConnection& flightConnection) {

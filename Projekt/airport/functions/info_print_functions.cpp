@@ -1,5 +1,5 @@
 #include <iostream>
-#include "printFunctions.h"
+#include "info_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 
