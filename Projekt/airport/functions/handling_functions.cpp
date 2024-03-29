@@ -58,6 +58,12 @@ void handleMenu() {
     std::cout << screen.ToString() << '\0' << std::endl;
 }
 
+void handleBuyTicket(FlightConnection& connection, User& user) {
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateTicketScreen()));
+    ftxui::Render(screen, *CreateTicketScreen());
+    std::cout << screen.ToString() << '\0' << std::endl;
+}
+
 void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, FlightConnection& flightConnection) {
     while (true) {
         if (!isLoggedIn) {
@@ -73,7 +79,10 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 }
             } else if (choice == "3") {
                 handleFlightOptions(flightConnection);
-            } else if (choice == "quit") {
+            } else if (choice == "4") {
+                errorFunction("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
+            }
+            else if (choice == "quit") {
                 seeyaFunction();
                 break;
             } else {
@@ -88,6 +97,9 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 isLoggedIn = false;
             } else if(userChoice == "3") {
                 handleFlightOptions(flightConnection);
+            }
+            else if(userChoice == "4") {
+                handleBuyTicket(flightConnection, currentUser);
             }
         }
     }

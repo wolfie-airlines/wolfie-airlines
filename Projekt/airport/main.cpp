@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
         auto result = collection.insert_one(make_document(kvp("ping", 1)));
 
         if (!result) {
-            std::cout << "Nie udalo sie..." << std::endl;
+            std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
             return EXIT_FAILURE;
         }
         User currentUser;
