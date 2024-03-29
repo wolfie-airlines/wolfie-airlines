@@ -53,7 +53,6 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
                  size(ftxui::HEIGHT, ftxui::GREATER_THAN, 150);
 
     std::vector<ftxui::Element> boxes;
-    std::cout << connections.size() << std::endl;
 
     ftxui::Elements document;
 
