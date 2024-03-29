@@ -41,9 +41,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
-    }
-
-    else if (answer == 3) {
+    } else if (answer == 3) {
         //szukanie po cenie
         double minPrice, maxPrice;
         std::cout << "Podaj minimalną kwotę: ";
@@ -52,6 +50,23 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         std::cin >> maxPrice;
 
         std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
+        if(connections.empty()) {
+            errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        } else {
+            if(connections.size() == 1) {
+                CreateFoundFlightScreen(connections[0]);
+            } else {
+                CreateAllFlightsScreen(connections);
+            }
+        }
+
+    } else if (answer == 4) {
+        //szukanie po mieście wylotu - zwraca wszystkie loty z tego miasta
+        std::string departureCity;
+        std::cout << "Podaj miasto wylotu: ";
+        std::cin >> departureCity;
+
+        std::vector<FlightConnection> connections = flightConnection.findConnectionsByDeparture(departureCity);
         if(connections.empty()) {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         } else {
