@@ -14,7 +14,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         CreateAllFlightsScreen(connections);
 
     } else if (answer == 1) {
-        //wybór lotów
+        //szukanie po mieście wylotu - mieście przylotu
         std::string departureCity, destinationCity;
         std::cout << "Podaj miasto wylotu: ";
         std::cin >> departureCity;
@@ -28,8 +28,23 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
-    } else if (answer == 3) {
-        //wybór lotów
+    } else if (answer == 2) {
+        //szukanie po mieście wylotu - mieście przylotu
+        std::string flightId;
+        std::cout << "Podaj identyfikator lotu: ";
+        std::cin >> flightId;
+
+        FlightConnection connection = flightConnection.findConnectionById(flightId);
+
+        if (connection.getIdentifier() == flightId) {
+            CreateFoundFlightScreen(connection);
+        } else {
+            errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        }
+    }
+
+    else if (answer == 3) {
+        //szukanie po cenie
         double minPrice, maxPrice;
         std::cout << "Podaj minimalną kwotę: ";
         std::cin >> minPrice;
