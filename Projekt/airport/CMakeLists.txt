@@ -18,8 +18,6 @@ add_executable(airport main.cpp
         flights/flights_functions/flight_functions.cpp
         flights/flights_functions/flight_print_functions/flight_print_functions.h
         flights/flights_functions/flight_print_functions/flight_print_functions.cpp
-        tickets/Ticket.h
-        tickets/Ticket.cpp
         tickets/tickets_functions/tickets_print_functions/tickets_print_functions.cpp
         user/user_functions/user_print_functions.h
         user/user_functions/user_print_functions.cpp
