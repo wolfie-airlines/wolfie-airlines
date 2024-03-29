@@ -11,7 +11,7 @@ private:
 
 public:
     User() : username("gosc"), email("brak"), saldo(0) {}
-    User(const std::string& username, const std::string& email, double saldo = 0);
+    User(std::string  username, std::string  email, double saldo = 0);
     std::string getUsername() const;
     std::string getEmail() const;
     static User getUser() ;

@@ -1,7 +1,9 @@
 #include "User.h"
 
-User::User(const std::string& username, const std::string& email, double saldo)
-        : username(username), email(email), saldo(saldo) {}
+#include <utility>
+
+User::User(std::string  username, std::string  email, double saldo)
+        : username(std::move(username)), email(std::move(email)), saldo(saldo) {}
 
 std::string User::getUsername() const { return username; }
 
