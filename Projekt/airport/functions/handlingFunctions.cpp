@@ -4,8 +4,8 @@
 #include <vector>
 #include "ftxui/screen/screen.hpp"
 #include "ftxui/dom/elements.hpp"
-#include "../Authentication.h"
-#include "../FlightConnection.h"
+#include "../authentication/Authentication.h"
+#include "../flights/FlightConnection.h"
 #include "printFunctions.h"
 
 void handleRegistration(Authentication& auth) {

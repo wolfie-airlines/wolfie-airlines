@@ -1,10 +1,10 @@
 #ifndef AUTHENTICATION_H
 #define AUTHENTICATION_H
 
-#include <mongocxx/client.hpp>
-#include <mongocxx/database.hpp>
-#include <mongocxx/instance.hpp>
-#include "User.h"
+#include "mongocxx/v_noabi/mongocxx/client.hpp"
+#include "mongocxx/v_noabi/mongocxx/database.hpp"
+#include "mongocxx/v_noabi/mongocxx/instance.hpp"
+#include "../user/User.h"
 #include <future>
 
 class Authentication {

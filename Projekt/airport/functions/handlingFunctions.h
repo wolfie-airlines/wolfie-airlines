@@ -1,7 +1,7 @@
 #ifndef MAIN_FUNCTIONS_H
 #define MAIN_FUNCTIONS_H
-#include "../FlightConnection.h"
-#include "../Authentication.h"
+#include "../flights/FlightConnection.h"
+#include "../authentication/Authentication.h"
 
 void handleRegistration(Authentication& auth);
 bool handleLogin(Authentication& auth, User& currentUser);

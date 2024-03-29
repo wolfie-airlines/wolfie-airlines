@@ -4,14 +4,14 @@ project(airport)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(airport main.cpp
-        EnvParser.h
-        EnvParser.cpp
-        Authentication.cpp
-        User.cpp
+        env/EnvParser.h
+        env/EnvParser.cpp
+        authentication/Authentication.cpp
+        user/User.cpp
         functions/printFunctions.h
         functions/printFunctions.cpp
-        FlightConnection.h
-        FlightConnection.cpp
+        flights/FlightConnection.h
+        flights/FlightConnection.cpp
         functions/handlingFunctions.cpp
         functions/handlingFunctions.h
 )

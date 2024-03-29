@@ -1,6 +1,6 @@
 #include "FlightConnection.h"
-#include <bsoncxx/json.hpp>
-#include <mongocxx/client.hpp>
+#include "bsoncxx/json.hpp"
+#include "mongocxx/v_noabi/mongocxx/client.hpp"
 
 FlightConnection::FlightConnection(
         const std::string& departureCity,
