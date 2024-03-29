@@ -2,7 +2,7 @@
 #include "printFunctions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
-#include "User.h"
+#include "../User.h"
 
 void validFunction(const std::string& titleMessage, const std::string& optionalMessage="") {
     ftxui::Element response;

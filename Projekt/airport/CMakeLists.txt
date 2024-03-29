@@ -8,8 +8,12 @@ add_executable(airport main.cpp
         EnvParser.cpp
         Authentication.cpp
         User.cpp
-        printFunctions.h
-        printFunctions.cpp
+        functions/printFunctions.h
+        functions/printFunctions.cpp
+        FlightConnection.h
+        FlightConnection.cpp
+        functions/handlingFunctions.cpp
+        functions/handlingFunctions.h
 )
 
 include(FetchContent)

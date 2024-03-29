@@ -3,7 +3,7 @@
 // ^ żeby nie podkreślało mi linijek
 #include "Authentication.h"
 #include "User.h"
-#include "printFunctions.h"
+#include "functions/printFunctions.h"
 #include <future>
 
 Authentication::Authentication(const std::string& uri_str, const std::string& db_name, const std::string& collection_name)

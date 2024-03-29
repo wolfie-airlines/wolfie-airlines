@@ -4,7 +4,7 @@
 #include <string>
 #include "ftxui/screen/screen.hpp"
 #include "ftxui/dom/elements.hpp"
-#include "User.h"
+#include "../User.h"
 
 void validFunction(const std::string& titleMessage, const std::string& optionalMessage);
 void errorFunction(const std::string& titleMessage, const std::string& optionalMessage);
