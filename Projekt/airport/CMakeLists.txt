@@ -23,6 +23,8 @@ add_executable(airport main.cpp
         user/user_functions/user_print_functions.cpp
         tickets/Ticket.h
         tickets/Ticket.cpp
+        tickets/tickets_functions/ticket_functions.h
+        tickets/tickets_functions/ticket_functions.cpp
 )
 
 include(FetchContent)

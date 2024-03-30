@@ -14,7 +14,9 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("username", username));
     document.append(bsoncxx::builder::basic::kvp("email", email));
     document.append(bsoncxx::builder::basic::kvp("password", password));
-    document.append(bsoncxx::builder::basic::kvp("saldo", 0.0)); // jak rejestruje sie to saldo = 0
+    document.append(bsoncxx::builder::basic::kvp("disabled", false)); // musi to potwierdzić, ale dopiero potem
+    document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
+    document.append(bsoncxx::builder::basic::kvp("paymentMethod", "blik"));
 
     auto result = _collection.insert_one(document.view());
     return result ? true : false;
@@ -29,8 +31,10 @@ void Authentication::authenticateUser(const std::string& username, const std::st
     if (result) {
         bsoncxx::document::view userView = result->view();
         auto email = (std::string) userView["email"].get_string().value;
-        auto saldo = userView["saldo"].get_double().value;
-        user = User{username, email, saldo};
+        auto isDisabled = userView["disabled"].get_bool().value;
+        auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
+        auto paymentMethod = (std::string) userView["paymentMethod"].get_string().value;
+        user = User{username, email, isDisabled, premiumCard, paymentMethod};
         promise.set_value(true); // Ustawienie wartości zwracanej na true
         validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
     } else {
