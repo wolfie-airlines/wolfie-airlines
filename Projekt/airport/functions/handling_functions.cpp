@@ -8,7 +8,8 @@
 #include "../flights/FlightConnection.h"
 #include "info_print_functions.h"
 #include "../flights/flights_functions/flight_functions.h"
-#include "../user/user_functions/user_print_functions.h"
+#include "../user/user_functions/user_prints/user_print_functions.h"
+#include "../user/user_functions/user_settings_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -94,6 +95,9 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             handleUserMenu(currentUser);
             std::string userChoice;
             std::cin >> userChoice;
+            if(userChoice == "settings") {
+                handleSettingsOption(currentUser);
+            }
             if (userChoice == "logout") {
                 logoutFunction();
                 isLoggedIn = false;

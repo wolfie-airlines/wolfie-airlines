@@ -4,7 +4,7 @@
 #include "../FlightConnection.h"
 #include "flight_functions.h"
 #include "../../functions/info_print_functions.h"
-#include "flight_print_functions/flight_print_functions.h"
+#include "flight_prints/flight_print_functions.h"
 
 void handleFlightOptions(FlightConnection& flightConnection) {
     int answer = CreateFlightChoiceScreen();
