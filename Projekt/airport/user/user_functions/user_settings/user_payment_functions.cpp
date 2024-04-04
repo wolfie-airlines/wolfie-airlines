@@ -1,5 +1,6 @@
 #include "../../User.h"
 #include "../../../functions/info_print_functions.h"
+#include "../user_prints/user_print_functions.h"
 
 void User::setPaymentMethod(const std::string &payment) {
 
@@ -72,5 +73,27 @@ void User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     _collection.update_one(filter_view_email_password, update_view);
 
     paymentMethod = "visa";
+}
+
+
+void handlePaymentOption(User& user) {
+    int answer = CreateDefaultPaymentScreen();
+    if (answer == 0) {
+        // zmiana na VISĘ
+        std::cout << "Podaj 3 ostatnie cyfry karty: ";
+        std::string cardNumber;
+        std::cin >> cardNumber;
+        std::cout << "Podaj kod CVV karty: ";
+        std::string cvv;
+        std::cin >> cvv;
+        user.setPaymentMethod("visa");
+        user.handleVisa(cardNumber, cvv);
+    } else if (answer == 1) {
+        user.setPaymentMethod("blik");
+    } else if(answer == 3 ) {
+        return;
+    } else {
+        errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+    }
 }
 
