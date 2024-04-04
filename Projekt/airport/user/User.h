@@ -6,11 +6,9 @@
 
 class User {
 private:
-
     mongocxx::client& _client;
     mongocxx::database _db;
     mongocxx::collection _collection;
-
 public:
     explicit User(mongocxx::client& client) : _client(client), _db(client["projekt"]), _collection(_db["users"]),
                                      username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"), paymentMethod("blik") {}
