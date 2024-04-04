@@ -32,7 +32,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::paragraphAlignRight(user.getUsername())}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
@@ -58,7 +58,7 @@ std::string handleSettingsMenu(const User& user) {
         auto summary = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L" USTAWIENIA KONTA") | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::paragraphAlignRight(user.getUsername())}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"1. Zmień nazwę użytkownika   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Zmień e-mail   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Zmień hasło   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),

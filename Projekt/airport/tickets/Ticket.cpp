@@ -15,7 +15,7 @@ std::string Ticket::getTicketId() const {
 }
 
 std::string Ticket::getPassengerUsername() const {
-    return passenger.getUsername();
+    return passenger.username;
 }
 
 std::string Ticket::getFlightId() const {

@@ -13,10 +13,7 @@ void handleSettingsOption(User& user) {
         std::string newEmail;
         std::cout << "Podaj nowego maila: ";
         std::cin >> newEmail;
-        //TODO: setEmail function()
-//        user.setEmail(newEmail);
-        validFunction("E-mal został zmieniony pomyślnie.", "Twój nowy adres e-mail to: " + newEmail);
-
+        user.changeEmail(newEmail);
     } else if (option== "3") {
         std::string newPassword;
         std::cout << "Podaj nowe hasło: ";
