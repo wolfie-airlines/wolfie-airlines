@@ -101,10 +101,10 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             if (userChoice == "logout") {
                 logoutFunction();
                 isLoggedIn = false;
-            } else if(userChoice == "3") {
+            } else if(userChoice == "1") {
                 handleFlightOptions(flightConnection);
             }
-            else if(userChoice == "4") {
+            else if(userChoice == "2") {
                 handleBuyTicket(flightConnection, currentUser);
             }
         }

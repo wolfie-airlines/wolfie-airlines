@@ -36,10 +36,8 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"3. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"4. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
                                            // ---------
