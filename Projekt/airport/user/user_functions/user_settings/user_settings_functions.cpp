@@ -2,6 +2,7 @@
 #include "../../../functions/info_print_functions.h"
 #include "../user_prints/user_print_functions.h"
 #include "user_payment_functions.h"
+#include "../../professions/user_profession_functions.h"
 
 void handleSettingsOption(User& user) {
     std::string option = handleSettingsMenu(user);
@@ -29,7 +30,7 @@ void handleSettingsOption(User& user) {
 
     } else if (option== "5") {
         //wyświetlenie proffesionScreen
-        std::cout << "Funkcja w trakcie implementacji." << std::endl;
+        handleProfession(user);
     }
     else if (option== "6") {
         //zmiana domyślnej płatności
