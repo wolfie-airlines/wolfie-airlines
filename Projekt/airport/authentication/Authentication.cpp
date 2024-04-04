@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "Simplify"
-// ^ żeby nie podkreślało mi linijek
 #include "Authentication.h"
 #include "../user/User.h"
 #include "../functions/info_print_functions.h"
@@ -34,7 +31,12 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto isDisabled = userView["disabled"].get_bool().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = (std::string) userView["paymentMethod"].get_string().value;
-        user = User{username, email, isDisabled, premiumCard, paymentMethod};
+        user.username = username;
+        user.password = password;
+        user.email = email;
+        user.isDisabled = isDisabled;
+        user.premiumCard = premiumCard;
+        user.paymentMethod = paymentMethod;
         promise.set_value(true); // Ustawienie wartości zwracanej na true
         validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
     } else {
@@ -42,5 +44,3 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         promise.set_value(false); // Ustawienie wartości zwracanej na false
     }
 }
-
-#pragma clang diagnostic pop

@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
             std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
             return EXIT_FAILURE;
         }
-        User currentUser;
+        User currentUser{client};
         bool isLoggedIn = false;
         processChoice(isLoggedIn, auth, currentUser, flightConnection);
     } catch (const std::exception& ex) {

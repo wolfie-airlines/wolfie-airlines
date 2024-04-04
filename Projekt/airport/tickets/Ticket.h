@@ -11,13 +11,12 @@
 class Ticket {
 private:
     std::string ticketId;
-    User passenger;
     std::string flightId;
     double price{};
-
     mongocxx::client _client;
     mongocxx::database _db;
     mongocxx::collection _collection;
+    User passenger{_client};
 public:
     Ticket(const std::string& uri_str, const std::string& db_name, const std::string& collection_name)
             : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}

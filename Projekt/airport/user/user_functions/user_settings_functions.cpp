@@ -8,10 +8,7 @@ void handleSettingsOption(User& user) {
         std::string newUsername;
         std::cout << "Podaj nową nazwę użytkownika: ";
         std::cin >> newUsername;
-        //TODO: setUsername function()
-//        user.setUsername(newUsername);
-        validFunction("Nazwa użytkownika została zmieniona pomyślnie.", "Twoja nowa nazwa użytkownika to: " + newUsername);
-
+        user.changeUsername(newUsername);
     } else if (option== "2") {
         std::string newEmail;
         std::cout << "Podaj nowego maila: ";
