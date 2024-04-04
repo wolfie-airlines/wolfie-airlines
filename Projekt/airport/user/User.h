@@ -16,7 +16,7 @@ public:
          std::string password,
          std::string paymentMethod, mongocxx::client &client);
 
-    // Obiekt użytkownika
+    // Obiekt użytkownika (dane)
     std::string username;
     std::string password;
     std::string email;
@@ -24,13 +24,14 @@ public:
     std::string premiumCard;
     std::string paymentMethod;
 
+    // Funkcje użytkownika (metody)
     User getUser();
     void setIsDisabled(bool isDisabled);
     void setPremiumCard(const std::string& premiumCard);
     void setPaymentMethod(const std::string& paymentMethod);
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
-    bool setPassword(const std::string& password);
+    void changePassword(const std::string& password);
     //std::vector<Discount> getDiscounts();
 
 };

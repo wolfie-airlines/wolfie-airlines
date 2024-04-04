@@ -18,16 +18,7 @@ void handleSettingsOption(User& user) {
         std::string newPassword;
         std::cout << "Podaj nowe hasło: ";
         std::cin >> newPassword;
-        std::cout << "Powtórz nowe hasło: ";
-        std::string repeatedPassword;
-        std::cin >> repeatedPassword;
-        if (newPassword == repeatedPassword) {
-            //TODO: setPassword function()
-//            user.setPassword(newPassword);
-            validFunction("Hasło zostało zmienione pomyślnie.", "Pamiętaj, żeby nie zapomnieć nowego hasła.");
-        } else {
-            errorFunction("Podane hasła nie są takie same.", "Spróbuj ponownie.");
-        }
+        user.changePassword(newPassword);
     } else if (option== "4") {
         //wszystkie discounty
 
