@@ -37,6 +37,6 @@ void handleSettingsOption(User& user) {
     else if (option== "back") {
         return;
     } else {
-        errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+        errorFunction("Nieprawidłowy wybór.", "Nastąpił powrót do głównego menu.");
     }
 }
