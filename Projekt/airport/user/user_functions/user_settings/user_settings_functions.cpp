@@ -1,6 +1,6 @@
 #include "user_settings_functions.h"
-#include "../../functions/info_print_functions.h"
-#include "user_prints/user_print_functions.h"
+#include "../../../functions/info_print_functions.h"
+#include "../user_prints/user_print_functions.h"
 
 void handlePaymentOption(User& user) {
     int answer = CreateDefaultPaymentScreen();

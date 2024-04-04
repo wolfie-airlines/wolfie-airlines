@@ -25,8 +25,9 @@ add_executable(airport main.cpp
         tickets/Ticket.cpp
         tickets/tickets_functions/ticket_functions.h
         tickets/tickets_functions/ticket_functions.cpp
-        user/user_functions/user_settings_functions.h
-        user/user_functions/user_settings_functions.cpp
+        user/user_functions/user_settings/user_settings_functions.h
+        user/user_functions/user_settings/user_settings_functions.cpp
+        user/user_functions/user_settings/user_payment_functions.cpp
 )
 
 include(FetchContent)

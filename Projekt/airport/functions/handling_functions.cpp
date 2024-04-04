@@ -9,7 +9,7 @@
 #include "info_print_functions.h"
 #include "../flights/flights_functions/flight_functions.h"
 #include "../user/user_functions/user_prints/user_print_functions.h"
-#include "../user/user_functions/user_settings_functions.h"
+#include "../user/user_functions/user_settings/user_settings_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;

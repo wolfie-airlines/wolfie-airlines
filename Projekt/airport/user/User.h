@@ -11,13 +11,14 @@ private:
     mongocxx::collection _collection;
 public:
     explicit User(mongocxx::client& client) : _client(client), _db(client["projekt"]), _collection(_db["users"]),
-                                     username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"), paymentMethod("blik") {}
+                                     username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"), paymentMethod("blik"), profession("brak") {}
     User(std::string username, std::string email, bool isDisabled, std::string premiumCard,
          std::string password,
-         std::string paymentMethod, mongocxx::client &client);
+         std::string paymentMethod, mongocxx::client &client, std::string  profession);
 
     // Obiekt użytkownika (dane)
     std::string username;
+    std::string profession;
     std::string password;
     std::string email;
     bool isDisabled;
