@@ -28,6 +28,7 @@ add_executable(airport main.cpp
         user/user_functions/user_settings/user_settings_functions.h
         user/user_functions/user_settings/user_settings_functions.cpp
         user/user_functions/user_settings/user_payment_functions.cpp
+        user/user_functions/user_settings/user_payment_functions.h
 )
 
 include(FetchContent)

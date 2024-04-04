@@ -1,8 +1,7 @@
 #include "user_settings_functions.h"
 #include "../../../functions/info_print_functions.h"
 #include "../user_prints/user_print_functions.h"
-#include "user_payment_functions.cpp"
-
+#include "user_payment_functions.h"
 
 void handleSettingsOption(User& user) {
     std::string option = handleSettingsMenu(user);
