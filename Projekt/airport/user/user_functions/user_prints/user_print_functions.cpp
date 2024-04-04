@@ -2,6 +2,9 @@
 #include "user_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
+#include "ftxui/component/screen_interactive.hpp"
+#include "ftxui/component/component_options.hpp"
+#include "ftxui/component/component.hpp"
 
 std::shared_ptr<ftxui::Element> CreateScreen() {
     auto summary = [&] {
@@ -64,7 +67,7 @@ std::string handleSettingsMenu(const User& user) {
                                            ftxui::hbox({ftxui::text(L"3. Zmień hasło   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"5. Zweryfikuj swój zawód   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"5. Zmień domyślną metodę płatności   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"6. Zmień domyślną metodę płatności   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"back. Wróć do głównego menu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            // ---------
                                            ftxui::separator(),
@@ -82,4 +85,23 @@ std::string handleSettingsMenu(const User& user) {
     std::string option;
     std::cin >> option;
     return option;
+}
+
+int CreateDefaultPaymentScreen() {
+    using namespace ftxui;
+    auto screen = ScreenInteractive::TerminalOutput();
+
+    std::vector<std::string> entries = {
+            "Zmień domyślną metodę płatności na kartę VISA",
+            "Zmień domyślną metodę płatności na BLIK",
+            "↩️ Wróć do menu głównego",
+    };
+    int selected = 0;
+
+    MenuOption option;
+    option.on_enter = screen.ExitLoopClosure();
+    auto menu = Menu(&entries, &selected, option);
+
+    screen.Loop(menu);
+    return selected;
 }

@@ -25,10 +25,10 @@ public:
     std::string paymentMethod;
 
     // Funkcje użytkownika (metody)
-    User getUser();
-    void setIsDisabled(bool isDisabled);
+//TODO: void setIsDisabled(bool isDisabled);
     void setPremiumCard(const std::string& premiumCard);
     void setPaymentMethod(const std::string& paymentMethod);
+    void handleVisa(const std::string& cNumber, const std::string& cCVV);
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
     void changePassword(const std::string& password);
