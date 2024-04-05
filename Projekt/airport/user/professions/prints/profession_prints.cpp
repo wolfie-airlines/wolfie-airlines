@@ -8,8 +8,11 @@ std::string displayProfessionInfo() {
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L"UWAGA UŻYTKOWNIKU!") | ftxui::bold}) | color(ftxui::Color::Orange3),
                                            ftxui::hbox({ftxui::text(L"Wybór zawodu wiąże się z jego weryfikacją.") | ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({ftxui::text(L"Po zweryfikowaniu prawdziwości wykonywanego przez Ciebie zawodu, będzie przysługiwała Ci zniżka w postaci darmowego przewozu potrzebnych do danej pracy narzędzi.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({ftxui::text(L"Po zweryfikowaniu prawdziwości wykonywanego przez Ciebie zawodu, będzie")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({ftxui::text(L"przysługiwała Ci zniżka w postaci darmowego przewozu potrzebnych do danej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({ftxui::text(L"pracy narzędzi.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                            ftxui::hbox({ftxui::text(L"Nie oszukuj!")  | ftxui::bold}) | color(ftxui::Color::Red1),
+
                                            ftxui::vbox({
                                                 ftxui::hbox({ftxui::text(L"DOSTĘPNE ZAWODY:")  | ftxui::bold}) | color(ftxui::Color::SteelBlue),
                                                 ftxui::hbox({ftxui::text(L"Muzyk (testowany będzie Twój słuch)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
@@ -30,7 +33,7 @@ std::string displayProfessionInfo() {
 
     document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
     ftxui::Render(userScreen, document);
     std::cout << userScreen.ToString() << '\0' << std::endl;
     std::string option;
