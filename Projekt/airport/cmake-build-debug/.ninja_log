@@ -78,7 +78,7 @@
 17984	21076	7333490461697666	_deps/ftxui-build/CMakeFiles/component.dir/src/ftxui/component/util.cpp.obj	fac44783ff0b965a
 17159	21260	7333490463517933	_deps/ftxui-build/CMakeFiles/component.dir/src/ftxui/component/slider.cpp.obj	cb84d9be37497879
 21261	21476	7333490464826862	_deps/ftxui-build/ftxui-component.lib	46a5ea5b3850fa97
-3103	4173	7340250025126525	airport.exe	a17b4cc9a0039e40
+1976	3031	7340309782769717	airport.exe	a7861fcef593d89f
 14	2009	7333707521830077	CMakeFiles/airport.dir/printFunctions.cpp.obj	23a616e697fa03a2
 14	4509	7334555416415026	CMakeFiles/airport.dir/functions/printFunctions.cpp.obj	2dad0ef4104eb5f6
 21	4293	7334437526856592	CMakeFiles/airport.dir/functions/handlingFunctions.cpp.obj	61b3e6707a9a4535
@@ -99,5 +99,7 @@
 49	6550	7335283406336284	CMakeFiles/airport.dir/flights/flights_functions/flight_prints/flight_print_functions.cpp.obj	600b92bb65c04820
 19	4163	7339465257868027	CMakeFiles/airport.dir/user/user_functions/user_settings/user_payment_functions.cpp.obj	a499fb2edc86853b
 12	4180	7339742990919276	CMakeFiles/airport.dir/user/user_functions/user_settings/user_settings_functions.cpp.obj	410e814485fba12
-12	4586	7340248206188268	CMakeFiles/airport.dir/user/professions/user_profession_functions.cpp.obj	97ccbeb9b789082d
+10	3069	7340298743876546	CMakeFiles/airport.dir/user/professions/user_profession_functions.cpp.obj	97ccbeb9b789082d
 11	3102	7340250022616296	CMakeFiles/airport.dir/user/professions/prints/profession_prints.cpp.obj	351c2eb018deb59f
+14	1974	7340309780231341	CMakeFiles/airport.dir/user/professions/profession_choice.cpp.obj	6295d2cc3223eadb
+17	2428	7340307678694833	CMakeFiles/airport.dir/functions/extracts_function.cpp.obj	1191687722f9a345
