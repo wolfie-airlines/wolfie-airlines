@@ -3,12 +3,9 @@
 
 
 #include <string>
-#include "../../User.h"
 
 int CreateProfessionScreen();
 std::string displayProfessionInfo();
-bool guessMusicAuthor(const std::string& musicLink);
-void validAnswer(const std::string& category, User& user);
-void invalidAnswer();
+std::string guessMusicAuthor(const std::string& musicLink);
 
 #endif //AIRPORT_PROFESSION_PRINTS_H

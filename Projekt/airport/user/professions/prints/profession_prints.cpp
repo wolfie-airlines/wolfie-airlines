@@ -2,7 +2,6 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
-#include "../../User.h"
 
 std::string displayProfessionInfo() {
     auto summary = [&] {
@@ -64,27 +63,26 @@ int CreateProfessionScreen() {
     return selected;
 }
 
-bool guessMusicAuthor(const std::string& musicLink) {
+std::string guessMusicAuthor(const std::string& musicLink) {
     std::string validAnswer;
-    if(musicLink == "sinatra") {
-        validAnswer = "Sinatra";
+    if(musicLink == "seven-nation-army") {
+        validAnswer = "The White Stripes";
     } else if(musicLink == "acdc") {
         validAnswer = "AC/DC";
     } else if(musicLink == "beethoven") {
         validAnswer = "Beethoven";
-    } else if(musicLink == "vacations") {
-        validAnswer = "Vacations";
+    } else if(musicLink == "greenday") {
+        validAnswer = "Green Day";
     } else if(musicLink == "vivaldi") {
-        validAnswer = "Vivaldi";
+        validAnswer = "Antonio Vivaldi";
     } else if(musicLink == "youngboy") {
-        validAnswer = "Youngboy";
+        validAnswer = "YoungBoy Never Broke Again";
     } else {
-        return "Nieznany wykonawca";
+        return "Nieznany utwór";
     }
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Jaki wykonawca/zespół stworzył ten utwór?") | ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({ftxui::text(L"W przypadku wykonawcy podaj jedynie jego nazwisko.") | ftxui::bold}) | color(ftxui::Color::Orange3),
+                                           ftxui::hbox({ftxui::text(L"Jaki wykonawca stworzył ten utwór?") | ftxui::bold}) | color(ftxui::Color::Orange4),
                                            ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                    });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
@@ -98,63 +96,5 @@ bool guessMusicAuthor(const std::string& musicLink) {
     ftxui::Render(userScreen, document);
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
-    std::string userAnswer;
-    std::cin >> userAnswer;
-    return userAnswer == validAnswer;
-}
-
-void validAnswer(const std::string& category, User& user) {
-    std::string odmiana;
-    if(category == "muzyk") {
-        odmiana = "muzyków";
-    } else if (category == "lekarz") {
-        odmiana = "lekarzy";
-    } else if (category == "sportowiec") {
-        odmiana = "sportowców";
-    } else if (category == "matematyk") {
-        odmiana = "matematyków";
-    } else if (category == "informatyk") {
-        odmiana = "informatyków";
-    }
-
-    auto summary = [&] {
-        auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Dokładnie! To poprawna odpowiedź!") | ftxui::bold}) | color(ftxui::Color::Green),
-                                           ftxui::hbox({ftxui::text("Zniżki dla " + odmiana + " zostały przyznane!") | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                           ftxui::hbox({ftxui::text(L"Zobaczysz je w swoim profilu.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
-                                   });
-        return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
-    };
-
-    auto document = ftxui::vbox({summary()});
-
-    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-    ftxui::Render(userScreen, document);
-
-
-    // user.addDiscount(category);
-    // aktualizacja obiektu użytkownika w bazie danych
-    
-
-    std::cout << userScreen.ToString() << '\0' << std::endl;
-}
-
-void invalidAnswer() {
-    auto summary = [&] {
-        auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Niestety, Twoja odpowiedź nie jest poprawna...") | ftxui::bold}) | color(ftxui::Color::Red),
-                                           ftxui::hbox({ftxui::text(L"Możesz zawsze spróbować ponownie.")  | ftxui::bold}) | color(ftxui::Color::Orange1),
-                                   });
-        return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
-    };
-
-    auto document = ftxui::vbox({summary()});
-
-    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-    ftxui::Render(userScreen, document);
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    return validAnswer;
 }
