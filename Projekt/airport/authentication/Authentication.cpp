@@ -43,7 +43,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         user.setPassword(password);
         user.email = email;
         user.isDisabled = isDisabled;
-        user.profession = userView["profession"].get_string().value;
+        user.profession = (std::string) userView["profession"].get_string().value;
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;
         promise.set_value(true); // Ustawienie wartości zwracanej na true

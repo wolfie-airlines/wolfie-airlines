@@ -23,11 +23,6 @@ void handleProfessionChoice(int choice, User& user) {
 void handleProfession(User& user) {
     std::string option = displayProfessionInfo();
     if(option == "Tak" || option == "TAK" || option == "tak") {
-        //check if user has already chosen a profession
-        if(user.profession != "brak") {
-            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
-            return;
-        }
         int profession = CreateProfessionScreen();
         handleProfessionChoice(profession, user);
     } else return;

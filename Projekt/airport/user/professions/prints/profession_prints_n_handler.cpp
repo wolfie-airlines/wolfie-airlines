@@ -175,7 +175,7 @@ void validAnswer(const std::string& category, User& user) {
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("discount", category)
+                    bsoncxx::builder::basic::kvp("profession", category)
             ))
     );
 
