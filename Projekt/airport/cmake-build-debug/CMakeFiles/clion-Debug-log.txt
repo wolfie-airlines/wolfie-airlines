@@ -43,6 +43,6 @@ mongo-cxx-driver provides CMake targets:
 -- Looking for pthread_create in pthread
 -- Looking for pthread_create in pthread - not found
 -- Found Threads: TRUE  
--- Configuring done (9.7s)
+-- Configuring done (11.3s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug
