@@ -3,7 +3,7 @@
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
-Total install time: 300 ns
+Total install time: 400 ns
 mongo-cxx-driver provides CMake targets:
 
     find_package(bsoncxx CONFIG REQUIRED)
@@ -24,6 +24,12 @@ mongo-cxx-driver provides CMake targets:
 -- │ FTXUI_DEV_WARNINGS       : OFF
 -- │ FTXUI_CLANG_TIDY         : OFF
 -- └─────────────────────────────────────
--- Configuring done (4.9s)
+-- Configuring done (4.5s)
 -- Generating done (0.1s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_TOOLCHAIN_FILE
+
+
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug

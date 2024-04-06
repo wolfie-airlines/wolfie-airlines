@@ -1,7 +1,7 @@
-#include "helpers.h"
 #include <iostream>
 #include <filesystem>
-#include <synchapi.h>
+#include <thread>
+#include "helpers.h"
 
 std::string extractFileName(const std::string& path) {
     std::filesystem::path filePath(path);
@@ -14,7 +14,7 @@ void countdown(int seconds) {
     for (int i = seconds; i >= 1; --i) {
         std::cout << i;
         std::cout.flush(); // wymuszenie wyproznienia bufora zeby sie nie zacielo odliczanie
-        Sleep(1000);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "\b"; // cofanie kursora
     }
     std::cout << "1" << std::endl;

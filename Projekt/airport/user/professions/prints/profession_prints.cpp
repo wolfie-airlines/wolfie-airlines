@@ -62,3 +62,39 @@ int CreateProfessionScreen() {
     screen.Loop(menu);
     return selected;
 }
+
+std::string guessMusicAuthor(const std::string& musicLink) {
+    std::string validAnswer;
+    if(musicLink == "seven-nation-army") {
+        validAnswer = "The White Stripes";
+    } else if(musicLink == "acdc") {
+        validAnswer = "AC/DC";
+    } else if(musicLink == "beethoven") {
+        validAnswer = "Beethoven";
+    } else if(musicLink == "greenday") {
+        validAnswer = "Green Day";
+    } else if(musicLink == "vivaldi") {
+        validAnswer = "Antonio Vivaldi";
+    } else if(musicLink == "youngboy") {
+        validAnswer = "YoungBoy Never Broke Again";
+    } else {
+        return "Nieznany utwór";
+    }
+    auto summary = [&] {
+        auto content = ftxui::vbox({
+                                           ftxui::hbox({ftxui::text(L"Jaki wykonawca stworzył ten utwór?") | ftxui::bold}) | color(ftxui::Color::Orange4),
+                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                   });
+        return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+    };
+
+    auto document = ftxui::vbox({summary()});
+
+    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+    ftxui::Render(userScreen, document);
+    std::cout << userScreen.ToString() << '\0' << std::endl;
+
+    return validAnswer;
+}

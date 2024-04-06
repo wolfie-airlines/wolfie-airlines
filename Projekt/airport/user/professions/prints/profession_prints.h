@@ -6,5 +6,6 @@
 
 int CreateProfessionScreen();
 std::string displayProfessionInfo();
+std::string guessMusicAuthor(const std::string& musicLink);
 
 #endif //AIRPORT_PROFESSION_PRINTS_H

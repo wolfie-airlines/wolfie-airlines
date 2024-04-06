@@ -132,11 +132,11 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "component::@b65f64d0ea8424dee96a"
+			"id" : "dom::@b65f64d0ea8424dee96a"
 		},
 		{
 			"backtrace" : 3,
-			"id" : "dom::@b65f64d0ea8424dee96a"
+			"id" : "component::@b65f64d0ea8424dee96a"
 		},
 		{
 			"backtrace" : 3,
