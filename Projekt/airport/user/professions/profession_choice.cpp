@@ -31,3 +31,13 @@ void musicProfession(User& user) {
     }
 
 }
+
+void doctorProfession(User& user) {
+    countdown(3);
+    bool questionDisplayed = guessDoctorQuestion(user);
+    if(questionDisplayed) {
+        validAnswer("lekarz", user);
+    } else {
+        invalidAnswer();
+    }
+}

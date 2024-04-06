@@ -6,7 +6,7 @@ void handleProfessionChoice(int choice, User& user) {
     if(choice==0) {
         musicProfession(user);
     } else if(choice == 1) {
-        // Lekarz
+        doctorProfession(user);
     } else if(choice == 2) {
         //Sportowiec
         // Dodatkowe menu dla wyboru dyscypliny

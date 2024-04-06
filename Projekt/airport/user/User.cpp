@@ -12,6 +12,10 @@ mongocxx::collection& User::getCollection() {
     return _collection;
 }
 
+mongocxx::collection User::getSpecificCollection(const std::string &collectionName) {
+    return _db[collectionName];
+}
+
 std::string User::getPassword() {
     return password;
 }

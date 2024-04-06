@@ -26,6 +26,7 @@ public:
 
     // Funkcje użytkownika (metody)
     mongocxx::collection& getCollection();
+    mongocxx::collection getSpecificCollection(const std::string &collectionName);
     std::string getPassword();
 //TODO: void setIsDisabled(bool isDisabled);
     void setPassword(const std::string& password);

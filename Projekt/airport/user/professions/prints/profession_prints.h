@@ -8,6 +8,7 @@
 int CreateProfessionScreen();
 std::string displayProfessionInfo();
 bool guessMusicAuthor(const std::string& musicLink);
+bool guessDoctorQuestion(User& user);
 void validAnswer(const std::string& category, User& user);
 void invalidAnswer();
 
