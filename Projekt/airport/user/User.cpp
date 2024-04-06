@@ -2,11 +2,23 @@
 #include "../functions/info_print_functions.h"
 #include <utility>
 
-User::User(std::string username, std::string email, bool isDisabled, std::string premiumCard, std::string password,
+User::User(std::string username, std::string email, bool isDisabled, std::string premiumCard,
            std::string paymentMethod, mongocxx::client &client, std::string  profession)
-        : username(std::move(username)), email(std::move(email)), password(std::move(password)), isDisabled(isDisabled), premiumCard(std::move(premiumCard)), paymentMethod(std::move(paymentMethod)),
+        : username(std::move(username)), email(std::move(email)), isDisabled(isDisabled), premiumCard(std::move(premiumCard)), paymentMethod(std::move(paymentMethod)),
           _client(client), profession(std::move(profession)) {}
 
+
+mongocxx::collection& User::getCollection() {
+    return _collection;
+}
+
+std::string User::getPassword() {
+    return password;
+}
+
+void User::setPassword(const std::string &newPass) {
+    User::password = newPass;
+}
 
 void User::setPremiumCard(const std::string &card) {
     premiumCard = card;

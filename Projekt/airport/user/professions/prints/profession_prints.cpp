@@ -126,16 +126,24 @@ void validAnswer(const std::string& category, User& user) {
     };
 
     auto document = ftxui::vbox({summary()});
-
     document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-
     auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
     ftxui::Render(userScreen, document);
 
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("discount", category)
+            ))
+    );
 
-    // user.addDiscount(category);
-    // aktualizacja obiektu użytkownika w bazie danych
+    bsoncxx::document::view update_view = update_builder.view();
+    bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", user.email),
+            bsoncxx::builder::basic::kvp("password", user.getPassword())
+    );
 
+    bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
+    user.getCollection().update_one(filter_view_email_password, update_view);
 
     std::cout << userScreen.ToString() << '\0' << std::endl;
 }

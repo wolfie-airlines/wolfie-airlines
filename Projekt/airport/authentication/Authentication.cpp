@@ -39,7 +39,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
         user.username = username;
-        user.password = password;
+        user.setPassword(password);
         user.email = email;
         user.isDisabled = isDisabled;
         user.premiumCard = premiumCard;
