@@ -42,3 +42,13 @@ void doctorProfession(User& user) {
         invalidAnswer();
     }
 }
+
+void informaticProfession(User& user) {
+    countdown(3);
+    bool questionDisplayed = guessInformaticQuestion(user);
+    if(questionDisplayed) {
+        validAnswer("informatyk", user);
+    } else {
+        invalidAnswer();
+    }
+}

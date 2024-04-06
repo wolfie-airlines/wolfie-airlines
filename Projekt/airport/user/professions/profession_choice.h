@@ -7,7 +7,7 @@
 void musicProfession(User& user);
 void sportProfession();
 void mathProfession();
-void informaticProfession();
+void informaticProfession(User& user);
 void doctorProfession(User& user);
 
 #endif //AIRPORT_PROFESSION_CHOICE_H

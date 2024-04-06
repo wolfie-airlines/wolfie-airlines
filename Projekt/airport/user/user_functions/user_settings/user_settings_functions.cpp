@@ -29,10 +29,10 @@ void handleSettingsOption(User& user) {
         std::cout << "Funkcja w trakcie implementacji." << std::endl;
 
     } else if (option== "5") {
-        if(user.profession != "brak") {
-            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
-            return;
-        }
+//        if(user.profession != "brak") {
+//            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
+//            return;
+//        }
         handleProfession(user);
     }
     else if (option== "6") {

@@ -6,6 +6,7 @@
 
 bool guessMusicAuthor(const std::string& musicLink);
 bool guessDoctorQuestion(User& user);
+bool guessInformaticQuestion(User& user);
 
 
 #endif //AIRPORT_PROFESSION_HANDLER_H
