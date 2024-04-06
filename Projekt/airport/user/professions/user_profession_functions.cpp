@@ -2,9 +2,9 @@
 #include "prints/profession_prints.h"
 #include "profession_choice.h"
 
-void handleProfessionChoice(int choice) {
+void handleProfessionChoice(int choice, User& user) {
     if(choice==0) {
-        musicProfession();
+        musicProfession(user);
     } else if(choice == 1) {
         // Lekarz
     } else if(choice == 2) {
@@ -23,6 +23,6 @@ void handleProfession(User& user) {
     std::string option = displayProfessionInfo();
     if(option == "Tak" || option == "TAK" || option == "tak") {
         int profession = CreateProfessionScreen();
-        handleProfessionChoice(profession);
+        handleProfessionChoice(profession, user);
     } else return;
 }

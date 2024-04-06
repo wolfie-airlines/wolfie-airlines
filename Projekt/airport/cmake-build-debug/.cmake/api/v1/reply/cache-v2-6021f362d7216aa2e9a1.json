@@ -1435,11 +1435,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
-			"type" : "UNINITIALIZED",
-			"value" : "C:\\Users\\szymo\\.vcpkg-clion\\airport\\scripts\\buildsystems\\vcpkg.cmake"
+			"type" : "FILEPATH",
+			"value" : "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",

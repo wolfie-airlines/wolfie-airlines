@@ -2,7 +2,9 @@
 #ifndef AIRPORT_PROFESSION_CHOICE_H
 #define AIRPORT_PROFESSION_CHOICE_H
 
-void musicProfession();
+#include "../User.h"
+
+void musicProfession(User& user);
 void sportProfession();
 void mathProfession();
 void informaticProfession();

@@ -1,19 +1,16 @@
-#include <windows.h>
-#include <mmsystem.h>
-#include "profession_choice.h"
-#pragma comment(lib, "winmm.lib")
-
+#include "prints/profession_prints.h"
+#include "../../functions/helpers.h"
 #include <iostream>
 #include <random>
-#include "../../functions/helpers.h"
-#include "prints/profession_prints.h"
+#include <Windows.h>
+#pragma comment(lib, "winmm.lib")
 
-void musicProfession() {
+void musicProfession(User& user) {
     const std::string soundFiles[] = {
             "./sounds/acdc.wav",
             "./sounds/beethoven.wav",
-            "./sounds/greenday.wav",
-            "./sounds/seven-nation-army.wav",
+            "./sounds/sinatra.wav",
+            "./sounds/vacations.wav",
             "./sounds/vivaldi.wav",
             "./sounds/youngboy.wav"
     };
@@ -26,11 +23,11 @@ void musicProfession() {
     countdown(3);
     std::cout << "Odtwarzam: " << extractFileName(randomSoundFile) << std::endl;
     PlaySound(TEXT(randomSoundFile.c_str()), nullptr, SND_FILENAME | SND_ASYNC);
-    std::string answer = guessMusicAuthor(extractFileName(randomSoundFile));
-    std::cout << answer << std::endl;
-
-    std::string userAnswer;
-    std::getline(std::cin, userAnswer);
-    std::cout << "Twoja odpowiedź: " << userAnswer << std::endl;
+    bool guessed = guessMusicAuthor(extractFileName(randomSoundFile));
+    if(guessed) {
+        validAnswer("muzyk", user);
+    } else {
+        invalidAnswer();
+    }
 
 }
