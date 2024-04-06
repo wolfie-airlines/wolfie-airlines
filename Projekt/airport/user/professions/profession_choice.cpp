@@ -1,5 +1,6 @@
-#include "prints/profession_prints_n_handler.h"
+#include "prints/profession_prints.h"
 #include "../../functions/helpers.h"
+#include "profession_handler.h"
 #include <iostream>
 #include <random>
 #include <Windows.h>

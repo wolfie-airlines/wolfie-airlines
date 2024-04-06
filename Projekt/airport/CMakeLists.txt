@@ -32,12 +32,14 @@ add_executable(airport main.cpp
         user/professions/user_profession_functions.h
         user/professions/user_profession_functions.cpp
         user/professions/user_profession_functions.h
-        user/professions/prints/profession_prints_n_handler.h
-        user/professions/prints/profession_prints_n_handler.cpp
+        user/professions/prints/profession_prints.h
+        user/professions/prints/profession_prints.cpp
         user/professions/profession_choice.h
         user/professions/profession_choice.cpp
         functions/helpers.h
         functions/helpers.cpp
+        user/professions/profession_handler.h
+        user/professions/profession_handler.cpp
 )
 
 include(FetchContent)
