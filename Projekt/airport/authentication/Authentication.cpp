@@ -11,6 +11,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("username", username));
     document.append(bsoncxx::builder::basic::kvp("email", email));
     document.append(bsoncxx::builder::basic::kvp("password", password));
+    document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
     document.append(bsoncxx::builder::basic::kvp("disabled", false)); // jako default wartość, może potwierdzić to potem w celu uzyskania zniżek
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
 
@@ -42,6 +43,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         user.setPassword(password);
         user.email = email;
         user.isDisabled = isDisabled;
+        user.profession = userView["profession"].get_string().value;
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;
         promise.set_value(true); // Ustawienie wartości zwracanej na true

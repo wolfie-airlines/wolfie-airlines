@@ -1,6 +1,7 @@
 #include "user_profession_functions.h"
-#include "prints/profession_prints.h"
+#include "prints/profession_prints_n_handler.h"
 #include "profession_choice.h"
+#include "../../functions/info_print_functions.h"
 
 void handleProfessionChoice(int choice, User& user) {
     if(choice==0) {
@@ -22,6 +23,11 @@ void handleProfessionChoice(int choice, User& user) {
 void handleProfession(User& user) {
     std::string option = displayProfessionInfo();
     if(option == "Tak" || option == "TAK" || option == "tak") {
+        //check if user has already chosen a profession
+        if(user.profession != "brak") {
+            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
+            return;
+        }
         int profession = CreateProfessionScreen();
         handleProfessionChoice(profession, user);
     } else return;

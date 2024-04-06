@@ -1,5 +1,5 @@
 #include <random>
-#include "profession_prints.h"
+#include "profession_prints_n_handler.h"
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
@@ -187,6 +187,7 @@ void validAnswer(const std::string& category, User& user) {
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     user.getCollection().update_one(filter_view_email_password, update_view);
+    user.profession = category;
 
     std::cout << userScreen.ToString() << '\0' << std::endl;
 }

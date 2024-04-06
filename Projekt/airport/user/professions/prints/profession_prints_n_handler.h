@@ -1,5 +1,5 @@
-#ifndef AIRPORT_PROFESSION_PRINTS_H
-#define AIRPORT_PROFESSION_PRINTS_H
+#ifndef AIRPORT_PROFESSION_PRINTS_N_HANDLER_H
+#define AIRPORT_PROFESSION_PRINTS_N_HANDLER_H
 
 
 #include <string>
@@ -12,4 +12,4 @@ bool guessDoctorQuestion(User& user);
 void validAnswer(const std::string& category, User& user);
 void invalidAnswer();
 
-#endif //AIRPORT_PROFESSION_PRINTS_H
+#endif //AIRPORT_PROFESSION_PRINTS_N_HANDLER_H
