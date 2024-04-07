@@ -22,7 +22,6 @@ void musicProfession(User& user) {
     std::string randomSoundFile = soundFiles[randomIndex];
 
     countdown(3);
-    std::cout << "Odtwarzam: " << extractFileName(randomSoundFile) << std::endl;
     PlaySound(TEXT(randomSoundFile.c_str()), nullptr, SND_FILENAME | SND_ASYNC);
     bool guessed = guessMusicAuthor(extractFileName(randomSoundFile));
     if(guessed) {
