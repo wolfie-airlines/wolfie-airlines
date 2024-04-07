@@ -63,7 +63,6 @@ int CreateProfessionScreen() {
     return selected;
 }
 
-
 void validAnswer(const std::string& category, User& user) {
     std::string odmiana;
     if(category == "muzyk") {

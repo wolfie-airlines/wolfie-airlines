@@ -107,16 +107,20 @@ bool guessInformaticQuestion(User& user) {
     std::string codeString = (std::string) questions[randomIndex]["code"].get_string().value;
     std::istringstream codeStream(codeString);
     std::string line;
+    int lineNumber = 1;
     while (std::getline(codeStream, line, ',')) {
-        auto codeLine = ftxui::text(line);
-        code = ftxui::vbox(std::move(code), std::move(codeLine)) | color(ftxui::Color::LightCoral) | ftxui::border;
+        auto lineNumberText = ftxui::text(std::to_string(lineNumber) + ". ") | color(ftxui::Color::BlueLight);
+        auto codeLine = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
+        auto numberedLine = ftxui::hbox(std::move(lineNumberText), std::move(codeLine));
+        code = ftxui::vbox(std::move(code), std::move(numberedLine));
+        lineNumber++;
     }
     auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
     auto container = ftxui::vbox({
                                         ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) | color(ftxui::Color::YellowLight),
                                         ftxui::separator(),
-                                        code,
+                                        code | ftxui::border,
                                         ftxui::separator(),
                                         ftxui::hbox({ftxui::text("Błąd w wyświetlonym kodzie: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
                                         ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
