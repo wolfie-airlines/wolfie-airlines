@@ -3,31 +3,42 @@
 #include "ftxui/component/component_options.hpp"
 #include <random>
 #include <variant>
-#include <bsoncxx/json.hpp>
 #include <iomanip>
 
-bool guessMusicAuthor(const std::string& musicLink) {
+template<typename T>
+bool areEqualWithTolerance(T a, T b, T tolerance = std::numeric_limits<T>::epsilon()) {
+    return std::abs(a - b) < tolerance;
+}
+
+bool guessMusicAuthor(const std::string &musicLink) {
     std::string validAnswer;
-    if(musicLink == "sinatra") {
+    if (musicLink == "sinatra") {
         validAnswer = "Sinatra";
-    } else if(musicLink == "acdc") {
+    } else if (musicLink == "acdc") {
         validAnswer = "AC/DC";
-    } else if(musicLink == "beethoven") {
+    } else if (musicLink == "beethoven") {
         validAnswer = "Beethoven";
-    } else if(musicLink == "vacations") {
+    } else if (musicLink == "vacations") {
         validAnswer = "Vacations";
-    } else if(musicLink == "vivaldi") {
+    } else if (musicLink == "vivaldi") {
         validAnswer = "Vivaldi";
-    } else if(musicLink == "youngboy") {
+    } else if (musicLink == "youngboy") {
         validAnswer = "Youngboy";
     } else {
         return "Nieznany wykonawca";
     }
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Jaki wykonawca/zespół stworzył ten utwór?") | ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({ftxui::text(L"W przypadku wykonawcy podaj jedynie jego nazwisko.") | ftxui::bold}) | color(ftxui::Color::Orange3),
-                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({
+                                                               ftxui::text(
+                                                                       L"Jaki wykonawca/zespół stworzył ten utwór?") |
+                                                               ftxui::bold}) | color(ftxui::Color::Orange4),
+                                           ftxui::hbox({
+                                                               ftxui::text(
+                                                                       L"W przypadku wykonawcy podaj jedynie jego nazwisko.") |
+                                                               ftxui::bold}) | color(ftxui::Color::Orange3),
+                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
+                                           color(ftxui::Color::BlueLight),
                                    });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
@@ -45,11 +56,11 @@ bool guessMusicAuthor(const std::string& musicLink) {
     return userAnswer == validAnswer;
 }
 
-bool guessDoctorQuestion(User& user) {
+bool guessDoctorQuestion(User &user) {
     auto collection = user.getSpecificCollection("doctor-question");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> documents;
-    for (auto&& doc : cursor) {
+    for (auto &&doc: cursor) {
         documents.push_back(doc);
     }
 
@@ -67,10 +78,18 @@ bool guessDoctorQuestion(User& user) {
     std::string objawy = (std::string) documents[random_index]["question"].get_string().value;
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Zdiagnozuj poniższą chorobę na podstawie objaw:") | ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({ftxui::text(objawy) | ftxui::bold}) | color(ftxui::Color::Orange3),
-                                           ftxui::hbox({ftxui::text(L"Podpowiedź: Nazwa choroby jest zawsze jednym słowem.")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({
+                                                               ftxui::text(
+                                                                       L"Zdiagnozuj poniższą chorobę na podstawie objaw:") |
+                                                               ftxui::bold}) | color(ftxui::Color::Orange4),
+                                           ftxui::hbox({ftxui::text(objawy) | ftxui::bold}) |
+                                           color(ftxui::Color::Orange3),
+                                           ftxui::hbox({
+                                                               ftxui::text(
+                                                                       L"Podpowiedź: Nazwa choroby jest zawsze jednym słowem.") |
+                                                               ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
+                                           color(ftxui::Color::BlueLight),
                                    });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
@@ -87,11 +106,11 @@ bool guessDoctorQuestion(User& user) {
     return userAnswer == validAnswer;
 }
 
-bool guessInformaticQuestion(User& user) {
+bool guessInformaticQuestion(User &user) {
     auto collection = user.getSpecificCollection("informatic-questions");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> questions;
-    for (auto&& doc : cursor) {
+    for (auto &&doc: cursor) {
         questions.push_back(doc);
     }
 
@@ -121,14 +140,16 @@ bool guessInformaticQuestion(User& user) {
     auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
     auto container = ftxui::vbox({
-                                        ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                        ftxui::separator(),
-                                        code | ftxui::border,
-                                        ftxui::separator(),
-                                        ftxui::hbox({ftxui::text("Błąd w wyświetlonym kodzie: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
-                                        ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
-                                        ftxui::separator(),
-                                        answer | color(ftxui::Color::BlueLight),
+                                         ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) |
+                                         color(ftxui::Color::YellowLight),
+                                         ftxui::separator(),
+                                         code | ftxui::border,
+                                         ftxui::separator(),
+                                         ftxui::hbox({ftxui::text("Błąd w wyświetlonym kodzie: ") | ftxui::bold}) |
+                                         color(ftxui::Color::IndianRed),
+                                         ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
+                                         ftxui::separator(),
+                                         answer | color(ftxui::Color::BlueLight),
                                  });
 
     auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
@@ -146,11 +167,11 @@ bool guessInformaticQuestion(User& user) {
     return userAnswer == questions[randomIndex]["answer"].get_int32().value;
 }
 
-bool guessMathQuestion(User& user) {
+bool guessMathQuestion(User &user) {
     auto collection = user.getSpecificCollection("math-questions");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> questions;
-    for (auto&& doc : cursor) {
+    for (auto &&doc: cursor) {
         questions.push_back(doc);
     }
 
@@ -158,31 +179,30 @@ bool guessMathQuestion(User& user) {
         std::cerr << "Nie znaleziono żadnych pytań" << std::endl;
         return false;
     }
+
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(0, questions.size() - 1);
     int randomIndex = distrib(gen);
-    //TODO: Zmienić nazewnictwo w bazie danych z problem -> topic
+
     std::string topic = (std::string) questions[randomIndex]["problem"].get_string().value;
     std::string description = (std::string) questions[randomIndex]["description"].get_string().value;
+    std::string hint = (std::string) questions[randomIndex]["hint"].get_string().value;
+    bsoncxx::types::bson_value::view solutionValue = questions[randomIndex]["solution"].get_value();
+    std::string userAnswer;
     std::string solution;
 
-    if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_int32) {
-        solution = std::to_string(questions[randomIndex]["solution"].get_int32().value);
-    } else if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_double) {
-        double doubleValue = questions[randomIndex]["solution"].get_double().value;
-        std::ostringstream oss;
-        // nie jest to najlepszy sposób na handlowanie typów ale nie jest to główna funkcja
-        oss << std::fixed << std::setprecision(2) << doubleValue;
-        solution = oss.str();
-    } else if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_string) {
-        solution = questions[randomIndex]["solution"].get_string().value;
+    if (solutionValue.type() == bsoncxx::type::k_int32) {
+        solution = std::to_string(solutionValue.get_int32().value);
+    } else if (solutionValue.type() == bsoncxx::type::k_double) {
+        solution = std::to_string(solutionValue.get_double().value);
+    } else if (solutionValue.type() == bsoncxx::type::k_utf8) {
+        solution = solutionValue.get_string().value;
     } else {
         std::cerr << "Nieznany typ rozwiązania" << std::endl;
         return false;
     }
 
-    std::string hint = (std::string) questions[randomIndex]["hint"].get_string().value;
     auto wholeProblem = ftxui::vbox();
     std::istringstream problemStream(description);
     std::string line;
@@ -193,15 +213,15 @@ bool guessMathQuestion(User& user) {
     auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
     auto container = ftxui::vbox({
-                                         ftxui::hbox({ftxui::text("Zadanie z działu: " + topic) | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                         ftxui::separator(),
-                                         wholeProblem | ftxui::border,
-                                         ftxui::separator(),
-                                         ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
-                                         ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Red),
-                                         ftxui::separator(),
-                                         answer | color(ftxui::Color::BlueLight),
-                                 });
+        ftxui::hbox({ftxui::text("Zadanie z działu: " + topic) | ftxui::bold}) | color(ftxui::Color::YellowLight),
+        ftxui::separator(),
+        wholeProblem | ftxui::border,
+        ftxui::separator(),
+        ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
+        ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Red),
+        ftxui::separator(),
+        answer | color(ftxui::Color::BlueLight),
+      });
 
     auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
 
@@ -212,12 +232,16 @@ bool guessMathQuestion(User& user) {
     ftxui::Render(userScreen, window);
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
-    std::string userAnswer;
     std::cin >> userAnswer;
 
-    std::cout << "Solution " << solution << std::endl;
-    std::cout << "Answer " << userAnswer << std::endl;
+    // Printy testowe, TODO: wyrzucić potem
+    std::cout << "Rozwiazanie: " << solution << std::endl;
+    std::cout << "Odpowiedz uzytkownika: " << userAnswer << std::endl;
 
-    return userAnswer == solution;
+    if (solutionValue.type() == bsoncxx::type::k_double) {
+        return areEqualWithTolerance(std::stod(solution), std::stod(userAnswer));
+    } else {
+        return userAnswer == solution;
+    }
 }
 
