@@ -17,9 +17,8 @@ std::string displayProfessionInfo() {
                                                                ftxui::hbox({ftxui::text(L"DOSTĘPNE ZAWODY:")  | ftxui::bold}) | color(ftxui::Color::SteelBlue),
                                                                ftxui::hbox({ftxui::text(L"Muzyk (testowany będzie Twój słuch)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                                                ftxui::hbox({ftxui::text(L"Lekarz (testowana będzie Twoja wiedza)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                                               ftxui::hbox({ftxui::text(L"Sportowiec (piłkarz/atleta/koszykarz) (testowana będzie Twoja wiedza)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                                               ftxui::hbox({ftxui::text(L"Jestem matematykiem (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                                               ftxui::hbox({ftxui::text(L"Jestem informatykiem (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                                               ftxui::hbox({ftxui::text(L"Matematyk (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                                               ftxui::hbox({ftxui::text(L"Informatyk (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                                        }) | ftxui::border,
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"Jeśli chcesz przejść do wyboru zawodu wpisz:")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
@@ -49,7 +48,6 @@ int CreateProfessionScreen() {
     std::vector<std::string> entries = {
             "Jestem muzykiem (wymaga potwierdzenia)",
             "Jestem lekarzem (wymaga potwierdzenia)",
-            "Jestem sportowcem (piłkarz/atleta/koszykarz) (wymaga potwierdzenia)",
             "Jestem matematykiem (wymaga potwierdzenia)",
             "Jestem informatykiem (wymaga potwierdzenia)",
             "↩️ Wróć do menu głównego",
@@ -69,8 +67,6 @@ void validAnswer(const std::string& category, User& user) {
         odmiana = "muzyków";
     } else if (category == "lekarz") {
         odmiana = "lekarzy";
-    } else if (category == "sportowiec") {
-        odmiana = "sportowców";
     } else if (category == "matematyk") {
         odmiana = "matematyków";
     } else if (category == "informatyk") {

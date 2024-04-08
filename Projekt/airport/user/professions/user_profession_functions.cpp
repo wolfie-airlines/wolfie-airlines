@@ -9,11 +9,8 @@ void handleProfessionChoice(int choice, User& user) {
     } else if(choice == 1) {
         doctorProfession(user);
     } else if(choice == 2) {
-        //Sportowiec
-        // Dodatkowe menu dla wyboru dyscypliny
-    } else if (choice==3) {
         mathProfession(user);
-    } else if (choice == 4) {
+    } else if (choice == 3) {
         informaticProfession(user);
     } else {
         return;
