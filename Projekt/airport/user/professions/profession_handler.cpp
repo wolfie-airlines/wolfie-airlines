@@ -2,6 +2,9 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/component/component_options.hpp"
 #include <random>
+#include <variant>
+#include <bsoncxx/json.hpp>
+#include <iomanip>
 
 bool guessMusicAuthor(const std::string& musicLink) {
     std::string validAnswer;
@@ -142,3 +145,79 @@ bool guessInformaticQuestion(User& user) {
 
     return userAnswer == questions[randomIndex]["answer"].get_int32().value;
 }
+
+bool guessMathQuestion(User& user) {
+    auto collection = user.getSpecificCollection("math-questions");
+    auto cursor = collection.find({});
+    std::vector<bsoncxx::document::view> questions;
+    for (auto&& doc : cursor) {
+        questions.push_back(doc);
+    }
+
+    if (questions.empty()) {
+        std::cerr << "Nie znaleziono żadnych pytań" << std::endl;
+        return false;
+    }
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(0, questions.size() - 1);
+    int randomIndex = distrib(gen);
+    //TODO: Zmienić nazewnictwo w bazie danych z problem -> topic
+    std::string topic = (std::string) questions[randomIndex]["problem"].get_string().value;
+    std::string description = (std::string) questions[randomIndex]["description"].get_string().value;
+    std::string solution;
+
+    if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_int32) {
+        solution = std::to_string(questions[randomIndex]["solution"].get_int32().value);
+    } else if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_double) {
+        double doubleValue = questions[randomIndex]["solution"].get_double().value;
+        std::ostringstream oss;
+        // nie jest to najlepszy sposób na handlowanie typów ale nie jest to główna funkcja
+        oss << std::fixed << std::setprecision(2) << doubleValue;
+        solution = oss.str();
+    } else if (questions[randomIndex]["solution"].type() == bsoncxx::type::k_string) {
+        solution = questions[randomIndex]["solution"].get_string().value;
+    } else {
+        std::cerr << "Nieznany typ rozwiązania" << std::endl;
+        return false;
+    }
+
+    std::string hint = (std::string) questions[randomIndex]["hint"].get_string().value;
+    auto wholeProblem = ftxui::vbox();
+    std::istringstream problemStream(description);
+    std::string line;
+    while (std::getline(problemStream, line, ',')) {
+        auto problemLine = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
+        wholeProblem = ftxui::vbox(std::move(wholeProblem), std::move(problemLine));
+    }
+    auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
+
+    auto container = ftxui::vbox({
+                                         ftxui::hbox({ftxui::text("Zadanie z działu: " + topic) | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                         ftxui::separator(),
+                                         wholeProblem | ftxui::border,
+                                         ftxui::separator(),
+                                         ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
+                                         ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Red),
+                                         ftxui::separator(),
+                                         answer | color(ftxui::Color::BlueLight),
+                                 });
+
+    auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
+
+    window = window | ftxui::size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(window), ftxui::Dimension::Fit(window));
+
+    ftxui::Render(userScreen, window);
+    std::cout << userScreen.ToString() << '\0' << std::endl;
+
+    std::string userAnswer;
+    std::cin >> userAnswer;
+
+    std::cout << "Solution " << solution << std::endl;
+    std::cout << "Answer " << userAnswer << std::endl;
+
+    return userAnswer == solution;
+}
+

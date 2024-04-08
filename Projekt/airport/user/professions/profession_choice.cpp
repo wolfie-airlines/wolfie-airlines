@@ -1,7 +1,6 @@
 #include "prints/profession_prints.h"
 #include "../../functions/helpers.h"
 #include "profession_handler.h"
-#include <iostream>
 #include <random>
 #include <Windows.h>
 #pragma comment(lib, "winmm.lib")
@@ -49,5 +48,17 @@ void informaticProfession(User& user) {
         validAnswer("informatyk", user);
     } else {
         invalidAnswer();
+    }
+}
+
+void mathProfession(User& user) {
+    countdown(3);
+    bool questionDisplayed = guessMathQuestion(user);
+    if(questionDisplayed) {
+        validAnswer("matematyk", user);
+        return;
+    } else {
+        invalidAnswer();
+        return;
     }
 }

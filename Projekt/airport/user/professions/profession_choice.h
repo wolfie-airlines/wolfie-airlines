@@ -6,7 +6,7 @@
 
 void musicProfession(User& user);
 void sportProfession();
-void mathProfession();
+void mathProfession(User& user);
 void informaticProfession(User& user);
 void doctorProfession(User& user);
 

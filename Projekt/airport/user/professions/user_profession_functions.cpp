@@ -12,7 +12,7 @@ void handleProfessionChoice(int choice, User& user) {
         //Sportowiec
         // Dodatkowe menu dla wyboru dyscypliny
     } else if (choice==3) {
-        // Matematyk
+        mathProfession(user);
     } else if (choice == 4) {
         informaticProfession(user);
     } else {
