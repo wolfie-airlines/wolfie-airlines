@@ -98,7 +98,13 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             if(userChoice == "settings") {
                 handleSettingsOption(currentUser);
             }
-            if (userChoice == "logout") {
+            else if(userChoice == "profil") {
+                std::string backOption = CreateProfileScreen(currentUser);
+                if(backOption == "back") {
+                    handleUserMenu(currentUser);
+                }
+            }
+            else if (userChoice == "logout") {
                 logoutFunction();
                 isLoggedIn = false;
             } else if(userChoice == "1") {

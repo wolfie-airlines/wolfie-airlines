@@ -11,10 +11,16 @@ private:
     mongocxx::collection _collection;
     std::string password;
 public:
-    explicit User(mongocxx::client& client) : _client(client), _db(client["projekt"]), _collection(_db["users"]),
-                                     username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"), paymentMethod("blik"), profession("brak") {}
-    User(std::string username, std::string email, bool isDisabled, std::string premiumCard,
-         std::string paymentMethod, mongocxx::client &client, std::string  profession);
+    explicit User(mongocxx::client& client) :
+    _client(client), _db(client["projekt"]), _collection(_db["users"]),
+    username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"),
+    paymentMethod("blik"), profession("brak"), registrationDate("brak"),
+    moneySpent(0), ticketBought(0), userFlights(bsoncxx::document::view{}) {}
+    User(std::string username, std::string email, bool isDisabled,
+         std::string premiumCard, std::string paymentMethod,
+         mongocxx::client &client, std::string  profession,
+         std::string registrationDate, double moneySpent,
+         int ticketBought, bsoncxx::document::view userFlights);
 
     // Obiekt użytkownika (dane)
     std::string username;
@@ -23,6 +29,10 @@ public:
     bool isDisabled;
     std::string premiumCard;
     std::string paymentMethod;
+    std::string registrationDate;
+    double moneySpent;
+    int ticketBought;
+    bsoncxx::document::view userFlights;
 
     // Funkcje użytkownika (metody)
     mongocxx::collection& getCollection();

@@ -14,6 +14,17 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
     document.append(bsoncxx::builder::basic::kvp("disabled", false)); // jako default wartość, może potwierdzić to potem w celu uzyskania zniżek
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
+    document.append(bsoncxx::builder::basic::kvp("moneySpent", 0));
+    document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
+
+    // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%H:%M %d-%m-%Y");
+    std::string dateTime = ss.str();
+    document.append(bsoncxx::builder::basic::kvp("registrationDate", dateTime));
+
 
     auto paymentMethodDocument = bsoncxx::builder::basic::document{};
     paymentMethodDocument.append(bsoncxx::builder::basic::kvp("type", "blik"));
@@ -21,6 +32,16 @@ bool Authentication::registerUser(const std::string& username, const std::string
     paymentMethodDocument.append(bsoncxx::builder::basic::kvp("cvv", bsoncxx::types::b_null{}));
 
     document.append(bsoncxx::builder::basic::kvp("paymentMethod", paymentMethodDocument));
+
+    auto userFlights = bsoncxx::builder::basic::document{};
+    userFlights.append(bsoncxx::builder::basic::kvp("identifier", bsoncxx::types::b_null{}));
+    userFlights.append(bsoncxx::builder::basic::kvp("departureCity", bsoncxx::types::b_null{}));
+    userFlights.append(bsoncxx::builder::basic::kvp("destinationCity", bsoncxx::types::b_null{}));
+    userFlights.append(bsoncxx::builder::basic::kvp("departureTime", bsoncxx::types::b_null{}));
+    userFlights.append(bsoncxx::builder::basic::kvp("arrivalTime", bsoncxx::types::b_null{}));
+    userFlights.append(bsoncxx::builder::basic::kvp("price", bsoncxx::types::b_null{}));
+
+    document.append(bsoncxx::builder::basic::kvp("userFlights", userFlights));
 
     auto result = _collection.insert_one(document.view());
     return result ? true : false;
@@ -35,10 +56,14 @@ void Authentication::authenticateUser(const std::string& username, const std::st
     if (result) {
         bsoncxx::document::view userView = result->view();
         auto paymentMethodDocument = userView["paymentMethod"].get_document().value;
+        auto userFlightsDocument = userView["userFlights"].get_document().value;
         auto email = (std::string) userView["email"].get_string().value;
         auto isDisabled = userView["disabled"].get_bool().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
+        auto moneySpent = userView["moneySpent"].get_int32().value;
+        auto ticketBought = userView["ticketBought"].get_int32().value;
+        auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
         user.username = username;
         user.setPassword(password);
         user.email = email;
@@ -46,6 +71,11 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         user.profession = (std::string) userView["profession"].get_string().value;
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;
+        user.moneySpent = moneySpent;
+        user.ticketBought = ticketBought;
+        user.registrationDate = registrationDate;
+        user.userFlights = userFlightsDocument;
+
         promise.set_value(true); // Ustawienie wartości zwracanej na true
         validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
     } else {

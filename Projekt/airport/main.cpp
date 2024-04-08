@@ -6,7 +6,6 @@
 #include "flights/FlightConnection.h"
 #include "functions/handling_functions.h"
 
-
 int main(int argc, char* argv[]) {
     mongocxx::instance inst;
     using bsoncxx::builder::basic::kvp;

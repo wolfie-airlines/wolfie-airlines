@@ -3,9 +3,15 @@
 #include <utility>
 
 User::User(std::string username, std::string email, bool isDisabled, std::string premiumCard,
-           std::string paymentMethod, mongocxx::client &client, std::string  profession)
-        : username(std::move(username)), email(std::move(email)), isDisabled(isDisabled), premiumCard(std::move(premiumCard)), paymentMethod(std::move(paymentMethod)),
-          _client(client), profession(std::move(profession)) {}
+           std::string paymentMethod, mongocxx::client &client, std::string  profession,
+           std::string registrationDate, double moneySpent, int ticketBought,
+           bsoncxx::document::view userFlights)
+        : username(std::move(username)), email(std::move(email)),
+        isDisabled(isDisabled), premiumCard(std::move(premiumCard)),
+        paymentMethod(std::move(paymentMethod)), _client(client),
+        profession(std::move(profession)), registrationDate(std::move(registrationDate)),
+        moneySpent(moneySpent), ticketBought(ticketBought),
+        userFlights(userFlights)  {}
 
 
 mongocxx::collection& User::getCollection() {

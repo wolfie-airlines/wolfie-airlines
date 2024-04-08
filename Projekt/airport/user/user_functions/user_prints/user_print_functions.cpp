@@ -38,6 +38,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
                                            // ---------
@@ -102,4 +103,45 @@ int CreateDefaultPaymentScreen() {
 
     screen.Loop(menu);
     return selected;
+}
+
+std::string CreateProfileScreen(const User& user) {
+
+    std::string username = user.username;
+    std::transform(username.begin(), username.end(), username.begin(), ::toupper);
+
+    std::string profession = user.profession;
+    profession[0] = std::toupper(profession[0]);
+
+    auto summary = [&] {
+        auto content = ftxui::vbox({
+                                           ftxui::hbox({ftxui::text(" PROFIL UŻYTKOWNIKA " + username) | ftxui::bold}) | color(ftxui::Color::Blue),
+                                           ftxui::hbox({ftxui::text("")}),
+                                           ftxui::hbox({ftxui::text(L"Twoje bilety: ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({ftxui::text("Twoja dostępna zniżka: " + profession)  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({ftxui::text(L"Data utworzenia konta: ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"Liczba zakupionych biletów: ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"Wydanych $ w WOLFIE AIRLINES: ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           // ---------
+                                           ftxui::separator(),
+                                           ftxui::hbox({ftxui::text(L"back. ↩  Wróć do głównego menu.")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::separator(),
+                                           ftxui::hbox({ftxui::text(L"Dziękujemy za wybór WOLFIE AIRLINES oraz za to, że jesteś z nami 🙏")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                   });
+        return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+    };
+
+    auto document = ftxui::vbox({summary()});
+
+    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*std::make_shared<ftxui::Element>(document)));
+
+    ftxui::Render(screen, *std::make_shared<ftxui::Element>(document));
+
+    std::cout << screen.ToString() << '\0' << std::endl;
+
+    std::string backOption;
+    std::cin >> backOption;
+    return backOption;
 }
