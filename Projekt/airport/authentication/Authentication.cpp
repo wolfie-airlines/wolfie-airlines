@@ -21,7 +21,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&in_time_t), "%H:%M %d-%m-%Y");
+    ss << std::put_time(std::localtime(&in_time_t), "%H:%M %d.%m.%Y");
     std::string dateTime = ss.str();
     document.append(bsoncxx::builder::basic::kvp("registrationDate", dateTime));
 

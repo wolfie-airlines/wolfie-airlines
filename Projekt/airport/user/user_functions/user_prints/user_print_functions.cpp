@@ -118,38 +118,45 @@ std::string CreateProfileScreen(const User& user) {
     std::string moneySpent = oss.str();
     std::string ticketBought = std::to_string(user.ticketBought);
 
-    auto userFlights = user.userFlights;
-    std::string userFlightsString;
-
-    std::cout << "userFlights: " << userFlights.length() << std::endl;
-
-    for (auto&& flight : userFlights) {
-        userFlightsString += "ID: " + (std::string) flight["identifier"].get_string().value + "\n";
-        userFlightsString += "Departure city: " + (std::string) flight["departureCity"].get_string().value + "\n";
-        userFlightsString += "Destination city: " + (std::string) flight["destinationCity"].get_string().value + "\n";
-        userFlightsString += "Departure time: " + (std::string) flight["departureTime"].get_string().value + "\n";
-        userFlightsString += "Arrival time: " + (std::string) flight["arrivalTime"].get_string().value + "\n";
-        userFlightsString += "Price: " + std::to_string(flight["price"].get_int32().value) + "\n";
-        userFlightsString += "-----------------------------------\n";
-    }
-
-    std::cout << userFlightsString << std::endl;
+    std::string premiumCard = user.premiumCard;
+    premiumCard[0] = std::toupper(premiumCard[0]);
 
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(" PROFIL UŻYTKOWNIKA " + username) | ftxui::bold}) | color(ftxui::Color::Blue),
+                                           ftxui::hbox({
+                                                               ftxui::text(" PROFIL UŻYTKOWNIKA ") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
+                                                               ftxui::text(username) | ftxui::color(ftxui::Color::CadetBlue)
+                                                       }),
                                            ftxui::hbox({ftxui::text("")}),
-                                           ftxui::hbox({ftxui::text(L"Twoje bilety: ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
-                                           ftxui::hbox({ftxui::text("Twoja dostępna zniżka: " + profession)  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
-                                           ftxui::hbox({ftxui::text("Karta premium: " + user.premiumCard)  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
-                                           ftxui::hbox({ftxui::text("Data utworzenia konta: " + user.registrationDate)  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text("Liczba zakupionych biletów: " + ticketBought)  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text("Wydanych $ w WOLFIE AIRLINES: " + moneySpent + "zł")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({
+                                                               ftxui::text("Twoja dostępna zniżka: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(profession) | ftxui::color(ftxui::Color::Green)
+                                                       }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Karta premium: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Gold1)
+                                                       }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Data utworzenia konta: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(user.registrationDate) | ftxui::color(ftxui::Color::SteelBlue)
+                                                       }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Liczba zakupionych biletów: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(ticketBought) | ftxui::color(ftxui::Color::Violet)
+                                                       }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Wydanych $ w WOLFIE AIRLINES: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(moneySpent + "zł") | ftxui::color(ftxui::Color::SandyBrown)
+                                                       }),
                                            // ---------
                                            ftxui::separator(),
-                                           ftxui::hbox({ftxui::text(L"back. ↩  Wróć do głównego menu.")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({
+                                                               ftxui::text(L"back. ↩  Wróć do głównego menu.") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold
+                                                       }),
                                            ftxui::separator(),
-                                           ftxui::hbox({ftxui::text(L"Dziękujemy za wybór WOLFIE AIRLINES oraz za to, że jesteś z nami 🙏")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                                           ftxui::hbox({
+                                                               ftxui::text(L"Dziękujemy za wybór WOLFIE AIRLINES oraz za to, że jesteś z nami 🙏") | ftxui::color(ftxui::Color::YellowLight) | ftxui::bold
+                                                       }),
                                    });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
