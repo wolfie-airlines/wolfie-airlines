@@ -113,15 +113,38 @@ std::string CreateProfileScreen(const User& user) {
     std::string profession = user.profession;
     profession[0] = std::toupper(profession[0]);
 
+    std::ostringstream oss;
+    oss << std::fixed << std::setprecision(1) << user.moneySpent;
+    std::string moneySpent = oss.str();
+    std::string ticketBought = std::to_string(user.ticketBought);
+
+    auto userFlights = user.userFlights;
+    std::string userFlightsString;
+
+    std::cout << "userFlights: " << userFlights.length() << std::endl;
+
+    for (auto&& flight : userFlights) {
+        userFlightsString += "ID: " + (std::string) flight["identifier"].get_string().value + "\n";
+        userFlightsString += "Departure city: " + (std::string) flight["departureCity"].get_string().value + "\n";
+        userFlightsString += "Destination city: " + (std::string) flight["destinationCity"].get_string().value + "\n";
+        userFlightsString += "Departure time: " + (std::string) flight["departureTime"].get_string().value + "\n";
+        userFlightsString += "Arrival time: " + (std::string) flight["arrivalTime"].get_string().value + "\n";
+        userFlightsString += "Price: " + std::to_string(flight["price"].get_int32().value) + "\n";
+        userFlightsString += "-----------------------------------\n";
+    }
+
+    std::cout << userFlightsString << std::endl;
+
     auto summary = [&] {
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(" PROFIL UŻYTKOWNIKA " + username) | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::text("")}),
                                            ftxui::hbox({ftxui::text(L"Twoje bilety: ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text("Twoja dostępna zniżka: " + profession)  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
-                                           ftxui::hbox({ftxui::text(L"Data utworzenia konta: ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"Liczba zakupionych biletów: ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"Wydanych $ w WOLFIE AIRLINES: ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({ftxui::text("Karta premium: " + user.premiumCard)  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({ftxui::text("Data utworzenia konta: " + user.registrationDate)  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text("Liczba zakupionych biletów: " + ticketBought)  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text("Wydanych $ w WOLFIE AIRLINES: " + moneySpent + "zł")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            // ---------
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"back. ↩  Wróć do głównego menu.")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),

@@ -3,6 +3,6 @@
 #include <string>
 
 std::string extractFileName(const std::string& path);
-void countdown(int seconds);
+void countdown(int seconds, std::string type);
 
 #endif //AIRPORT_HELPERS_H

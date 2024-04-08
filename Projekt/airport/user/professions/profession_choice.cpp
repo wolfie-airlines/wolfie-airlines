@@ -20,7 +20,7 @@ void musicProfession(User& user) {
     int randomIndex = dist(rng);
     std::string randomSoundFile = soundFiles[randomIndex];
 
-    countdown(3);
+    countdown(3, "music");
     PlaySound(TEXT(randomSoundFile.c_str()), nullptr, SND_FILENAME | SND_ASYNC);
     bool guessed = guessMusicAuthor(extractFileName(randomSoundFile));
     if(guessed) {
@@ -32,7 +32,7 @@ void musicProfession(User& user) {
 }
 
 void doctorProfession(User& user) {
-    countdown(3);
+    countdown(3, "doctor");
     bool questionDisplayed = guessDoctorQuestion(user);
     if(questionDisplayed) {
         validAnswer("lekarz", user);
@@ -42,7 +42,7 @@ void doctorProfession(User& user) {
 }
 
 void informaticProfession(User& user) {
-    countdown(3);
+    countdown(3, "informatic");
     bool questionDisplayed = guessInformaticQuestion(user);
     if(questionDisplayed) {
         validAnswer("informatyk", user);
@@ -52,7 +52,7 @@ void informaticProfession(User& user) {
 }
 
 void mathProfession(User& user) {
-    countdown(3);
+    countdown(3, "math");
     bool questionDisplayed = guessMathQuestion(user);
     if(questionDisplayed) {
         validAnswer("matematyk", user);
