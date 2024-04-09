@@ -2,7 +2,7 @@
 #include "premium_cards_prints/premium_cards_prints.h"
 #include "../../functions/info_print_functions.h"
 
-void setPremiumCard(User& user, const std::string& card) {
+void User::setPremiumCard(User& user, const std::string& card) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", user.email),
             bsoncxx::builder::basic::kvp("password", user.getPassword())
@@ -33,7 +33,7 @@ void setPremiumCard(User& user, const std::string& card) {
 void handleCardChoice(const std::string& card, int price, User& user) {
     bool valid = validCardPayment(user, price);
     if(valid) {
-        setPremiumCard(user, card);
+        user.setPremiumCard(user, card);
     } else {
         return;
     }

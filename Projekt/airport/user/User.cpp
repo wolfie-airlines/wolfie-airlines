@@ -30,10 +30,6 @@ void User::setPassword(const std::string &newPass) {
     User::password = newPass;
 }
 
-void User::setPremiumCard(const std::string &card) {
-    premiumCard = card;
-}
-
 void User::changeUsername(const std::string &newUsername) {
     // sprawdzenie czy nazwa jest zajeta
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(

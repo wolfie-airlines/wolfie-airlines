@@ -40,9 +40,9 @@ public:
     std::string getPassword();
 //TODO: void setIsDisabled(bool isDisabled);
     void setPassword(const std::string& password);
-    void setPremiumCard(const std::string& premiumCard);
-    void setPaymentMethod(const std::string& paymentMethod);
-    bool handleVisa(const std::string& cNumber, const std::string& cCVV);
+    void setPremiumCard(User& user, const std::string& card);
+    void setBlik(const std::string& paymentMethod);
+    void setVisa(const std::string& cNumber, const std::string& cCVV);
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
     void changePassword(const std::string& password);

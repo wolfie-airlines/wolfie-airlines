@@ -2,7 +2,7 @@
 #include "../../../functions/info_print_functions.h"
 #include "../user_prints/user_print_functions.h"
 
-void User::setPaymentMethod(const std::string &payment) {
+void User::setBlik(const std::string &payment) {
 
     if (paymentMethod == payment) {
         errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
@@ -45,7 +45,7 @@ void User::setPaymentMethod(const std::string &payment) {
     validFunction("Metoda płatności została pomyślnie zmieniona.", "");
 }
 
-bool User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
+void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
             bsoncxx::builder::basic::kvp("password", password)
@@ -56,10 +56,10 @@ bool User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     if (cursor_user.begin() == cursor_user.end()) {
         std::cout << email << " " << password << std::endl;
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-        return false;
+        return;
     }
 
-    // Sprawdzenie, czy istnieje już użytkownik z tym samym numerem karty i kodem CVV
+    // sprawdzenie czy taka karta już istnieje
     bsoncxx::document::value filter_builder_card_cvv = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("paymentMethod.cardNumber", cardNumber),
             bsoncxx::builder::basic::kvp("paymentMethod.cvv", cvv)
@@ -69,10 +69,9 @@ bool User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     mongocxx::cursor cursor_card_cvv = _collection.find(filter_view_card_cvv);
     if (cursor_card_cvv.begin() != cursor_card_cvv.end()) {
         errorFunction("Karta już istnieje w bazie danych.", "");
-        return false;
+        return;
     }
 
-    // Aktualizacja danych tylko jeśli nie istnieje inny użytkownik z takim samym numerem karty i kodem CVV
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
                     bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
@@ -87,7 +86,6 @@ bool User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     _collection.update_one(filter_view_email_password, update_view);
 
     paymentMethod = "visa";
-    return true;
 }
 
 void handlePaymentOption(User& user) {
@@ -100,16 +98,13 @@ void handlePaymentOption(User& user) {
         std::cout << "Podaj kod CVV karty: ";
         std::string cvv;
         std::cin >> cvv;
-        bool validCard = user.handleVisa(cardNumber, cvv);
-        if(validCard) {
-            user.setPaymentMethod("visa");
-        } else {
+        if(user.paymentMethod == "visa") {
+            errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
             return;
         }
-
-
+        user.setVisa(cardNumber, cvv);
     } else if (answer == 1) {
-        user.setPaymentMethod("blik");
+        user.setBlik("blik");
     } else if(answer == 2 ) {
         return;
     } else {
