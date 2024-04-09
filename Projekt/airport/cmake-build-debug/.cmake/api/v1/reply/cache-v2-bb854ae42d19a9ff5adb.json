@@ -883,7 +883,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe"
+			"value" : "C:/Users/szymo/AppData/Local/JETBRA~1/CLION2~1.2/bin/ninja/win/x64/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -1435,11 +1435,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "The CMake toolchain file"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "FILEPATH",
-			"value" : "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake"
+			"type" : "UNINITIALIZED",
+			"value" : "C:\\Users\\szymo\\.vcpkg-clion\\airport\\scripts\\buildsystems\\vcpkg.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",

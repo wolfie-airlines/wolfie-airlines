@@ -1,4 +1,4 @@
-#include "prints/profession_prints.h"
+#include "profession_prints/profession_prints.h"
 #include "../../functions/helpers.h"
 #include "profession_handler.h"
 #include <random>

@@ -23,7 +23,7 @@ public:
 
     Ticket(
             std::string ticketId,
-            User passenger,
+            User& passenger,
             std::string flightId,
             double price
     );

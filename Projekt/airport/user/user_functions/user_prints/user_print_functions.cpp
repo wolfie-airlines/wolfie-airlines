@@ -38,6 +38,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
@@ -135,10 +136,10 @@ std::string CreateProfileScreen(const User& user) {
                                            ftxui::hbox({
                                                                ftxui::text("Karta premium: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                (user.premiumCard == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
-                                                               (user.premiumCard == "gold") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Gold1) :
-                                                               (user.premiumCard == "blue") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::NavyBlue) :
-                                                               (user.premiumCard == "gray") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::DarkSlateGray1) :
-                                                               (user.premiumCard == "magenta") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Magenta) :
+                                                               (user.premiumCard == "złota") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Gold1) :
+                                                               (user.premiumCard == "niebieska") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::SkyBlue1) :
+                                                               (user.premiumCard == "szara") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::GrayLight) :
+                                                               (user.premiumCard == "platynowa") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::LightSteelBlue1) :
                                                                ftxui::text("brak") | ftxui::color(ftxui::Color::GrayDark)
                                                        }),
                                            ftxui::hbox({

@@ -1,5 +1,5 @@
 #include "user_profession_functions.h"
-#include "prints/profession_prints.h"
+#include "profession_prints/profession_prints.h"
 #include "profession_choice.h"
 #include "../../functions/info_print_functions.h"
 
