@@ -180,3 +180,11 @@
 11476	12929	7343893725971715	airport.exe	c9dd4679f57e60c1
 13	4003	7343894696858881	CMakeFiles/airport.dir/user/user_functions/user_prints/user_print_functions.cpp.obj	5636a2cfe1f99839
 4005	5080	7343894699686105	airport.exe	c9dd4679f57e60c1
+28	3308	7343897008073357	CMakeFiles/airport.dir/user/discounts/discounts.cpp.obj	7af835de2a581804
+15	3817	7343897013145570	CMakeFiles/airport.dir/flights/flights_functions/flight_prints/flight_print_functions.cpp.obj	600b92bb65c04820
+22	4061	7343897015576098	CMakeFiles/airport.dir/user/user_functions/user_prints/user_print_functions.cpp.obj	5636a2cfe1f99839
+4062	5144	7343897018331461	airport.exe	c9dd4679f57e60c1
+13	3602	7343897732300627	CMakeFiles/airport.dir/flights/flights_functions/flight_prints/flight_print_functions.cpp.obj	600b92bb65c04820
+3603	4588	7343897734302807	airport.exe	c9dd4679f57e60c1
+15	3806	7343898398783304	CMakeFiles/airport.dir/flights/flights_functions/flight_prints/flight_print_functions.cpp.obj	600b92bb65c04820
+3807	4884	7343898401644627	airport.exe	c9dd4679f57e60c1

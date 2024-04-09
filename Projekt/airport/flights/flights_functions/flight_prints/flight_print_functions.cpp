@@ -75,6 +75,9 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
 
         document.clear();
         std::string premiumCard = user.premiumCard;
+        double userDiscount = user.discount;
+        std::cout << "User discount: " << userDiscount << std::endl;
+
         double discount;
         if(premiumCard == "niebieska") {
             discount = 0.95;
@@ -82,6 +85,8 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
             discount = 0.95;
         } else if (premiumCard == "platynowa") {
             discount = 0.85;
+        } else if (userDiscount != 0) {
+            discount = userDiscount;
         }
 
         for (int i = startIndex; i < endIndex; i++) {
@@ -91,7 +96,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
                                                    make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
                                                    make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
                                                    make_box("GODZINA PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
-                                                   (premiumCard != "brak") ? make_strike_box("CENA", 40, 5, std::to_string((int) connections[i].getPrice()), std::to_string((int) (connections[i].getPrice() * discount)) + " PLN")
+                                                   (premiumCard != "brak" || userDiscount != 0) ? make_strike_box("CENA", 40, 5, std::to_string((int) connections[i].getPrice()), std::to_string((int) (connections[i].getPrice() * discount)) + " PLN")
                                                                            : make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
                                            }));
         }
@@ -149,6 +154,7 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
     std::vector<ftxui::Element> boxes;
 
     std::string premiumCard = user.premiumCard;
+    double userDiscount = user.discount;
     double discount;
     if(premiumCard == "niebieska") {
         discount = 0.95;
@@ -156,6 +162,8 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
         discount = 0.95;
     } else if (premiumCard == "platynowa") {
         discount = 0.85;
+    } else if (userDiscount != 0) {
+        discount = userDiscount;
     }
 
     auto container = ftxui::vbox({
@@ -169,7 +177,7 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
                     make_box("MIEJSCE WYLOTU", 50, 5, connection.getDepartureCity()),
                     make_box("MIEJSCE PRZYLOTU", 50, 5, connection.getDestinationCity()),
                     make_box("GODZINA PRZYLOTU", 50, 5, connection.getArrivalTime()),
-                    (premiumCard != "brak") ? make_strike_box("CENA", 45, 5, std::to_string((int) connection.getPrice()), std::to_string((int) (connection.getPrice() * discount)) + " PLN") : make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
+                    (premiumCard != "brak" || userDiscount != 0) ? make_strike_box("CENA", 45, 5, std::to_string((int) connection.getPrice()), std::to_string((int) (connection.getPrice() * discount)) + " PLN") : make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
                     }),
                 }),
             }) | style;
