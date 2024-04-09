@@ -86,6 +86,7 @@ void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
     _collection.update_one(filter_view_email_password, update_view);
 
     paymentMethod = "visa";
+    validFunction("Metoda płatności została pomyślnie zmieniona.", "");
 }
 
 void handlePaymentOption(User& user) {
