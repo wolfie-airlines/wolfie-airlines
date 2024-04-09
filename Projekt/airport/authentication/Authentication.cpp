@@ -16,6 +16,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
     document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
     document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
+    document.append(bsoncxx::builder::basic::kvp("discount", "brak"));
 
     // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
     auto now = std::chrono::system_clock::now();
@@ -64,10 +65,11 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto moneySpent = userView["moneySpent"].get_double().value;
         auto ticketBought = userView["ticketBought"].get_int32().value;
         auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
+        auto discount = (std::string) userView["discount"].get_string().value;
         user.username = username;
         user.setPassword(password);
         user.email = email;
-        user.isDisabled = isDisabled;
+        user.discount = discount;
         user.profession = (std::string) userView["profession"].get_string().value;
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;

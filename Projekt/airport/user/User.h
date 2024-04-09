@@ -13,10 +13,10 @@ private:
 public:
     explicit User(mongocxx::client& client) :
     _client(client), _db(client["projekt"]), _collection(_db["users"]),
-    username("gosc"), email("brak"), isDisabled(false), premiumCard("brak"),
+    username("gosc"), email("brak"), discount("brak"), premiumCard("brak"),
     paymentMethod("blik"), profession("brak"), registrationDate("brak"),
     moneySpent(0), ticketBought(0), userFlights(bsoncxx::document::view{}) {}
-    User(std::string username, std::string email, bool isDisabled,
+    User(std::string username, std::string email, std::string discount,
          std::string premiumCard, std::string paymentMethod,
          mongocxx::client &client, std::string  profession,
          std::string registrationDate, double moneySpent,
@@ -26,7 +26,7 @@ public:
     std::string username;
     std::string profession;
     std::string email;
-    bool isDisabled;
+    std::string discount;
     std::string premiumCard;
     std::string paymentMethod;
     std::string registrationDate;
@@ -38,7 +38,6 @@ public:
     mongocxx::collection& getCollection();
     mongocxx::collection getSpecificCollection(const std::string &collectionName);
     std::string getPassword();
-//TODO: void setIsDisabled(bool isDisabled);
     void setPassword(const std::string& password);
     void setPremiumCard(User& user, const std::string& card);
     void setBlik(const std::string& paymentMethod);
@@ -46,7 +45,7 @@ public:
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
     void changePassword(const std::string& password);
-    //std::vector<Discount> getDiscounts();
+    std::string getDiscount();
 
 };
 

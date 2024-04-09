@@ -21,22 +21,14 @@ void handleSettingsOption(User& user) {
         std::cout << "Podaj nowe hasło: ";
         std::cin >> newPassword;
         user.changePassword(newPassword);
-    } else if (option== "4") {
-        //wszystkie discounty
-
-        //TODO: Wszystko związane ze zniżkami
-        //std::vector<Discount> discounts = user.getDiscounts();
-        std::cout << "Funkcja w trakcie implementacji." << std::endl;
-
-    } else if (option== "5") {
-//        if(user.profession != "brak") {
-//            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
-//            return;
-//        }
+    }  else if (option== "4") {
+        if(user.profession != "brak") {
+            errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
+            return;
+        }
         handleProfession(user);
     }
-    else if (option== "6") {
-        //zmiana domyślnej płatności
+    else if (option== "5") {
         handlePaymentOption(user);
     }
     else if (option== "back") {

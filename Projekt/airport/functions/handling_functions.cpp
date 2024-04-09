@@ -116,6 +116,8 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             }
             else if(userChoice == "3") {
                 handlePremiumCard(currentUser);
+            } else if (userChoice == "4") {
+//                handleDiscounts(currentUser);
             }
         }
     }
