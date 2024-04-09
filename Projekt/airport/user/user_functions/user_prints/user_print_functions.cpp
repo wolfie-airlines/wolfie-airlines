@@ -122,6 +122,9 @@ std::string CreateProfileScreen(const User& user) {
     std::string premiumCard = user.premiumCard;
     premiumCard[0] = std::toupper(premiumCard[0]);
 
+    std::string paymentMethod = user.paymentMethod;
+    paymentMethod[0] = std::toupper(paymentMethod[0]);
+
     auto summary = [&] {
         auto content = ftxui::vbox({
                                            ftxui::hbox({
@@ -145,6 +148,10 @@ std::string CreateProfileScreen(const User& user) {
                                            ftxui::hbox({
                                                                ftxui::text("Data utworzenia konta: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                ftxui::text(user.registrationDate) | ftxui::color(ftxui::Color::SteelBlue)
+                                                       }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Domyślna metoda płatności: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text(paymentMethod) | ftxui::color(ftxui::Color::Gold1)
                                                        }),
                                            ftxui::hbox({
                                                                ftxui::text("Liczba zakupionych biletów: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,

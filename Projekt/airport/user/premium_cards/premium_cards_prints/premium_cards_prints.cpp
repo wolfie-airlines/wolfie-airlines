@@ -2,6 +2,7 @@
 #include "premium_cards_prints.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
+#include "../../user_functions/user_settings/user_payment_functions.h"
 
 std::string displayPremiumCardInfo() {
     auto summary = [&] {
@@ -79,4 +80,16 @@ std::string displayPremiumCardInfo() {
     std::string choice;
     std::cin >> choice;
     return choice;
+}
+
+void cardPaymentScreen(User& user, int price) {
+    std::string paymentMethod = user.paymentMethod;
+    bool validPayment = paymentAuth(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
+    if(validPayment) {
+        std::cout << "Płatność za kartę premium została zrealizowana." << std::endl;
+        return;
+    } else {
+        std::cout << "Płatność za kartę premium nie została zrealizowana." << std::endl;
+        return;
+    }
 }

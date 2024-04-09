@@ -3,7 +3,7 @@
 
 void handleCardChoice(const std::string& card, int price, User& user) {
     // ekran płatności za kartę
-
+    cardPaymentScreen(user, price);
     // jeśli płatność użytkownika przejdzie pomyślnie ustaw kartę
 
     // jeśli płatność użytkownika nie przejdzie zwróć błąd
