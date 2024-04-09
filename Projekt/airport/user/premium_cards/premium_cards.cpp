@@ -2,6 +2,20 @@
 #include "premium_cards_prints/premium_cards_prints.h"
 #include "../../functions/info_print_functions.h"
 
+double getCardDiscount(const std::string& card) {
+    if(card == "szara") {
+        return 1;
+    } else if(card == "niebieska") {
+        return 0.95;
+    } else if(card == "złota") {
+        return 0.95;
+    } else if(card == "platynowa") {
+        return 0.85;
+    } else {
+        return 1;
+    }
+}
+
 void User::setPremiumCard(User& user, const std::string& card) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", user.email),
@@ -19,7 +33,8 @@ void User::setPremiumCard(User& user, const std::string& card) {
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("premiumCard", card)
+                    bsoncxx::builder::basic::kvp("premiumCard", card),
+                    bsoncxx::builder::basic::kvp("discountType", "premium")
             ))
     );
 
@@ -27,6 +42,8 @@ void User::setPremiumCard(User& user, const std::string& card) {
     user.getCollection().update_one(filter_view_email_password, update_view);
 
     user.premiumCard = card;
+    User::discount = getCardDiscount(card);
+    User::discountType = "premium";
     validFunction("Karta została przypisana do konta", "Możesz zobaczyć ją w profilu i już zacząć z niej korzystać!");
 }
 

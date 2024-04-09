@@ -2,9 +2,10 @@
 #define AIRPORT_DISCOUNTS_PRINTS_H
 
 
-class discounts_prints {
+#include <string>
 
-};
+std::string displayDiscountInfo();
+bool validDiscount(std::string discountChoice);
 
 
 #endif //AIRPORT_DISCOUNTS_PRINTS_H

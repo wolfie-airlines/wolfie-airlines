@@ -59,6 +59,7 @@ std::string displayPremiumCardInfo() {
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L"INFORMACJE O KARTACH") | ftxui::bold}) | color(ftxui::Color::Orange3),
                                            ftxui::hbox({ftxui::text(L"Każdej karcie premium przysługują konkretne zniżki.") | ftxui::bold}) | color(ftxui::Color::Orange4),
+                                           ftxui::hbox({ftxui::text(L"Przysługuje maksymalnie jedna zniżka na użytkownika (albo karta albo ulga).") | ftxui::bold}) | color(ftxui::Color::Orange4),
                                            ftxui::separator(),
                                            table.Render(),
                                            ftxui::separator(),

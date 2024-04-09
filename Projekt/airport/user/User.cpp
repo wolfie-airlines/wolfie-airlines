@@ -2,12 +2,12 @@
 #include "../functions/info_print_functions.h"
 #include <utility>
 
-User::User(std::string username, std::string email, std::string discount, std::string premiumCard,
+User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
            std::string paymentMethod, mongocxx::client &client, std::string  profession,
            std::string registrationDate, double moneySpent, int ticketBought,
            bsoncxx::document::view userFlights)
         : username(std::move(username)), email(std::move(email)),
-        discount(std::move(discount)), premiumCard(std::move(premiumCard)),
+        discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)),
         paymentMethod(std::move(paymentMethod)), _client(client),
         profession(std::move(profession)), registrationDate(std::move(registrationDate)),
         moneySpent(moneySpent), ticketBought(ticketBought),
@@ -151,8 +151,3 @@ void User::changePassword(const std::string &newPassword) {
     password = newPassword;
     validFunction("Hasło zostało pomyślnie zmienione.", "");
 }
-
-
-
-
-

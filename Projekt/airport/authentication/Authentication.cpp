@@ -12,11 +12,12 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("email", email));
     document.append(bsoncxx::builder::basic::kvp("password", password));
     document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
-    document.append(bsoncxx::builder::basic::kvp("disabled", false)); // jako default wartość, może potwierdzić to potem w celu uzyskania zniżek
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
     document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
     document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
-    document.append(bsoncxx::builder::basic::kvp("discount", "brak"));
+    document.append(bsoncxx::builder::basic::kvp("discountType", "brak"));
+    document.append(bsoncxx::builder::basic::kvp("discount", 0.00));
+
 
     // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
     auto now = std::chrono::system_clock::now();
@@ -59,17 +60,18 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto paymentMethodDocument = userView["paymentMethod"].get_document().value;
         auto userFlightsDocument = userView["userFlights"].get_document().value;
         auto email = (std::string) userView["email"].get_string().value;
-        auto isDisabled = userView["disabled"].get_bool().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
         auto moneySpent = userView["moneySpent"].get_double().value;
         auto ticketBought = userView["ticketBought"].get_int32().value;
         auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
-        auto discount = (std::string) userView["discount"].get_string().value;
+        auto discountType = (std::string) userView["discountType"].get_string().value;
+        auto discount = userView["discount"].get_double().value;
         user.username = username;
         user.setPassword(password);
-        user.email = email;
         user.discount = discount;
+        user.email = email;
+        user.discountType = discountType;
         user.profession = (std::string) userView["profession"].get_string().value;
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;

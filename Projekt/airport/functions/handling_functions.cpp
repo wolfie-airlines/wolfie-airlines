@@ -11,6 +11,7 @@
 #include "../user/user_functions/user_prints/user_print_functions.h"
 #include "../user/user_functions/user_settings/user_settings_functions.h"
 #include "../user/premium_cards/premium_cards.h"
+#include "../user/discounts/discounts.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -115,9 +116,18 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 handleBuyTicket(flightConnection, currentUser);
             }
             else if(userChoice == "3") {
-                handlePremiumCard(currentUser);
+                if(currentUser.discountType == "ulga") {
+                    errorFunction("Nie możesz zakupić karty premium.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
+                } else {
+                    handlePremiumCard(currentUser);
+                }
             } else if (userChoice == "4") {
-//                handleDiscounts(currentUser);
+                std::cout << currentUser.discountType << std::endl;
+                if(currentUser.discountType == "premium") {
+                    errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
+                } else {
+                    handleDiscountCard(currentUser);
+                }
             }
         }
     }

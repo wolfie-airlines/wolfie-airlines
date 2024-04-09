@@ -2,9 +2,11 @@
 #define AIRPORT_DISCOUNTS_H
 
 
-class discounts {
+#include "../User.h"
 
-};
+double getDiscount(int choice);
+void handleDiscountChoice(User& user, int choice);
+void handleDiscountCard(User& user);
 
 
 #endif //AIRPORT_DISCOUNTS_H

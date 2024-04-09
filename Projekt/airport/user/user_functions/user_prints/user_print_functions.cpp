@@ -106,7 +106,7 @@ int CreateDefaultPaymentScreen() {
     return selected;
 }
 
-std::string CreateProfileScreen(const User& user) {
+std::string CreateProfileScreen(User user) {
 
     std::string username = user.username;
     std::transform(username.begin(), username.end(), username.begin(), ::toupper);
@@ -125,6 +125,8 @@ std::string CreateProfileScreen(const User& user) {
     std::string paymentMethod = user.paymentMethod;
     paymentMethod[0] = std::toupper(paymentMethod[0]);
 
+    std::string discount = user.recognizeDiscount();
+
     auto summary = [&] {
         auto content = ftxui::vbox({
                                            ftxui::hbox({
@@ -133,7 +135,7 @@ std::string CreateProfileScreen(const User& user) {
                                                        }),
                                            ftxui::hbox({ftxui::text("")}),
                                            ftxui::hbox({
-                                                               ftxui::text("Twoja dostępna zniżka: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text("Wykonywany zawód: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                (user.profession == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) : ftxui::text(profession) | ftxui::color(ftxui::Color::Green)
                                                        }),
                                            ftxui::hbox({
@@ -145,6 +147,11 @@ std::string CreateProfileScreen(const User& user) {
                                                                (user.premiumCard == "platynowa") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::LightSteelBlue1) :
                                                                ftxui::text("brak") | ftxui::color(ftxui::Color::GrayDark)
                                                        }),
+                                             ftxui::hbox({
+                                                                ftxui::text("Zniżka: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                                (discount == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
+                                                                ftxui::text(discount) | ftxui::color(ftxui::Color::SkyBlue2)
+                                                         }),
                                            ftxui::hbox({
                                                                ftxui::text("Data utworzenia konta: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                ftxui::text(user.registrationDate) | ftxui::color(ftxui::Color::SteelBlue)

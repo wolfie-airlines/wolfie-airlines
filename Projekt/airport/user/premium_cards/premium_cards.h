@@ -6,7 +6,7 @@
 
 void handlePremiumCard(User& user);
 void handleCardChoice(const std::string& card, int price, User& user);
-void setPremiumCard(User& user, const std::string& card);
+double getCardDiscount(const std::string& card);
 
 
 #endif //AIRPORT_PREMIUM_CARDS_H

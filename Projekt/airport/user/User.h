@@ -13,20 +13,21 @@ private:
 public:
     explicit User(mongocxx::client& client) :
     _client(client), _db(client["projekt"]), _collection(_db["users"]),
-    username("gosc"), email("brak"), discount("brak"), premiumCard("brak"),
+    username("gosc"), email("brak"), discount(0.0), discountType("brak"), premiumCard("brak"),
     paymentMethod("blik"), profession("brak"), registrationDate("brak"),
     moneySpent(0), ticketBought(0), userFlights(bsoncxx::document::view{}) {}
-    User(std::string username, std::string email, std::string discount,
-         std::string premiumCard, std::string paymentMethod,
-         mongocxx::client &client, std::string  profession,
-         std::string registrationDate, double moneySpent,
-         int ticketBought, bsoncxx::document::view userFlights);
+    User(std::string username, std::string email, double discount,
+         std::string discountType, std::string premiumCard,
+         std::string paymentMethod, mongocxx::client &client,
+         std::string  profession, std::string registrationDate,
+         double moneySpent, int ticketBought, bsoncxx::document::view userFlights);
 
     // Obiekt użytkownika (dane)
     std::string username;
     std::string profession;
     std::string email;
-    std::string discount;
+    std::string discountType;
+    double discount;
     std::string premiumCard;
     std::string paymentMethod;
     std::string registrationDate;
@@ -45,7 +46,9 @@ public:
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
     void changePassword(const std::string& password);
-    std::string getDiscount();
+    void setDiscount(double discount, const std::string& discountType);
+    [[nodiscard]] double getDiscount() const;
+    std::string recognizeDiscount();
 
 };
 
