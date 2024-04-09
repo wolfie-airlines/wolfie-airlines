@@ -82,7 +82,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                     isLoggedIn = true;
                 }
             } else if (choice == "3") {
-                handleFlightOptions(flightConnection);
+                handleFlightOptions(flightConnection, currentUser);
             } else if (choice == "4") {
                 errorFunction("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
             }
@@ -109,7 +109,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 logoutFunction();
                 isLoggedIn = false;
             } else if(userChoice == "1") {
-                handleFlightOptions(flightConnection);
+                handleFlightOptions(flightConnection, currentUser);
             }
             else if(userChoice == "2") {
                 handleBuyTicket(flightConnection, currentUser);

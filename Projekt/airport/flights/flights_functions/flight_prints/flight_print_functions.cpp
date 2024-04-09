@@ -41,16 +41,23 @@ std::string pageSizeString(int totalPages) {
     return result;
 }
 
-
-void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
+void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, User& user) {
     auto make_box = [](const std::string &title, int dimx, int dimy, const std::string &content) {
         return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
                       ftxui::text(content) | ftxui::hcenter | ftxui::dim) |
                size(ftxui::WIDTH, ftxui::EQUAL, dimx);
     };
 
-    auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border |
-                 size(ftxui::HEIGHT, ftxui::GREATER_THAN, 150);
+    auto make_strike_box = [](const std::string &title, int dimx, int dimy, const std::string &oldContent, const std::string &newContent) {
+        return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
+                        ftxui::hbox(
+                                ftxui::strikethrough(ftxui::text(oldContent)) | ftxui::hcenter | ftxui::color(ftxui::Color::Red),
+                                ftxui::text(" " + newContent) | ftxui::hcenter | ftxui::color(ftxui::Color::Green)) | ftxui::center
+                                ) |
+               size(ftxui::WIDTH, ftxui::EQUAL, dimx);
+    };
+
+    auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border;
 
     std::vector<ftxui::Element> boxes;
 
@@ -67,6 +74,16 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
         int endIndex = std::min<int>(startIndex + pageSize, connections.size());
 
         document.clear();
+        std::string premiumCard = user.premiumCard;
+        double discount;
+        if(premiumCard == "niebieska") {
+            discount = 0.95;
+        } else if (premiumCard == "złota") {
+            discount = 0.95;
+        } else if (premiumCard == "platynowa") {
+            discount = 0.85;
+        }
+
         for (int i = startIndex; i < endIndex; i++) {
             document.push_back(ftxui::hbox({
                                                    make_box("ID LOTU", 25, 5, connections[i].getIdentifier()),
@@ -74,7 +91,8 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
                                                    make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
                                                    make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
                                                    make_box("GODZINA PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
-                                                   make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
+                                                   (premiumCard != "brak") ? make_strike_box("CENA", 40, 5, std::to_string((int) connections[i].getPrice()), std::to_string((int) (connections[i].getPrice() * discount)) + " PLN")
+                                                                           : make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
                                            }));
         }
 
@@ -110,16 +128,35 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections) {
     }
 }
 
-void CreateFoundFlightScreen(FlightConnection& connection) {
+void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
     auto make_box = [](const std::string &title, int dimx, int dimy, const std::string &content) {
         return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
                       ftxui::text(content) | ftxui::hcenter | ftxui::dim) |
                size(ftxui::WIDTH, ftxui::EQUAL, dimx);
     };
 
+    auto make_strike_box = [](const std::string &title, int dimx, int dimy, const std::string &oldContent, const std::string &newContent) {
+        return window(ftxui::text(title) | ftxui::hcenter | ftxui::bold,
+                      ftxui::hbox(
+                              ftxui::strikethrough(ftxui::text(oldContent)) | ftxui::hcenter | ftxui::color(ftxui::Color::Red),
+                              ftxui::text(" " + newContent) | ftxui::hcenter | ftxui::color(ftxui::Color::Green)) | ftxui::center
+        ) |
+               size(ftxui::WIDTH, ftxui::EQUAL, dimx);
+    };
+
     auto style = size(ftxui::WIDTH, ftxui::GREATER_THAN, 150) | ftxui::border;
 
     std::vector<ftxui::Element> boxes;
+
+    std::string premiumCard = user.premiumCard;
+    double discount;
+    if(premiumCard == "niebieska") {
+        discount = 0.95;
+    } else if (premiumCard == "złota") {
+        discount = 0.95;
+    } else if (premiumCard == "platynowa") {
+        discount = 0.85;
+    }
 
     auto container = ftxui::vbox({
         ftxui::hbox({
@@ -132,7 +169,7 @@ void CreateFoundFlightScreen(FlightConnection& connection) {
                     make_box("MIEJSCE WYLOTU", 50, 5, connection.getDepartureCity()),
                     make_box("MIEJSCE PRZYLOTU", 50, 5, connection.getDestinationCity()),
                     make_box("GODZINA PRZYLOTU", 50, 5, connection.getArrivalTime()),
-                    make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
+                    (premiumCard != "brak") ? make_strike_box("CENA", 45, 5, std::to_string((int) connection.getPrice()), std::to_string((int) (connection.getPrice() * discount)) + " PLN") : make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
                     }),
                 }),
             }) | style;

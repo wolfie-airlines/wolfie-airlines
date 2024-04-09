@@ -6,12 +6,12 @@
 #include "../../functions/info_print_functions.h"
 #include "flight_prints/flight_print_functions.h"
 
-void handleFlightOptions(FlightConnection& flightConnection) {
+void handleFlightOptions(FlightConnection& flightConnection, User& user) {
     int answer = CreateFlightChoiceScreen();
     if (answer == 0) {
         //wszystkie możliwe loty
         std::vector<FlightConnection> connections = flightConnection.findAllConnections();
-        CreateAllFlightsScreen(connections);
+        CreateAllFlightsScreen(connections, user);
 
     } else if (answer == 1) {
         //szukanie po mieście wylotu - mieście przylotu
@@ -24,7 +24,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         FlightConnection connection = flightConnection.findConnection(departureCity, destinationCity);
 
         if (connection.getDepartureCity() == departureCity && connection.getDestinationCity() == destinationCity) {
-           CreateFoundFlightScreen(connection);
+           CreateFoundFlightScreen(connection, user);
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
@@ -37,7 +37,7 @@ void handleFlightOptions(FlightConnection& flightConnection) {
         FlightConnection connection = flightConnection.findConnectionById(flightId);
 
         if (connection.getIdentifier() == flightId) {
-            CreateFoundFlightScreen(connection);
+            CreateFoundFlightScreen(connection, user);
         } else {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         }
@@ -54,9 +54,9 @@ void handleFlightOptions(FlightConnection& flightConnection) {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         } else {
             if(connections.size() == 1) {
-                CreateFoundFlightScreen(connections[0]);
+                CreateFoundFlightScreen(connections[0], user);
             } else {
-                CreateAllFlightsScreen(connections);
+                CreateAllFlightsScreen(connections, user);
             }
         }
 
@@ -71,9 +71,9 @@ void handleFlightOptions(FlightConnection& flightConnection) {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         } else {
             if(connections.size() == 1) {
-                CreateFoundFlightScreen(connections[0]);
+                CreateFoundFlightScreen(connections[0], user);
             } else {
-                CreateAllFlightsScreen(connections);
+                CreateAllFlightsScreen(connections, user);
             }
         }
 
@@ -88,9 +88,9 @@ void handleFlightOptions(FlightConnection& flightConnection) {
             errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         } else {
             if(connections.size() == 1) {
-                CreateFoundFlightScreen(connections[0]);
+                CreateFoundFlightScreen(connections[0], user);
             } else {
-                CreateAllFlightsScreen(connections);
+                CreateAllFlightsScreen(connections, user);
             }
         }
 
