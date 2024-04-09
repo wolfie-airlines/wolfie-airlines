@@ -46,6 +46,10 @@ add_executable(airport main.cpp
         user/premium_cards/premium_cards.h
         user/premium_cards/premium_cards_prints/premium_cards_prints.h
         user/premium_cards/premium_cards_prints/premium_cards_prints.cpp
+        user/discounts/discounts_prints/discounts_prints.h
+        user/discounts/discounts_prints/discounts_prints.cpp
+        user/discounts/discounts.h
+        user/discounts/discounts.cpp
 )
 
 include(FetchContent)
