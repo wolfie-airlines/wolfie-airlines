@@ -42,7 +42,7 @@ public:
     void setPassword(const std::string& password);
     void setPremiumCard(const std::string& premiumCard);
     void setPaymentMethod(const std::string& paymentMethod);
-    void handleVisa(const std::string& cNumber, const std::string& cCVV);
+    bool handleVisa(const std::string& cNumber, const std::string& cCVV);
     void changeUsername(const std::string& username);
     void changeEmail(const std::string& email);
     void changePassword(const std::string& password);

@@ -45,7 +45,7 @@ void User::setPaymentMethod(const std::string &payment) {
     validFunction("Metoda płatności została pomyślnie zmieniona.", "");
 }
 
-void User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
+bool User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
             bsoncxx::builder::basic::kvp("password", password)
@@ -56,9 +56,23 @@ void User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     if (cursor_user.begin() == cursor_user.end()) {
         std::cout << email << " " << password << std::endl;
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-        return;
+        return false;
     }
 
+    // Sprawdzenie, czy istnieje już użytkownik z tym samym numerem karty i kodem CVV
+    bsoncxx::document::value filter_builder_card_cvv = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("paymentMethod.cardNumber", cardNumber),
+            bsoncxx::builder::basic::kvp("paymentMethod.cvv", cvv)
+    );
+
+    bsoncxx::document::view filter_view_card_cvv = filter_builder_card_cvv.view();
+    mongocxx::cursor cursor_card_cvv = _collection.find(filter_view_card_cvv);
+    if (cursor_card_cvv.begin() != cursor_card_cvv.end()) {
+        errorFunction("Karta już istnieje w bazie danych.", "");
+        return false;
+    }
+
+    // Aktualizacja danych tylko jeśli nie istnieje inny użytkownik z takim samym numerem karty i kodem CVV
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
                     bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
@@ -73,6 +87,7 @@ void User::handleVisa(const std::string &cardNumber, const std::string &cvv) {
     _collection.update_one(filter_view_email_password, update_view);
 
     paymentMethod = "visa";
+    return true;
 }
 
 void handlePaymentOption(User& user) {
@@ -85,8 +100,14 @@ void handlePaymentOption(User& user) {
         std::cout << "Podaj kod CVV karty: ";
         std::string cvv;
         std::cin >> cvv;
-        user.setPaymentMethod("visa");
-        user.handleVisa(cardNumber, cvv);
+        bool validCard = user.handleVisa(cardNumber, cvv);
+        if(validCard) {
+            user.setPaymentMethod("visa");
+        } else {
+            return;
+        }
+
+
     } else if (answer == 1) {
         user.setPaymentMethod("blik");
     } else if(answer == 2 ) {

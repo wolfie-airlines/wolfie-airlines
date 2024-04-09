@@ -14,7 +14,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
     document.append(bsoncxx::builder::basic::kvp("disabled", false)); // jako default wartość, może potwierdzić to potem w celu uzyskania zniżek
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
-    document.append(bsoncxx::builder::basic::kvp("moneySpent", 0));
+    document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
     document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
 
     // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
