@@ -82,14 +82,8 @@ std::string displayPremiumCardInfo() {
     return choice;
 }
 
-void cardPaymentScreen(User& user, int price) {
+bool validCardPayment(User& user, int price) {
     std::string paymentMethod = user.paymentMethod;
     bool validPayment = paymentAuth(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
-    if(validPayment) {
-        std::cout << "Płatność za kartę premium została zrealizowana." << std::endl;
-        return;
-    } else {
-        std::cout << "Płatność za kartę premium nie została zrealizowana." << std::endl;
-        return;
-    }
+    return validPayment;
 }

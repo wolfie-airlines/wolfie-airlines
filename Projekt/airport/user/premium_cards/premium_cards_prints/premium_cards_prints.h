@@ -5,6 +5,6 @@
 #include "../../User.h"
 
 std::string displayPremiumCardInfo();
-void cardPaymentScreen(User& user, int price);
+bool validCardPayment(User& user, int price);
 
 #endif //AIRPORT_PREMIUM_CARDS_PRINTS_H

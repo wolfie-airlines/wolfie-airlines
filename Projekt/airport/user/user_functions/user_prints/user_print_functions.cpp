@@ -115,7 +115,7 @@ std::string CreateProfileScreen(const User& user) {
     profession[0] = std::toupper(profession[0]);
 
     std::ostringstream oss;
-    oss << std::fixed << std::setprecision(1) << user.moneySpent;
+    oss << std::fixed << std::setprecision(2) << user.moneySpent;
     std::string moneySpent = oss.str();
     std::string ticketBought = std::to_string(user.ticketBought);
 
