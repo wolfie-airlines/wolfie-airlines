@@ -17,7 +17,7 @@ int CreateFlightChoiceScreen() {
             "Znajdź połączenie (podając przedział cenowy)",
             "Znajdź połączenie (podając miasto wylotu) - zwróci wszystkie połączenia z tego miasta",
             "Znajdź połączenie (podając miasto przylotu) - zwróci wszystkie połączenia do tego miasta",
-            "↩️ Wróć do menu głównego",
+            "\U0001F519 Wróć do menu głównego",
     };
     int selected = 0;
 

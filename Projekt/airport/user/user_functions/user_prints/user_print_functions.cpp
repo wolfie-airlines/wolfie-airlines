@@ -67,7 +67,7 @@ std::string handleSettingsMenu(const User& user) {
                                            ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"5. Zweryfikuj swój zawód   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"6. Zmień domyślną metodę płatności   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"back. Wróć do głównego menu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
+                                           ftxui::hbox({ftxui::text(L"back. \U0001F519 Wróć do głównego menu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            // ---------
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
@@ -93,7 +93,7 @@ int CreateDefaultPaymentScreen() {
     std::vector<std::string> entries = {
             "Zmień domyślną metodę płatności na kartę VISA",
             "Zmień domyślną metodę płatności na BLIK",
-            "↩️ Wróć do menu głównego",
+            "\U0001F519 Wróć do menu głównego",
     };
     int selected = 0;
 
@@ -130,11 +130,16 @@ std::string CreateProfileScreen(const User& user) {
                                            ftxui::hbox({ftxui::text("")}),
                                            ftxui::hbox({
                                                                ftxui::text("Twoja dostępna zniżka: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                               ftxui::text(profession) | ftxui::color(ftxui::Color::Green)
+                                                               (user.profession == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) : ftxui::text(profession) | ftxui::color(ftxui::Color::Green)
                                                        }),
                                            ftxui::hbox({
                                                                ftxui::text("Karta premium: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                               ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Gold1)
+                                                               (user.premiumCard == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
+                                                               (user.premiumCard == "gold") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Gold1) :
+                                                               (user.premiumCard == "blue") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::NavyBlue) :
+                                                               (user.premiumCard == "gray") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::DarkSlateGray1) :
+                                                               (user.premiumCard == "magenta") ? ftxui::text(premiumCard) | ftxui::color(ftxui::Color::Magenta) :
+                                                               ftxui::text("brak") | ftxui::color(ftxui::Color::GrayDark)
                                                        }),
                                            ftxui::hbox({
                                                                ftxui::text("Data utworzenia konta: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
@@ -145,13 +150,15 @@ std::string CreateProfileScreen(const User& user) {
                                                                ftxui::text(ticketBought) | ftxui::color(ftxui::Color::Violet)
                                                        }),
                                            ftxui::hbox({
-                                                               ftxui::text("Wydanych $ w WOLFIE AIRLINES: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               // U0001F4B8 -> 💸
+                                                               ftxui::text(L"Wydanych \U0001F4B8 w WOLFIE AIRLINES: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                ftxui::text(moneySpent + "zł") | ftxui::color(ftxui::Color::SandyBrown)
                                                        }),
                                            // ---------
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::text(L"back. ↩  Wróć do głównego menu.") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold
+                                                               // U0001F519 -> 🔙
+                                                               ftxui::text(L"back. \U0001F519  Wróć do głównego menu.") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold
                                                        }),
                                            ftxui::separator(),
                                            ftxui::hbox({

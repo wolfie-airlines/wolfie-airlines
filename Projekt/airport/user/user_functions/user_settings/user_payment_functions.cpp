@@ -90,7 +90,7 @@ void handlePaymentOption(User& user) {
         user.handleVisa(cardNumber, cvv);
     } else if (answer == 1) {
         user.setPaymentMethod("blik");
-    } else if(answer == 3 ) {
+    } else if(answer == 2 ) {
         return;
     } else {
         errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");

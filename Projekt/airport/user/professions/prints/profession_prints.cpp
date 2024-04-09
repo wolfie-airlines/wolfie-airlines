@@ -23,7 +23,7 @@ std::string displayProfessionInfo() {
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"Jeśli chcesz przejść do wyboru zawodu wpisz:")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"TAK")  | ftxui::bold}) | color(ftxui::Color::GreenYellow),
-                                           ftxui::hbox({ftxui::text("W każdym innym wypadku wrócisz do menu głównego.")  | ftxui::bold}) | color(ftxui::Color::DarkSeaGreen),
+                                           ftxui::hbox({ftxui::text(L"\U0001F519 W każdym innym wypadku wrócisz do menu głównego.")  | ftxui::bold}) | color(ftxui::Color::DarkSeaGreen),
                                    });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
@@ -50,7 +50,7 @@ int CreateProfessionScreen() {
             "Jestem lekarzem (wymaga potwierdzenia)",
             "Jestem matematykiem (wymaga potwierdzenia)",
             "Jestem informatykiem (wymaga potwierdzenia)",
-            "↩️ Wróć do menu głównego",
+            "\U0001F519 Wróć do menu głównego",
     };
 
     MenuOption option;
