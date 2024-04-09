@@ -404,3 +404,4 @@ FodyWeavers.xsd
 */.idea/*
 
 /airport/vcpkg_installed/*
+/Projekt/airport/.idea
