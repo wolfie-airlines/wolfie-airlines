@@ -210,17 +210,14 @@ bool guessMathQuestion(User &user) {
         auto problemLine = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
         wholeProblem = ftxui::vbox(std::move(wholeProblem), std::move(problemLine));
     }
-    auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
     auto container = ftxui::vbox({
         ftxui::hbox({ftxui::text("Zadanie z działu: " + topic) | ftxui::bold}) | color(ftxui::Color::YellowLight),
         ftxui::separator(),
         wholeProblem | ftxui::border,
         ftxui::separator(),
-        ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::IndianRed),
-        ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Red),
-        ftxui::separator(),
-        answer | color(ftxui::Color::BlueLight),
+        ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::BlueLight),
+        ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Blue),
       });
 
     auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
