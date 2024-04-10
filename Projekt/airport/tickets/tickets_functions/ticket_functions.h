@@ -1,14 +1,10 @@
-//
-// Created by szymo on 30.03.2024.
-//
-
 #ifndef AIRPORT_TICKET_FUNCTIONS_H
 #define AIRPORT_TICKET_FUNCTIONS_H
 
+#include "../../flights/FlightConnection.h"
+#include "../../user/User.h"
 
-class ticket_functions {
-
-};
+void handleBuyTicket(FlightConnection& connection, User& user);
 
 
 #endif //AIRPORT_TICKET_FUNCTIONS_H
