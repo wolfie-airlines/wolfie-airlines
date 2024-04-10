@@ -31,10 +31,20 @@ void handleRegistration(Authentication& auth) {
 
 bool handleLogin(Authentication& auth, User& currentUser) {
     std::string username, password;
-    std::cout << "Podaj nazwę użytkownika: ";
-    std::cin >> username;
-    std::cout << "Podaj hasło: ";
-    std::cin >> password;
+    std::pair<std::string, std::string> loginData = login();
+    username = loginData.first;
+    password = loginData.second;
+
+    if(username.empty()) {
+        errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
+        return false;
+    }
+
+    if(password.empty()) {
+        errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
+        return false;
+    }
+
     std::promise<bool> promise;
 
     auth.authenticateUser(username, password, std::move(promise), currentUser);
