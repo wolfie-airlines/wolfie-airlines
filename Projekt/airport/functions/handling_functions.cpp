@@ -15,33 +15,57 @@
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
-    std::cout << "Podaj nazwę użytkownika: ";
-    std::cin >> username;
-    std::cout << "Podaj email: ";
-    std::cin >> email;
-    std::cout << "Podaj hasło: ";
-    std::cin >> password;
+    bool cancelled;
+
+    std::tie(username, email, password, cancelled) = registerUser();
+
+    if(username.empty() && !cancelled) {
+        errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
+        return;
+    }
+
+    if(email.empty() && !cancelled) {
+        errorFunction("Nie podano adresu e-mail.", "Spróbuj ponownie.");
+        return;
+    }
+
+    if(password.empty() && !cancelled) {
+        errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
+        return;
+    }
+
+    if(cancelled) {
+        errorFunction("Rejestracja anulowana.", "Zawsze możesz ponowić próbę.");
+        return;
+    }
+
     bool validRegister = auth.registerUser(username, email, password);
+
     if (validRegister) {
         validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
     } else {
-        errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie z innymi danymi.");
+        errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie.");
     }
 }
 
 bool handleLogin(Authentication& auth, User& currentUser) {
     std::string username, password;
-    std::pair<std::string, std::string> loginData = login();
-    username = loginData.first;
-    password = loginData.second;
+    bool cancelled;
+    std::tuple<std::string, std::string, bool> loginData = login();
+    std::tie(username, password, cancelled) = loginData;
 
-    if(username.empty()) {
+    if(username.empty() && !cancelled) {
         errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
         return false;
     }
 
-    if(password.empty()) {
+    if(password.empty() && !cancelled) {
         errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
+        return false;
+    }
+
+    if(cancelled) {
+        errorFunction("Logowanie anulowane.", "Zawsze możesz ponowić próbę.");
         return false;
     }
 

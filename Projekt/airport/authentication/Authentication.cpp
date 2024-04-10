@@ -7,6 +7,19 @@ Authentication::Authentication(const std::string& uri_str, const std::string& db
         : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
 
 bool Authentication::registerUser(const std::string& username, const std::string& email, const std::string& password) {
+
+    auto usernameAlreadyExists = _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
+    if (usernameAlreadyExists) {
+        errorFunction("Podana nazwa użytkownika jest już zajęta.", "Wybierz inną nazwę.");
+        return false;
+    }
+
+    auto emailAlreadyExists = _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email", email)));
+    if (emailAlreadyExists) {
+        errorFunction("Podany adres e-mail jest już zajęty.", "Wybierz inny adres e-mail.");
+        return false;
+    }
+
     auto document = bsoncxx::builder::basic::document{};
     document.append(bsoncxx::builder::basic::kvp("username", username));
     document.append(bsoncxx::builder::basic::kvp("email", email));
