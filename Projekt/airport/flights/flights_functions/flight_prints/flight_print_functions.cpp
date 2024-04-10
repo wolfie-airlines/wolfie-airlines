@@ -95,7 +95,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
                                                    make_box("CZAS WYLOTU", 50, 5, connections[i].getDepartureTime()),
                                                    make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
                                                    make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
-                                                   make_box("GODZINA PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
+                                                   make_box("CZAS PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
                                                    (premiumCard != "brak" || userDiscount != 0) ? make_strike_box("CENA", 40, 5, std::to_string((int) connections[i].getPrice()), std::to_string((int) (connections[i].getPrice() * discount)) + " PLN")
                                                                            : make_box("CENA", 25, 5, std::to_string((int) connections[i].getPrice()) + " PLN"),
                                            }));
@@ -176,7 +176,7 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
                     make_box("CZAS WYLOTU", 50, 5, connection.getDepartureTime()),
                     make_box("MIEJSCE WYLOTU", 50, 5, connection.getDepartureCity()),
                     make_box("MIEJSCE PRZYLOTU", 50, 5, connection.getDestinationCity()),
-                    make_box("GODZINA PRZYLOTU", 50, 5, connection.getArrivalTime()),
+                    make_box("CZAS PRZYLOTU", 50, 5, connection.getArrivalTime()),
                     (premiumCard != "brak" || userDiscount != 0) ? make_strike_box("CENA", 45, 5, std::to_string((int) connection.getPrice()), std::to_string((int) (connection.getPrice() * discount)) + " PLN") : make_box("CENA", 25, 5, std::to_string((int) connection.getPrice()) + " PLN"),
                     }),
                 }),
