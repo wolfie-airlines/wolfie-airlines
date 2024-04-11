@@ -1,4 +1,6 @@
 #ifndef TICKETS_PRINT_FUNCTIONS_H
 #define TICKETS_PRINT_FUNCTIONS_H
 
+int CreateTicketMenu();
+
 #endif // TICKETS_PRINT_FUNCTIONS_H

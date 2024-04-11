@@ -173,5 +173,3 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDestination(con
 
     return connections;
 }
-
-

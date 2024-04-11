@@ -50,6 +50,10 @@ add_executable(airport main.cpp
         user/discounts/discounts_prints/discounts_prints.cpp
         user/discounts/discounts.h
         user/discounts/discounts.cpp
+        plane/Plane.h
+        plane/Plane.cpp
+        plane/plane_prints/plane_prints.cpp
+        plane/plane_prints/plane_prints.h
 )
 
 include(FetchContent)

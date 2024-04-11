@@ -12,6 +12,7 @@
 #include "../user/user_functions/user_settings/user_settings_functions.h"
 #include "../user/premium_cards/premium_cards.h"
 #include "../user/discounts/discounts.h"
+#include "../tickets/tickets_functions/ticket_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -142,7 +143,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 handleFlightOptions(flightConnection, currentUser);
             }
             else if(userChoice == "2") {
-                handleBuyTicket(flightConnection, currentUser);
+                handleTicketChoice(flightConnection, currentUser);
             }
             else if(userChoice == "3") {
                 if(currentUser.discountType == "ulga") {
