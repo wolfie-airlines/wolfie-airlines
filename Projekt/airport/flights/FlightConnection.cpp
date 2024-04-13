@@ -121,7 +121,7 @@ FlightConnection FlightConnection::findConnectionById(const std::string& id) {
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
-        double flightPrice = view["price"].get_double().value;
+        double flightPrice = view["price"].get_int32().value;
         return FlightConnection{flightId, depCity, destCity, depTime, arrTime, flightPrice};
     }
     return FlightConnection{"", "", "", "", "", 0};
@@ -172,4 +172,24 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDestination(con
     }
 
     return connections;
+}
+
+std::vector<int> FlightConnection::getSeatsTaken(const std::string &flight_identifier) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("identifier", flight_identifier)
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    std::vector<int> seatsTaken;
+
+    for (auto&& doc : cursor) {
+        bsoncxx::document::view view = doc;
+        auto seats = view["seatsTaken"].get_array().value;
+        for (auto&& seat : seats) {
+            seatsTaken.push_back(seat.get_int32().value);
+        }
+    }
+
+    return seatsTaken;
 }
