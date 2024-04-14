@@ -76,7 +76,6 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
         document.clear();
         std::string premiumCard = user.premiumCard;
         double userDiscount = user.discount;
-        std::cout << "User discount: " << userDiscount << std::endl;
 
         double discount;
         if(premiumCard == "niebieska") {

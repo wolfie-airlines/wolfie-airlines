@@ -53,7 +53,12 @@ void handleSingleTicket(FlightConnection& flightConnection, User& user) {
 //    }
 
     std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flightId);
-    testPrint(seatsTaken);
+    bool valid = testPrint(seatsTaken, connection);
+    if(valid) {
+        // musi zwracac pare bool, vector?
+        //flightConnection.updateSeatsTaken(flightConnection.getIdentifier(), selectedSeats);
+    }
+
 }
 
 void handleBuyTicket(int choice, FlightConnection& flightConnection, User& user) {

@@ -5,8 +5,9 @@
 #include "ftxui/component/screen_interactive.hpp"
 
 
-void testPrint(std::vector<int> seatsTaken) {
+bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection) {
     using namespace ftxui;
+    const std::string planeId = "WOLFIE PLANE #" + flightConnection.getIdentifier();
 
     auto seatStyle = size(WIDTH, EQUAL, 10);
 
@@ -66,29 +67,27 @@ void testPrint(std::vector<int> seatsTaken) {
 
     auto container = vbox({
                                   hbox({
-                                               text(L" MENU MIEJSC W SAMOLOCIE") | bold}) | color(Color::Blue) | hcenter,
+                                               text(planeId) | bold}) | color(Color::Blue) | hcenter,
                                   separator(),
                                   vbox(document) | hcenter,
                                   separator(),
-                                  text("LEGENDA") | bold | hcenter,
+                                  text("LEGENDA") | ftxui::color(ftxui::Color::BlueLight) | bold | hcenter,
                                   ftxui::vbox({
                                                       ftxui::hbox({
-                                                                          ftxui::text("\U0001f198 ") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
-                                                                          ftxui::text("- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)") | ftxui::color(ftxui::Color::CadetBlue)
+                                                                          ftxui::text("\U0001f198 "),
+                                                                          ftxui::text("- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)") | ftxui::color(ftxui::Color::Orange1)
                                                                   }),
                                                       ftxui::hbox({
-                                                                          ftxui::text("\u274C ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                                          ftxui::text("- zajęte miejsce")
+                                                                          ftxui::text("\u274C "),
+                                                                          ftxui::text("- zajęte miejsce") | ftxui::color(ftxui::Color::Red1) | ftxui::bold
                                                                   }),
                                                       ftxui::hbox({
-                                                                          ftxui::text("R ") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
-                                                                          ftxui::text("- rząd (numer rzędu)") | ftxui::color(ftxui::Color::CadetBlue)
+                                                                          ftxui::text("R ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                                                          ftxui::text("- rząd (numer rzędu),") | ftxui::color(ftxui::Color::Grey84),
+                                                                          ftxui::text(" M ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                                                          ftxui::text("- miejsce (numer miejsca)") | ftxui::color(ftxui::Color::Grey84)
                                                                   }),
-                                                      ftxui::hbox({
-                                                                          ftxui::text("M ") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
-                                                                          ftxui::text("- miejsce (numer miejsca)") | ftxui::color(ftxui::Color::CadetBlue)
-                                                                  })
-                                                }) | ftxui::color(ftxui::Color::GrayDark) | ftxui::hcenter,
+                                                }) | ftxui::hcenter,
                           }) | style;
 
     auto userScreen = Screen::Create(Dimension::Fit(container), Dimension::Fit(container));
@@ -141,15 +140,27 @@ void testPrint(std::vector<int> seatsTaken) {
 
     auto containerWithSelectedSeats = vbox({
                                                    hbox({
-                                                                text(L" MENU MIEJSC W SAMOLOCIE") | bold}) | color(Color::Blue) | hcenter,
+                                                                text(planeId) | bold}) | color(Color::Blue) | hcenter,
                                                    separator(),
                                                    vbox(document) | hcenter,
                                                    separator(),
                                                    text(" ") | bold | hcenter,
-                                                   text("To wszystkie miejsca w samolocie.") | bold | hcenter,
+                                                   text("Czy potwierdzasz wybrane miejsca? Niepotwierdzenie wróci cię do wyboru biletów. (tak/nie)") | bold | hcenter,
                                            }) | style;
 
     auto userScreenWithSelectedSeats = Screen::Create(Dimension::Fit(containerWithSelectedSeats), Dimension::Fit(containerWithSelectedSeats));
     Render(userScreenWithSelectedSeats, containerWithSelectedSeats);
     std::cout << userScreenWithSelectedSeats.ToString() << '\0' << std::endl;
+
+    std::string confirmChoice;
+    std::cin >> confirmChoice;
+
+    if (confirmChoice == "nie") {
+        testPrint(seatsTaken, flightConnection);
+    }
+
+    // zapisanie wybranych miejsc do bazy danych
+    return true;
+
+
 }

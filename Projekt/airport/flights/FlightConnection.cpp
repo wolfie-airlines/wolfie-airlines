@@ -193,3 +193,38 @@ std::vector<int> FlightConnection::getSeatsTaken(const std::string &flight_ident
 
     return seatsTaken;
 }
+
+void FlightConnection::updateSeatsTaken(const std::string &flight_identifier, const std::vector<int> &seatsTaken) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("identifier", flight_identifier)
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    std::vector<int> oldSeatsTaken;
+    for (auto&& doc : cursor) {
+        bsoncxx::document::view view = doc;
+        auto seats = view["seatsTaken"].get_array().value;
+        for (auto&& seat : seats) {
+            oldSeatsTaken.push_back(seat.get_int32().value);
+        }
+    }
+
+    for (auto&& seat : seatsTaken) {
+        oldSeatsTaken.push_back(seat);
+    }
+
+    bsoncxx::builder::basic::array array_builder{};
+    for (const auto& seat : oldSeatsTaken) {
+        array_builder.append(seat);
+    }
+
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("seatsTaken", array_builder)
+            ))
+    );
+
+    bsoncxx::document::view update_view = update_builder.view();
+    _collection.update_one(filter_view, update_view);
+}

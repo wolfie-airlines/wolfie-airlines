@@ -2,8 +2,9 @@
 #define AIRPORT_PLANE_PRINTS_H
 
 #include <vector>
+#include "../../flights/FlightConnection.h"
 
 void printPlane();
-void testPrint(std::vector<int> seatsTaken);
+bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection);
 
 #endif //AIRPORT_PLANE_PRINTS_H
