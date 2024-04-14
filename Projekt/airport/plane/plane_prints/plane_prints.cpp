@@ -113,10 +113,16 @@ void processSeatSelectionAndPurchase(
         std::cin >> ticketAmountInput;
 
         if (ticketAmountInput == "back") {
-            break;
+            errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+            return;
         }
 
-        ticketAmount = std::stoi(ticketAmountInput);
+        try {
+            ticketAmount = std::stoi(ticketAmountInput);
+        } catch (std::invalid_argument& e) {
+            errorFunction("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do 4.");
+            return;
+        }
 
         if (ticketAmount >= 1 && ticketAmount <= 4) {
             break;
@@ -129,19 +135,40 @@ void processSeatSelectionAndPurchase(
         std::string rowInput;
         std::cout << "Podaj rząd dla biletu " << i + 1 << ": ";
         std::cin >> rowInput;
-        int rowInputNumber = std::stoi(rowInput);
+        int rowInputNumber;
+        try {
+            rowInputNumber = std::stoi(rowInput);
+            if (rowInputNumber < 1 || rowInputNumber > 9) {
+                errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
+                return;
+            }
+        } catch (std::invalid_argument& e) {
+            errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
+            return;
+        }
         std::string seatInput;
         std::cout << "Podaj miejsce dla biletu " << i + 1 << ": ";
         std::cin >> seatInput;
-        int seat = std::stoi(seatInput);
+        int seat;
+        try {
+            seat = std::stoi(seatInput);
+            if (seat < 1 || seat > 9) {
+                errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
+                return;
+            }
+        } catch (std::invalid_argument& e) {
+            errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
+            return;
+        }
+
         int selectedSeatNumber = (rowInputNumber - 1) * 9 + seat;
 
         selectedSeats.push_back(selectedSeatNumber);
     }
 
     // aktualizacja zaznaczonych miejsc w samolocie
-    for (size_t i = 0; i < selectedSeats.size(); ++i) {
-        seats[selectedSeats[i] - 1] = make_seat_box(selectedSeats[i], true);
+    for (int selectedSeat : selectedSeats) {
+        seats[selectedSeat - 1] = make_seat_box(selectedSeat, true);
     }
 
     document.clear();
