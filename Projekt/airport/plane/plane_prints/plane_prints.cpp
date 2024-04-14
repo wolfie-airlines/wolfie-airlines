@@ -2,7 +2,6 @@
 #include <iostream>
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
-#include "ftxui/component/screen_interactive.hpp"
 #include "../../functions/info_print_functions.h"
 #include "../../user/user_functions/user_settings/user_payment_functions.h"
 
@@ -194,7 +193,6 @@ void processSeatSelectionAndPurchase(
                                                    separator(),
                                                    vbox(document) | hcenter,
                                                    separator(),
-                                                   text(" ") | bold | hcenter,
                                                    text("Czy potwierdzasz wybrane miejsca? (tak)") | bold | hcenter,
                                                    text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
                                            }) | style;

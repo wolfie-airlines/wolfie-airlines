@@ -205,6 +205,8 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
             auto summary = ftxui::vbox({
                                                ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
                                                ftxui::separator(),
+                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
+                                               ftxui::separator(),
                                                ftxui::hbox({
                                                                    ftxui::text(L"Podaj 3 cyfrowy kod CVV karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
                                        });
