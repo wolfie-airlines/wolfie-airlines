@@ -222,5 +222,4 @@ void processSeatSelectionAndPurchase(
 
     flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
 
-
 }

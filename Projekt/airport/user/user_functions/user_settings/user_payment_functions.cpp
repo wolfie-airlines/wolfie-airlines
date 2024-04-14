@@ -1,6 +1,7 @@
 #include "../../User.h"
 #include "../../../functions/info_print_functions.h"
 #include "../user_prints/user_print_functions.h"
+#include <iostream>
 
 void User::setBlik(const std::string &payment) {
 
@@ -114,10 +115,13 @@ void handlePaymentOption(User& user) {
 }
 
 bool paymentAuth(User& user, const std::string& paymentMethod, const std::string& titleMessage, int targetPrice) {
+    std::string price = std::to_string(targetPrice);
     if(paymentMethod == "blik") {
         auto createBlikScreen = [&] {
             auto summary = ftxui::vbox({
                                                ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+                                               ftxui::separator(),
+                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
                                                ftxui::separator(),
                                                ftxui::hbox({
                                                                    ftxui::text(L"Podaj 6 cyfrowy kod BLIK poniżej:") | ftxui::bold | color(ftxui::Color::Green)}),
@@ -174,6 +178,8 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         auto createVisaDigitScreen = [&] {
             auto summary = ftxui::vbox({
                                                ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+                                               ftxui::separator(),
+                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
                                                ftxui::separator(),
                                                ftxui::hbox({
                                                                    ftxui::text(L"Podaj 3 ostatnie cyfry karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
