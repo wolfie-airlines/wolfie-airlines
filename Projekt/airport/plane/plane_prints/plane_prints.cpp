@@ -3,11 +3,23 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 #include "ftxui/component/screen_interactive.hpp"
+#include "../../functions/info_print_functions.h"
+#include "../../user/user_functions/user_settings/user_payment_functions.h"
 
 
-bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection) {
+void processSeatSelectionAndPurchase(
+        std::vector<int> seatsTaken,
+        FlightConnection& flightConnection,
+        FlightConnection& foundConnection,
+        User& user) {
     using namespace ftxui;
-    const std::string planeId = "WOLFIE PLANE #" + flightConnection.getIdentifier();
+    std::string planeId = "WOLFIE PLANE #";
+    std::string flight_identifier = foundConnection.getIdentifier();
+    for (char c : flight_identifier) {
+        if (c != '-') {
+            planeId += std::to_string(static_cast<int>(c));
+        }
+    }
 
     auto seatStyle = size(WIDTH, EQUAL, 10);
 
@@ -94,10 +106,21 @@ bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection) 
     Render(userScreen, container);
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
+    std::string ticketAmountInput;
     int ticketAmount = 0;
-    while (ticketAmount < 1 || ticketAmount > 4) {
-        std::cout << "Podaj liczbę biletów do kupienia (od 1 do 4): ";
-        std::cin >> ticketAmount;
+    while (true) {
+        std::cout << "Podaj liczbę biletów do kupienia (od 1 do 4) lub 'back' aby przerwać: ";
+        std::cin >> ticketAmountInput;
+
+        if (ticketAmountInput == "back") {
+            break;
+        }
+
+        ticketAmount = std::stoi(ticketAmountInput);
+
+        if (ticketAmount >= 1 && ticketAmount <= 4) {
+            break;
+        }
     }
 
     std::vector<int> selectedSeats;
@@ -145,7 +168,8 @@ bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection) 
                                                    vbox(document) | hcenter,
                                                    separator(),
                                                    text(" ") | bold | hcenter,
-                                                   text("Czy potwierdzasz wybrane miejsca? Niepotwierdzenie wróci cię do wyboru biletów. (tak/nie)") | bold | hcenter,
+                                                   text("Czy potwierdzasz wybrane miejsca? (tak)") | bold | hcenter,
+                                                   text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
                                            }) | style;
 
     auto userScreenWithSelectedSeats = Screen::Create(Dimension::Fit(containerWithSelectedSeats), Dimension::Fit(containerWithSelectedSeats));
@@ -155,12 +179,21 @@ bool testPrint(std::vector<int> seatsTaken, FlightConnection& flightConnection) 
     std::string confirmChoice;
     std::cin >> confirmChoice;
 
-    if (confirmChoice == "nie") {
-        testPrint(seatsTaken, flightConnection);
+    if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
+        errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+        return;
     }
 
-    // zapisanie wybranych miejsc do bazy danych
-    return true;
+    std::string titleMessage = "Potwierdzenie zakupu biletów";
+    int price = foundConnection.getPrice() * user.discount * ticketAmount;
+    bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, price);
+
+    if (!paymentSuccess) {
+        errorFunction("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
+        return;
+    }
+
+    flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
 
 
 }

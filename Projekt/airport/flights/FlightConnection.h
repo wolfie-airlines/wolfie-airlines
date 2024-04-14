@@ -44,5 +44,5 @@ FlightConnection(
     std::vector<FlightConnection> findConnectionsByDeparture(const std::string &departureCity);
     std::vector<FlightConnection> findConnectionsByDestination(const std::string &destinationCity);
     std::vector<int> getSeatsTaken(const std::string &flight_identifier);
-    void updateSeatsTaken(const std::string &flight_identifier, const std::vector<int> &seatsTaken);
+    void updateSeatsTaken(const std::string& flight_identifier, const std::vector<int> &seatsTaken);
 };

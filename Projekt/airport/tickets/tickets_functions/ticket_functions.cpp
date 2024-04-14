@@ -9,15 +9,15 @@ void handleSingleTicket(FlightConnection& flightConnection, User& user) {
     std::cout << "Podaj identyfikator lotu: ";
     std::cin >> flightId;
 
-    FlightConnection connection = flightConnection.findConnectionById(flightId);
+    FlightConnection foundConnection = flightConnection.findConnectionById(flightId);
 
 
-    if (connection.getIdentifier() != flightId) {
+    if (foundConnection.getIdentifier() != flightId) {
         errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
         return;
     }
 
-    CreateFoundFlightScreen(connection, user);
+    CreateFoundFlightScreen(foundConnection, user);
     std::cout << "O ten lot chodziło?" << std::endl;
     std::string answer;
     std::cin >> answer;
@@ -53,12 +53,7 @@ void handleSingleTicket(FlightConnection& flightConnection, User& user) {
 //    }
 
     std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flightId);
-    bool valid = testPrint(seatsTaken, connection);
-    if(valid) {
-        // musi zwracac pare bool, vector?
-        //flightConnection.updateSeatsTaken(flightConnection.getIdentifier(), selectedSeats);
-    }
-
+    processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
 }
 
 void handleBuyTicket(int choice, FlightConnection& flightConnection, User& user) {

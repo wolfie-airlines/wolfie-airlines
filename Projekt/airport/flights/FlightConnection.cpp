@@ -1,6 +1,7 @@
 #include "FlightConnection.h"
 #include "bsoncxx/json.hpp"
 #include "mongocxx/v_noabi/mongocxx/client.hpp"
+#include "../functions/info_print_functions.h"
 #include <future>
 
 FlightConnection::FlightConnection(
@@ -174,7 +175,7 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDestination(con
     return connections;
 }
 
-std::vector<int> FlightConnection::getSeatsTaken(const std::string &flight_identifier) {
+std::vector<int> FlightConnection::getSeatsTaken(const std::string& flight_identifier) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("identifier", flight_identifier)
     );
@@ -194,7 +195,7 @@ std::vector<int> FlightConnection::getSeatsTaken(const std::string &flight_ident
     return seatsTaken;
 }
 
-void FlightConnection::updateSeatsTaken(const std::string &flight_identifier, const std::vector<int> &seatsTaken) {
+void FlightConnection::updateSeatsTaken(const std::string& flight_identifier, const std::vector<int> &seatsTaken) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("identifier", flight_identifier)
     );
@@ -211,6 +212,10 @@ void FlightConnection::updateSeatsTaken(const std::string &flight_identifier, co
     }
 
     for (auto&& seat : seatsTaken) {
+        if (std::find(oldSeatsTaken.begin(), oldSeatsTaken.end(), seat) != oldSeatsTaken.end()) {
+            errorFunction("Miejsce " + std::to_string(seat) + " jest już zajęte.", "Wybierz inne miejsce.");
+            return;
+        }
         oldSeatsTaken.push_back(seat);
     }
 
@@ -227,4 +232,6 @@ void FlightConnection::updateSeatsTaken(const std::string &flight_identifier, co
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view, update_view);
+
+    validFunction("Bilet został zakupiony pomyślnie.", "Dziękujemy za zakup biletu. Możesz zobaczyć go w zakładce 'Moje bilety'.");
 }
