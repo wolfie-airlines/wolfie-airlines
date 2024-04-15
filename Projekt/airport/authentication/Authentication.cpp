@@ -69,7 +69,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto email = (std::string) userView["email"].get_string().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
-        auto moneySpent = userView["moneySpent"].get_int32().value;
+        auto moneySpent = userView["moneySpent"].get_double().value;
         auto moneySaved = userView["moneySaved"].get_int32().value;
         auto ticketBought = userView["ticketBought"].get_int32().value;
         auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
@@ -87,7 +87,12 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         user.moneySaved = moneySaved;
         user.ticketBought = ticketBought;
         user.registrationDate = registrationDate;
-        user.userFlights = userFlightsDocument;
+        std::vector<bsoncxx::document::value> userFlightsVector;
+        bsoncxx::array::view userFlightsArray = userFlightsDocument;
+        for (auto&& userFlight : userFlightsArray) {
+            userFlightsVector.push_back(static_cast<bsoncxx::document::value>(userFlight.get_document().value));
+        }
+        user.userFlights = userFlightsVector;
 
         promise.set_value(true); // Ustawienie wartości zwracanej na true
         validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
