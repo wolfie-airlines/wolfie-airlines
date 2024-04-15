@@ -77,6 +77,8 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
         std::string premiumCard = user.premiumCard;
         double userDiscount = user.discount;
 
+
+
         double discount;
         if(premiumCard == "niebieska") {
             discount = 0.95;
@@ -89,8 +91,9 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
         }
 
         for (int i = startIndex; i < endIndex; i++) {
-            document.push_back(ftxui::hbox({
+                    document.push_back(ftxui::hbox({
                                                    make_box("ID LOTU", 25, 5, connections[i].getIdentifier()),
+                                                   make_box("MIEJSCA", 25, 5, std::to_string(connections[i].getAvailableSeats())),
                                                    make_box("CZAS WYLOTU", 50, 5, connections[i].getDepartureTime()),
                                                    make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
                                                    make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
@@ -172,6 +175,7 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
             ftxui::vbox({
                 ftxui::hbox({
                     make_box("ID LOTU", 25, 5, connection.getIdentifier()),
+                    make_box("MIEJSCA", 25, 5, std::to_string(connection.getAvailableSeats())),
                     make_box("CZAS WYLOTU", 50, 5, connection.getDepartureTime()),
                     make_box("MIEJSCE WYLOTU", 50, 5, connection.getDepartureCity()),
                     make_box("MIEJSCE PRZYLOTU", 50, 5, connection.getDestinationCity()),
