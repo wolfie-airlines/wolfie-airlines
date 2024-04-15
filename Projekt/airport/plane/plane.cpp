@@ -219,7 +219,6 @@ void processSeatSelectionAndPurchase(
     }
 
     if(user.discount != 1) {
-        //1st parameter - normal price, 2nd price with discount
         user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
     }
 
