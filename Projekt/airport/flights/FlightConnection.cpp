@@ -53,7 +53,7 @@ std::vector<FlightConnection> FlightConnection::findAllConnections() {
             auto destCity = (std::string) view["destinationCity"].get_string().value;
             auto depTime = (std::string) view["departureTime"].get_string().value;
             auto arrTime = (std::string) view["arrivalTime"].get_string().value;
-            double flightPrice = view["price"].get_double().value;
+            double flightPrice = view["price"].get_int32().value;
             connections.emplace_back(flightId,depCity, destCity, depTime, arrTime, flightPrice);
         }
     return connections;
@@ -168,7 +168,7 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDestination(con
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
-        double flightPrice = view["price"].get_double().value;
+        double flightPrice = view["price"].get_int32().value;
         connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, flightPrice);
     }
 
