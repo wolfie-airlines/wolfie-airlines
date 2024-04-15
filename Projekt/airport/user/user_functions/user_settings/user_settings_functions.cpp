@@ -1,7 +1,7 @@
 #include "user_settings_functions.h"
 #include "../../../functions/info_print_functions.h"
 #include "../user_prints/user_print_functions.h"
-#include "user_payment_functions.h"
+#include "../user_payments/user_payment_functions.h"
 #include "../../professions/user_profession_functions.h"
 
 void handleSettingsOption(User& user) {

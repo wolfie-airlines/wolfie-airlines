@@ -18,15 +18,15 @@ add_executable(airport main.cpp
         flights/flights_functions/flight_functions.cpp
         flights/flights_functions/flight_prints/flight_print_functions.h
         flights/flights_functions/flight_prints/flight_print_functions.cpp
-        tickets/tickets_functions/tickets_prints/tickets_print_functions.cpp
+        tickets/tickets_prints/tickets_print_functions.cpp
         user/user_functions/user_prints/user_print_functions.h
         user/user_functions/user_prints/user_print_functions.cpp
-        tickets/tickets_functions/ticket_functions.h
-        tickets/tickets_functions/ticket_functions.cpp
+        tickets/tickets.h
+        tickets/tickets.cpp
         user/user_functions/user_settings/user_settings_functions.h
         user/user_functions/user_settings/user_settings_functions.cpp
-        user/user_functions/user_settings/user_payment_functions.cpp
-        user/user_functions/user_settings/user_payment_functions.h
+        user/user_functions/user_payments/user_payment_functions.cpp
+        user/user_functions/user_payments/user_payment_functions.h
         user/professions/user_profession_functions.h
         user/professions/user_profession_functions.cpp
         user/professions/user_profession_functions.h
@@ -48,8 +48,8 @@ add_executable(airport main.cpp
         user/discounts/discounts_prints/discounts_prints.cpp
         user/discounts/discounts.h
         user/discounts/discounts.cpp
-        plane/plane_prints/plane_prints.cpp
-        plane/plane_prints/plane_prints.h
+        plane/plane.cpp
+        plane/plane.h
 )
 
 include(FetchContent)

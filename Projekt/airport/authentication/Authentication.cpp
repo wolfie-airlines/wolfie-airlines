@@ -27,6 +27,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
     document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
+    document.append(bsoncxx::builder::basic::kvp("moneySaved", 0.00));
     document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
     document.append(bsoncxx::builder::basic::kvp("discountType", "brak"));
     document.append(bsoncxx::builder::basic::kvp("discount", 1.00));
@@ -68,7 +69,8 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto email = (std::string) userView["email"].get_string().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
-        auto moneySpent = userView["moneySpent"].get_double().value;
+        auto moneySpent = userView["moneySpent"].get_int32().value;
+        auto moneySaved = userView["moneySaved"].get_int32().value;
         auto ticketBought = userView["ticketBought"].get_int32().value;
         auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
         auto discountType = (std::string) userView["discountType"].get_string().value;
@@ -82,6 +84,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         user.premiumCard = premiumCard;
         user.paymentMethod = paymentMethod;
         user.moneySpent = moneySpent;
+        user.moneySaved = moneySaved;
         user.ticketBought = ticketBought;
         user.registrationDate = registrationDate;
         user.userFlights = userFlightsDocument;

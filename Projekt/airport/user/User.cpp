@@ -4,13 +4,13 @@
 
 User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
            std::string paymentMethod, mongocxx::client &client, std::string  profession,
-           std::string registrationDate, double moneySpent, int ticketBought,
+           std::string registrationDate, double moneySpent, double moneySaved, int ticketBought,
            bsoncxx::array::view userFlights)
         : username(std::move(username)), email(std::move(email)),
         discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)),
         paymentMethod(std::move(paymentMethod)), _client(client),
         profession(std::move(profession)), registrationDate(std::move(registrationDate)),
-        moneySpent(moneySpent), ticketBought(ticketBought),
+        moneySpent(moneySpent), moneySaved(moneySaved), ticketBought(ticketBought),
         userFlights(userFlights)  {}
 
 
@@ -213,4 +213,30 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
     } else {
         validFunction("Bilety zostały pomyślnie zakupione.", "Możesz zobaczyć je w zakładce 'Moje bilety'.");
     }
+}
+
+void User::updateMoneySaved(double normPrice, double discPrice) {
+    double saved = normPrice - discPrice;
+    moneySaved += saved;
+
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", email),
+            bsoncxx::builder::basic::kvp("password", password)
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    if (cursor.begin() == cursor.end()) {
+        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+        return;
+    }
+
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("moneySaved", moneySaved += saved)
+            ))
+    );
+
+    bsoncxx::document::view update_view = update_builder.view();
+    _collection.update_one(filter_view, update_view);
 }

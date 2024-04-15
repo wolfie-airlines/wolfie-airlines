@@ -127,6 +127,10 @@ std::string CreateProfileScreen(User user) {
 
     std::string discount = user.recognizeDiscount();
 
+    std::ostringstream oss2;
+    oss2 << std::fixed << std::setprecision(2) << user.moneySaved;
+    std::string moneySaved = oss2.str();
+
     auto summary = [&] {
         auto content = ftxui::vbox({
                                            ftxui::hbox({
@@ -152,6 +156,11 @@ std::string CreateProfileScreen(User user) {
                                                                 (discount == "brak") ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
                                                                 ftxui::text(discount) | ftxui::color(ftxui::Color::SkyBlue2)
                                                          }),
+                                           ftxui::hbox({
+                                                               ftxui::text("Pieniądze zaoszczędzone dzięki zniżce: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               (user.moneySaved == 0) ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
+                                                               ftxui::text(moneySaved + "zł") | ftxui::color(ftxui::Color::Gold1)
+                                                       }),
                                            ftxui::hbox({
                                                                ftxui::text("Data utworzenia konta: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                ftxui::text(user.registrationDate) | ftxui::color(ftxui::Color::SteelBlue)

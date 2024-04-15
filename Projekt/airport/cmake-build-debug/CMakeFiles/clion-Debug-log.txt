@@ -24,12 +24,6 @@ mongo-cxx-driver provides CMake targets:
 -- │ FTXUI_DEV_WARNINGS       : OFF
 -- │ FTXUI_CLANG_TIDY         : OFF
 -- └─────────────────────────────────────
--- Configuring done (4.4s)
+-- Configuring done (4.2s)
 -- Generating done (0.1s)
-CMake Warning:
-  Manually-specified variables were not used by the project:
-
-    CMAKE_TOOLCHAIN_FILE
-
-
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug

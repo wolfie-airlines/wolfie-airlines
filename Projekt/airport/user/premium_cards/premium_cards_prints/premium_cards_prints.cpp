@@ -2,7 +2,7 @@
 #include "premium_cards_prints.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
-#include "../../user_functions/user_settings/user_payment_functions.h"
+#include "../../user_functions/user_payments/user_payment_functions.h"
 
 std::string displayPremiumCardInfo() {
     auto summary = [&] {
