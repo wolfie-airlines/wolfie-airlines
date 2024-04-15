@@ -34,7 +34,8 @@ void User::setPremiumCard(User& user, const std::string& card) {
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
                     bsoncxx::builder::basic::kvp("premiumCard", card),
-                    bsoncxx::builder::basic::kvp("discountType", "premium")
+                    bsoncxx::builder::basic::kvp("discountType", "premium"),
+                    bsoncxx::builder::basic::kvp("discount", getCardDiscount(card))
             ))
     );
 
