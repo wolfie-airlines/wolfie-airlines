@@ -6,7 +6,7 @@ double User::getDiscount() const {
     return discount;
 }
 
-std::string User::recognizeDiscount() {
+std::string User::recognizeDiscount() const {
     double disc = getDiscount();
     if (disc == 0.05) {
         return "Weteran wojenny";

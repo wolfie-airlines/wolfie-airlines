@@ -51,7 +51,7 @@ public:
     void changePassword(const std::string& password);
     void setDiscount(double discount, const std::string& discountType);
     [[nodiscard]] double getDiscount() const;
-    std::string recognizeDiscount();
+    std::string recognizeDiscount() const;
     void addTicketToUser(const std::vector<int>& seats, const FlightConnection& flightConnection);
     void updateMoneySaved(double normalPrice, double discountPrice);
 

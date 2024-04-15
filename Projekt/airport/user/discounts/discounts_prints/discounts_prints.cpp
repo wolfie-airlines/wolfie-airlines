@@ -86,7 +86,7 @@ std::string displayDiscountInfo() {
     return choice;
 }
 
-bool validDiscount(std::string discountChoice) {
+bool validDiscount(const std::string& discountChoice) {
     // 1 - Weteran wojenny
     // 2 - Karta inwalidzka
     // 3 - Emeryt
