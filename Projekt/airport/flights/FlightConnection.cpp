@@ -3,15 +3,17 @@
 #include "mongocxx/v_noabi/mongocxx/client.hpp"
 #include "../functions/info_print_functions.h"
 #include <future>
+#include <utility>
 
 FlightConnection::FlightConnection(
-        const std::string& flight_id,
-        const std::string& departureCity,
-        const std::string& destinationCity,
-        const std::string& departureTime,
-        const std::string& arrivalTime,
+        std::string  flight_id,
+        std::string  departureCity,
+        std::string  destinationCity,
+        std::string  departureTime,
+        std::string  arrivalTime,
+        int availableSeats,
         double price
-) : flight_id(flight_id), departureCity(departureCity), destinationCity(destinationCity), departureTime(departureTime), arrivalTime(arrivalTime), price(price)
+) : flight_id(std::move(flight_id)), departureCity(std::move(departureCity)), destinationCity(std::move(destinationCity)), departureTime(std::move(departureTime)), arrivalTime(std::move(arrivalTime)), availableSeats(availableSeats), price(price)
 {}
 
 std::string FlightConnection::getDepartureCity() const {
@@ -38,6 +40,10 @@ double FlightConnection::getPrice() const {
     return price;
 }
 
+int FlightConnection::getAvailableSeats() const {
+    return availableSeats;
+}
+
 std::vector<FlightConnection> FlightConnection::findAllConnections() {
     std::vector<FlightConnection> connections;
 
@@ -53,8 +59,9 @@ std::vector<FlightConnection> FlightConnection::findAllConnections() {
             auto destCity = (std::string) view["destinationCity"].get_string().value;
             auto depTime = (std::string) view["departureTime"].get_string().value;
             auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+            auto avSeats = view["availableSeats"].get_int32().value;
             double flightPrice = view["price"].get_int32().value;
-            connections.emplace_back(flightId,depCity, destCity, depTime, arrTime, flightPrice);
+            connections.emplace_back(flightId,depCity, destCity, depTime, arrTime, avSeats, flightPrice);
         }
     return connections;
 }
@@ -75,10 +82,11 @@ FlightConnection FlightConnection::findConnection(const std::string& departCity,
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+        auto avSeats = view["availableSeats"].get_int32().value;
         double flightPrice = view["price"].get_double().value;
-        return FlightConnection{flightId, depCity, destCity, depTime, arrTime, flightPrice};
+        return FlightConnection{flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice};
     }
-    return FlightConnection{"", "", "", "", "", 0};
+    return FlightConnection{"", "", "", "", "",0, 0};
 }
 
 std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double &minPrice, double &maxPrice) {
@@ -100,8 +108,9 @@ std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double &mi
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+        auto avSeats = view["availableSeats"].get_int32().value;
         double flightPrice = view["price"].get_double().value;
-        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, flightPrice);
+        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice);
     }
 
     return connections;
@@ -122,10 +131,11 @@ FlightConnection FlightConnection::findConnectionById(const std::string& id) {
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+        auto avSeats = view["availableSeats"].get_int32().value;
         double flightPrice = view["price"].get_int32().value;
-        return FlightConnection{flightId, depCity, destCity, depTime, arrTime, flightPrice};
+        return FlightConnection{flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice};
     }
-    return FlightConnection{"", "", "", "", "", 0};
+    return FlightConnection{"", "", "", "", "",0, 0};
 }
 
 
@@ -145,8 +155,9 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDeparture(const
         auto destCity = (std::string) view["destinationCity"].get_string().value;
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
+        auto avSeats = view["availableSeats"].get_int32().value;
         double flightPrice = view["price"].get_double().value;
-        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, flightPrice);
+        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice);
     }
 
     return connections;
@@ -169,7 +180,8 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDestination(con
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
         double flightPrice = view["price"].get_int32().value;
-        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, flightPrice);
+        auto avSeats = view["availableSeats"].get_int32().value;
+        connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice);
     }
 
     return connections;
@@ -203,9 +215,11 @@ void FlightConnection::updateSeatsTaken(const std::string& flight_identifier, co
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
     std::vector<int> oldSeatsTaken;
+    int avSeats{};
     for (auto&& doc : cursor) {
         bsoncxx::document::view view = doc;
         auto seats = view["seatsTaken"].get_array().value;
+        avSeats = view["availableSeats"].get_int32().value;
         for (auto&& seat : seats) {
             oldSeatsTaken.push_back(seat.get_int32().value);
         }
@@ -227,7 +241,7 @@ void FlightConnection::updateSeatsTaken(const std::string& flight_identifier, co
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
                     bsoncxx::builder::basic::kvp("seatsTaken", array_builder),
-                    bsoncxx::builder::basic::kvp("availableSeats", -1)
+                    bsoncxx::builder::basic::kvp("availableSeats", avSeats - (int) seatsTaken.size())
             ))
     );
 
