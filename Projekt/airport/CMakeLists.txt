@@ -21,8 +21,6 @@ add_executable(airport main.cpp
         tickets/tickets_functions/tickets_prints/tickets_print_functions.cpp
         user/user_functions/user_prints/user_print_functions.h
         user/user_functions/user_prints/user_print_functions.cpp
-        tickets/Ticket.h
-        tickets/Ticket.cpp
         tickets/tickets_functions/ticket_functions.h
         tickets/tickets_functions/ticket_functions.cpp
         user/user_functions/user_settings/user_settings_functions.h

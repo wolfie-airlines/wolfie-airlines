@@ -5,7 +5,7 @@
 User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
            std::string paymentMethod, mongocxx::client &client, std::string  profession,
            std::string registrationDate, double moneySpent, int ticketBought,
-           bsoncxx::document::view userFlights)
+           bsoncxx::array::view userFlights)
         : username(std::move(username)), email(std::move(email)),
         discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)),
         paymentMethod(std::move(paymentMethod)), _client(client),
@@ -150,4 +150,67 @@ void User::changePassword(const std::string &newPassword) {
 
     password = newPassword;
     validFunction("Hasło zostało pomyślnie zmienione.", "");
+}
+
+
+void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection& flightConnection) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", email),
+            bsoncxx::builder::basic::kvp("password", password)
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    if (cursor.begin() == cursor.end()) {
+        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+        return;
+    }
+
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("ticketBought", ticketBought + (int) seats.size())
+            ))
+    );
+
+    ticketBought += (int) seats.size();
+
+    bsoncxx::document::view update_view = update_builder.view();
+    _collection.update_one(filter_view, update_view);
+
+    bsoncxx::builder::basic::array seats_array;
+    for (const auto& seat : seats) {
+        seats_array.append(seat);
+    }
+
+    std::string flightId = flightConnection.getIdentifier();
+    std::string departure = flightConnection.getDepartureCity();
+    std::string destination = flightConnection.getDestinationCity();
+    std::string departureTime = flightConnection.getDepartureTime();
+    std::string arrivalTime = flightConnection.getArrivalTime();
+    auto flightPrice = flightConnection.getPrice();
+
+    // zapisywanie LOTU
+    bsoncxx::document::value ticket_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("flightId", flightId),
+            bsoncxx::builder::basic::kvp("departure", departure),
+            bsoncxx::builder::basic::kvp("destination", destination),
+            bsoncxx::builder::basic::kvp("departureTime", departureTime),
+            bsoncxx::builder::basic::kvp("arrivalTime", arrivalTime),
+            bsoncxx::builder::basic::kvp("price", flightPrice),
+            bsoncxx::builder::basic::kvp("seats", seats_array)
+    );
+
+
+    bsoncxx::document::view ticket_view = ticket_builder.view();
+    _collection.update_one(filter_view, bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$push", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("userFlights", ticket_view)
+            ))
+    ));
+
+    if(seats.size() == 1) {
+        validFunction("Bilet został pomyślnie zakupiony.", "Możesz zobaczyć go w zakładce 'Moje bilety'.");
+    } else {
+        validFunction("Bilety zostały pomyślnie zakupione.", "Możesz zobaczyć je w zakładce 'Moje bilety'.");
+    }
 }

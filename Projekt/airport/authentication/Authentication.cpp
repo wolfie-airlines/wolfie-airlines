@@ -29,7 +29,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
     document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
     document.append(bsoncxx::builder::basic::kvp("discountType", "brak"));
-    document.append(bsoncxx::builder::basic::kvp("discount", 0.00));
+    document.append(bsoncxx::builder::basic::kvp("discount", 1.00));
 
 
     // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
@@ -48,14 +48,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
 
     document.append(bsoncxx::builder::basic::kvp("paymentMethod", paymentMethodDocument));
 
-    auto userFlights = bsoncxx::builder::basic::document{};
-    userFlights.append(bsoncxx::builder::basic::kvp("identifier", bsoncxx::types::b_null{}));
-    userFlights.append(bsoncxx::builder::basic::kvp("departureCity", bsoncxx::types::b_null{}));
-    userFlights.append(bsoncxx::builder::basic::kvp("destinationCity", bsoncxx::types::b_null{}));
-    userFlights.append(bsoncxx::builder::basic::kvp("departureTime", bsoncxx::types::b_null{}));
-    userFlights.append(bsoncxx::builder::basic::kvp("arrivalTime", bsoncxx::types::b_null{}));
-    userFlights.append(bsoncxx::builder::basic::kvp("price", bsoncxx::types::b_null{}));
-
+    auto userFlights = bsoncxx::builder::basic::array{};
     document.append(bsoncxx::builder::basic::kvp("userFlights", userFlights));
 
     auto result = _collection.insert_one(document.view());
@@ -71,7 +64,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
     if (result) {
         bsoncxx::document::view userView = result->view();
         auto paymentMethodDocument = userView["paymentMethod"].get_document().value;
-        auto userFlightsDocument = userView["userFlights"].get_document().value;
+        auto userFlightsDocument = userView["userFlights"].get_array().value;
         auto email = (std::string) userView["email"].get_string().value;
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;

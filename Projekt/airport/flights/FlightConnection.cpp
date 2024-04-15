@@ -226,7 +226,8 @@ void FlightConnection::updateSeatsTaken(const std::string& flight_identifier, co
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("seatsTaken", array_builder)
+                    bsoncxx::builder::basic::kvp("seatsTaken", array_builder),
+                    bsoncxx::builder::basic::kvp("availableSeats", -1)
             ))
     );
 

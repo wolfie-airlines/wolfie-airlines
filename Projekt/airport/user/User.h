@@ -3,6 +3,7 @@
 
 #include <string>
 #include "mongocxx/client.hpp"
+#include "../flights/FlightConnection.h"
 
 class User {
 private:
@@ -15,12 +16,12 @@ public:
     _client(client), _db(client["projekt"]), _collection(_db["users"]),
     username("gosc"), email("brak"), discount(0.0), discountType("brak"), premiumCard("brak"),
     paymentMethod("blik"), profession("brak"), registrationDate("brak"),
-    moneySpent(0), ticketBought(0), userFlights(bsoncxx::document::view{}) {}
+    moneySpent(0), ticketBought(0), userFlights(bsoncxx::array::view{}) {}
     User(std::string username, std::string email, double discount,
          std::string discountType, std::string premiumCard,
          std::string paymentMethod, mongocxx::client &client,
          std::string  profession, std::string registrationDate,
-         double moneySpent, int ticketBought, bsoncxx::document::view userFlights);
+         double moneySpent, int ticketBought, bsoncxx::array::view userFlights);
 
     // Obiekt użytkownika (dane)
     std::string username;
@@ -33,7 +34,7 @@ public:
     std::string registrationDate;
     double moneySpent;
     int ticketBought;
-    bsoncxx::document::view userFlights;
+    bsoncxx::array::view userFlights;
 
     // Funkcje użytkownika (metody)
     mongocxx::collection& getCollection();
@@ -49,6 +50,7 @@ public:
     void setDiscount(double discount, const std::string& discountType);
     [[nodiscard]] double getDiscount() const;
     std::string recognizeDiscount();
+    void addTicketToUser(const std::vector<int>& seats, const FlightConnection& flightConnection);
 
 };
 
