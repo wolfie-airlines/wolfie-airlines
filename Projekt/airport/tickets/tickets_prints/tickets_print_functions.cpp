@@ -21,3 +21,27 @@ int CreateTicketMenu() {
     screen.Loop(menu);
     return selected;
 }
+
+bool validChoice(const std::string& choiceTitle, const std::string& choiceText) {
+    auto createScreen = [&] {
+        auto summary = ftxui::vbox({
+                                           ftxui::hbox({ftxui::paragraphAlignCenter(choiceTitle)}) | color(ftxui::Color::GrayDark),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::text(choiceText) | ftxui::bold | color(ftxui::Color::Green)}),
+                                   });
+        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+        return std::make_shared<ftxui::Element>(document);
+    };
+
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
+    ftxui::Render(userScreen, *createScreen());
+    std::cout << userScreen.ToString() << '\0' << std::endl;
+
+    std::string answer;
+    std::cin >> answer;
+
+    if(answer == "tak" || answer == "Tak" || answer == "TAK") return true;
+    else return false;
+}
