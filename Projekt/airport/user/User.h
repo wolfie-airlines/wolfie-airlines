@@ -16,13 +16,13 @@ public:
     _client(client), _db(client["projekt"]), _collection(_db["users"]),
     username("gosc"), email("brak"), discount(0.0), discountType("brak"), premiumCard("brak"),
     paymentMethod("blik"), profession("brak"), registrationDate("brak"),
-    moneySpent(0), moneySaved(0), ticketBought(0), userFlights(bsoncxx::array::view{}) {}
+    moneySpent(0), moneySaved(0), ticketBought(0), userFlights(std::vector<bsoncxx::document::value>{}) {}
     User(std::string username, std::string email, double discount,
          std::string discountType, std::string premiumCard,
          std::string paymentMethod, mongocxx::client &client,
          std::string  profession, std::string registrationDate,
          double moneySpent, double moneySaved,
-         int ticketBought, bsoncxx::array::view userFlights);
+         int ticketBought, std::vector<bsoncxx::document::value> userFlights);
 
     // Obiekt użytkownika (dane)
     std::string username;
@@ -36,7 +36,7 @@ public:
     double moneySpent;
     double moneySaved;
     int ticketBought;
-    bsoncxx::array::view userFlights;
+    std::vector<bsoncxx::document::value> userFlights;
 
     // Funkcje użytkownika (metody)
     mongocxx::collection& getCollection();
