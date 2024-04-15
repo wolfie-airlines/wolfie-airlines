@@ -70,7 +70,7 @@ void Authentication::authenticateUser(const std::string& username, const std::st
         auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
         auto paymentMethod = paymentMethodDocument["type"].get_string().value;
         auto moneySpent = userView["moneySpent"].get_double().value;
-        auto moneySaved = userView["moneySaved"].get_int32().value;
+        auto moneySaved = userView["moneySaved"].get_double().value;
         auto ticketBought = userView["ticketBought"].get_int32().value;
         auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
         auto discountType = (std::string) userView["discountType"].get_string().value;
