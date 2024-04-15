@@ -7,4 +7,8 @@
 void handleTicketChoice(FlightConnection& connection, User& user);
 void handleBuyTicket(int choice, FlightConnection& flightConnection, User& user);
 void handleSingleTicket(FlightConnection& flightConnection, User& user);
+void processPurchase(
+        FlightConnection& flightConnection,
+        FlightConnection& foundConnection,
+        User& user);
 #endif //AIRPORT_TICKETS_H
