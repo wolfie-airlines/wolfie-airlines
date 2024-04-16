@@ -1,5 +1,4 @@
 #include "Authentication.h"
-#include "../user/User.h"
 #include "../functions/info_print_functions.h"
 #include <future>
 #include <cryptopp/sha.h>

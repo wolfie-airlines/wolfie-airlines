@@ -1,17 +1,20 @@
 #include "User.h"
 #include "../functions/info_print_functions.h"
+#include "../env/EnvParser.h"
+#include "../functions/helpers.h"
+#include "../admin/Admin.h"
 #include <utility>
 
 User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
            std::string paymentMethod, mongocxx::client &client, std::string  profession,
            std::string registrationDate, double moneySpent, double moneySaved, int ticketBought,
-           std::vector<bsoncxx::document::value> userFlights)
+           std::vector<bsoncxx::document::value> userFlights, bool isAdmin)
         : username(std::move(username)), email(std::move(email)),
         discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)),
         paymentMethod(std::move(paymentMethod)), _client(client),
         profession(std::move(profession)), registrationDate(std::move(registrationDate)),
         moneySpent(moneySpent), moneySaved(moneySaved), ticketBought(ticketBought),
-        userFlights(std::move(userFlights))  {}
+        userFlights(std::move(userFlights)), isAdmin(isAdmin)  {}
 
 
 mongocxx::collection& User::getCollection() {
@@ -260,4 +263,34 @@ void User::updateMoneySaved(double normPrice, double discPrice) {
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view, update_view);
+}
+
+void User::loginAsAdmin() {
+    if(isAdmin) {
+        errorFunction("Jesteś już zalogowany jako administrator.", "");
+        return;
+    }
+    EnvParser envParser;
+    envParser.parseEnvFile();
+    std::string adminPassword = envParser.getValue("ADMIN_PASSWORD");
+    std::string adminPasswordHashed = hashString(adminPassword);
+
+    std::cout << "Podaj hasło administratora: ";
+    std::string providedPassword;
+    std::cin >> providedPassword;
+
+    std::string providedPasswordHashed = hashString(providedPassword);
+
+    if(providedPasswordHashed == adminPasswordHashed) {
+        validFunction("Zalogowano jako administrator.", "");
+        Admin admin = Admin(username, email, discount, discountType, premiumCard, paymentMethod, _client, profession, registrationDate, moneySpent, moneySaved, ticketBought, userFlights, true, adminPasswordHashed);
+        setIsAdmin(true);
+    } else {
+        errorFunction("Błędne hasło administratora.", "");
+    }
+
+}
+
+bool User::checkIfAdmin() const {
+    return isAdmin;
 }
