@@ -415,6 +415,9 @@ bson-1.0_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/air
 //The directory containing a CMake configuration file for bsoncxx.
 bsoncxx_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/bsoncxx
 
+//The directory containing a CMake configuration file for cryptopp.
+cryptopp_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/cryptopp
+
 //Value Computed by CMake
 ftxui_BINARY_DIR:STATIC=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-build
 

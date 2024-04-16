@@ -6,6 +6,7 @@
 #include "mongocxx/v_noabi/mongocxx/instance.hpp"
 #include "../user/User.h"
 #include <future>
+#include <string>
 
 class Authentication {
 private:
@@ -15,7 +16,7 @@ private:
 
 public:
     Authentication(const std::string& uri_str, const std::string& db_name, const std::string& collection_name);
-
+    static std::string hashPassword(const std::string& password);
     bool registerUser(const std::string& username, const std::string& email, const std::string& password);
     void authenticateUser(const std::string& username, const std::string& password, std::promise<bool>&& promise, User& user);
 };

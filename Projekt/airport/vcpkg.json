@@ -5,5 +5,8 @@
   "dependencies" : [ {
     "name" : "mongo-cxx-driver",
     "version>=" : "3.10.1"
+  }, {
+    "name" : "cryptopp",
+    "version>=" : "8.9.0"
   } ]
 }

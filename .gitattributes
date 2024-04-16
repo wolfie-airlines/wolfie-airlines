@@ -1,0 +1,2 @@
+C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/lib/cryptopp.lib filter=lfs diff=lfs merge=lfs -text
+*.lib filter=lfs diff=lfs merge=lfs -text

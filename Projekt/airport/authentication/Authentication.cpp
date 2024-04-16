@@ -2,11 +2,25 @@
 #include "../user/User.h"
 #include "../functions/info_print_functions.h"
 #include <future>
+#include <cryptopp/sha.h>
+#include <cryptopp/hex.h>
+#include <cryptopp/filters.h>
 
 Authentication::Authentication(const std::string& uri_str, const std::string& db_name, const std::string& collection_name)
         : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
 
+
+std::string Authentication::hashPassword(const std::string& password) {
+    CryptoPP::SHA256 hash;
+    std::string digest;
+
+    CryptoPP::StringSource s(password, true, new CryptoPP::HashFilter(hash, new CryptoPP::HexEncoder(new CryptoPP::StringSink(digest))));
+    return digest;
+}
+
 bool Authentication::registerUser(const std::string& username, const std::string& email, const std::string& password) {
+
+    std::string hashedPassword = hashPassword(password);
 
     auto usernameAlreadyExists = _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
     if (usernameAlreadyExists) {
@@ -23,7 +37,7 @@ bool Authentication::registerUser(const std::string& username, const std::string
     auto document = bsoncxx::builder::basic::document{};
     document.append(bsoncxx::builder::basic::kvp("username", username));
     document.append(bsoncxx::builder::basic::kvp("email", email));
-    document.append(bsoncxx::builder::basic::kvp("password", password));
+    document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
     document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
     document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
     document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
@@ -57,9 +71,10 @@ bool Authentication::registerUser(const std::string& username, const std::string
 }
 
 void Authentication::authenticateUser(const std::string& username, const std::string& password, std::promise<bool>&& promise, User& user) {
+    std::string hashedPassword = hashPassword(password);
     auto document = bsoncxx::builder::basic::document{};
     document.append(bsoncxx::builder::basic::kvp("username", username));
-    document.append(bsoncxx::builder::basic::kvp("password", password));
+    document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
 
     auto result = _collection.find_one(document.view());
     if (result) {

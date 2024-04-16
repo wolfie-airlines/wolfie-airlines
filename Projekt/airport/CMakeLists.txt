@@ -67,8 +67,12 @@ target_link_libraries(airport
         PRIVATE ftxui::component # Not needed for this example.
 )
 
+
 find_package(mongocxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/airport/packages/mongo-cxx-driver_x64-windows")
 find_package(bsoncxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/airport/packages/mongo-cxx-driver_x64-windows")
+
+find_package(cryptopp CONFIG REQUIRED)
+target_link_libraries(airport PRIVATE cryptopp::cryptopp)
 
 find_package(bsoncxx CONFIG REQUIRED)
 target_link_libraries(airport PRIVATE $<IF:$<TARGET_EXISTS:mongo::bsoncxx_static>,mongo::bsoncxx_static,mongo::bsoncxx_shared>)
