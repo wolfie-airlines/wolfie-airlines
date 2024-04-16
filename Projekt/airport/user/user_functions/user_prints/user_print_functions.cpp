@@ -36,10 +36,14 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
+                                           user.checkIfAdmin() ?
+                                           ftxui::hbox({ftxui::paragraphAlignRight("Administrator") | ftxui::bold | ftxui::color(ftxui::Color::Gold1)}) :
+                                           ftxui::hbox({}),
                                            ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"5. Panel administratora   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
@@ -47,6 +51,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")  | ftxui::bold}) | color(ftxui::Color::YellowLight),
                                    });
+
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
 
