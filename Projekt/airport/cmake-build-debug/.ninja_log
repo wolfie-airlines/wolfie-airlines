@@ -278,3 +278,13 @@
 25	3682	7349777366719345	CMakeFiles/airport.dir/flights/flights_functions/flight_prints/flight_print_functions.cpp.obj	600b92bb65c04820
 31	3892	7349777368806882	CMakeFiles/airport.dir/user/user_functions/user_prints/user_print_functions.cpp.obj	5636a2cfe1f99839
 3892	5011	7349777371895788	airport.exe	2abb84b54791780
+24	3841	7349783615376871	CMakeFiles/airport.dir/tickets/tickets.cpp.obj	ffd4d941010ebcad
+3842	5000	7349783618385693	airport.exe	2abb84b54791780
+26	3357	7349787001969620	CMakeFiles/airport.dir/tickets/tickets.cpp.obj	ffd4d941010ebcad
+3358	4403	7349787004630300	airport.exe	2abb84b54791780
+26	3176	7349791823609665	CMakeFiles/airport.dir/tickets/tickets_prints/tickets_print_functions.cpp.obj	295d7d6fee8bb45b
+37	3836	7349791830158784	CMakeFiles/airport.dir/plane/plane.cpp.obj	8f6dff11e8520ec6
+32	3852	7349791830318779	CMakeFiles/airport.dir/tickets/tickets.cpp.obj	ffd4d941010ebcad
+3852	4929	7349791832987778	airport.exe	2abb84b54791780
+26	3491	7349794057877870	CMakeFiles/airport.dir/plane/plane.cpp.obj	8f6dff11e8520ec6
+3492	4565	7349794060606712	airport.exe	2abb84b54791780
