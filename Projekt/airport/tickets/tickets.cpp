@@ -4,6 +4,7 @@
 #include "../plane/plane.h"
 #include "tickets_prints/tickets_print_functions.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
+#include <random>
 
 void processPurchase(
         FlightConnection& flightConnection,
@@ -11,6 +12,7 @@ void processPurchase(
         User& user) {
     using namespace ftxui;
     std::string flight_identifier = foundConnection.getIdentifier();
+    std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flight_identifier);
     int ticketAmount;
     while (true) {
         std::string ticketAmountInput = displayMessageAndCaptureInput(
@@ -36,51 +38,46 @@ void processPurchase(
     }
 
     std::vector<int> selectedSeats;
+    bool hasPrivilege = user.discountType == "ulga";
 
-    for (int i = 0; i < ticketAmount; ++i) {
-
-        std::string rowInput = displayMessageAndCaptureInput(
-                "Zakup biletów",
-                "Podaj rząd dla biletu " + std::to_string(i + 1) + ":"
-        );
-
-        int rowInputNumber;
-
-        try {
-            rowInputNumber = std::stoi(rowInput);
-            if (rowInputNumber < 1 || rowInputNumber > 9) {
-                errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
-                return;
-            }
-        } catch (std::invalid_argument& e) {
-            errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
-            return;
-        }
-
-        std::string seatInput = displayMessageAndCaptureInput(
-                "Zakup biletów",
-                "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":"
-        );
-
+    for (int i = 0; i < ticketAmount; i++) {
         int seat;
-        try {
-            seat = std::stoi(seatInput);
-            if (seat < 1 || seat > 9) {
-                errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
-                return;
+        while (true) {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(1, 81);
+            seat = dis(gen);
+            if (std::find(seatsTaken.begin(), seatsTaken.end(), seat) == seatsTaken.end()) {
+                if (hasPrivilege && (seat == 37 || seat == 45)) {
+                    if (std::count_if(seatsTaken.begin(), seatsTaken.end(), [](int i){return i != 37 && i != 45;}) == 79) {
+                        std::string response = displayWarningAndCaptureInput("Uwaga!", "Jedynymi dostępnymi miejscami są miejsca awaryjne (37 i 45). Czy chcesz kontynuować? (tak/nie)");
+                        if (response == "tak" || response == "TAK" || response == "Tak") {
+                            break;
+                        }
+                    } else {
+                        continue;
+                    }
+                } else {
+                    break;
+                }
             }
-        } catch (std::invalid_argument& e) {
-            errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
-            return;
         }
-
-        int selectedSeatNumber = (rowInputNumber - 1) * 9 + seat;
-
-        selectedSeats.push_back(selectedSeatNumber);
+        selectedSeats.push_back(seat);
     }
 
     std::string confirmChoice;
-    std::cin >> confirmChoice;
+
+    if(ticketAmount == 1) {
+        confirmChoice = displayMessageAndCaptureInput(
+                "Potwierdzenie zakupu biletów",
+                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilet na lot " + foundConnection.getIdentifier() + " (tak/nie)"
+        );
+    } else {
+        confirmChoice = displayMessageAndCaptureInput(
+                "Potwierdzenie zakupu biletów",
+                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilety na lot " + foundConnection.getIdentifier() + " (tak/nie)"
+        );
+    }
 
     if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
         errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
