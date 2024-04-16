@@ -157,7 +157,7 @@ std::string CreateProfileScreen(User user) {
                                                                 ftxui::text(discount) | ftxui::color(ftxui::Color::SkyBlue2)
                                                          }),
                                            ftxui::hbox({
-                                                               ftxui::text("Pieniądze zaoszczędzone dzięki zniżce: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
+                                                               ftxui::text("Pieniądze zaoszczędzone dzięki zniżce / karcie premium: ") | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                                (user.moneySaved == 0) ? ftxui::text("Brak") | ftxui::color(ftxui::Color::GrayDark) :
                                                                ftxui::text(moneySaved + "zł") | ftxui::color(ftxui::Color::Gold1)
                                                        }),
