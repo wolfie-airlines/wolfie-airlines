@@ -5,6 +5,7 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
+#include "../../../functions/info_print_functions.h"
 
 int CreateFlightChoiceScreen() {
     using namespace ftxui;
@@ -127,8 +128,14 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
                 break;
             }
 
-            int inputPage = std::stoi(input);
-            currentPage = std::clamp(inputPage, 1, totalPages);
+            try {
+                int inputPage = std::stoi(input);
+                currentPage = std::clamp(inputPage, 1, totalPages);
+            } catch (std::invalid_argument& e) {
+                errorFunction("Nieprawidłowy wybór.", "Nastąpił powrót do głównego menu.");
+                return;
+            }
+
         } else {
             break;
         }
