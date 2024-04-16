@@ -4,6 +4,7 @@
 #include "ftxui/screen/screen.hpp"
 #include "../functions/info_print_functions.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
+#include "../tickets/tickets_prints/tickets_print_functions.h"
 
 
 void processSeatSelectionAndPurchase(
@@ -105,11 +106,13 @@ void processSeatSelectionAndPurchase(
     Render(userScreen, container);
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
-    std::string ticketAmountInput;
+
     int ticketAmount = 0;
     while (true) {
-        std::cout << "Podaj liczbę biletów do kupienia (od 1 do 4) lub 'back' aby przerwać: ";
-        std::cin >> ticketAmountInput;
+        std::string ticketAmountInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj liczbę biletów (od 1 do 4):"
+        );
 
         if (ticketAmountInput == "back") {
             errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
@@ -131,9 +134,10 @@ void processSeatSelectionAndPurchase(
     std::vector<int> selectedSeats;
 
     for (int i = 0; i < ticketAmount; ++i) {
-        std::string rowInput;
-        std::cout << "Podaj rząd dla biletu " << i + 1 << ": ";
-        std::cin >> rowInput;
+        std::string rowInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj rząd dla biletu " + std::to_string(i + 1) + ":"
+        );
         int rowInputNumber;
         try {
             rowInputNumber = std::stoi(rowInput);
@@ -145,9 +149,10 @@ void processSeatSelectionAndPurchase(
             errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
             return;
         }
-        std::string seatInput;
-        std::cout << "Podaj miejsce dla biletu " << i + 1 << ": ";
-        std::cin >> seatInput;
+        std::string seatInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":"
+        );
         int seat;
         try {
             seat = std::stoi(seatInput);
@@ -193,7 +198,7 @@ void processSeatSelectionAndPurchase(
                                                    separator(),
                                                    vbox(document) | hcenter,
                                                    separator(),
-                                                   text("Czy potwierdzasz wybrane miejsca? (tak)") | bold | hcenter,
+                                                   text("Czy potwierdzasz wybrane miejsca?") | bold | hcenter,
                                                    text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
                                            }) | style;
 
@@ -201,8 +206,10 @@ void processSeatSelectionAndPurchase(
     Render(userScreenWithSelectedSeats, containerWithSelectedSeats);
     std::cout << userScreenWithSelectedSeats.ToString() << '\0' << std::endl;
 
-    std::string confirmChoice;
-    std::cin >> confirmChoice;
+    std::string confirmChoice = displayMessageAndCaptureInput(
+            "Zakup biletów",
+            "Czy potwierdzasz wybrane miejsca? (tak)"
+    );
 
     if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
         errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");

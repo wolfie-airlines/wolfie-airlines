@@ -11,12 +11,12 @@ void processPurchase(
         User& user) {
     using namespace ftxui;
     std::string flight_identifier = foundConnection.getIdentifier();
-    std::string ticketAmountInput;
-    int ticketAmount = 0;
+    int ticketAmount;
     while (true) {
-        //TODO: Zmienić na ftxui
-        std::cout << "Podaj liczbę biletów do kupienia (od 1 do 4) lub 'back' aby przerwać: ";
-        std::cin >> ticketAmountInput;
+        std::string ticketAmountInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj liczbę biletów do kupienia (minimalnie 1 do maksymalnie 4):"
+        );
 
         if (ticketAmountInput == "back") {
             errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
@@ -38,11 +38,14 @@ void processPurchase(
     std::vector<int> selectedSeats;
 
     for (int i = 0; i < ticketAmount; ++i) {
-        std::string rowInput;
-        // TODO: Zmienić na ftxui
-        std::cout << "Podaj rząd dla biletu " << i + 1 << ": ";
-        std::cin >> rowInput;
+
+        std::string rowInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj rząd dla biletu " + std::to_string(i + 1) + ":"
+        );
+
         int rowInputNumber;
+
         try {
             rowInputNumber = std::stoi(rowInput);
             if (rowInputNumber < 1 || rowInputNumber > 9) {
@@ -53,10 +56,12 @@ void processPurchase(
             errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
             return;
         }
-        std::string seatInput;
-        // TODO: Zmienić na ftxui
-        std::cout << "Podaj miejsce dla biletu " << i + 1 << ": ";
-        std::cin >> seatInput;
+
+        std::string seatInput = displayMessageAndCaptureInput(
+                "Zakup biletów",
+                "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":"
+        );
+
         int seat;
         try {
             seat = std::stoi(seatInput);
@@ -101,9 +106,10 @@ void processPurchase(
 
 
 void handleSingleTicket(FlightConnection& flightConnection, User& user) {
-    std::string flightId;
-    std::cout << "Podaj identyfikator lotu: ";
-    std::cin >> flightId;
+    std::string flightId = displayMessageAndCaptureInput(
+            "Zakup biletów",
+            "Podaj identyfikator lotu:"
+    );
 
     FlightConnection foundConnection = flightConnection.findConnectionById(flightId);
 
@@ -121,7 +127,7 @@ void handleSingleTicket(FlightConnection& flightConnection, User& user) {
     }
 
     std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flightId);
-    if(seatsTaken.size() == 0) {
+    if(seatsTaken.size() == 81) {
         errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
         return;
     }
