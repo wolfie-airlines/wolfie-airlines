@@ -16,7 +16,21 @@ User::User(std::string username, std::string email, double discount, std::string
         moneySpent(moneySpent), moneySaved(moneySaved), ticketBought(ticketBought),
         userFlights(std::move(userFlights)), isAdmin(isAdmin)  {}
 
-
+void User::reset() {
+    username = "gosc";
+    email = "brak";
+    discount = 0.0;
+    discountType = "brak";
+    premiumCard = "brak";
+    paymentMethod = "blik";
+    profession = "brak";
+    registrationDate = "brak";
+    moneySpent = 0;
+    moneySaved = 0;
+    ticketBought = 0;
+    userFlights.clear();
+    isAdmin = false;
+}
 mongocxx::collection& User::getCollection() {
     return _collection;
 }

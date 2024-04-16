@@ -32,13 +32,19 @@ std::shared_ptr<ftxui::Element> CreateScreen() {
 
 std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
     auto summary = [&] {
+        std::string usernameAndTitle = user.username;
+        if(user.checkIfAdmin()) {
+            usernameAndTitle += ", Administrator";
+        }
+
+        ftxui::Color usernameColor = ftxui::Color::GrayDark;
+        if(user.checkIfAdmin()) {
+            usernameColor = ftxui::Color::Gold1;
+        }
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
                                            ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::paragraphAlignRight(user.username)}) | color(ftxui::Color::GrayDark),
-                                           user.checkIfAdmin() ?
-                                           ftxui::hbox({ftxui::paragraphAlignRight("Administrator") | ftxui::bold | ftxui::color(ftxui::Color::Gold1)}) :
-                                           ftxui::hbox({}),
+                                           ftxui::hbox({ftxui::paragraphAlignRight(usernameAndTitle)}) | color(usernameColor),
                                            ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),

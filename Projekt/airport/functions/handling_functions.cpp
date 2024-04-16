@@ -135,7 +135,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 }
             }
             else if (userChoice == "logout") {
-                logoutFunction();
+                logoutFunction(currentUser);
                 isLoggedIn = false;
             } else if(userChoice == "1") {
                 handleFlightOptions(flightConnection, currentUser);

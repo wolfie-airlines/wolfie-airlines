@@ -122,7 +122,7 @@ std::tuple<std::string, std::string, bool> login() {
     return std::make_tuple(username, password, cancelled);
 }
 
-void logoutFunction() {
+void logoutFunction(User& user) {
     ftxui::Element response;
     response = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"Wylogowano pomyślnie. Mamy nadzieję, że do zobaczenia niebawem!") | ftxui::bold}) | color(ftxui::Color::MagentaLight),
@@ -132,6 +132,7 @@ void logoutFunction() {
     auto responseScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(responseDocument));
     Render(responseScreen, responseDocument);
     std::cout << responseScreen.ToString() << '\0' << std::endl;
+    user.reset();
 }
 
 void seeyaFunction() {
