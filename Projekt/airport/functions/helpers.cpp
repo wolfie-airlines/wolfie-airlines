@@ -2,6 +2,9 @@
 #include <filesystem>
 #include <thread>
 #include "helpers.h"
+#include "cryptopp/sha.h"
+#include "cryptopp/filters.h"
+#include "cryptopp/hex.h"
 
 std::string extractFileName(const std::string& path) {
     std::filesystem::path filePath(path);
@@ -23,4 +26,11 @@ void countdown(int seconds, std::string type) {
         std::cout << "\b"; // cofanie kursora
     }
     std::cout << "1" << std::endl;
+}
+
+std::string hashString(const std::string& stringToHash) {
+    CryptoPP::SHA256 hash;
+    std::string digest;
+    CryptoPP::StringSource s(stringToHash, true, new CryptoPP::HashFilter(hash, new CryptoPP::HexEncoder(new CryptoPP::StringSink(digest))));
+    return digest;
 }

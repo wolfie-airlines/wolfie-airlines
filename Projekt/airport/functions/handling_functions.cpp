@@ -12,6 +12,7 @@
 #include "../user/premium_cards/premium_cards.h"
 #include "../user/discounts/discounts.h"
 #include "../tickets/tickets.h"
+#include "../admin/Admin.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -96,8 +97,6 @@ void handleMenu() {
     std::cout << screen.ToString() << '\0' << std::endl;
 }
 
-
-
 void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, FlightConnection& flightConnection) {
     while (true) {
         if (!isLoggedIn) {
@@ -151,12 +150,13 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                     handlePremiumCard(currentUser);
                 }
             } else if (userChoice == "4") {
-                std::cout << currentUser.discountType << std::endl;
                 if(currentUser.discountType == "premium") {
                     errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
                 } else {
                     handleDiscountCard(currentUser);
                 }
+            } else if (userChoice == "5") {
+                currentUser.loginAsAdmin();
             }
         }
     }
