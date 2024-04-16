@@ -166,6 +166,10 @@ void processSeatSelectionAndPurchase(
         }
 
         int selectedSeatNumber = (rowInputNumber - 1) * 9 + seat;
+        if (std::find(seatsTaken.begin(), seatsTaken.end(), selectedSeatNumber) != seatsTaken.end()) {
+            errorFunction("Miejsce jest już zajęte.", "Wybierz inne miejsce.");
+            return;
+        }
 
         selectedSeats.push_back(selectedSeatNumber);
     }
