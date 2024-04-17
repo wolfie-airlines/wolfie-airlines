@@ -102,7 +102,7 @@ void processPurchase(
 }
 
 
-void handleSingleTicket(FlightConnection& flightConnection, User& user) {
+void handleFlightById(FlightConnection& flightConnection, User& user) {
     std::string flightId = displayMessageAndCaptureInput(
             "Zakup biletów",
             "Podaj identyfikator lotu:"
@@ -136,9 +136,57 @@ void handleSingleTicket(FlightConnection& flightConnection, User& user) {
     }
 }
 
+void handleFlightByData(FlightConnection& flightConnection, User& user) {
+    std::string departureCity = displayMessageAndCaptureInput(
+            "Zakup biletów",
+            "Podaj miasto wylotu:"
+    );
+
+    std::string arrivalCity = displayMessageAndCaptureInput(
+            "Zakup biletów",
+            "Podaj miasto przylotu:"
+    );
+
+    std::vector<FlightConnection> foundArrivalConnections = flightConnection.findConnectionsByDestination(arrivalCity);
+    std::vector<FlightConnection> foundDepartureConnections = flightConnection.findConnectionsByDeparture(departureCity);
+
+    if (foundArrivalConnections.empty() || foundDepartureConnections.empty()) {
+        errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        return;
+    }
+
+    FlightConnection foundConnection = flightConnection.findConnection(departureCity, arrivalCity);
+
+    if (foundConnection.getDepartureCity() != departureCity || foundConnection.getDestinationCity() != arrivalCity) {
+        errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+        return;
+    }
+
+    CreateFoundFlightScreen(foundConnection, user);
+    bool validFlightChoice = validChoice("POTWIERDŹ WYBRANIE LOTU", "Czy o ten lot chodziło? (tak/nie)");
+    if(!validFlightChoice) {
+        errorFunction("Nie wybrano lotu.", "Spróbuj ponownie.");
+        return;
+    }
+
+    std::vector<int> seatsTaken = flightConnection.getSeatsTaken(foundConnection.getIdentifier());
+    if(seatsTaken.size() == 81) {
+        errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
+        return;
+    }
+    std::string premiumCard = user.premiumCard;
+    if(premiumCard == "platynowa") {
+        processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
+    } else {
+        processPurchase(flightConnection, foundConnection, user);
+    }
+}
+
 void handleBuyTicket(int choice, FlightConnection& flightConnection, User& user) {
     if(choice == 0) {
-        handleSingleTicket(flightConnection, user);
+        handleFlightById(flightConnection, user);
+    } else if (choice == 1) {
+        handleFlightByData(flightConnection, user);
     }
 }
 
