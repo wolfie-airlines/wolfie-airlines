@@ -129,10 +129,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 handleSettingsOption(currentUser);
             }
             else if(userChoice == "profil") {
-                std::string backOption = CreateProfileScreen(currentUser);
-                if(backOption == "back") {
-                    handleUserMenu(currentUser);
-                }
+                CreateProfileScreen(currentUser);
             }
             else if (userChoice == "logout") {
                 logoutFunction(currentUser);

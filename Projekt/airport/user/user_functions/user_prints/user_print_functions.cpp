@@ -117,7 +117,7 @@ int CreateDefaultPaymentScreen() {
     return selected;
 }
 
-std::string CreateProfileScreen(User user) {
+void CreateProfileScreen(User user) {
 
     std::string username = user.username;
     std::transform(username.begin(), username.end(), username.begin(), ::toupper);
@@ -215,5 +215,7 @@ std::string CreateProfileScreen(User user) {
 
     std::string backOption;
     std::cin >> backOption;
-    return backOption;
+    if(backOption == "back") {
+        return;
+    }
 }

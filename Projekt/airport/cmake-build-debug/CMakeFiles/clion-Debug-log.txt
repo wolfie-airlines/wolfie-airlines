@@ -1,6 +1,5 @@
 "C:\Users\szymo\AppData\Local\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:\Users\szymo\.vcpkg-clion\airport\scripts\buildsystems\vcpkg.cmake -G Ninja -S C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport -B C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug
 -- Running vcpkg install
-waiting to take filesystem lock on C:\Users\szymo\.vcpkg-clion\airport\.vcpkg-root...
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
@@ -36,6 +35,6 @@ mongo-cxx-driver provides CMake targets:
 -- │ FTXUI_DEV_WARNINGS       : OFF
 -- │ FTXUI_CLANG_TIDY         : OFF
 -- └─────────────────────────────────────
--- Configuring done (8.3s)
+-- Configuring done (4.5s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug
