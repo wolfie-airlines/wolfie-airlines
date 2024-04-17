@@ -83,7 +83,7 @@ FlightConnection FlightConnection::findConnection(const std::string& departCity,
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
         auto avSeats = view["availableSeats"].get_int32().value;
-        double flightPrice = view["price"].get_double().value;
+        double flightPrice = view["price"].get_int32().value;
         return FlightConnection{flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice};
     }
     return FlightConnection{"", "", "", "", "",0, 0};
@@ -109,7 +109,7 @@ std::vector<FlightConnection> FlightConnection::findConnectionByPrice(double &mi
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
         auto avSeats = view["availableSeats"].get_int32().value;
-        double flightPrice = view["price"].get_double().value;
+        double flightPrice = view["price"].get_int32().value;
         connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice);
     }
 
@@ -156,7 +156,7 @@ std::vector<FlightConnection> FlightConnection::findConnectionsByDeparture(const
         auto depTime = (std::string) view["departureTime"].get_string().value;
         auto arrTime = (std::string) view["arrivalTime"].get_string().value;
         auto avSeats = view["availableSeats"].get_int32().value;
-        double flightPrice = view["price"].get_double().value;
+        double flightPrice = view["price"].get_int32().value;
         connections.emplace_back(flightId, depCity, destCity, depTime, arrTime, avSeats, flightPrice);
     }
 

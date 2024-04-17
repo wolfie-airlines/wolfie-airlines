@@ -19,6 +19,7 @@ private:
     mongocxx::client _client;
     mongocxx::database _db;
     mongocxx::collection _collection;
+
 public:
     FlightConnection(const std::string& uri_str, const std::string& db_name, const std::string& collection_name)
             : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
@@ -33,13 +34,13 @@ FlightConnection(
         double price
 );
 
-    std::string getDepartureCity() const;
-    std::string getDestinationCity() const;
-    std::string getDepartureTime() const;
-    std::string getArrivalTime() const;
-    std::string getIdentifier() const;
-    int getAvailableSeats() const;
-    double getPrice() const;
+    [[nodiscard]] std::string getDepartureCity() const;
+    [[nodiscard]] std::string getDestinationCity() const;
+    [[nodiscard]] std::string getDepartureTime() const;
+    [[nodiscard]] std::string getArrivalTime() const;
+    [[nodiscard]] std::string getIdentifier() const;
+    [[nodiscard]] int getAvailableSeats() const;
+    [[nodiscard]] double getPrice() const;
     std::vector<FlightConnection> findAllConnections();
     FlightConnection findConnection(const std::string &departureCity, const std::string &destinationCity);
     std::vector<FlightConnection> findConnectionByPrice(double &minPrice, double &maxPrice);
