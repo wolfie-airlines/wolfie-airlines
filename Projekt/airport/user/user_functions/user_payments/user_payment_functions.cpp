@@ -12,13 +12,12 @@ void User::setBlik(const std::string &payment) {
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
+            bsoncxx::builder::basic::kvp("password", getPassword())
     );
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
     if (cursor_user.begin() == cursor_user.end()) {
-        std::cout << email << " " << password << std::endl;
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
         return;
     }
@@ -49,13 +48,12 @@ void User::setBlik(const std::string &payment) {
 void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
+            bsoncxx::builder::basic::kvp("password", getPassword())
     );
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
     if (cursor_user.begin() == cursor_user.end()) {
-        std::cout << email << " " << password << std::endl;
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
         return;
     }

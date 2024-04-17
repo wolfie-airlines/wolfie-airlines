@@ -40,7 +40,8 @@ mongocxx::collection User::getSpecificCollection(const std::string &collectionNa
 }
 
 std::string User::getPassword() {
-    return password;
+    std::string hashedPassword = hashString(password);
+    return hashedPassword;
 }
 
 void User::setPassword(const std::string &newPass) {
@@ -173,7 +174,7 @@ void User::changePassword(const std::string &newPassword) {
 void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection& flightConnection) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
+            bsoncxx::builder::basic::kvp("password", getPassword())
     );
 
     bsoncxx::document::view filter_view = filter_builder.view();
