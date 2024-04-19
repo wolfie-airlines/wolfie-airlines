@@ -107,7 +107,6 @@ void Authentication::authenticateUser(const std::string& username, const std::st
             userFlightsVector.push_back(static_cast<bsoncxx::document::value>(userFlight.get_document().value));
         }
         user.userFlights = userFlightsVector;
-
         promise.set_value(true); // Ustawienie wartości zwracanej na true
         validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
     } else {

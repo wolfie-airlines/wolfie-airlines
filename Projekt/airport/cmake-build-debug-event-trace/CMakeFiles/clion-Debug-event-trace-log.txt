@@ -1,0 +1,47 @@
+"C:\Users\szymo\AppData\Local\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:\Users\szymo\.vcpkg-clion\airport\scripts\buildsystems\vcpkg.cmake --profiling-format=google-trace --profiling-output=CMakeFiles\clion-event-trace.json -G Ninja -S C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport -B C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug-event-trace
+-- Running vcpkg install
+waiting to take filesystem lock on C:\Users\szymo\.vcpkg-clion\airport\.vcpkg-root...
+Detecting compiler hash for triplet x64-windows...
+Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
+All requested packages are currently installed.
+Total install time: 300 ns
+cryptopp provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(cryptopp CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE cryptopp::cryptopp)
+
+cryptopp provides pkg-config modules:
+
+    # Crypto++ cryptographic library (built with CMake)
+    cryptopp
+
+mongo-cxx-driver provides CMake targets:
+
+    find_package(bsoncxx CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE $<IF:$<TARGET_EXISTS:mongo::bsoncxx_static>,mongo::bsoncxx_static,mongo::bsoncxx_shared>)
+
+    find_package(mongocxx CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE $<IF:$<TARGET_EXISTS:mongo::mongocxx_static>,mongo::mongocxx_static,mongo::mongocxx_shared>)
+
+nayuki-qr-code-generator provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(unofficial-nayuki-qr-code-generator CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE unofficial::nayuki-qr-code-generator::nayuki-qr-code-generator)
+
+-- Running vcpkg install - done
+-- ┌─ FTXUI options ─────────────────────
+-- │ FTXUI_ENABLE_INSTALL     : ON
+-- │ FTXUI_BUILD_EXAMPLES     : OFF
+-- │ FTXUI_QUIET              : OFF
+-- │ FTXUI_BUILD_DOCS         : OFF
+-- │ FTXUI_BUILD_TESTS        : OFF
+-- │ FTXUI_BUILD_TESTS_FUZZER : OFF
+-- │ FTXUI_ENABLE_COVERAGE    : OFF
+-- │ FTXUI_DEV_WARNINGS       : OFF
+-- │ FTXUI_CLANG_TIDY         : OFF
+-- └─────────────────────────────────────
+-- Configuring done (9.9s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace

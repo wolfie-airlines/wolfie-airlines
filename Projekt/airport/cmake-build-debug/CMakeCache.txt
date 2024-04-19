@@ -436,6 +436,15 @@ mongoc-1.0_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/a
 //The directory containing a CMake configuration file for mongocxx.
 mongocxx_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/mongocxx
 
+//The directory containing a CMake configuration file for nayuki-qr-code-generator.
+nayuki-qr-code-generator_DIR:PATH=nayuki-qr-code-generator_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for nayuki-qrcode.
+nayuki-qrcode_DIR:PATH=nayuki-qrcode_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for unofficial-nayuki-qr-code-generator.
+unofficial-nayuki-qr-code-generator_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/unofficial-nayuki-qr-code-generator
+
 
 ########################
 # INTERNAL cache entries

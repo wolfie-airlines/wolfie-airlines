@@ -76,6 +76,9 @@ find_package(bsoncxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/airport/package
 find_package(cryptopp CONFIG REQUIRED)
 target_link_libraries(airport PRIVATE cryptopp::cryptopp)
 
+find_package(unofficial-nayuki-qr-code-generator CONFIG REQUIRED)
+target_link_libraries(airport PRIVATE unofficial::nayuki-qr-code-generator::nayuki-qr-code-generator)
+
 find_package(bsoncxx CONFIG REQUIRED)
 target_link_libraries(airport PRIVATE $<IF:$<TARGET_EXISTS:mongo::bsoncxx_static>,mongo::bsoncxx_static,mongo::bsoncxx_shared>)
 

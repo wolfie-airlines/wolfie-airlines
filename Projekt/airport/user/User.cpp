@@ -252,6 +252,9 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
     } else {
         validFunction("Bilety zostały pomyślnie zakupione.", "Możesz zobaczyć je w zakładce 'Moje bilety'.");
     }
+
+    // wyświetlanie pseudo-faktury z kodem qr, który po zeskanowaniu przenosi do mojego portfolio.
+
 }
 
 void User::updateMoneySaved(double normPrice, double discPrice) {
@@ -260,7 +263,7 @@ void User::updateMoneySaved(double normPrice, double discPrice) {
 
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
+            bsoncxx::builder::basic::kvp("password", getPassword())
     );
 
     bsoncxx::document::view filter_view = filter_builder.view();

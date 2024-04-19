@@ -247,6 +247,4 @@ void FlightConnection::updateSeatsTaken(const std::string& flight_identifier, co
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view, update_view);
-
-    validFunction("Bilet został zakupiony pomyślnie.", "Dziękujemy za zakup biletu. Możesz zobaczyć go w zakładce 'Moje bilety'.");
 }
