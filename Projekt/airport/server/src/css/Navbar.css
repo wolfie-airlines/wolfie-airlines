@@ -1,0 +1,149 @@
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../../assets/fonts/Ubuntu-Regular.ttf') format('truetype');
+    /* Add other font variants and styles */
+}
+
+.navbar {
+    font-weight: bold;
+    font-size: calc(30% + 2vmin);
+    color: #545B69;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(1% + 1vh);
+}
+
+.navbar-item button {
+    margin-left: -40%;
+    color: #545B69;
+    background: none;
+    border: none;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: calc(60% + 1vmin);
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-item button.logout-link {
+    color: #1D90F4;
+    transition: color 0.3s ease;
+}
+
+.navbar-item button:hover {
+    color: #E8EEFC;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    max-width: 100px;
+    height: auto;
+    margin-right: calc(10% - 2vw);
+    margin-left: calc(10% + 2vw);
+    margin-top: 10%;
+}
+
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    flex-grow: 1;
+    margin-left: calc(8% + 2vw);
+}
+
+.navbar-item {
+    white-space: nowrap;
+    position: relative;
+    margin-right: calc(5% + 3vw);
+}
+
+.navbar-mobile-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-line {
+    width: 25px;
+    height: 3px;
+    background-color: #E8EEFC;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.menu-line.open:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-line.open:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-line.open:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 1300px) {
+    .navbar-menu {
+        display: none;
+    }
+
+    .navbar-logo img {
+        margin-top: 10%;
+    }
+
+    .navbar-mobile-menu {
+        display: flex;
+        z-index: 10000;
+        flex-direction: column;
+        cursor: pointer;
+        height: 100%;
+        justify-content: flex-end;
+    }
+
+    .navbar-menu.mobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        background-color: #323645;
+        position: fixed;
+        margin-top: -95vh;
+        right: 0;
+        margin-bottom: -180vh;
+        left: 0;
+        height: 100vh;
+        z-index: 999;
+        animation: slideInRight 0.3s ease;
+        border-radius: 40px 0 0 40px;
+    }
+
+    .navbar-item {
+        white-space: nowrap;
+        position: relative;
+        margin-left: -5%;
+        top: calc(4vh - 90px);
+        margin-top: 3rem;
+        text-align: end;
+        font-size: calc(20px + 3vmin);
+    }
+
+    .navbar-item.mobile {
+        margin-right: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}

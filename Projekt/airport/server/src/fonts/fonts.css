@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Great Vibes', cursive;
+    src: url("https://fonts.googleapis.com/css?family=Great+Vibes&v1&display=swap")
+  }
+
+  @font-face {
+    font-family: 'Garamond';
+    src: url('./EBGaramond-Regular.ttf') format('truetype');
+  }
