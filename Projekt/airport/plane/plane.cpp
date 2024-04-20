@@ -235,6 +235,7 @@ void processSeatSelectionAndPurchase(
 
     flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
     user.addTicketToUser(selectedSeats, foundConnection);
+    druknijFakturke(user, foundConnection, selectedSeats);
 }
 
 

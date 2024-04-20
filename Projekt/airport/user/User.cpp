@@ -253,8 +253,6 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
         validFunction("Bilety zostały pomyślnie zakupione.", "Możesz zobaczyć je w zakładce 'Moje bilety'.");
     }
 
-    // wyświetlanie pseudo-faktury z kodem qr, który po zeskanowaniu przenosi do mojego portfolio.
-
 }
 
 void User::updateMoneySaved(double normPrice, double discPrice) {

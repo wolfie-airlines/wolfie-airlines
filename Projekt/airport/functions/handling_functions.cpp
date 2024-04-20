@@ -13,6 +13,7 @@
 #include "../user/discounts/discounts.h"
 #include "../tickets/tickets.h"
 #include "../admin/Admin.h"
+#include "../tickets/tickets_prints/tickets_print_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;

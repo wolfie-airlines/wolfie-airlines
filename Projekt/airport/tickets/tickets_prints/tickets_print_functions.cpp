@@ -4,6 +4,7 @@
 #include "ftxui/component/component.hpp"
 #include "../../user/User.h"
 #include "qrcodegen.hpp"
+#include "../../qr-code/qrcode_prints.h"
 
 int CreateTicketMenu() {
     using namespace ftxui;
@@ -98,69 +99,64 @@ std::string displayWarningAndCaptureInput(const std::string& titleMessage, const
     return answer;
 }
 
-std::string qrToSvgString(const qrcodegen::QrCode& qr) {
-    std::ostringstream out;
-    out << "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " << qr.getSize() << " " << qr.getSize() << "'>";
 
-    for (int y = 0; y < qr.getSize(); y++) {
-        for (int x = 0; x < qr.getSize(); x++) {
-            if (qr.getModule(x, y)) {
-                out << "<rect x='" << x << "' y='" << y << "' width='1' height='1' fill='black'/>";
-            }
-        }
+void druknijFakturke(
+        User& user, FlightConnection& foundConnection, const std::vector<int>& selectedSeats
+        ) {
+
+    time_t now = time(nullptr);
+    tm ltm{};
+    localtime_s(&ltm, &now);
+    std::string date = std::to_string(1900 + ltm.tm_year) + "-" + std::to_string(1 + ltm.tm_mon) + "-" + std::to_string(ltm.tm_mday);
+
+
+    std::string totalPrice = std::to_string(foundConnection.getPrice() * selectedSeats.size());
+    std::string howMuchDiscount = std::to_string(foundConnection.getPrice() * selectedSeats.size() - foundConnection.getPrice() * selectedSeats.size() * user.discount);
+    std::string targetPrice = std::to_string(foundConnection.getPrice() * selectedSeats.size() * user.discount);
+
+    ftxui::Elements elements;
+    for (const auto& ticket : selectedSeats) {
+        std::string row = std::to_string(ticket % 9 == 0 ? ticket / 9 : ticket / 9 + 1);
+        std::string seat = std::to_string(ticket % 9 == 0 ? 9 : ticket % 9);
+        std::string placeInPlane = "Rząd: ";
+        placeInPlane += row;
+        placeInPlane += ", Miejsce: ";
+        placeInPlane += seat;
+        elements.push_back(ftxui::hbox({
+                                                ftxui::paragraphAlignLeft("ID LOTU: " + foundConnection.getIdentifier()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                ftxui::paragraphAlignLeft("MIEJSCE ODLOTU: " + foundConnection.getDepartureCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                ftxui::paragraphAlignLeft("MIEJSCE PRZYLOTU: " + foundConnection.getDestinationCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                ftxui::paragraphAlignLeft("CZAS WYLOTU: " + foundConnection.getDepartureTime()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                ftxui::paragraphAlignLeft(placeInPlane) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                        }) | ftxui::border);
     }
 
-    out << "</svg>";
-    return out.str();
-}
+    auto createScreen = [&] {
+        auto summary = ftxui::vbox({
+                                           ftxui::hbox({ftxui::paragraphAlignCenter("POTWIERDZENIE ZAKUPU BILETÓW")}) | color(ftxui::Color::White),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::paragraphAlignLeft("Data: " + date)  | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                               ftxui::paragraphAlignLeft("E-mail: " + user.email)  | ftxui::bold | color(ftxui::Color::GrayLight),
+                                                               ftxui::paragraphAlignLeft("Użytkownik: " + user.username)  | ftxui::bold | color(ftxui::Color::GrayLight)
+                                           }),
+                                           ftxui::separator(),
+                                           ftxui::vbox(elements),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                                ftxui::paragraphAlignRight("Cena: " + totalPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold3),
+                                                                ftxui::paragraphAlignRight("Zniżka: " + howMuchDiscount + " PLN") | ftxui::bold | color(ftxui::Color::SteelBlue1),
+                                                                ftxui::paragraphAlignRight("Do zapłaty: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
+                                           }),
+                                           ftxui::hbox({ ftxui::text(L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Zeskanuj kod poniżej:") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
+                                   });
+        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+        return std::make_shared<ftxui::Element>(document);
+    };
 
-void printQrCode(const qrcodegen::QrCode& qr) {
-    for (int y = 0; y < qr.getSize(); y++) {
-        for (int x = 0; x < qr.getSize(); x++) {
-            if (qr.getModule(x, y)) {
-                std::cout << "##";
-            } else {
-                std::cout << "  ";
-            }
-        }
-        // Zakończ linię
-        std::cout << std::endl;
-    }
-}
-
-
-
-void druknijFakturke(User& user, FlightConnection& foundConnection, const std::vector<int>& selectedSeats) {
-    const char *qrText = "Hello, world!";
-    qrcodegen::QrCode qrCode = qrcodegen::QrCode::encodeText(qrText, qrcodegen::QrCode::Ecc::MEDIUM);
-
-    printQrCode(qrCode);
-
-//    time_t now = time(nullptr);
-//    tm *ltm = localtime(&now);
-//    std::string date = std::to_string(1900 + ltm->tm_year) + "-" + std::to_string(1 + ltm->tm_mon) + "-" + std::to_string(ltm->tm_mday);
-//
-//
-//
-//    auto createScreen = [&] {
-//        auto summary = ftxui::vbox({
-//                                           ftxui::hbox({ftxui::paragraphAlignCenter("POTWIERDZENIE ZAKUPU BILETÓW")}) | color(ftxui::Color::White),
-//                                           ftxui::separator(),
-//                                           ftxui::hbox({
-//                                                               ftxui::paragraphAlignLeft("Data: " + date)  | ftxui::bold | color(ftxui::Color::GrayLight),
-//                                                               ftxui::paragraphAlignLeft("E-mail: " + user.email)  | ftxui::bold | color(ftxui::Color::GrayLight),
-//                                                               ftxui::paragraphAlignLeft("Użytkownik: " + user.username)  | ftxui::bold | color(ftxui::Color::GrayLight)
-//                                                               //TODO: jeszcze kod qr tu jakoś po prawej wcisnąć
-//                                           }),
-//                                           ftxui::separator(),
-//                                           //TODO: tutaj bilety
-//                                   });
-//        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-//        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-//        return std::make_shared<ftxui::Element>(document);
-//    };
-//
-//    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-//    ftxui::Render(userScreen, *createScreen());
-//    std::cout << userScreen.ToString() << '\0' << std::endl;
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
+    ftxui::Render(userScreen, *createScreen());
+    std::cout << userScreen.ToString() << '\0' << std::endl;
+    createQR(user.email, user.username, foundConnection.getIdentifier(), selectedSeats);
 }
