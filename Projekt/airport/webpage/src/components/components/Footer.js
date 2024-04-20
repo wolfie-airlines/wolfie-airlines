@@ -73,9 +73,9 @@ export const Footer = ({ bgColor }) => {
         <div className="text-center">
           <div className="font-inter flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white font-ubuntu">
             <img
-              src="https://i.imgur.com/gf6sQSe.png"
-              className="h-6 mr-3 sm:h-9"
-              alt="Landwind Logo"
+              src="https://i.imgur.com/MLlNSm4.png"
+              className="h-14 mr-3 sm:h-16"
+              alt="Logo"
             />
             WOLFIE AIRLINES
           </div>

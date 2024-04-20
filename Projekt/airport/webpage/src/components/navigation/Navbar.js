@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="z-[9997] w-full mt-5 firefox:font-inter">
       <Container>
-        <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative xl:bg-gray-700 xl:rounded-2xl xl:border xl:border-gray-600">
+        <div className="flex flex-wrap items-center justify-between py-2 gap-6 md:py-4 md:gap-0 relative xl:bg-slate-900 xl:rounded-2xl xl:border xl:border-slate-700">
           <input
             aria-hidden="true"
             type="checkbox"
@@ -35,8 +35,8 @@ const Navbar = () => {
               <div aria-hidden="true" className="flex space-x-1">
                 <img
                   draggable="false"
-                  className="w-10 h-10 rounded-full ml-5"
-                  src="https://i.imgur.com/Eq4Xf7z.png"
+                  className="w-14 h-14 rounded-full ml-5"
+                  src="https://i.imgur.com/MLlNSm4.png"
                   alt="logo"
                 />
               </div>
@@ -86,7 +86,7 @@ const Navbar = () => {
             className={`flex-col z-[9994] flex-wrap gap-6 p-8 rounded-3xl border  shadow-gray-600/10 justify-end w-full invisible opacity-0 translate-y-1 absolute top-full left-0 transition-all duration-300 scale-95 origin-top 
                         xl:relative xl:scale-100 xl:peer-checked:translate-y-0 xl:translate-y-0 xl:flex xl:flex-row xl:items-center xl:gap-0 xl:p-0 xl:bg-transparent xl:w-7/12 xl:visible xl:opacity-100 xl:border-none
                         peer-checked:scale-100 peer-checked:opacity-100 peer-checked:visible xl:shadow-none 
-                        shadow-none bg-gray-800 border-gray-700 ${
+                        shadow-none bg-slate-900 border-slate-700 ${
                           isMobileMenuOpen
                             ? "visible opacity-100 scale-100 z-[9994]"
                             : ""
@@ -110,9 +110,9 @@ const Navbar = () => {
                 </li>
                 <li>
                   <button
-                    onClick={() => navigate("/materialy")}
+                    onClick={() => navigate("/odprawy")}
                     className={`block md:px-4 transition hover:text-unWhite ${isActive(
-                      "/materialy"
+                      "/odprawy"
                     )}`}
                   >
                     <span>Odprawy</span>
@@ -122,7 +122,7 @@ const Navbar = () => {
                   <button
                     onClick={() => navigate("/faq")}
                     className={`block md:px-4 transition hover:text-unWhite ${isActive(
-                      "/info"
+                      "/faq"
                     )}`}
                   >
                     <span>Informacje</span>
