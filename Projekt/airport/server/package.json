@@ -1,0 +1,17 @@
+{
+    "name": "airport-server",
+    "version": "1.0.2",
+    "author": "Szymon Wilczek",
+    "description": "API do walidacji odprawy online w projekcie.",
+    "license": "MIT",
+    "scripts": {
+        "start": "node index.js",
+        "publish": "echo 'No publishing required for a standalone Express.js app.'"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.17.1",
+        "mongoose": "^7.4.1"
+    }
+}
