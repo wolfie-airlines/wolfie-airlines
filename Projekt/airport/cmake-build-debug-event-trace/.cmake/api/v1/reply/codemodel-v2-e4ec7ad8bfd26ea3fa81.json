@@ -31,14 +31,14 @@
 						3
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-_deps.ftxui-build-Debug-f5b250ab4f2460f4166f.json",
+					"jsonFile" : "directory-_deps.ftxui-build-Debug-c07ebb584f536ab694dd.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.12"
 					},
 					"parentIndex" : 0,
 					"projectIndex" : 1,
-					"source" : "cmake-build-debug/_deps/ftxui-src",
+					"source" : "cmake-build-debug-event-trace/_deps/ftxui-src",
 					"targetIndexes" : 
 					[
 						1,
@@ -48,25 +48,25 @@
 				},
 				{
 					"build" : "_deps/ftxui-build/examples",
-					"jsonFile" : "directory-_deps.ftxui-build.examples-Debug-58febc3a2339646437e6.json",
+					"jsonFile" : "directory-_deps.ftxui-build.examples-Debug-1ed3e65794f4115a80a9.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.12"
 					},
 					"parentIndex" : 1,
 					"projectIndex" : 1,
-					"source" : "cmake-build-debug/_deps/ftxui-src/examples"
+					"source" : "cmake-build-debug-event-trace/_deps/ftxui-src/examples"
 				},
 				{
 					"build" : "_deps/ftxui-build/doc",
-					"jsonFile" : "directory-_deps.ftxui-build.doc-Debug-5502eed70a45f17fda32.json",
+					"jsonFile" : "directory-_deps.ftxui-build.doc-Debug-d64be16b43be1b80561a.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.12"
 					},
 					"parentIndex" : 1,
 					"projectIndex" : 1,
-					"source" : "cmake-build-debug/_deps/ftxui-src/doc"
+					"source" : "cmake-build-debug-event-trace/_deps/ftxui-src/doc"
 				}
 			],
 			"name" : "Debug",
@@ -109,28 +109,28 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "airport::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-airport-Debug-45df091a07a1300d4e42.json",
+					"jsonFile" : "target-airport-Debug-5e8a29a7504001cf3402.json",
 					"name" : "airport",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "component::@b65f64d0ea8424dee96a",
-					"jsonFile" : "target-component-Debug-91d1166a336ff2377ffa.json",
+					"jsonFile" : "target-component-Debug-ae5d87a79c012eeeb093.json",
 					"name" : "component",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "dom::@b65f64d0ea8424dee96a",
-					"jsonFile" : "target-dom-Debug-5a4e70b9d6e6feefe149.json",
+					"jsonFile" : "target-dom-Debug-96c4e714dd67b306965f.json",
 					"name" : "dom",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "screen::@b65f64d0ea8424dee96a",
-					"jsonFile" : "target-screen-Debug-7469ee09075f88fdcbb9.json",
+					"jsonFile" : "target-screen-Debug-cbf6490ddda754e65cff.json",
 					"name" : "screen",
 					"projectIndex" : 1
 				}
@@ -140,7 +140,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug",
+		"build" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace",
 		"source" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport"
 	},
 	"version" : 
