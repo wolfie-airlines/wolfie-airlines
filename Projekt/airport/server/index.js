@@ -13,7 +13,6 @@ app.use(
 
 const userModel = require("./models/userModel");
 const flightModel = require("./models/flightModel");
-const { type } = require("express/lib/response");
 
 mongoose
   .connect(process.env.DATABASE_URL, {
