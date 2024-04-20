@@ -7,6 +7,7 @@ import NotFound from "../../pages/errors/404";
 import { Maintainance } from "../../pages/errors/Maintainance";
 import { Error } from "../../pages/errors/Error";
 import { Sparrow } from "../navigation/Sparrow";
+import { Checkin } from "../../pages/Checkin";
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -19,6 +20,11 @@ function AnimatedRoutes() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/not-yet" element={<Maintainance />} />
         <Route path="/info" element={<Info />} />
+        <Route path="/odprawy" element={<Checkin />} />
+        <Route
+          path="/odprawy/:username/:email/:flightId/:seats"
+          element={<Checkin />}
+        />
         <Route path="/sparrow" element={<Sparrow />} />
         <Route path="/error/:errorMessage/:errorType" element={<Error />} />
       </Routes>

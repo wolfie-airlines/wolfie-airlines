@@ -1,19 +1,19 @@
 {
   "short_name": "Wolfie Airlines",
-  "name": "Lotnisko, które stawia na Twoje doświadczenia.",
+  "name": "Lotnisko, które stawia na Twoje podróżnicze doświadczenia",
   "icons": [
     {
-      "src": "./logo_blog.ico",
+      "src": "./airlines_logo.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "./logo_blog.png",
+      "src": "./airlines_logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "./logo_blog.png",
+      "src": "./airlines_logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

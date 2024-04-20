@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 const NotFound = () => {
   const navigate = useNavigate();
   return (
-    <section className="bg-gray-900 ">
+    <section className="bg-black ">
       <div className="container flex items-center justify-center min-h-screen px-6 py-12 mx-auto">
         <div className="w-full ">
           <div className="flex flex-col items-center max-w-lg mx-auto text-center">
@@ -62,50 +62,8 @@ const NotFound = () => {
             </div>
           </div>
 
-          <div className="grid w-full max-w-6xl grid-cols-1 gap-8 mx-auto mt-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="p-6 rounded-lg bg-gray-800 border border-t border-gray-600">
-              <span className="text-gray-400">
-                <img
-                  src="https://i.imgur.com/lx1mVG9.png"
-                  alt="404-Kursy"
-                  className="w-6 h-6 drag-none"
-                />
-              </span>
-
-              <h3 className="mt-6 font-medium text-gray-200 font-inter">
-                Kursy
-              </h3>
-
-              <p className="mt-2 text-gray-400 firefox:font-inter">
-                Zanurkuj w fontannie wiedzy.
-              </p>
-
-              <div className="inline-flex items-center mt-4 text-sm font-inter gap-x-2 text-blue-400 hover:text-blue-500 transition-colors duration-200 hover:underline">
-                <span
-                  className="cursor-pointer"
-                  onClick={() => navigate("/kursy")}
-                >
-                  Sprawdź
-                </span>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5 rtl:rotate-180"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-lg bg-gray-800 border border-t border-gray-600">
+          <div className="grid w-full max-w-6xl grid-cols-1 gap-8 mx-auto mt-8 sm:grid-cols-2 lg:grid-cols-2">
+            <div className="p-6 rounded-lg bg-slate-900 border border-t border-gray-600">
               <span className=" text-gray-400">
                 <img
                   src="https://i.imgur.com/mHRb0Yi.png"
@@ -115,17 +73,17 @@ const NotFound = () => {
               </span>
 
               <h3 className="mt-6 font-medium text-gray-200 font-inter">
-                Materiały
+                Odprawy
               </h3>
 
               <p className="mt-2 text-gray-400 firefox:font-inter">
-                Zobacz co ciekawego w trawie piszczy w świecie matematyki.
+                Odpraw się online na lot już teraz!
               </p>
 
               <div className="inline-flex items-center mt-4 text-sm font-inter gap-x-2 text-blue-400 hover:text-blue-500 transition-colors duration-200 hover:underline">
                 <span
                   className="cursor-pointer"
-                  onClick={() => navigate("/materialy")}
+                  onClick={() => navigate("/odprawy")}
                 >
                   Zobacz
                 </span>
@@ -147,7 +105,7 @@ const NotFound = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-lg bg-gray-800 border border-t border-gray-600">
+            <div className="p-6 rounded-lg bg-slate-900 border border-t border-gray-600">
               <span className="text-gray-400">
                 <img
                   src="https://i.imgur.com/XbOqHOZ.png"
@@ -157,20 +115,20 @@ const NotFound = () => {
               </span>
 
               <h3 className="mt-6 font-medium text-gray-200 font-inter">
-                Skontaktuj się
+                Szukasz konkretnej informacji?
               </h3>
 
               <p className="mt-2 text-gray-400 firefox:font-inter">
-                Nawet kompas Sparrowa nie pomógł? Skontaktuj się z nami, żeby
-                znaleźć to czego szukasz.
+                Posiadamy całkiem rozbudowaną bazę pytań. Sprawdź sam, czy
+                znajdziesz odpowiedź na swoje pytanie klikając poniżej.
               </p>
 
               <div className="inline-flex items-center mt-4 text-sm font-inter gap-x-2 text-blue-400 hover:text-blue-500 transition-colors duration-200 hover:underline">
                 <span
                   className="cursor-pointer"
-                  onClick={() => navigate("/contact")}
+                  onClick={() => navigate("/faq")}
                 >
-                  Napisz do nas
+                  FAQ
                 </span>
 
                 <svg

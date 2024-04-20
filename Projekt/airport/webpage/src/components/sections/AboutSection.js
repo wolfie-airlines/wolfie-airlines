@@ -37,7 +37,7 @@ const AboutSection = () => {
                   alt="avatar"
                   draggable="false"
                 />
-                <div class="mask mask-squircle absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-slate-900 bg-fixed opacity-40"></div>
+                <div class="mask mask-squircle absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-slate-900 bg-fixed opacity-20"></div>
               </div>
               <h3 className="pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight">
                 Szymon Wilczek
@@ -93,7 +93,7 @@ const AboutSection = () => {
               Spider-Manem z sąsiedztwa. <br /> Pozdrawiam i podpisuję się pod
               tymi słowami:
               <img
-                className="max-xl:mx-auto w-1/2 rounded-xl mt-2 "
+                className="max-xl:mx-auto w-1/ rounded-xl mt-2 "
                 src={gifSrc}
                 alt="Spiderman"
                 draggable="false"
@@ -101,8 +101,8 @@ const AboutSection = () => {
                 onMouseLeave={handleMouseLeave}
               ></img>
               <img
-                className="max-xl:mx-auto w-4/5 rounded-full"
-                src="https://i.imgur.com/MLlNSm4.png"
+                className="max-xl:mx-auto w-4/5 rounded-full "
+                src="https://i.imgur.com/K3n9FPy.png"
                 alt="Signature"
                 draggable="false"
               ></img>
