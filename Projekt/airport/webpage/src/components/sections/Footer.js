@@ -27,10 +27,12 @@ export const Footer = ({ bgColor }) => {
             <ul className="text-gray-500 dark:text-gray-400">
               <li className="mb-4">
                 <a
-                  href="/math-course/src/pages/FAQ"
+                  href="https://github.com/szymonwilczek"
                   className="hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  FAQ
+                  GitHub
                 </a>
               </li>
               <li className="mb-4">
@@ -49,10 +51,7 @@ export const Footer = ({ bgColor }) => {
             </h3>
             <ul className="text-gray-500 dark:text-gray-400">
               <li className="mb-4">
-                <a
-                  href="/math-course/src/pages/Info"
-                  className=" hover:underline"
-                >
+                <a href="/info" className=" hover:underline">
                   Informacje
                 </a>
               </li>
