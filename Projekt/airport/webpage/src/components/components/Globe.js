@@ -175,9 +175,13 @@ const WebGLRendererConfig = () => {
 const World = (props) => {
   const { globeConfig } = props;
   const scene = new Scene();
-  scene.fog = new Fog(0xffffff, 400, 2000);
+  scene.fog = new Fog(0xffffff, 400, 1500);
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+    <Canvas
+      className="max-md:transform max-md:scale-90 md:transform md:scale-95"
+      scene={scene}
+      camera={new PerspectiveCamera(50, aspect, 180, 1000)}
+    >
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
       <directionalLight
