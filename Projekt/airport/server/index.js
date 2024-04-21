@@ -124,6 +124,10 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
     return res.json({
       type: "success",
       message: "Odprawa online zakończona pomyślnie.",
+      username: username,
+      email: email,
+      flightId: flightId,
+      seats: seats,
     });
   } catch (error) {
     console.error(

@@ -1,23 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "../../components/navigation/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
-import { auth } from "../../firebase";
 
 export const Error = () => {
   const navigate = useNavigate();
   const { errorMessage, errorType } = useParams();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        return navigate("/login"); // Przekierowanie na stronę logowania
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [navigate]);
 
   return (
     <>
