@@ -2,7 +2,7 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
-#include "../../user/User.h"
+#include <iomanip>
 #include "qrcodegen.hpp"
 #include "../../qr-code/qrcode_prints.h"
 
@@ -109,10 +109,17 @@ void druknijFakturke(
     localtime_s(&ltm, &now);
     std::string date = std::to_string(1900 + ltm.tm_year) + "-" + std::to_string(1 + ltm.tm_mon) + "-" + std::to_string(ltm.tm_mday);
 
+    std::ostringstream streamTotalPrice;
+    streamTotalPrice << std::fixed << std::setprecision(2) << foundConnection.getPrice() * selectedSeats.size();
+    std::string totalPrice = streamTotalPrice.str();
 
-    std::string totalPrice = std::to_string(foundConnection.getPrice() * selectedSeats.size());
-    std::string howMuchDiscount = std::to_string(foundConnection.getPrice() * selectedSeats.size() - foundConnection.getPrice() * selectedSeats.size() * user.discount);
-    std::string targetPrice = std::to_string(foundConnection.getPrice() * selectedSeats.size() * user.discount);
+    std::ostringstream streamDiscount;
+    streamDiscount << std::fixed << std::setprecision(2) << (foundConnection.getPrice() * selectedSeats.size() - foundConnection.getPrice() * selectedSeats.size() * user.discount);
+    std::string howMuchDiscount = streamDiscount.str();
+
+    std::ostringstream streamTargetPrice;
+    streamTargetPrice << std::fixed << std::setprecision(2) << foundConnection.getPrice() * selectedSeats.size() * user.discount;
+    std::string targetPrice = streamTargetPrice.str();
 
     ftxui::Elements elements;
     for (const auto& ticket : selectedSeats) {
@@ -145,8 +152,13 @@ void druknijFakturke(
                                            ftxui::separator(),
                                            ftxui::hbox({
                                                                 ftxui::paragraphAlignRight("Cena: " + totalPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold3),
-                                                                ftxui::paragraphAlignRight("Zniżka: " + howMuchDiscount + " PLN") | ftxui::bold | color(ftxui::Color::SteelBlue1),
-                                                                ftxui::paragraphAlignRight("Do zapłaty: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
+                                           }),
+                                           ftxui::hbox({
+                                                               ftxui::paragraphAlignRight("Zniżka: " + howMuchDiscount + " PLN") | ftxui::bold | color(ftxui::Color::SteelBlue1),
+                                           }),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::paragraphAlignRight("Do zapłaty: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
                                            }),
                                            ftxui::hbox({ ftxui::text(L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Zeskanuj kod poniżej:") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
                                    });
