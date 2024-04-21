@@ -122,7 +122,13 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
                                                ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
                                                ftxui::separator(),
                                                ftxui::hbox({
-                                                                   ftxui::text(L"Podaj 6 cyfrowy kod BLIK poniżej:") | ftxui::bold | color(ftxui::Color::Green)}),
+                                                                   ftxui::text(L"Podaj 6 cyfrowy kod BLIK poniżej:") | ftxui::bold | color(ftxui::Color::Green)
+                                               }),
+                                               ftxui::separator(),
+                                               ftxui::hbox({
+                                                            ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
+
+                                               })
                                        });
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
@@ -135,6 +141,11 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
 
         int blikCode;
         std::cin >> blikCode;
+
+        if(std::to_string(blikCode) == "quit") {
+            errorFunction("Płatność została anulowana.", "");
+            return false;
+        }
 
         if (std::to_string(blikCode).length() != 6) {
             errorFunction("Kod BLIK musi składać się z 6 cyfr.", "Spróbuj ponownie.");
@@ -180,7 +191,13 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
                                                ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
                                                ftxui::separator(),
                                                ftxui::hbox({
-                                                                   ftxui::text(L"Podaj 3 ostatnie cyfry karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
+                                                                   ftxui::text(L"Podaj 3 ostatnie cyfry karty: ") | ftxui::bold | color(ftxui::Color::Green)
+                                               }),
+                                               ftxui::separator(),
+                                                  ftxui::hbox({
+                                                                ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
+
+                                                  })
                                        });
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
@@ -193,6 +210,11 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
 
         std::string cardNumber;
         std::cin >> cardNumber;
+
+        if(cardNumber == "quit") {
+            errorFunction("Płatność została anulowana.", "");
+            return false;
+        }
 
         if (cardNumber.length() != 3) {
             errorFunction("Numer karty musi składać się z 3 cyfr.", "Spróbuj ponownie.");
