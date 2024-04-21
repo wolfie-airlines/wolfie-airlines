@@ -105,8 +105,11 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       });
     }
 
-    // sprawdzenie czy już wykonał odprawę
-    if (userFlight.checkin) {
+    let foundFlight = existingUser.userFlights.find(
+      (flight) => flight.flightId === flightId
+    );
+
+    if (foundFlight.checkin) {
       console.log("Użytkownik już ma odprawę online.");
       return res.json({
         type: "error",
@@ -114,13 +117,6 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
         code: 4046,
       });
     }
-
-    let foundFlight = existingUser.userFlights.find(
-      (flight) => flight.flightId === flightId
-    );
-    foundFlight.checkin = true;
-
-    await existingUser.save();
 
     return res.json({
       type: "success",
@@ -131,6 +127,7 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       departure: foundFlight.departure,
       departureTime: foundFlight.departureTime,
       destination: foundFlight.destination,
+      destinationTime: foundFlight.arrivalTime,
       seats: seats,
     });
   } catch (error) {
