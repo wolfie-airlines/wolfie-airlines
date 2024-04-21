@@ -5,7 +5,7 @@ import World from "../components/components/Globe";
 import { sampleArcs } from "../components/imports/sampleArcs";
 import { globeConfig } from "../components/imports/globeConfig";
 import Nav from "../components/navigation/Navbar";
-import { Footer } from "../components/components/Footer";
+import { Footer } from "../components/sections/Footer";
 const Home = () => {
   return (
     <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">

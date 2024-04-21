@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { BackgroundBeams } from "../../components/components/BackgroundBeams";
+import { BackgroundBeams } from "../../components/effects/BackgroundBeams";
 const NotFound = () => {
   const navigate = useNavigate();
+  const body = document.querySelector("body");
+  body.style.pointerEvents = "auto";
   return (
     <section className="bg-black ">
       <div className="container flex items-center justify-center min-h-screen px-6 py-12 mx-auto">
-        <BackgroundBeams />
+        <BackgroundBeams className="z-10" />
         <div className="w-full ">
           <div className="flex flex-col items-center max-w-lg mx-auto text-center">
             <p className="text-4xl font-bold text-blue-400 firefox:font-inter">
@@ -25,13 +27,13 @@ const NotFound = () => {
 
             <button
               onClick={() => navigate("/sparrow")}
-              className="p-2 font-inter text-md rounded-lg mt-2 bg-gradient-to-r from-teal-700 via-teal-800 to-teal-900"
+              className="z-20 p-2 font-inter text-md rounded-lg mt-2 bg-gradient-to-r from-teal-700 via-teal-800 to-teal-900"
             >
               🧭 Pokaż mi kompas!
             </button>
 
             <div className="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
-              <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm transition-colors duration-200 border rounded-lg text-gray-200 gap-x-2 sm:w-auto hover:bg-gray-800 bg-gray-900 border-gray-700">
+              <button className="z-20 flex items-center justify-center w-1/2 px-5 py-2 text-sm transition-colors duration-200 border rounded-lg text-gray-200 gap-x-2 sm:w-auto hover:bg-gray-800 bg-gray-900 border-gray-700">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -57,7 +59,7 @@ const NotFound = () => {
 
               <button
                 onClick={() => navigate("/")}
-                className="font-inter font-semibold w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 rounded-lg shrink-0 sm:w-auto hover:bg-blue-500 bg-blue-700"
+                className="z-20 font-inter font-semibold w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 rounded-lg shrink-0 sm:w-auto hover:bg-blue-500 bg-blue-700"
               >
                 🏠 Strona Główna
               </button>
@@ -84,7 +86,7 @@ const NotFound = () => {
 
               <div className="inline-flex items-center mt-4 text-sm font-inter gap-x-2 text-blue-400 hover:text-blue-500 transition-colors duration-200 hover:underline">
                 <span
-                  className="cursor-pointer"
+                  className="z-20 cursor-pointer"
                   onClick={() => navigate("/odprawy")}
                 >
                   Zobacz
@@ -127,7 +129,7 @@ const NotFound = () => {
 
               <div className="inline-flex items-center mt-4 text-sm font-inter gap-x-2 text-blue-400 hover:text-blue-500 transition-colors duration-200 hover:underline">
                 <span
-                  className="cursor-pointer"
+                  className="z-20 cursor-pointer"
                   onClick={() => navigate("/faq")}
                 >
                   FAQ

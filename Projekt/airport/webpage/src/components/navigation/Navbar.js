@@ -120,16 +120,6 @@ const Navbar = () => {
                 </li>
                 <li>
                   <button
-                    onClick={() => navigate("/faq")}
-                    className={`block md:px-4 transition hover:text-unWhite ${isActive(
-                      "/faq"
-                    )}`}
-                  >
-                    <span>Informacje</span>
-                  </button>
-                </li>
-                <li>
-                  <button
                     onClick={() => navigate("/info")}
                     className={`block md:px-4 transition hover:text-unWhite ${isActive(
                       "/info"

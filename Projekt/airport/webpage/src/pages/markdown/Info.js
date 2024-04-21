@@ -1,9 +1,8 @@
 import React, { memo } from "react";
 import Navbar from "../../components/navigation/Navbar";
-import "../../css/AboutMe.css";
 import AboutSection from "../../components/sections/AboutSection";
-import { Footer } from "../../components/components/Footer";
-import { BackgroundBeams } from "../../components/components/BackgroundBeams";
+import { Footer } from "../../components/sections/Footer";
+import { BackgroundBeams } from "../../components/effects/BackgroundBeams";
 
 const Info = () => {
   return (

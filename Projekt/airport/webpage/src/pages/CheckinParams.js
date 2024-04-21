@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navigation/Navbar";
-import { Footer } from "../components/components/Footer";
+import { Footer } from "../components/sections/Footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import TypewriterEffectSmooth from "../components/effects/TypewriterEffect";
 
 export const CheckinParams = () => {
   //   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [type, setType] = useState("");
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
@@ -21,6 +23,9 @@ export const CheckinParams = () => {
         setType(response.data.type);
         setCode(response.data.code);
         setMessage(response.data.message);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3500);
       })
       .catch((error) => {
         console.log(error);
@@ -158,6 +163,15 @@ export const CheckinParams = () => {
                 </form>
               </div>
             </div>
+            {loading ? (
+              <TypewriterEffectSmooth
+                words={[
+                  { text: "Trwa " },
+                  { text: "odprawa " },
+                  { text: "online..." },
+                ]}
+              />
+            ) : null}
           </section>
         </div>
       </div>

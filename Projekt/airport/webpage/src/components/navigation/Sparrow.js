@@ -43,12 +43,6 @@ export const Sparrow = () => {
                 </li>
                 <li
                   className="hover:text-main transition-colors duration-200 font-inter font-semibold cursor-pointer"
-                  onClick={() => navigate("/plany")}
-                >
-                  ℹ️ Informacje
-                </li>
-                <li
-                  className="hover:text-main transition-colors duration-200 font-inter font-semibold cursor-pointer"
                   onClick={() => navigate("/generator-zadan")}
                 >
                   👤 O autorze

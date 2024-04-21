@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/navigation/Navbar";
-import { Footer } from "../components/components/Footer";
-import { BackgroundBeams } from "../components/components/BackgroundBeams";
+import { Footer } from "../components/sections/Footer";
+import { BackgroundBeams } from "../components/effects/BackgroundBeams";
 
 export const Checkin = () => {
   //   const navigate = useNavigate();
