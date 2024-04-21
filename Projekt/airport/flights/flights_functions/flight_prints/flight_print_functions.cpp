@@ -78,12 +78,8 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
         std::string premiumCard = user.premiumCard;
         double userDiscount = user.discount;
 
-
-
         double discount;
-        if(premiumCard == "niebieska") {
-            discount = 0.95;
-        } else if (premiumCard == "złota") {
+        if(premiumCard == "niebieska" || premiumCard == "złota") {
             discount = 0.95;
         } else if (premiumCard == "platynowa") {
             discount = 0.85;

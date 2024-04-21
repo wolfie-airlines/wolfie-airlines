@@ -15,7 +15,7 @@ protected:
 public:
     explicit User(mongocxx::client& client) :
     _client(client), _db(client["projekt"]), _collection(_db["users"]),
-    username("gosc"), email("brak"), discount(0.0), discountType("brak"), premiumCard("brak"),
+    username("gosc"), email("brak"), discount(1.0), discountType("brak"), premiumCard("brak"),
     paymentMethod("blik"), profession("brak"), registrationDate("brak"),
     moneySpent(0), moneySaved(0), ticketBought(0), userFlights(std::vector<bsoncxx::document::value>{}), isAdmin(false) {}
     User(std::string username, std::string email, double discount,

@@ -19,7 +19,7 @@ User::User(std::string username, std::string email, double discount, std::string
 void User::reset() {
     username = "gosc";
     email = "brak";
-    discount = 0.0;
+    discount = 1.0;
     discountType = "brak";
     premiumCard = "brak";
     paymentMethod = "blik";
@@ -207,29 +207,6 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
     std::string arrivalTime = flightConnection.getArrivalTime();
     auto flightPrice = flightConnection.getPrice();
 
-    // sprawdzanie czy użytkownik "dokupuje" miejsca do zakupionego już lotu
-    for (auto&& userFlight : userFlights) {
-        bsoncxx::document::view userFlightView = userFlight.view();
-        std::string userFlightId = (std::string) userFlightView["flightId"].get_string().value;
-        if (userFlightId == flightId) {
-            bsoncxx::document::value flight_filter_builder = bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("email", email),
-                    bsoncxx::builder::basic::kvp("password", password),
-                    bsoncxx::builder::basic::kvp("userFlights.flightId", flightId)
-            );
-            _collection.update_one(flight_filter_builder.view(), bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("$push", bsoncxx::builder::basic::make_document(
-                            bsoncxx::builder::basic::kvp("userFlights.$.seats", bsoncxx::builder::basic::make_document(
-                                    bsoncxx::builder::basic::kvp("$each", seats_array)
-                            ))
-                    ))
-            ));
-            validFunction("Bilet został pomyślnie zakupiony.", "Możesz zobaczyć go w zakładce 'Moje bilety'.");
-            return;
-        }
-    }
-
-    // jeśli nie dokupuje to zakupuje nowy bilet
     bsoncxx::document::value ticket_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("flightId", flightId),
             bsoncxx::builder::basic::kvp("departure", departure),
