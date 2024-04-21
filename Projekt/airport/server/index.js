@@ -29,8 +29,6 @@ mongoose
     console.error("Wystąpił błąd podczas łączenia się z bazą danych: ", err);
   });
 
-// Definicja endpointów API
-
 //* Odprawa online
 app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
   try {
@@ -67,49 +65,28 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       });
     }
 
-    // sprawdzanie czy ilość miejsc jest poprawna
-    const userFlight = existingUser.userFlights.find(
-      (flight) => flight.flightId === flightId
-    );
+    let flightForCheckin;
 
-    if (!userFlight) {
-      console.log("Nie znaleziono lotu w bazie danych użytkownika.");
+    for (let flight of existingUser.userFlights) {
+      if (
+        flight.flightId === flightId &&
+        seats.every((seat) => flight.seats.includes(seat))
+      ) {
+        flightForCheckin = flight;
+        break;
+      }
+    }
+
+    if (!flightForCheckin) {
+      console.log("Nie znaleziono odpowiedniego lotu.");
       return res.json({
         type: "error",
-        error: "Nie znaleziono lotu w bazie danych użytkownika.",
-        code: 4043,
+        error: "Nie znaleziono odpowiedniego lotu.",
+        code: 4042,
       });
     }
 
-    if (userFlight.seats.length !== seats.length) {
-      console.log("Niepoprawna ilość miejsc.");
-      return res.json({
-        type: "error",
-        error: "Niepoprawna ilość miejsc.",
-        code: 4044,
-      });
-    }
-
-    // sprawdź czy miejsca użytkownika z bazy danych są takie same jak te podane w parametrze
-    const userSeats = userFlight.seats;
-    const sortedUserSeats = userSeats.slice().sort();
-    const sortedSeats = seats.slice().sort();
-
-    // sprawdzenie czy tablice są identyczne
-    if (JSON.stringify(sortedUserSeats) !== JSON.stringify(sortedSeats)) {
-      console.log("Niepoprawne miejsca.");
-      return res.json({
-        type: "error",
-        error: "Niepoprawne miejsca.",
-        code: 4045,
-      });
-    }
-
-    let foundFlight = existingUser.userFlights.find(
-      (flight) => flight.flightId === flightId
-    );
-
-    if (foundFlight.checkin) {
+    if (flightForCheckin.checkin) {
       console.log("Użytkownik już ma odprawę online.");
       return res.json({
         type: "error",
@@ -124,10 +101,10 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       username: username,
       email: email,
       flightId: flightId,
-      departure: foundFlight.departure,
-      departureTime: foundFlight.departureTime,
-      destination: foundFlight.destination,
-      destinationTime: foundFlight.arrivalTime,
+      departure: flightForCheckin.departure,
+      departureTime: flightForCheckin.departureTime,
+      destination: flightForCheckin.destination,
+      destinationTime: flightForCheckin.arrivalTime,
       seats: seats,
     });
   } catch (error) {
@@ -135,9 +112,76 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       "Wystąpił błąd przy sprawdzeniu/zapisywaniu danych użytkownika",
       error
     );
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Błąd serwera" });
   }
 });
+
+app.get(
+  "/odprawa/accept/:username/:email/:flightId/:seats",
+  async (req, res) => {
+    try {
+      const username = req.params.username;
+      const email = req.params.email;
+      const flightId = req.params.flightId;
+
+      const existingUser = await userModel.findOne({ username, email });
+      if (!existingUser) {
+        console.log("Nie znaleziono użytkownika w bazie danych.");
+        return res.json({
+          type: "error",
+          error: "Nie znaleziono użytkownika w bazie danych.",
+          code: 4042,
+        });
+      }
+
+      let seats = req.params.seats;
+      seats = seats.split(",").map((seat) => parseInt(seat));
+
+      let userFlight;
+      for (let flight of existingUser.userFlights) {
+        if (
+          flight.flightId === flightId &&
+          seats.every((seat) => flight.seats.includes(seat))
+        ) {
+          userFlight = flight;
+          break;
+        }
+      }
+
+      if (!userFlight) {
+        console.log("Nie znaleziono lotu w bazie danych użytkownika.");
+        return res.json({
+          type: "error",
+          error: "Nie znaleziono lotu w bazie danych użytkownika.",
+          code: 4043,
+        });
+      }
+
+      if (userFlight.checkin) {
+        console.log("Użytkownik już ma odprawę online.");
+        return res.json({
+          type: "error",
+          error: "Użytkownik już ma odprawę online.",
+          code: 4046,
+        });
+      }
+
+      userFlight.checkin = true;
+      await existingUser.save();
+
+      return res.json({
+        type: "success",
+        message: "Odprawa online zakończona pomyślnie.",
+      });
+    } catch (error) {
+      console.error(
+        "Wystąpił błąd przy sprawdzeniu/zapisywaniu danych użytkownika",
+        error
+      );
+      res.status(500).json({ error: "Błąd serwera" });
+    }
+  }
+);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

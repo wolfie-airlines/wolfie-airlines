@@ -43,6 +43,11 @@ export const CheckinParams = () => {
           setDestination(data.destination);
           setDestinationTime(data.destinationTime);
           setGateNumber(generateGateNumber());
+          fetch(
+            `http://localhost:5000/odprawa/accept/${username}/${email}/${flightId}/${seats}`
+          )
+            .then((response) => response.json())
+            .then((data) => console.log(data));
           setTimeout(() => {
             setLoading(false);
           }, 3500);

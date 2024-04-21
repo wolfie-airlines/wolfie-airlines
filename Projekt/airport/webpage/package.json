@@ -37,7 +37,7 @@
     "katex": "^0.16.7",
     "mini-svg-data-uri": "^1.4.4",
     "moment": "^2.29.4",
-    "mongoose": "^7.4.1",
+    "mongoose": "^7.6.11",
     "next": "^13.4.9",
     "npm": "^9.7.2",
     "raw-loader": "^4.0.2",
