@@ -1,21 +1,7 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa";
 import { BsGlobe2 } from "react-icons/bs";
 import Container from "../components/Container";
-import { useState } from "react";
 const AboutSection = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const gifSrc = isHovered
-    ? "https://i.imgur.com/ZOmDQD2.gif"
-    : "https://i.imgur.com/7cCLWEY.gif";
-
   return (
     <section>
       <Container>
@@ -92,14 +78,6 @@ const AboutSection = () => {
               działalność mojego projektu na studia. To ja jestem tym przyjaznym
               Spider-Manem z sąsiedztwa. <br /> Pozdrawiam i podpisuję się pod
               tymi słowami:
-              <img
-                className="max-xl:mx-auto w-1/ rounded-xl mt-2 "
-                src={gifSrc}
-                alt="Spiderman"
-                draggable="false"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              ></img>
               <img
                 className="max-xl:mx-auto w-4/5 rounded-full "
                 src="https://i.imgur.com/K3n9FPy.png"
