@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { BackgroundBeams } from "../../components/components/BackgroundBeams";
 const NotFound = () => {
   const navigate = useNavigate();
   return (
     <section className="bg-black ">
       <div className="container flex items-center justify-center min-h-screen px-6 py-12 mx-auto">
+        <BackgroundBeams />
         <div className="w-full ">
           <div className="flex flex-col items-center max-w-lg mx-auto text-center">
             <p className="text-4xl font-bold text-blue-400 firefox:font-inter">

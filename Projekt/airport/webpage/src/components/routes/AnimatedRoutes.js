@@ -4,8 +4,6 @@ import Home from "../../pages/Home";
 import Info from "../../pages/markdown/Info";
 import { FAQ } from "../../pages/markdown/FAQ";
 import NotFound from "../../pages/errors/404";
-import { Maintainance } from "../../pages/errors/Maintainance";
-import { Error } from "../../pages/errors/Error";
 import { Sparrow } from "../navigation/Sparrow";
 import { Checkin } from "../../pages/Checkin";
 import { CheckinParams } from "../../pages/CheckinParams";
@@ -19,7 +17,6 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/not-yet" element={<Maintainance />} />
         <Route path="/info" element={<Info />} />
         <Route path="/odprawy" element={<Checkin />} />
         <Route
@@ -27,7 +24,6 @@ function AnimatedRoutes() {
           element={<CheckinParams />}
         />
         <Route path="/sparrow" element={<Sparrow />} />
-        <Route path="/error/:errorMessage/:errorType" element={<Error />} />
       </Routes>
     </div>
   );
