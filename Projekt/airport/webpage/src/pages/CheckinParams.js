@@ -18,11 +18,14 @@ export const CheckinParams = () => {
       )
       .then((response) => {
         console.log(response.data);
+        setType(response.data.type);
+        setCode(response.data.code);
+        setMessage(response.data.message);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [email, flightId, seats, username]);
 
   return (
     <div>
