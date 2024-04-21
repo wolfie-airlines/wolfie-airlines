@@ -115,9 +115,10 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       });
     }
 
-    existingUser.userFlights.find(
+    let foundFlight = existingUser.userFlights.find(
       (flight) => flight.flightId === flightId
-    ).checkin = true;
+    );
+    foundFlight.checkin = true;
 
     await existingUser.save();
 
@@ -127,6 +128,9 @@ app.get("/odprawa/:username/:email/:flightId/:seats", async (req, res) => {
       username: username,
       email: email,
       flightId: flightId,
+      departure: foundFlight.departure,
+      departureTime: foundFlight.departureTime,
+      destination: foundFlight.destination,
       seats: seats,
     });
   } catch (error) {
