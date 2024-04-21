@@ -9,7 +9,7 @@ using qrcodegen::QrSegment;
 
 
 // Function prototypes
-void createQR(std::string email, std::string username, std::string flightId, std::vector<int> seats);
+void createQR(const std::string& email, const std::string& username, const std::string& flightId, std::vector<int> seats);
 void printQr(const QrCode &qr);
 
 

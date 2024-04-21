@@ -3,12 +3,21 @@
 #include "qrcode_prints.h"
 
 
-void createQR(std::string email, std::string username, std::string flightId, std::vector<int> seats) {
-    const char *text = "https://www.szymon-wilczek.pl";
-    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // poziom korekcji pixeli
+void createQR(const std::string& email, const std::string& username, const std::string& flightId, std::vector<int> seats) {
+    std::string seatsString;
+    for (size_t i = 0; i < seats.size(); ++i) {
+        seatsString += std::to_string(seats[i]);
+        if (i != seats.size() - 1) {
+            seatsString += ",";
+        }
+    }
 
-    std::vector<QrSegment> segs = QrSegment::makeSegments(text);
-    const QrCode qr = QrCode::encodeSegments(segs, errCorLvl, 1, 2);
+    std::string text = "https://wolfie-airlines-webpage.vercel.app/odprawy/" + username + "/" + email + "/" + flightId + "/" + seatsString;
+
+    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW; // im mniej tym więcej możliwości bitów do zakodowania
+
+    std::vector<QrSegment> segs = QrSegment::makeSegments(text.c_str());
+    const QrCode qr = QrCode::encodeSegments(segs, errCorLvl, 1, 40);
     printQr(qr);
 }
 
