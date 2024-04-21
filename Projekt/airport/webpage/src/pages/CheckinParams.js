@@ -6,7 +6,6 @@ import TypewriterEffectSmooth from "../components/effects/TypewriterEffect";
 import BoardCardCanvas from "../components/canvas/BoardCardCanvas";
 import { motion } from "framer-motion";
 import { generateGateNumber } from "../components/functions/BoardCardFunctions";
-import { BackgroundBeams } from "../components/effects/BackgroundBeams";
 
 export const CheckinParams = () => {
   //   const navigate = useNavigate();
@@ -24,7 +23,7 @@ export const CheckinParams = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/odprawa/${username}/${email}/${flightId}/${seats}`
+      `https://wolfie-airlines-server.vercel.app/odprawa/${username}/${email}/${flightId}/${seats}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -43,7 +42,7 @@ export const CheckinParams = () => {
           setDestinationTime(data.destinationTime);
           setGateNumber(generateGateNumber());
           fetch(
-            `http://localhost:5000/odprawa/accept/${username}/${email}/${flightId}/${seats}`
+            `https://wolfie-airlines-server.vercel.app/odprawa/accept/${username}/${email}/${flightId}/${seats}`
           ).then((response) => response.json());
           setTimeout(() => {
             setLoading(false);
@@ -55,7 +54,7 @@ export const CheckinParams = () => {
   }, []);
 
   return (
-    <div>
+    <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <Navbar />
       <div className="py-12">
         <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
@@ -142,7 +141,6 @@ export const CheckinParams = () => {
             )}
           </section>
         </div>
-        <BackgroundBeams className="z-[30]" />
       </div>
       <Footer />
     </div>

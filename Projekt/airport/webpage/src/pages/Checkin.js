@@ -1,14 +1,12 @@
 import React from "react";
 import Navbar from "../components/navigation/Navbar";
 import { Footer } from "../components/sections/Footer";
-import { BackgroundBeams } from "../components/effects/BackgroundBeams";
 
 export const Checkin = () => {
   //   const navigate = useNavigate();
 
   return (
-    <div>
-      <BackgroundBeams />
+    <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <Navbar />
       <div className="py-12">
         <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">

@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <Nav />
-      <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2]flex flex-row items-center justify-center py-20 h-screen md:h-auto dark:bg-black bg-white relative w-full">
+      <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex flex-row items-center justify-center py-20 h-screen md:h-auto dark:bg-black bg-white relative w-full">
         <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4 max-md:h-[30rem]">
           <motion.div
             initial={{

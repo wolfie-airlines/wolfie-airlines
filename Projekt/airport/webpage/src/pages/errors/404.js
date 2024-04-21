@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { BackgroundBeams } from "../../components/effects/BackgroundBeams";
 const NotFound = () => {
   const navigate = useNavigate();
   const body = document.querySelector("body");
   body.style.pointerEvents = "auto";
   return (
-    <section className="bg-black ">
+    <section className="bg-black dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <div className="container flex items-center justify-center min-h-screen px-6 py-12 mx-auto">
-        <BackgroundBeams className="z-10" />
         <div className="w-full ">
           <div className="flex flex-col items-center max-w-lg mx-auto text-center">
             <p className="text-4xl font-bold text-blue-400 firefox:font-inter">
