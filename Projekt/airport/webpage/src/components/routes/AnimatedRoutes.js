@@ -8,6 +8,7 @@ import { Maintainance } from "../../pages/errors/Maintainance";
 import { Error } from "../../pages/errors/Error";
 import { Sparrow } from "../navigation/Sparrow";
 import { Checkin } from "../../pages/Checkin";
+import { CheckinParams } from "../../pages/CheckinParams";
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -23,7 +24,7 @@ function AnimatedRoutes() {
         <Route path="/odprawy" element={<Checkin />} />
         <Route
           path="/odprawy/:username/:email/:flightId/:seats"
-          element={<Checkin />}
+          element={<CheckinParams />}
         />
         <Route path="/sparrow" element={<Sparrow />} />
         <Route path="/error/:errorMessage/:errorType" element={<Error />} />

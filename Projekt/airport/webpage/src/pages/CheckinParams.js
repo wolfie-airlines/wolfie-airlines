@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navigation/Navbar";
 import { Footer } from "../components/components/Footer";
 import { useParams } from "react-router-dom";
@@ -6,19 +6,23 @@ import axios from "axios";
 
 export const CheckinParams = () => {
   //   const navigate = useNavigate();
+  const [type, setType] = useState("");
+  const [code, setCode] = useState("");
+  const [message, setMessage] = useState("");
   const { username, email, flightId, seats } = useParams();
 
-  //fetch data from API with params using axios
   useEffect(() => {
     axios
-      .get(`https://api.example.com/user/${username}`)
+      .get(
+        `https://wolfie-airlines.vercel.app/odprawa/${username}/${email}/${flightId}/${seats}`
+      )
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [username]);
+  }, []);
 
   return (
     <div>
