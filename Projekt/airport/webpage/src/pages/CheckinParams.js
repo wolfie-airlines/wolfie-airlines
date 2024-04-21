@@ -28,7 +28,6 @@ export const CheckinParams = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.type === "error") {
           setError(true);
           setMessage(data.error);
@@ -45,9 +44,7 @@ export const CheckinParams = () => {
           setGateNumber(generateGateNumber());
           fetch(
             `http://localhost:5000/odprawa/accept/${username}/${email}/${flightId}/${seats}`
-          )
-            .then((response) => response.json())
-            .then((data) => console.log(data));
+          ).then((response) => response.json());
           setTimeout(() => {
             setLoading(false);
           }, 3500);
