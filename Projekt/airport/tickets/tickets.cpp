@@ -99,8 +99,8 @@ void processPurchase(
 
     flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
     user.addTicketToUser(selectedSeats, foundConnection);
+    druknijFakturke(user, foundConnection, selectedSeats);
 }
-
 
 void handleFlightById(FlightConnection& flightConnection, User& user) {
     std::string flightId = displayMessageAndCaptureInput(
