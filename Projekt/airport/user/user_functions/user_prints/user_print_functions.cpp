@@ -14,6 +14,7 @@ std::shared_ptr<ftxui::Element> CreateScreen() {
                                            ftxui::hbox({ftxui::text(L"2. Zaloguj się   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Wyszukaj połączenie   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"4. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"5. Odprawy online   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
 
                                            ftxui::hbox({ftxui::text(L"quit. Zamknij aplikację   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
                                            // ---------
@@ -49,7 +50,10 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"5. Panel administratora   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"5. Moje bilety   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"6. Odprawy   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"7. Odprawa bagażowa   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"8. Panel administratora   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
                                            ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ")  | ftxui::bold}) | color(ftxui::Color::DarkRed),
@@ -117,7 +121,7 @@ int CreateDefaultPaymentScreen() {
     return selected;
 }
 
-void CreateProfileScreen(User user) {
+void CreateProfileScreen(User& user) {
 
     std::string username = user.username;
     std::transform(username.begin(), username.end(), username.begin(), ::toupper);

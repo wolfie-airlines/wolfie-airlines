@@ -10,6 +10,6 @@ std::shared_ptr<ftxui::Element> CreateScreen();
 std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user);
 std::string handleSettingsMenu(const User& user);
 int CreateDefaultPaymentScreen();
-void CreateProfileScreen(User user);
+void CreateProfileScreen(User& user);
 
 #endif //AIRPORT_USER_PRINT_FUNCTIONS_H
