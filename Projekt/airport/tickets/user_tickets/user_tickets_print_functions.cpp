@@ -107,6 +107,7 @@ void createTicketsScreen(User& user) {
             elements.push_back(window(ftxui::paragraphAlignCenter("BILET #" + std::to_string(flightInfo.flightNumber)), ticketContent));
         }
     }
+
     auto createScreen = [&] {
         auto summary = ftxui::vbox({
                                            ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
