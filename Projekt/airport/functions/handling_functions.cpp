@@ -13,6 +13,7 @@
 #include "../user/discounts/discounts.h"
 #include "../tickets/tickets.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
+#include "../tickets/user_tickets/user_tickets_print_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -155,7 +156,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                     handleDiscountCard(currentUser);
                 }
             } else if (userChoice == "5") {
-                //TODO: bilety
+                createTicketsScreen(currentUser);
             } else if (userChoice == "6") {
                 //TODO: Odprawy
             } else if (userChoice == "7") {
