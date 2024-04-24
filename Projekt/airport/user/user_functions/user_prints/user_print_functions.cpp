@@ -51,7 +51,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
                                            ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"5. Moje bilety   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
-                                           ftxui::hbox({ftxui::text(L"6. Odprawy   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({ftxui::text(L"6. Odprawa biletowa   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"7. Odprawa bagażowa   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"8. Panel administratora   ")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                            ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ")  | ftxui::bold}) | color(ftxui::Color::CadetBlue),
