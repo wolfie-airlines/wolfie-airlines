@@ -56,6 +56,9 @@ add_executable(airport main.cpp
         qr-code/qrcode_prints.cpp
         tickets/user_tickets/user_tickets_print_functions.h
         tickets/user_tickets/user_tickets_print_functions.cpp
+        tcheckin/checkin_functions_prints.h
+        tcheckin/checkin_functions_prints.h
+        tcheckin/checkin_functions_prints.cpp
 )
 
 include(FetchContent)

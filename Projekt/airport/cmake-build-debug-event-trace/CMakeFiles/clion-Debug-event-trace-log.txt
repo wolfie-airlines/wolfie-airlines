@@ -31,7 +31,6 @@ nayuki-qr-code-generator provides CMake targets:
   target_link_libraries(main PRIVATE unofficial::nayuki-qr-code-generator::nayuki-qr-code-generator)
 
 -- Running vcpkg install - done
--- Avoiding repeated git clone, stamp file is up to date: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-gitclone-lastrun.txt'
 CMake Error at C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-gitupdate.cmake:34 (message):
   Failed to get the hash for HEAD:
 
@@ -39,8 +38,7 @@ CMake Error at C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airpor
 
 
 
-[0/8] Performing download step (git clone) for 'ftxui-populate'
-[1/8] Performing disconnected update step for 'ftxui-populate'
+[0/7] Performing disconnected update step for 'ftxui-populate'
 FAILED: ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected 
 C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug-event-trace\_deps\ftxui-src && "C:\Users\szymo\AppData\Local\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -Dcan_fetch=NO -P C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-gitupdate.cmake && "C:\Users\szymo\AppData\Local\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected"
 ninja: build stopped: subcommand failed.
@@ -51,7 +49,7 @@ Call Stack (most recent call first):
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:1819:EVAL:2 (__FetchContent_directPopulate)
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:1819 (cmake_language)
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:2033 (FetchContent_Populate)
-  CMakeLists.txt:67 (FetchContent_MakeAvailable)
+  CMakeLists.txt:70 (FetchContent_MakeAvailable)
 
 
 -- Configuring incomplete, errors occurred!
