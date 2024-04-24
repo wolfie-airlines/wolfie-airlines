@@ -104,7 +104,7 @@ void createTicketsScreen(User& user) {
                                                                }),
                                            }
             ) | ftxui::border;
-            elements.push_back(window(ftxui::paragraphAlignCenter("BILET #" + std::to_string(flightInfo.flightNumber)), ticketContent));
+            elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flightNumber)), ticketContent));
         }
     }
 
