@@ -160,7 +160,7 @@ void druknijFakturke(
                                            }),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignRight("Do zapłaty: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
+                                                               ftxui::paragraphAlignRight("Zapłacono: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
                                            }),
                                            ftxui::hbox({ ftxui::text(L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Zeskanuj kod poniżej:") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
                                    });
