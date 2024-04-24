@@ -31,16 +31,3 @@ void printQr(const QrCode &qr) {
     }
     std::cout << std::endl;
 }
-
-//std::string printQr(const QrCode &qr) {
-//    int border = 0;
-//    std::ostringstream qrString;
-//    for (int y = -border; y < qr.getSize() + border; y++) {
-//        for (int x = -border; x < qr.getSize() + border; x++) {
-//            qrString << (qr.getModule(x, y) ? "##" : "  ");
-//        }
-//        qrString << "\n";
-//    }
-//    qrString << "\n";
-//    return qrString.str();
-//}
