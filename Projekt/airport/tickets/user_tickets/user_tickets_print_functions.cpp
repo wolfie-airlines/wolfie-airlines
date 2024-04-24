@@ -106,21 +106,20 @@ void createTicketsScreen(User& user) {
             ) | ftxui::border;
             elements.push_back(window(ftxui::paragraphAlignCenter("BILET #" + std::to_string(flightInfo.flightNumber)), ticketContent));
         }
-
-        auto createScreen = [&] {
-            auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
-                                               color(ftxui::Color::White),
-                                               ftxui::separator(),
-                                               ftxui::vbox(elements),
-                                       });
-            auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-            return std::make_shared<ftxui::Element>(document);
-        };
-
-        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()),
-                                                ftxui::Dimension::Fit(*createScreen()));
-        ftxui::Render(userScreen, *createScreen());
-        std::cout << userScreen.ToString() << '\0' << std::endl;
     }
+    auto createScreen = [&] {
+        auto summary = ftxui::vbox({
+                                           ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
+                                           color(ftxui::Color::White),
+                                           ftxui::separator(),
+                                           ftxui::vbox(elements),
+                                   });
+        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+        return std::make_shared<ftxui::Element>(document);
+    };
+
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()),
+                                            ftxui::Dimension::Fit(*createScreen()));
+    ftxui::Render(userScreen, *createScreen());
+    std::cout << userScreen.ToString() << '\0' << std::endl;
 }
