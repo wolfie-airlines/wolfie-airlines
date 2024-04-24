@@ -86,14 +86,14 @@ bool handleLogin(Authentication& auth, User& currentUser) {
 }
 
 void handleUserMenu(User& currentUser) {
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserScreen(currentUser)));
-    ftxui::Render(userScreen, *CreateUserScreen(currentUser));
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(currentUser)));
+    ftxui::Render(userScreen, *CreateUserMenu(currentUser));
     std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
 void handleMenu() {
-    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateScreen()));
-    ftxui::Render(screen, *CreateScreen());
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateDefaultMenu()));
+    ftxui::Render(screen, *CreateDefaultMenu());
     std::cout << screen.ToString() << '\0' << std::endl;
 }
 

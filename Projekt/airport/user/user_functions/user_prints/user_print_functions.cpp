@@ -6,7 +6,7 @@
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
 
-std::shared_ptr<ftxui::Element> CreateScreen() {
+std::shared_ptr<ftxui::Element> CreateDefaultMenu() {
     auto summary = [&] {
         auto content = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold}) | color(ftxui::Color::Blue),
@@ -31,7 +31,7 @@ std::shared_ptr<ftxui::Element> CreateScreen() {
     return std::make_shared<ftxui::Element>(document);
 }
 
-std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
+std::shared_ptr<ftxui::Element> CreateUserMenu(const User& user) {
     auto summary = [&] {
         std::string usernameAndTitle = user.username;
         if(user.checkIfAdmin()) {
@@ -72,7 +72,7 @@ std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user) {
     return std::make_shared<ftxui::Element>(document);
 }
 
-std::string handleSettingsMenu(const User& user) {
+std::string CreateSettingsMenu(const User& user) {
     auto createSettingsScreen = [&] {
         auto summary = ftxui::vbox({
                                            ftxui::hbox({ftxui::text(L" USTAWIENIA KONTA") | ftxui::bold}) | color(ftxui::Color::Blue),

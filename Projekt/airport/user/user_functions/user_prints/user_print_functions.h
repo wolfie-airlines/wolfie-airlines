@@ -6,9 +6,9 @@
 #include "ftxui/dom/elements.hpp"
 #include "../../User.h"
 
-std::shared_ptr<ftxui::Element> CreateScreen();
-std::shared_ptr<ftxui::Element> CreateUserScreen(const User& user);
-std::string handleSettingsMenu(const User& user);
+std::shared_ptr<ftxui::Element> CreateDefaultMenu();
+std::shared_ptr<ftxui::Element> CreateUserMenu(const User& user);
+std::string CreateSettingsMenu(const User& user);
 int CreateDefaultPaymentScreen();
 void CreateProfileScreen(User& user);
 

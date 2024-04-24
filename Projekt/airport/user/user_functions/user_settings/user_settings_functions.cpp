@@ -5,7 +5,7 @@
 #include "../../professions/user_profession_functions.h"
 
 void handleSettingsOption(User& user) {
-    std::string option = handleSettingsMenu(user);
+    std::string option = CreateSettingsMenu(user);
     if (option== "1") {
         std::string newUsername;
         std::cout << "Podaj nową nazwę użytkownika: ";
