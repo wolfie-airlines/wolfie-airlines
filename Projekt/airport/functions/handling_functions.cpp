@@ -12,7 +12,6 @@
 #include "../user/premium_cards/premium_cards.h"
 #include "../user/discounts/discounts.h"
 #include "../tickets/tickets.h"
-#include "../admin/Admin.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
 
 void handleRegistration(Authentication& auth) {
@@ -115,6 +114,8 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 handleFlightOptions(flightConnection, currentUser);
             } else if (choice == "4") {
                 errorFunction("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
+            } else if (choice == "5") {
+                openWebsite();
             }
             else if (choice == "quit") {
                 seeyaFunction();
@@ -154,6 +155,12 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                     handleDiscountCard(currentUser);
                 }
             } else if (userChoice == "5") {
+                //TODO: bilety
+            } else if (userChoice == "6") {
+                //TODO: Odprawy
+            } else if (userChoice == "7") {
+                //TODO: Odprawa bagażowa
+            } else if (userChoice == "8") {
                 currentUser.loginAsAdmin();
             }
         }
