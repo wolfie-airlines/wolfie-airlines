@@ -5,6 +5,9 @@
 #include <iomanip>
 #include "qrcodegen.hpp"
 #include "../../qr-code/qrcode_prints.h"
+#include "../../functions/info_print_functions.h"
+#include <windows.h>
+#include <shellapi.h>
 
 int CreateTicketMenu() {
     using namespace ftxui;
@@ -99,7 +102,6 @@ std::string displayWarningAndCaptureInput(const std::string& titleMessage, const
     return answer;
 }
 
-
 void druknijFakturke(
         User& user, FlightConnection& foundConnection, const std::vector<int>& selectedSeats
         ) {
@@ -171,4 +173,10 @@ void druknijFakturke(
     ftxui::Render(userScreen, *createScreen());
     std::cout << userScreen.ToString() << '\0' << std::endl;
     createQR(user.email, user.username, foundConnection.getIdentifier(), selectedSeats);
+}
+
+void openWebsite() {
+    std::string search_URL = "https://wolfie-airlines-webpage.vercel.app/odprawy";
+    errorFunction("Pamiętaj!", "Żeby dokonać odprawy musisz mieć zakupiony bilet.");
+    ShellExecuteA(NULL, "open", search_URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
