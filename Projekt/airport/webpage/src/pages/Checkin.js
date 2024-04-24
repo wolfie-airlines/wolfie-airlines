@@ -37,11 +37,11 @@ export const Checkin = () => {
                   </p>
                 </div>
 
-                <form className="max-w-sm justify-end flex-col items-end max-lg:justify-end max-lg:items-end max-lg:flex-col max-lg:mx-auto max-lg:pr-0">
-                  <h2 className="text-end max-lg:text-center mb-4 text-3xl tracking-tight font-bold text-white firefox:font-inter">
+                <form className="max-w-sm justify-end max-lg:mx-auto max-lg:justify-center flex flex-col items-end max-lg:items-center max-lg:flex-col">
+                  <h2 className="flex text-end max-lg:text-center  mb-4 text-3xl max-lg:text-2xl tracking-tight font-bold text-white firefox:font-inter">
                     Sprawdź czy masz wszystko potrzebne do odprawy:
                   </h2>
-                  <div class="flex items-center justify-end mb-2">
+                  <div class="flex items-center justify-end max-lg:justify-center mb-2">
                     <label
                       for="disabled-checked-checkbox"
                       class="me-2 text-lg font-medium text-gray-100 dark:text-gray-100"
@@ -57,7 +57,7 @@ export const Checkin = () => {
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
-                  <div class="flex items-center justify-end mb-2">
+                  <div class="flex items-center justify-end max-lg:justify-center mb-2">
                     <label
                       for="disabled-checked-checkbox"
                       class="me-2 text-lg font-medium text-gray-100 dark:text-gray-100"
@@ -73,12 +73,12 @@ export const Checkin = () => {
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
-                  <div class="flex items-center justify-end mb-2">
+                  <div class="flex items-center justify-end max-lg:justify-center mb-2">
                     <label
                       for="disabled-checked-checkbox"
                       class="me-2 text-lg font-medium text-gray-100 dark:text-gray-100"
                     >
-                      Przydzielone miejsce w samolocie
+                      Przydzielone miejsce
                     </label>
                     <input
                       disabled
@@ -89,12 +89,12 @@ export const Checkin = () => {
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
-                  <div class="flex items-center justify-end mb-2">
+                  <div class="flex items-center justify-end max-lg:justify-center mb-2">
                     <label
                       for="disabled-checked-checkbox"
                       class="me-2 text-lg font-medium text-gray-100 dark:text-gray-100 whitespace-nowrap"
                     >
-                      Uregulowane płatności (bagaż/zwierzęta/bilet)
+                      Uregulowane płatności
                     </label>
                     <input
                       disabled
@@ -105,7 +105,7 @@ export const Checkin = () => {
                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
-                  <div class="flex items-center justify-end mb-2">
+                  <div class="flex items-center justify-end max-lg:justify-center mb-2">
                     <label
                       for="disabled-checked-checkbox"
                       class="me-2 text-lg font-medium text-gray-100 dark:text-gray-100"
@@ -122,13 +122,13 @@ export const Checkin = () => {
                     />
                   </div>
 
-                  <div className="flex items-end justify-end">
+                  <div className="flex items-end max-lg:items-center justify-end max-lg:justify-center">
                     <button
                       type="button"
                       // onClick={() =>
                       //   navigate("app-release-link")
                       // }
-                      className="max-sm:text-xs max-xl:text-sm font-inter py-2 px-6 mt-5 text-white font-semibold bg-blue-600 rounded-lg hover:bg-blue-700"
+                      className="max-xl:text-sm font-inter py-2 px-6 mt-5 text-white font-semibold bg-blue-600 rounded-lg hover:bg-blue-700"
                     >
                       Pobierz naszą aplikację
                     </button>

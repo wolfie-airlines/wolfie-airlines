@@ -46,10 +46,18 @@ export const CheckinParams = () => {
           ).then((response) => response.json());
           setTimeout(() => {
             setLoading(false);
-          }, 3500);
+          }, 4000);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(true);
+        setMessage("Wystąpił błąd podczas odprawy online.");
+        setCode(500);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3500);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -124,7 +132,7 @@ export const CheckinParams = () => {
                       key={seat}
                       width={5643}
                       height={2499}
-                      imageUrl="https://i.imgur.com/o2paJAJ.png"
+                      imageUrl="https://i.postimg.cc/rmNGfgsg/board-card.png"
                       user={username}
                       email={email}
                       flightId={flightId}
