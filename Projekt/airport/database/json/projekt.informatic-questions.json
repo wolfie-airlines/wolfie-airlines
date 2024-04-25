@@ -1,0 +1,315 @@
+[{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321eb"
+  },
+  "language": "Java",
+  "error": "NullPointerException",
+  "code": "String str = null,int length = str.length();",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f7"
+  },
+  "language": "Ruby",
+  "error": "NoMethodError: undefined method `join' for nil:NilClass",
+  "code": "arr = nil,arr.join(', ')",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321fa"
+  },
+  "language": "Perl",
+  "error": "Can't use string (\"hello\") as a HASH ref while \"strict refs\" in use",
+  "code": "my $hash = 'hello',$hash->{key} = 'value';",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321fe"
+  },
+  "language": "Scala",
+  "error": "scala.MatchError: 5",
+  "code": "val x: Any = 5,x match{ case _: String => println('string')}",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32203"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of undefined",
+  "code": "let arr;,console.log(arr.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32208"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot set property 'property' of undefined",
+  "code": "let obj;,obj?.property = 'value';",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ea"
+  },
+  "language": "Python",
+  "error": "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+  "code": "x = 5, y = 'hello', z = x + y",
+  "answer": 3
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ef"
+  },
+  "language": "Swift",
+  "error": "Thread 1: EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP)",
+  "code": "let arr = [1],print(arr[3])",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f0"
+  },
+  "language": "PHP",
+  "error": "Fatal error: Uncaught DivisionByZeroError",
+  "code": "$x = 1,$y = 0,echo $x / $y;",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f1"
+  },
+  "language": "Rust",
+  "error": "thread panicked index out of bounds: the len is 3'",
+  "code": "let arr = vec![3], println!('{}', arr[5]);",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f2"
+  },
+  "language": "Haskell",
+  "error": "Non-exhaustive patterns in function",
+  "code": "factorial 0 = 1,factorial n = n * factorial(n - 1)",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f4"
+  },
+  "language": "Python",
+  "error": "KeyError: 'key'",
+  "code": "d = {'key': 'value'},print(d['key'])",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f5"
+  },
+  "language": "Java",
+  "error": "NumberFormatException",
+  "code": "int num = Integer.parseInt(\\\"abc\\\");",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f8"
+  },
+  "language": "Go",
+  "error": "invalid operation: mixed types string and int",
+  "code": "x := 5,y := 'hello',z := x + y",
+  "answer": 3
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f9"
+  },
+  "language": "Swift",
+  "error": "Cannot convert value of type 'String' to specified type 'Int'",
+  "code": "let str = 'hello',let num: Int = str",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321fc"
+  },
+  "language": "SQL",
+  "error": "ORA-02289: sequence does not exist",
+  "code": "SELECT non_existing_sequence.nextval FROM dual;",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32205"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of undefined",
+  "code": "let arr = undefined;,console.log(arr.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d3220b"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'toUpperCase' of undefined",
+  "code": "let str;,console.log(str?.toUpperCase());",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d3220c"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of null",
+  "code": "let str;,console.log(str?.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ec"
+  },
+  "language": "C++",
+  "error": "Segmentation fault",
+  "code": "int* ptr = nullptr;,*ptr = 10;",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ed"
+  },
+  "language": "Ruby",
+  "error": "NoMethodError: undefined method `length' for nil:NilClass",
+  "code": "str = nil,str.length",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ee"
+  },
+  "language": "Go",
+  "error": "panic: runtime error: index out of range",
+  "code": "arr := []int{2},fmt.Println(arr[3])",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f3"
+  },
+  "language": "Scala",
+  "error": "java.lang.OutOfMemoryError: Java heap space",
+  "code": "val list = List.fill(10000000)(1),println(list)",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321fd"
+  },
+  "language": "Haskell",
+  "error": "*** Exception: divide by zero",
+  "code": "div 5 0",
+  "answer": 1
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32206"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of undefined",
+  "code": "let arr;,console.log(arr?.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d3220a"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of null",
+  "code": "let str = null;,console.log(str?.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321f6"
+  },
+  "language": "C++",
+  "error": "error: invalid operands to binary expression ('int' and 'const char *')",
+  "code": "int x = 5,int y = 'hello',int z = x + y;",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321fb"
+  },
+  "language": "Rust",
+  "error": "error[E0277]: the trait bound `&str: std::ops::Add` is not satisfied",
+  "code": "let x = 5,let y = 'hello',let z = x + y;",
+  "answer": 3
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d321ff"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'length' of null",
+  "code": "let str = null;,console.log(str.length);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32200"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot set property 'property' of undefined",
+  "code": "let obj;,obj.property = 'value';",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32201"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'toUpperCase' of undefined",
+  "code": "let str;,console.log(str.toUpperCase());",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32202"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: variableName is not a function",
+  "code": "let variableName = 5;,variableName();",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32204"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'toUpperCase' of null",
+  "code": "let str = null;,console.log(str.toUpperCase());",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32207"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'property' of undefined",
+  "code": "let obj;,console.log(obj?.property);",
+  "answer": 2
+},
+{
+  "_id": {
+    "$oid": "661269b2c99e6a4b66d32209"
+  },
+  "language": "JavaScript",
+  "error": "TypeError: Cannot read property 'toUpperCase' of null",
+  "code": "let str = null;,console.log(str?.toUpperCase());",
+  "answer": 2
+}]

@@ -1,0 +1,342 @@
+[{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69bf"
+  },
+  "problem": "Obliczanie całki nieoznaczonej",
+  "description": "Oblicz ∫f(x)dx dla funkcji f(x) = 4x^3 + 2x^2 - 5x + 6.",
+  "solution": "x^4+(2/3)x^3-(5/2)x^2+6x+C",
+  "hint": "Odpowiedź zapisz jako wynik całki z użyciem ułamków prostych (używając znaku /)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d4"
+  },
+  "problem": "Obliczanie wartości funkcji kwadratowej",
+  "description": "Oblicz wartość funkcji kwadratowej f(x) = x^2 - 3x + 2 dla x = 5.",
+  "solution": 2,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c0"
+  },
+  "problem": "Rozwiązywanie równania różniczkowego",
+  "description": "Rozwiąż równanie różniczkowe y' - 2y = 0.",
+  "solution": "y(x)=Ce^(2x)",
+  "hint": "Odpowiedź zapisz jako równanie y(x)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69bd"
+  },
+  "problem": "Obliczanie wartości funkcji trygonometrycznej",
+  "description": "Oblicz wartość funkcji sin(π/4).",
+  "solution": 0.70711,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d8"
+  },
+  "problem": "Obliczanie wartości wyrażenia algebraicznego",
+  "description": "Oblicz wartość wyrażenia algebraicznego 2a^2 + 3b - c, gdy a = 3, b = 4, c = 5.",
+  "solution": 35,
+  "hint": " Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69bb"
+  },
+  "problem": "Obliczanie granicy",
+  "description": "Oblicz lim x -> 1 z f(x) = (3x^2+2x-5)/(x-1)",
+  "solution": 10,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c1"
+  },
+  "problem": "Obliczanie granicy ciągu",
+  "description": "Oblicz granicę ciągu a_n = 1/n gdy n -> ∞.",
+  "solution": 0,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69be"
+  },
+  "problem": "Obliczanie pochodnej funkcji złożonej",
+  "description": "f'(x) z f(x) = sin(x^2 + 3x) przy użyciu reguły łańcuchowej.",
+  "solution": "cos(x^2+3x)*(2x+3)",
+  "hint": "Potęgi w odpowiedzi zapisz używając ^"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c2"
+  },
+  "problem": "Obliczanie pochodnej funkcji logarytmicznej",
+  "description": "Oblicz f'(x) dla f(x) = ln(x^2 + 3x + 1).",
+  "solution": "(2x+3)/(x^2+3x+1)",
+  "hint": "Odpowiedź zapisz jako ułamek (wielomian/wielomian)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69cb"
+  },
+  "problem": "Obliczanie wartości pierwiastka n-tego stopnia",
+  "description": "Oblicz pierwiastek sześcienny z liczby 729.",
+  "solution": 9,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69bc"
+  },
+  "problem": "Obliczanie pierwiastka kwadratowego",
+  "description": "Rozwiąż dla x: x^2 - 4x + 4 = 0.",
+  "solution": 2,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d0"
+  },
+  "problem": "Obliczanie pochodnej funkcji tangens",
+  "description": "Oblicz pochodną funkcji f(x) = tan(x) przy użyciu reguł różniczkowania.",
+  "solution": "sec^2(x)",
+  "hint": "Odpowiedź zapisz jako wynik pochodnej"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d1"
+  },
+  "problem": "Obliczanie pola prostokąta",
+  "description": "Oblicz pole prostokąta o długości boku a równym 4 i boku b równym 6.",
+  "solution": 24,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69df"
+  },
+  "problem": "Obliczanie objętości graniastosłupa prawidłowego",
+  "description": "Oblicz objętość graniastosłupa prawidłowego o podstawie trapezu, jeśli pole podstawy wynosi 24, a wysokość graniastosłupa wynosi 8.",
+  "solution": 192,
+  "hint": " Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d9"
+  },
+  "problem": "Rozwiązywanie równania kwadratowego",
+  "description": "Rozwiąż równanie kwadratowe 2x^2 - 4x + 1 = 0.",
+  "solution": "x=0.5",
+  "hint": "Odpowiedź jako rozwiązanie dla x (np. x=1) używając ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69db"
+  },
+  "problem": "Rozwiązywanie nierówności liniowej",
+  "description": "Rozwiąż nierówność liniową 2x + 5 < 15.",
+  "solution": "x<5",
+  "hint": "Odpowiedź jako przedział dla x (np. x>1)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69cc"
+  },
+  "problem": "Obliczanie objętości kuli",
+  "description": "Oblicz objętość kuli o promieniu 4 cm.",
+  "solution": 268.08,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69cf"
+  },
+  "problem": "Obliczanie wartości funkcji kwadratowej",
+  "description": "Oblicz wartość funkcji kwadratowej f(x) = 2x^2 - 5x + 3 dla x = 2.",
+  "solution": 1,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c4"
+  },
+  "problem": "Obliczanie całki okresowej",
+  "description": "Oblicz ∫f(x)dx okresową funkcji f(x) = sin(x) na przedziale [0, 2π].",
+  "solution": 0,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69ba"
+  },
+  "problem": "Rozwiązanie równania liniowego",
+  "description": "Rozwiąż dla x: 2x - 5 = 0.",
+  "solution": 2.5,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69ce"
+  },
+  "problem": "Obliczanie granicy funkcji trygonometrycznej",
+  "description": "Oblicz granicę funkcji f(x) = (sin(x) - x) / (x^3) gdy x dąży do 0.",
+  "solution": 0.1667,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c9"
+  },
+  "problem": "Rozwiązywanie równania logarytmicznego",
+  "description": "Rozwiąż równanie logarytmiczne ln(x) = 3.",
+  "solution": "e^3",
+  "hint": "Odpowiedź zapisz używając ^ w zapisie potęgowym"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d3"
+  },
+  "problem": "Obliczanie obwodu koła",
+  "description": "Oblicz obwód koła o promieniu 10 cm.",
+  "solution": 62.83,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c7"
+  },
+  "problem": "Obliczanie pochodnej funkcji sinus",
+  "description": "Oblicz pochodną funkcji f(x) = sin(2x) przy użyciu reguły łańcuchowej.",
+  "solution": "2cos(2x)",
+  "hint": " Odpowiedź zapisz jako wynik pochodnej"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69ca"
+  },
+  "problem": "Obliczanie pochodnej funkcji logarytmiczno-wykładniczej",
+  "description": "Oblicz pochodną funkcji f(x) = ln(3x^2) przy użyciu reguł różniczkowania.",
+  "solution": "2/x",
+  "hint": "Odpowiedź zapisz jako ułamek prosty"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69da"
+  },
+  "problem": "Obliczanie sumy ciągu geometrycznego",
+  "description": "Oblicz sumę ciągu geometrycznego 3 + 6 + 12 + ... 96.",
+  "solution": 189,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69b9"
+  },
+  "problem": "Obliczanie pochodnej",
+  "description": "Oblicz f'(x) z f(x) = 3x^3 - 2x^2 + 5x - 7.",
+  "solution": "9x^2-4x+5",
+  "hint": "Odpowiedź zapisz jako wielomian"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69b8"
+  },
+  "problem": "Obliczanie całki oznaczonej",
+  "description": "Oblicz ∫f(x)dx oznaczoną funkcji f(x) = 2x^2 + 3x + 1,w przedziale [1, 3].",
+  "solution": 7.5,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c3"
+  },
+  "problem": "Obliczanie wartości liczby e",
+  "description": "Oblicz wartość liczby e przybliżoną do 5 miejsc po przecinku.",
+  "solution": 2.71828,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c5"
+  },
+  "problem": "Obliczanie objętości stożka",
+  "description": "Oblicz objętość stożka,jeśli jego promień podstawy wynosi 5 cm,a wysokość 10 cm.",
+  "solution": 261.8,
+  "hint": " Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c8"
+  },
+  "problem": "Obliczanie całki nieoznaczonej",
+  "description": "Oblicz ∫e^x dx.",
+  "solution": "e^x + C",
+  "hint": "Odpowiedź zapisz jako wynik całki nieoznaczonej"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69c6"
+  },
+  "problem": "Rozwiązywanie równania kwadratowego",
+  "description": "Rozwiąż równanie kwadratowe x^2 + 4x - 5 = 0.",
+  "solution": "-5,1",
+  "hint": "Odpowiedź zapisz jako 2 liczby po przecinku (np: 2,3)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69dc"
+  },
+  "problem": "Obliczanie wartości wyrażenia trygonometrycznego",
+  "description": "Oblicz wartość wyrażenia trygonometrycznego sin(π/6).",
+  "solution": 0.5,
+  "hint": "Odpowiedź zapisz w formie ułamka dziesiętnego"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d5"
+  },
+  "problem": "Rozwiązywanie równania logarytmicznego",
+  "description": "Rozwiąż równanie logarytmiczne log(x) = 2.",
+  "solution": "x=100",
+  "hint": "Odpowiedź jako rozwiązanie dla x (np. x=1)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69de"
+  },
+  "problem": "Obliczanie wartości funkcji logarytmicznej",
+  "description": "Oblicz wartość funkcji logarytmicznej log(100).",
+  "solution": 2,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69cd"
+  },
+  "problem": "Rozwiązywanie równania wykładniczego",
+  "description": "Rozwiąż równanie wykładnicze 2^(x + 1) = 16.",
+  "solution": 3,
+  "hint": "Odpowiedź zapisz jako liczba całkowita"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d2"
+  },
+  "problem": "Rozwiązywanie równania liniowego",
+  "description": "Rozwiąż równanie liniowe 3x - 7 = 2.",
+  "solution": "x=3",
+  "hint": "Odpowiedź jako rozwiązanie dla x (np. x=1)"
+},
+{
+  "_id": {
+    "$oid": "66146bbc98fef877fedc69d6"
+  },
+  "problem": "Obliczanie wartości wyrażenia zespolonego",
+  "description": "Oblicz wartość wyrażenia zespolonego z = 3 + 4i - 2 - 5i.",
+  "solution": "1-i",
+  "hint": "Odpowiedź zapisz jako liczbę zespoloną"
+}]

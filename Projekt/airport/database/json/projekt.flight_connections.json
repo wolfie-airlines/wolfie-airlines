@@ -1,0 +1,1079 @@
+[{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39c"
+  },
+  "identifier": "KA-GD",
+  "departureCity": "Katowice",
+  "destinationCity": "Gdynia",
+  "departureTime": "17.07.2024 22:00",
+  "arrivalTime": "17.07.2024 23:30",
+  "price": 300,
+  "availableSeats": 74,
+  "seatsTaken": [
+    40,
+    41,
+    42,
+    43,
+    44,
+    64,
+    65
+  ]
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed395"
+  },
+  "identifier": "WA-KR",
+  "departureCity": "Warszawa",
+  "destinationCity": "Kraków",
+  "departureTime": "10.07.2024 08:00",
+  "arrivalTime": "10.07.2024 09:30",
+  "price": 150,
+  "availableSeats": 36,
+  "seatsTaken": [
+    11,
+    13,
+    14,
+    15,
+    21,
+    65,
+    7,
+    10,
+    12,
+    36,
+    5,
+    53,
+    23,
+    55,
+    57,
+    27,
+    9,
+    17,
+    30,
+    6,
+    19,
+    37,
+    50,
+    52,
+    32,
+    51,
+    46,
+    47,
+    40,
+    49,
+    76,
+    73,
+    58,
+    59,
+    60,
+    67,
+    68,
+    56,
+    74,
+    8,
+    43,
+    3,
+    71,
+    63,
+    4
+  ]
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39b"
+  },
+  "identifier": "LU-KA",
+  "departureCity": "Lublin",
+  "destinationCity": "Katowice",
+  "departureTime": "16.07.2024 20:00",
+  "arrivalTime": "16.07.2024 21:30",
+  "price": 190,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a5"
+  },
+  "identifier": "EL-TO",
+  "departureCity": "Elbląg",
+  "destinationCity": "Toruń",
+  "departureTime": "26.07.2024 12:00",
+  "arrivalTime": "26.07.2024 13:30",
+  "price": 220,
+  "availableSeats": 79,
+  "seatsTaken": [
+    5,
+    6
+  ]
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed397"
+  },
+  "identifier": "WR-GD",
+  "departureCity": "Wrocław",
+  "destinationCity": "Gdańsk",
+  "departureTime": "12.07.2024 12:00",
+  "arrivalTime": "12.07.2024 13:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed399"
+  },
+  "identifier": "PO-SZ",
+  "departureCity": "Poznań",
+  "destinationCity": "Szczecin",
+  "departureTime": "14.07.2024 16:00",
+  "arrivalTime": "14.07.2024 17:30",
+  "price": 220,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a3"
+  },
+  "identifier": "BY-GW",
+  "departureCity": "Bydgoszcz",
+  "destinationCity": "Gorzów Wielkopolski",
+  "departureTime": "24.07.2024 08:00",
+  "arrivalTime": "24.07.2024 09:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a8"
+  },
+  "identifier": "KO-SU",
+  "departureCity": "Konin",
+  "destinationCity": "Suwałki",
+  "departureTime": "29.07.2024 18:00",
+  "arrivalTime": "29.07.2024 19:30",
+  "price": 300,
+  "availableSeats": 73,
+  "seatsTaken": [
+    46,
+    47,
+    48,
+    64,
+    65,
+    55,
+    56,
+    57
+  ]
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39a"
+  },
+  "identifier": "SZ-LU",
+  "departureCity": "Szczecin",
+  "destinationCity": "Lublin",
+  "departureTime": "15.07.2024 18:00",
+  "arrivalTime": "15.07.2024 19:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3ae"
+  },
+  "identifier": "PL-SL",
+  "departureCity": "Płock",
+  "destinationCity": "Słupsk",
+  "departureTime": "04.08.2024 14:00",
+  "arrivalTime": "04.08.2024 15:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3af"
+  },
+  "identifier": "SL-NS",
+  "departureCity": "Słupsk",
+  "destinationCity": "Nowy Sącz",
+  "departureTime": "05.08.2024 16:00",
+  "arrivalTime": "05.08.2024 17:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3ac"
+  },
+  "identifier": "TA-RA",
+  "departureCity": "Tarnów",
+  "destinationCity": "Radom",
+  "departureTime": "02.08.2024 10:00",
+  "arrivalTime": "02.08.2024 11:30",
+  "price": 220,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39f"
+  },
+  "identifier": "BI-KI",
+  "departureCity": "Białystok",
+  "destinationCity": "Kielce",
+  "departureTime": "20.07.2024 14:00",
+  "arrivalTime": "20.07.2024 15:30",
+  "price": 220,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a1"
+  },
+  "identifier": "RZ-OL",
+  "departureCity": "Rzeszów",
+  "destinationCity": "Olsztyn",
+  "departureTime": "22.07.2024 18:00",
+  "arrivalTime": "22.07.2024 19:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39e"
+  },
+  "identifier": "CZ-BI",
+  "departureCity": "Częstochowa",
+  "destinationCity": "Białystok",
+  "departureTime": "19.07.2024 12:00",
+  "arrivalTime": "19.07.2024 13:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b1"
+  },
+  "identifier": "GN-TY",
+  "departureCity": "Gniezno",
+  "destinationCity": "Tychy",
+  "departureTime": "07.08.2024 20:00",
+  "arrivalTime": "07.08.2024 21:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3ad"
+  },
+  "identifier": "RA-PL",
+  "departureCity": "Radom",
+  "destinationCity": "Płock",
+  "departureTime": "03.08.2024 12:00",
+  "arrivalTime": "03.08.2024 13:30",
+  "price": 190,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b2"
+  },
+  "identifier": "TY-ŁO",
+  "departureCity": "Tychy",
+  "destinationCity": "Łomża",
+  "departureTime": "08.08.2024 22:00",
+  "arrivalTime": "09.08.2024 01:00",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b6"
+  },
+  "identifier": "OS-KK",
+  "departureCity": "Ostrołęka",
+  "destinationCity": "Kędzierzyn-Koźle",
+  "departureTime": "12.08.2024 14:00",
+  "arrivalTime": "12.08.2024 15:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed396"
+  },
+  "identifier": "KR-WR",
+  "departureCity": "Kraków",
+  "destinationCity": "Wrocław",
+  "departureTime": "11.07.2024 10:00",
+  "arrivalTime": "11.07.2024 11:30",
+  "price": 200,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a0"
+  },
+  "identifier": "KI-RZ",
+  "departureCity": "Kielce",
+  "destinationCity": "Rzeszów",
+  "departureTime": "21.07.2024 16:00",
+  "arrivalTime": "21.07.2024 17:30",
+  "price": 260,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b4"
+  },
+  "identifier": "PR-SO",
+  "departureCity": "Przemyśl",
+  "destinationCity": "Sosnowiec",
+  "departureTime": "10.08.2024 10:00",
+  "arrivalTime": "10.08.2024 11:30",
+  "price": 190,
+  "availableSeats": 74,
+  "seatsTaken": [
+    46,
+    47,
+    48,
+    49,
+    50,
+    55,
+    56
+  ]
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b7"
+  },
+  "identifier": "KK-OW",
+  "departureCity": "Kędzierzyn-Koźle",
+  "destinationCity": "Ostrów Wielkopolski",
+  "departureTime": "13.08.2024 16:00",
+  "arrivalTime": "13.08.2024 17:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed398"
+  },
+  "identifier": "GD-PO",
+  "departureCity": "Gdańsk",
+  "destinationCity": "Poznań",
+  "departureTime": "13.07.2024 14:00",
+  "arrivalTime": "13.07.2024 15:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b0"
+  },
+  "identifier": "NS-GN",
+  "departureCity": "Nowy Sącz",
+  "destinationCity": "Gniezno",
+  "departureTime": "06.08.2024 18:00",
+  "arrivalTime": "06.08.2024 19:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b3"
+  },
+  "identifier": "ŁO-PR",
+  "departureCity": "Łomża",
+  "destinationCity": "Przemyśl",
+  "departureTime": "09.08.2024 08:00",
+  "arrivalTime": "09.08.2024 09:30",
+  "price": 220,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3aa"
+  },
+  "identifier": "OP-ZG",
+  "departureCity": "Opole",
+  "destinationCity": "Zielona Góra",
+  "departureTime": "31.07.2024 22:00",
+  "arrivalTime": "01.08.2024 01:00",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed39d"
+  },
+  "identifier": "GD-CZ",
+  "departureCity": "Gdynia",
+  "destinationCity": "Częstochowa",
+  "departureTime": "18.07.2024 10:00",
+  "arrivalTime": "18.07.2024 11:30",
+  "price": 240,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a9"
+  },
+  "identifier": "SU-OP",
+  "departureCity": "Suwałki",
+  "destinationCity": "Opole",
+  "departureTime": "30.07.2024 20:00",
+  "arrivalTime": "30.07.2024 21:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b8"
+  },
+  "identifier": "OW-GL",
+  "departureCity": "Ostrów Wielkopolski",
+  "destinationCity": "Gliwice",
+  "departureTime": "14.08.2024 18:00",
+  "arrivalTime": "14.08.2024 19:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b9"
+  },
+  "identifier": "GL-ZA",
+  "departureCity": "Gliwice",
+  "destinationCity": "Zamość",
+  "departureTime": "15.08.2024 20:00",
+  "arrivalTime": "15.08.2024 21:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a4"
+  },
+  "identifier": "GW-EL",
+  "departureCity": "Gorzów Wielkopolski",
+  "destinationCity": "Elbląg",
+  "departureTime": "25.07.2024 10:00",
+  "arrivalTime": "25.07.2024 11:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a6"
+  },
+  "identifier": "TO-KA",
+  "departureCity": "Toruń",
+  "destinationCity": "Kalisz",
+  "departureTime": "27.07.2024 14:00",
+  "arrivalTime": "27.07.2024 15:30",
+  "price": 190,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a2"
+  },
+  "identifier": "OL-BY",
+  "departureCity": "Olsztyn",
+  "destinationCity": "Bydgoszcz",
+  "departureTime": "23.07.2024 20:00",
+  "arrivalTime": "23.07.2024 21:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3a7"
+  },
+  "identifier": "KA-KO",
+  "departureCity": "Kalisz",
+  "destinationCity": "Konin",
+  "departureTime": "28.07.2024 16:00",
+  "arrivalTime": "28.07.2024 17:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3ab"
+  },
+  "identifier": "ZG-TA",
+  "departureCity": "Zielona Góra",
+  "destinationCity": "Tarnów",
+  "departureTime": "01.08.2024 08:00",
+  "arrivalTime": "01.08.2024 09:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "6605ff1dfd47d060384ed3b5"
+  },
+  "identifier": "SO-OS",
+  "departureCity": "Sosnowiec",
+  "destinationCity": "Ostrołęka",
+  "departureTime": "11.08.2024 12:00",
+  "arrivalTime": "11.08.2024 13:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78771"
+  },
+  "identifier": "KO-GL",
+  "departureCity": "Konin",
+  "destinationCity": "Gliwice",
+  "departureTime": "18.08.2024 12:00",
+  "arrivalTime": "18.08.2024 13:30",
+  "price": 290,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877a"
+  },
+  "identifier": "SO-LU",
+  "departureCity": "Sosnowiec",
+  "destinationCity": "Lublin",
+  "departureTime": "27.08.2024 14:00",
+  "arrivalTime": "27.08.2024 15:30",
+  "price": 260,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78776"
+  },
+  "identifier": "KA-RA",
+  "departureCity": "Kalisz",
+  "destinationCity": "Radom",
+  "departureTime": "23.08.2024 22:00",
+  "arrivalTime": "23.08.2024 23:30",
+  "price": 240,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78775"
+  },
+  "identifier": "RA-KA",
+  "departureCity": "Radom",
+  "destinationCity": "Kalisz",
+  "departureTime": "22.08.2024 20:00",
+  "arrivalTime": "22.08.2024 21:30",
+  "price": 230,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78770"
+  },
+  "identifier": "NS-KO",
+  "departureCity": "Nowy Sącz",
+  "destinationCity": "Konin",
+  "departureTime": "17.08.2024 10:00",
+  "arrivalTime": "17.08.2024 11:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7876f"
+  },
+  "identifier": "SZ-NS",
+  "departureCity": "Szczecin",
+  "destinationCity": "Nowy Sącz",
+  "departureTime": "16.08.2024 08:00",
+  "arrivalTime": "16.08.2024 09:30",
+  "price": 260,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78772"
+  },
+  "identifier": "GL-SZ",
+  "departureCity": "Gliwice",
+  "destinationCity": "Szczecin",
+  "departureTime": "19.08.2024 14:00",
+  "arrivalTime": "19.08.2024 15:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78774"
+  },
+  "identifier": "KK-RA",
+  "departureCity": "Katowice",
+  "destinationCity": "Radom",
+  "departureTime": "21.08.2024 18:00",
+  "arrivalTime": "21.08.2024 19:30",
+  "price": 210,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78780"
+  },
+  "identifier": "TA-OL",
+  "departureCity": "Toruń",
+  "destinationCity": "Olsztyn",
+  "departureTime": "02.09.2024 10:00",
+  "arrivalTime": "02.09.2024 11:30",
+  "price": 230,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878e"
+  },
+  "identifier": "KO-LU",
+  "departureCity": "Konin",
+  "destinationCity": "Lublin",
+  "departureTime": "17.09.2024 22:00",
+  "arrivalTime": "18.09.2024 01:00",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78793"
+  },
+  "identifier": "RA-TY",
+  "departureCity": "Radom",
+  "destinationCity": "Tychy",
+  "departureTime": "23.09.2024 16:00",
+  "arrivalTime": "23.09.2024 17:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78782"
+  },
+  "identifier": "KK-RA",
+  "departureCity": "Katowice",
+  "destinationCity": "Radom",
+  "departureTime": "04.09.2024 14:00",
+  "arrivalTime": "04.09.2024 15:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78789"
+  },
+  "identifier": "RA-KI",
+  "departureCity": "Radom",
+  "destinationCity": "Kielce",
+  "departureTime": "12.09.2024 12:00",
+  "arrivalTime": "12.09.2024 13:30",
+  "price": 200,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78791"
+  },
+  "identifier": "BI-GN",
+  "departureCity": "Białystok",
+  "destinationCity": "Gniezno",
+  "departureTime": "21.09.2024 12:00",
+  "arrivalTime": "21.09.2024 13:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78792"
+  },
+  "identifier": "GN-BI",
+  "departureCity": "Gniezno",
+  "destinationCity": "Białystok",
+  "departureTime": "22.09.2024 14:00",
+  "arrivalTime": "22.09.2024 15:30",
+  "price": 290,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78778"
+  },
+  "identifier": "OW-PO",
+  "departureCity": "Ostrów Wielkopolski",
+  "destinationCity": "Poznań",
+  "departureTime": "25.08.2024 10:00",
+  "arrivalTime": "25.08.2024 11:30",
+  "price": 240,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877d"
+  },
+  "identifier": "TY-GW",
+  "departureCity": "Tychy",
+  "destinationCity": "Gorzów Wielkopolski",
+  "departureTime": "30.08.2024 20:00",
+  "arrivalTime": "30.08.2024 21:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78788"
+  },
+  "identifier": "GL-PL",
+  "departureCity": "Gliwice",
+  "destinationCity": "Płock",
+  "departureTime": "11.09.2024 10:00",
+  "arrivalTime": "11.09.2024 11:30",
+  "price": 190,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878c"
+  },
+  "identifier": "SZ-RA",
+  "departureCity": "Szczecin",
+  "destinationCity": "Radom",
+  "departureTime": "15.09.2024 18:00",
+  "arrivalTime": "15.09.2024 19:30",
+  "price": 230,
+  "availableSeats": 77,
+  "seatsTaken": [
+    66,
+    37,
+    8,
+    72
+  ]
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78790"
+  },
+  "identifier": "SO-PO",
+  "departureCity": "Sosnowiec",
+  "destinationCity": "Poznań",
+  "departureTime": "20.09.2024 10:00",
+  "arrivalTime": "20.09.2024 11:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78784"
+  },
+  "identifier": "GW-SZ",
+  "departureCity": "Gorzów Wielkopolski",
+  "destinationCity": "Szczecin",
+  "departureTime": "06.09.2024 18:00",
+  "arrivalTime": "06.09.2024 19:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78787"
+  },
+  "identifier": "PL-GL",
+  "departureCity": "Płock",
+  "destinationCity": "Gliwice",
+  "departureTime": "10.09.2024 08:00",
+  "arrivalTime": "10.09.2024 09:30",
+  "price": 300,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878a"
+  },
+  "identifier": "KI-RA",
+  "departureCity": "Kielce",
+  "destinationCity": "Radom",
+  "departureTime": "13.09.2024 14:00",
+  "arrivalTime": "13.09.2024 15:30",
+  "price": 210,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78794"
+  },
+  "identifier": "TY-RA",
+  "departureCity": "Tychy",
+  "destinationCity": "Radom",
+  "departureTime": "24.09.2024 18:00",
+  "arrivalTime": "24.09.2024 19:30",
+  "price": 180,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78785"
+  },
+  "identifier": "SL-TY",
+  "departureCity": "Słupsk",
+  "destinationCity": "Tychy",
+  "departureTime": "07.09.2024 20:00",
+  "arrivalTime": "07.09.2024 21:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78786"
+  },
+  "identifier": "TY-SL",
+  "departureCity": "Tychy",
+  "destinationCity": "Słupsk",
+  "departureTime": "08.09.2024 22:00",
+  "arrivalTime": "09.09.2024 01:00",
+  "price": 290,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78777"
+  },
+  "identifier": "PO-OW",
+  "departureCity": "Poznań",
+  "destinationCity": "Ostrów Wielkopolski",
+  "departureTime": "24.08.2024 08:00",
+  "arrivalTime": "24.08.2024 09:30",
+  "price": 250,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78779"
+  },
+  "identifier": "LU-SO",
+  "departureCity": "Lublin",
+  "destinationCity": "Sosnowiec",
+  "departureTime": "26.08.2024 12:00",
+  "arrivalTime": "26.08.2024 13:30",
+  "price": 270,
+  "availableSeats": 78,
+  "seatsTaken": [
+    46,
+    47,
+    48
+  ]
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877e"
+  },
+  "identifier": "GW-TY",
+  "departureCity": "Gorzów Wielkopolski",
+  "destinationCity": "Tychy",
+  "departureTime": "31.08.2024 22:00",
+  "arrivalTime": "01.09.2024 01:00",
+  "price": 290,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78781"
+  },
+  "identifier": "RA-KK",
+  "departureCity": "Radom",
+  "destinationCity": "Katowice",
+  "departureTime": "03.09.2024 12:00",
+  "arrivalTime": "03.09.2024 13:30",
+  "price": 240,
+  "availableSeats": 77,
+  "seatsTaken": [
+    52,
+    78,
+    28,
+    11
+  ]
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78783"
+  },
+  "identifier": "SZ-GW",
+  "departureCity": "Szczecin",
+  "destinationCity": "Gorzów Wielkopolski",
+  "departureTime": "05.09.2024 16:00",
+  "arrivalTime": "05.09.2024 17:30",
+  "price": 260,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878b"
+  },
+  "identifier": "RA-SZ",
+  "departureCity": "Radom",
+  "destinationCity": "Szczecin",
+  "departureTime": "14.09.2024 16:00",
+  "arrivalTime": "14.09.2024 17:30",
+  "price": 220,
+  "availableSeats": 71,
+  "seatsTaken": [
+    43,
+    57,
+    35,
+    65,
+    37,
+    38,
+    39,
+    40,
+    55,
+    56
+  ]
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878f"
+  },
+  "identifier": "PO-SO",
+  "departureCity": "Poznań",
+  "destinationCity": "Sosnowiec",
+  "departureTime": "19.09.2024 08:00",
+  "arrivalTime": "19.09.2024 09:30",
+  "price": 260,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877c"
+  },
+  "identifier": "KI-SL",
+  "departureCity": "Kielce",
+  "destinationCity": "Słupsk",
+  "departureTime": "29.08.2024 18:00",
+  "arrivalTime": "29.08.2024 19:30",
+  "price": 270,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877f"
+  },
+  "identifier": "OL-TA",
+  "departureCity": "Olsztyn",
+  "destinationCity": "Toruń",
+  "departureTime": "01.09.2024 08:00",
+  "arrivalTime": "01.09.2024 09:30",
+  "price": 220,
+  "availableSeats": 77,
+  "seatsTaken": [
+    55,
+    56,
+    64,
+    65
+  ]
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c78773"
+  },
+  "identifier": "RA-KK",
+  "departureCity": "Radom",
+  "destinationCity": "Katowice",
+  "departureTime": "20.08.2024 16:00",
+  "arrivalTime": "20.08.2024 17:30",
+  "price": 220,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7877b"
+  },
+  "identifier": "SL-KI",
+  "departureCity": "Słupsk",
+  "destinationCity": "Kielce",
+  "departureTime": "28.08.2024 16:00",
+  "arrivalTime": "28.08.2024 17:30",
+  "price": 280,
+  "availableSeats": 81,
+  "seatsTaken": []
+},
+{
+  "_id": {
+    "$oid": "660743d1cbee14a628c7878d"
+  },
+  "identifier": "LU-KO",
+  "departureCity": "Lublin",
+  "destinationCity": "Konin",
+  "departureTime": "16.09.2024 20:00",
+  "arrivalTime": "16.09.2024 21:30",
+  "price": 240,
+  "availableSeats": 81,
+  "seatsTaken": []
+}]
