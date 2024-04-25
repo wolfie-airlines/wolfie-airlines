@@ -16,6 +16,6 @@ struct FlightInfo {
     bool checkin;
 };
 
-void createTicketsScreen(User& user);
+std::optional<std::string> createTicketsScreen(User& user, bool isCheckin = false);
 
 #endif //AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H

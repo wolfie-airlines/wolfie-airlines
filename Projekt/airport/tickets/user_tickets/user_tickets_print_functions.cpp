@@ -2,7 +2,7 @@
 #include "../../functions/info_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 
-void createTicketsScreen(User& user) {
+std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", user.email),
             bsoncxx::builder::basic::kvp("password", user.getPassword())
@@ -12,7 +12,7 @@ void createTicketsScreen(User& user) {
     mongocxx::cursor cursor = user.getCollection().find(filter_view);
     if (cursor.begin() == cursor.end()) {
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-        return;
+        return {};
     }
 
     bsoncxx::document::view userView = *cursor.begin();
@@ -21,7 +21,7 @@ void createTicketsScreen(User& user) {
 
     if (userFlightsArray.begin() == userFlightsArray.end()) {
         errorFunction("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
-        return;
+        return {};
     }
 
     std::vector<FlightInfo> flightsInfo;
@@ -39,88 +39,155 @@ void createTicketsScreen(User& user) {
         flightsInfo.push_back(info);
     }
 
-    ftxui::Elements elements;
-    int flightNumber = 1;
-    for (auto &flightInfo: flightsInfo) {
-        flightInfo.flightNumber = flightNumber;
-        flightNumber++;
-        for (const auto &seat: flightInfo.seats) {
-            std::string row = std::to_string(seat % 9 == 0 ? seat / 9 : seat / 9 + 1);
-            std::string seatStr = std::to_string(seat % 9 == 0 ? 9 : seat % 9);
-            std::string placeInPlane = "Rząd: ";
-            placeInPlane += row;
-            placeInPlane += ", Miejsce: ";
-            placeInPlane += seatStr;
-            std::string checkin = flightInfo.checkin ? "✅" : "❌";
-            auto ticketContent = ftxui::hbox({
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("ID LOTU: ") |
-                                                                       ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(flightInfo.flightId) |
-                                                                       ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
-                                                               }),
-                                                   ftxui::separator(),
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("MIEJSCE ODLOTU: ") |
-                                                                       ftxui::bold | color(ftxui::Color::SteelBlue),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(flightInfo.departure) |
-                                                                       ftxui::bold | color(ftxui::Color::SteelBlue),
-                                                               }),
-                                                   ftxui::separator(),
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("MIEJSCE PRZYLOTU: ") |
-                                                                       ftxui::bold | color(ftxui::Color::SteelBlue3),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(
-                                                                               flightInfo.destination) | ftxui::bold |
-                                                                       color(ftxui::Color::SteelBlue3),
-                                                               }),
-                                                   ftxui::separator(),
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("CZAS WYLOTU: ") |
-                                                                       ftxui::bold | color(ftxui::Color::Aquamarine3),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(
-                                                                               flightInfo.departureTime) | ftxui::bold |
-                                                                       color(ftxui::Color::Aquamarine3),
-                                                               }),
-                                                   ftxui::separator(),
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("MIEJSCE W SAMOLOCIE") |
-                                                                       ftxui::bold | color(ftxui::Color::LightPink4),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(placeInPlane) |
-                                                                       ftxui::bold | color(ftxui::Color::LightPink4),
-                                                               }),
-                                                   ftxui::separator(),
-                                                   ftxui::vbox({
-                                                                       ftxui::paragraphAlignCenter("ODPRAWIONY: ") |
-                                                                       ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                                       ftxui::separator(),
-                                                                       ftxui::paragraphAlignCenter(checkin) |
-                                                                       ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                               }),
-                                           }
-            ) | ftxui::border;
-            elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flightNumber)), ticketContent));
+    int pageSize = 4;
+    int currentPage = 1;
+    int totalTickets = 0;
+    for (const auto &flightInfo: flightsInfo) {
+        totalTickets += flightInfo.seats.size();
+    }
+    int totalPages = (totalTickets + pageSize - 1) / pageSize;
+
+    while (true) {
+        int startIndex = (currentPage - 1) * pageSize;
+        int endIndex = startIndex + pageSize;
+
+        ftxui::Elements elements;
+        int currentTicket = 0;
+        int flightNumber = 1;
+        for (auto &flightInfo: flightsInfo) {
+            flightInfo.flightNumber = flightNumber;
+            flightNumber++;
+            for (const auto &seat: flightInfo.seats) {
+                if (currentTicket >= startIndex && currentTicket < endIndex) {
+                    std::string row = std::to_string(seat % 9 == 0 ? seat / 9 : seat / 9 + 1);
+                    std::string seatStr = std::to_string(seat % 9 == 0 ? 9 : seat % 9);
+                    std::string placeInPlane = "Rząd: ";
+                    placeInPlane += row;
+                    placeInPlane += ", Miejsce: ";
+                    placeInPlane += seatStr;
+                    std::string checkin = flightInfo.checkin ? "✅" : "❌";
+                    auto ticketContent = ftxui::hbox({
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("ID LOTU: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(flightInfo.flightId) |
+                                                                                 ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("MIEJSCE ODLOTU: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::SteelBlue),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(flightInfo.departure) |
+                                                                                 ftxui::bold | color(ftxui::Color::SteelBlue),
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("MIEJSCE PRZYLOTU: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::SteelBlue3),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(
+                                                                                         flightInfo.destination) | ftxui::bold |
+                                                                                 color(ftxui::Color::SteelBlue3),
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("CZAS WYLOTU: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::Aquamarine3),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(
+                                                                                         flightInfo.departureTime) | ftxui::bold |
+                                                                                 color(ftxui::Color::Aquamarine3),
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("MIEJSCE W SAMOLOCIE") |
+                                                                                 ftxui::bold | color(ftxui::Color::LightPink4),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(placeInPlane) |
+                                                                                 ftxui::bold | color(ftxui::Color::LightPink4),
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("ODPRAWIONY: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(checkin) |
+                                                                                 ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                         }),
+                                                     }
+                    ) | ftxui::border;
+                    elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flightNumber)), ticketContent));
+                }
+                currentTicket++;
+            }
+        }
+
+        auto createScreen = [&] {
+            auto summary = ftxui::vbox({
+                                               ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
+                                               color(ftxui::Color::White),
+                                               ftxui::separator(),
+                                               ftxui::vbox(elements),
+                                       });
+            auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+            if (totalPages > 1) {
+                auto navigation = ftxui::vbox({
+                                                      ftxui::hbox({ftxui::paragraphAlignCenter("NAWIGACJA 🧭")}) |
+                                                      color(ftxui::Color::White),
+                                                        ftxui::separator(),
+                                                        ftxui::hbox({
+                                                                            ftxui::paragraphAlignLeft("Strona: " + std::to_string(currentPage) + "/" + std::to_string(totalPages)) |
+                                                                            color(ftxui::Color::White),
+                                                                    }),
+                                                        ftxui::separator(),
+                                                        ftxui::hbox({
+                                                            ftxui::vbox({
+                                                                            ftxui::paragraphAlignLeft("Wpisz 'prev' aby wrócić do poprzedniej strony.") |
+                                                                            color(ftxui::Color::SteelBlue),
+                                                                            ftxui::paragraphAlignLeft("Wpisz 'next' aby przejść do następnej strony.") |
+                                                                            color(ftxui::Color::YellowLight),
+                                                                            isCheckin ? ftxui::paragraphAlignLeft("Wpisz 'quit' aby zakończyć odprawę.") |
+                                                                            color(ftxui::Color::RedLight) :
+                                                                            ftxui::paragraphAlignLeft("Wpisz 'quit' aby wyjść z przeglądania biletów.") |
+                                                                            color(ftxui::Color::RedLight),
+                                                                            isCheckin ? ftxui::paragraphAlignLeft("Wpisz 'wybieram' aby wybrać bilet do odprawienia.") |
+                                                                            color(ftxui::Color::GreenLight) : ftxui::paragraphAlignLeft("Dziękujemy za wybór Wolfie Airlines") |
+                                                                            color(ftxui::Color::GreenLight),
+                                                                    }),
+                                                            })
+                                              }) | ftxui::border;
+                document = ftxui::vbox({document, navigation});
+            }
+            return std::make_shared<ftxui::Element>(document);
+        };
+
+        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()),
+                                                ftxui::Dimension::Fit(*createScreen()));
+        ftxui::Render(userScreen, *createScreen());
+        std::cout << userScreen.ToString() << '\0' << std::endl;
+
+        if (totalPages > 1) {
+            std::string input;
+            std::cin >> input;
+
+            if (input == "next" && currentPage < totalPages) {
+                currentPage++;
+            } else if (input == "prev" && currentPage > 1) {
+                currentPage--;
+            } else if (input == "quit") {
+                if (isCheckin) {
+                    return "quit";
+                } else {
+                    break;
+                }
+            } else if (input == "wybieram" && isCheckin) {
+                return "wybieram";
+            }
+        } else {
+            break;
         }
     }
-
-    auto createScreen = [&] {
-        auto summary = ftxui::vbox({
-                                           ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
-                                           color(ftxui::Color::White),
-                                           ftxui::separator(),
-                                           ftxui::vbox(elements),
-                                   });
-        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-        return std::make_shared<ftxui::Element>(document);
-    };
-
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()),
-                                            ftxui::Dimension::Fit(*createScreen()));
-    ftxui::Render(userScreen, *createScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    return {};
 }
