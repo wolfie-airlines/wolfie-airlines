@@ -242,3 +242,33 @@ bool guessMathQuestion(User &user) {
     }
 }
 
+bool displayPoliceProfession(User &user) {
+    auto summary = [&] {
+        auto content = ftxui::vbox({
+                                           ftxui::hbox({ftxui::text(L"Sprawdźmy Cię funkcjonariuszu") | ftxui::bold}) |
+                                           color(ftxui::Color::YellowLight),
+                                           ftxui::hbox({ftxui::text(L"Wpisz swój numer odznaki") | ftxui::bold}) |
+                                           color(ftxui::Color::White),
+                                   });
+        return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+    };
+
+    auto document = ftxui::vbox({summary()});
+    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+    ftxui::Render(userScreen, document);
+    std::cout << userScreen.ToString() << '\0' << std::endl;
+
+    int badgeNumber;
+    std::cin >> badgeNumber;
+
+    if (badgeNumber < 100000 || badgeNumber > 999999) {
+        return false;
+    }
+
+    return badgeNumber != 123456;
+
+
+}
+
+

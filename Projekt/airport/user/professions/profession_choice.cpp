@@ -62,3 +62,12 @@ void mathProfession(User& user) {
         return;
     }
 }
+
+void policeProfession(User& user) {
+    bool questionDisplayed = displayPoliceProfession(user);
+    if(questionDisplayed) {
+        validAnswer("policjant", user);
+    } else {
+        invalidAnswer();
+    }
+}

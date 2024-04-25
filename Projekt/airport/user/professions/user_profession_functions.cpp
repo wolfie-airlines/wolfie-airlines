@@ -12,6 +12,8 @@ void handleProfessionChoice(int choice, User& user) {
         mathProfession(user);
     } else if (choice == 3) {
         informaticProfession(user);
+    } else if (choice == 4 ) {
+        policeProfession(user);
     } else {
         return;
     }

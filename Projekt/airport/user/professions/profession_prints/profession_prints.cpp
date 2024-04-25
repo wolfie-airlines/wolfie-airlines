@@ -11,6 +11,7 @@ std::string displayProfessionInfo() {
                                            ftxui::hbox({ftxui::text(L"Po zweryfikowaniu prawdziwości wykonywanego przez Ciebie zawodu, będzie")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                            ftxui::hbox({ftxui::text(L"przysługiwała Ci zniżka w postaci darmowego przewozu potrzebnych do danej")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                            ftxui::hbox({ftxui::text(L"pracy narzędzi.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
+                                           ftxui::hbox({ftxui::text(L"Przedmioty nie będą się wliczać w maksymalną możliwą wagę do zabrania do bagażu.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                            ftxui::hbox({ftxui::text(L"Nie oszukuj!")  | ftxui::bold}) | color(ftxui::Color::Red1),
 
                                            ftxui::vbox({
@@ -19,6 +20,7 @@ std::string displayProfessionInfo() {
                                                                ftxui::hbox({ftxui::text(L"Lekarz (testowana będzie Twoja wiedza)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                                                ftxui::hbox({ftxui::text(L"Matematyk (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                                                ftxui::hbox({ftxui::text(L"Informatyk (testowane będą Twoje umiejętności)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
+                                                               ftxui::hbox({ftxui::text(L"Policjant (wymagany numer odznaki)")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
                                                        }) | ftxui::border,
                                            ftxui::separator(),
                                            ftxui::hbox({ftxui::text(L"Jeśli chcesz przejść do wyboru zawodu wpisz:")  | ftxui::bold}) | color(ftxui::Color::GrayDark),
@@ -50,6 +52,7 @@ int CreateProfessionScreen() {
             "Jestem lekarzem (wymaga potwierdzenia)",
             "Jestem matematykiem (wymaga potwierdzenia)",
             "Jestem informatykiem (wymaga potwierdzenia)",
+            "Jestem policjantem (wymaga potwierdzenia)",
             "\U0001F519 Wróć do menu głównego",
     };
 
@@ -63,6 +66,7 @@ int CreateProfessionScreen() {
 
 void validAnswer(const std::string& category, User& user) {
     std::string odmiana;
+    bool isPolice = false;
     if(category == "muzyk") {
         odmiana = "muzyków";
     } else if (category == "lekarz") {
@@ -71,11 +75,14 @@ void validAnswer(const std::string& category, User& user) {
         odmiana = "matematyków";
     } else if (category == "informatyk") {
         odmiana = "informatyków";
+    } else if (category == "policjant") {
+        odmiana = "policjantów";
+        isPolice = true;
     }
 
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Dokładnie! To poprawna odpowiedź!") | ftxui::bold}) | color(ftxui::Color::Green),
+                                           isPolice ? ftxui::hbox({ftxui::text(L"Witamy funkcjonariuszu!") | ftxui::bold}) | color(ftxui::Color::Green) : ftxui::hbox({ftxui::text(L"Dokładnie! To poprawna odpowiedź!") | ftxui::bold}) | color(ftxui::Color::Green),
                                            ftxui::hbox({ftxui::text("Zniżki dla " + odmiana + " zostały przyznane!") | ftxui::bold}) | color(ftxui::Color::YellowLight),
                                            ftxui::hbox({ftxui::text(L"Zobaczysz je w swoim profilu.")  | ftxui::bold}) | color(ftxui::Color::BlueLight),
                                    });
