@@ -14,7 +14,7 @@
 #include "../tickets/tickets.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
 #include "../tickets/user_tickets/user_tickets_print_functions.h"
-#include "../tcheckin/checkin_functions_prints.h"
+#include "../checkin/checkin_functions_prints.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
