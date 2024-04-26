@@ -4,7 +4,7 @@ waiting to take filesystem lock on C:\Users\szymo\.vcpkg-clion\airport\.vcpkg-ro
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
-Total install time: 500 ns
+Total install time: 400 ns
 cryptopp provides CMake targets:
 
   # this is heuristically generated, and may not be correct
@@ -49,7 +49,7 @@ Call Stack (most recent call first):
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:1819:EVAL:2 (__FetchContent_directPopulate)
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:1819 (cmake_language)
   C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FetchContent.cmake:2033 (FetchContent_Populate)
-  CMakeLists.txt:75 (FetchContent_MakeAvailable)
+  CMakeLists.txt:77 (FetchContent_MakeAvailable)
 
 
 -- Configuring incomplete, errors occurred!

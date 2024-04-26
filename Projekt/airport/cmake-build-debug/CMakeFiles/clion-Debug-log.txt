@@ -3,7 +3,7 @@
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
-Total install time: 800 ns
+Total install time: 300 ns
 cryptopp provides CMake targets:
 
   # this is heuristically generated, and may not be correct

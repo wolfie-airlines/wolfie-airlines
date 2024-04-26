@@ -15,6 +15,7 @@
 #include "../tickets/tickets_prints/tickets_print_functions.h"
 #include "../tickets/user_tickets/user_tickets_print_functions.h"
 #include "../checkin/checkin_functions_prints.h"
+#include "../luggage/luggage_prints/luggage_prints.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -161,7 +162,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             } else if (userChoice == "6") {
                 createCheckinScreen(currentUser);
             } else if (userChoice == "7") {
-                //TODO: Odprawa bagażowa
+                welcomeInLuggageCheckin(currentUser);
             } else if (userChoice == "8") {
                 currentUser.loginAsAdmin();
             }
