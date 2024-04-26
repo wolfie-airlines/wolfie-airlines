@@ -14,6 +14,7 @@ struct FlightInfo {
     double price;
     std::vector<int> seats;
     bool checkin;
+    bool luggageCheckin;
 };
 
 std::optional<std::string> createTicketsScreen(User& user, bool isCheckin = false);

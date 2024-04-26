@@ -59,6 +59,11 @@ add_executable(airport main.cpp
         checkin/checkin_functions_prints.h
         checkin/checkin_functions_prints.h
         checkin/checkin_functions_prints.cpp
+        luggage/item/Item.h
+        luggage/item/Item.cpp
+        luggage/Luggage.h
+        luggage/Luggage.cpp
+        luggage/Luggage.h
 )
 
 include(FetchContent)

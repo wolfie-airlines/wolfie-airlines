@@ -36,6 +36,7 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
             info.seats.push_back(seat.get_int32().value);
         }
         info.checkin = flight["checkin"].get_bool().value;
+        info.luggageCheckin = flight["luggageCheckin"].get_bool().value;
         flightsInfo.push_back(info);
     }
 
@@ -66,6 +67,7 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
                     placeInPlane += ", Miejsce: ";
                     placeInPlane += seatStr;
                     std::string checkin = flightInfo.checkin ? "✅" : "❌";
+                    std::string luggageCheckin = flightInfo.luggageCheckin ? "✅" : "❌";
                     auto ticketContent = ftxui::hbox({
                                                              ftxui::vbox({
                                                                                  ftxui::paragraphAlignCenter("ID LOTU: ") |
@@ -116,6 +118,14 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
                                                                                  ftxui::paragraphAlignCenter(checkin) |
                                                                                  ftxui::bold | color(ftxui::Color::PaleGreen3),
                                                                          }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA: ") |
+                                                                                 ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                                 ftxui::separator(),
+                                                                                 ftxui::paragraphAlignCenter(luggageCheckin) |
+                                                                                 ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                         }),
                                                      }
                     ) | ftxui::border;
                     elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flightNumber)), ticketContent));
@@ -152,8 +162,23 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
                                                                             color(ftxui::Color::RedLight) :
                                                                             ftxui::paragraphAlignLeft("Wpisz 'quit' aby wyjść z przeglądania biletów.") |
                                                                             color(ftxui::Color::RedLight),
-                                                                            isCheckin ? ftxui::paragraphAlignLeft("Wpisz 'wybieram' aby wybrać bilet do odprawienia.") |
+                                                                            isCheckin ? ftxui::paragraphAlignLeft("Wpisz 'wybieram' aby przejść do wyboru biletu do odprawienia.") |
                                                                             color(ftxui::Color::GreenLight) : ftxui::paragraphAlignLeft("Dziękujemy za wybór Wolfie Airlines") |
+                                                                            color(ftxui::Color::GreenLight),
+                                                                    }),
+                                                            })
+                                              }) | ftxui::border;
+                document = ftxui::vbox({document, navigation});
+            } else if(isCheckin) {
+                auto navigation = ftxui::vbox({
+                                                      ftxui::hbox({ftxui::paragraphAlignCenter("ODPARAWA BILETOWA 🎫")}) |
+                                                      color(ftxui::Color::White),
+                                                        ftxui::separator(),
+                                                        ftxui::hbox({
+                                                            ftxui::vbox({
+                                                                            ftxui::paragraphAlignLeft("Wpisz 'quit' aby zakończyć odprawę.") |
+                                                                            color(ftxui::Color::RedLight),
+                                                                            ftxui::paragraphAlignLeft("Wpisz 'wybieram' aby przejść do wyboru biletu do odprawienia") |
                                                                             color(ftxui::Color::GreenLight),
                                                                     }),
                                                             })
@@ -183,6 +208,14 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
                     break;
                 }
             } else if (input == "wybieram" && isCheckin) {
+                return "wybieram";
+            }
+        } else if(isCheckin) {
+            std::string input;
+            std::cin >> input;
+            if (input == "quit") {
+                return "quit";
+            } else if (input == "wybieram") {
                 return "wybieram";
             }
         } else {

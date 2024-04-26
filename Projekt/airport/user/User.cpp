@@ -215,7 +215,8 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
             bsoncxx::builder::basic::kvp("arrivalTime", arrivalTime),
             bsoncxx::builder::basic::kvp("price", flightPrice),
             bsoncxx::builder::basic::kvp("seats", seats_array),
-            bsoncxx::builder::basic::kvp("checkin", false)
+            bsoncxx::builder::basic::kvp("checkin", false),
+            bsoncxx::builder::basic::kvp("luggageCheckin", false)
     );
 
     bsoncxx::document::view ticket_view = ticket_builder.view();
