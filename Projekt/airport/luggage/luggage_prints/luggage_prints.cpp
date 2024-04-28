@@ -239,17 +239,27 @@ void printAllItems(User& user) {
 void welcomeInLuggageCheckin(User& user) {
     auto createScreen = [&] {
         auto summary = ftxui::vbox({
-                                           ftxui::hbox({ftxui::paragraphAlignCenter(user.username + ", witamy w odprawie bagażowej!")}) | color(ftxui::Color::GrayDark),
+                                           ftxui::hbox({
+                                               ftxui::text(user.username) | color(ftxui::Color::Gold1),
+                                               ftxui::text(", witamy w odprawie bagażowej!")
+                                           }) | ftxui::bold | ftxui::center,
                                            ftxui::separator(),
-                                           ftxui::hbox({
-                                                               ftxui::text("Przed rozpoczęciem masz możliwość wyświetlenia listy wszystkich dozwolonych i zabronionych rzeczy do wzięcia do bagażu. Chcesz to zrobić?") | ftxui::bold | color(ftxui::Color::Green)
+                                           ftxui::vbox({
+                                                               ftxui::paragraphAlignCenter("Przed rozpoczęciem masz możliwość wyświetlenia listy wszystkich dozwolonych i zabronionych rzeczy do wzięcia do bagażu.") | ftxui::bold | color(ftxui::Color::YellowLight),
+                                                               ftxui::paragraphAlignCenter("Chcesz to zrobić? ") | ftxui::bold | color(ftxui::Color::Khaki3)
                                            }),
-                                             ftxui::separator(),
-                                           ftxui::hbox({
-                                               ftxui::paragraphAlignLeft("tak - wyświetli listę wszystkich przedmiotów"),
-                                               ftxui::paragraphAlignRight("nie - przenosi do kolejnego ekranu odprawy")
-                                           }) | color(ftxui::Color::GrayDark),
-
+                                           ftxui::separator(),
+                                           ftxui::vbox({
+                                                               ftxui::hbox({
+                                                                                   ftxui::text("tak. Wyświetla listę wszystkich przedmiotów") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
+                                                                           }),
+                                                               ftxui::hbox({
+                                                                                   ftxui::text("nie. Przenosi do następnego ekranu odprawy") | ftxui::color(ftxui::Color::DarkOliveGreen2) | ftxui::bold,
+                                                                           }),
+                                                               ftxui::hbox({
+                                                                                   ftxui::text("quit. \U0001f51a Kończy odprawę") | ftxui::color(ftxui::Color::RedLight) | ftxui::bold
+                                                                           }),
+                                                       }),
                                    });
         auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
         document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
@@ -264,8 +274,9 @@ void welcomeInLuggageCheckin(User& user) {
     std::cin >> response;
 
     if(response == "tak" || response == "Tak" || response == "TAK") {
-        // TODO: wyświetlanie listy przedmiotów z bazy danych
         printAllItems(user);
+    } else if (response == "nie" || response == "Nie" || response == "NIE") {
+        // next ekran odprawy
     } else {
         return;
     }
