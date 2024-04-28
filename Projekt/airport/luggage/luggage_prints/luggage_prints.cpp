@@ -3,6 +3,8 @@
 #include "ftxui/dom/table.hpp"
 #include "../item/ItemHandler.h"
 #include "../../functions/info_print_functions.h"
+#include "ftxui/component/component.hpp"
+#include "ftxui/component/screen_interactive.hpp"
 
 void printSpecificItem(Item& item) {
     auto createScreen = [&] {
@@ -236,6 +238,52 @@ void printAllItems(User& user) {
     }
 }
 
+void checkIn(User& user) {
+    using namespace ftxui;
+    auto screen = ScreenInteractive::FitComponent();
+
+    std::vector<Item> items = getItems(user);
+
+    std::vector<Component> checkbox_components;
+    std::vector<std::shared_ptr<bool>> checkbox_states(items.size());
+
+    for (size_t i = 0; i < items.size(); ++i) {
+        checkbox_states[i] = std::make_shared<bool>(false);
+        CheckboxOption option;
+        option.label = items[i].getItemName();
+        option.checked = checkbox_states[i].get();
+        checkbox_components.push_back(Checkbox(option));
+    }
+
+    auto finishButton = Button("Zakończ", [&] {
+        screen.ExitLoopClosure()();
+    });
+    checkbox_components.push_back(finishButton);
+
+    auto checkboxes = Container::Vertical(checkbox_components);
+
+    auto layout = Container::Vertical({
+                                              checkboxes,
+                                      });
+
+    auto component = Renderer(layout, [&] {
+        return vbox({
+                            checkboxes->Render(),
+                            separator(),
+                    }) |
+               xflex | border;
+    });
+
+    screen.Loop(component);
+
+    for (size_t i = 0; i < items.size(); ++i) {
+        if (*checkbox_states[i]) {
+            std::cout << items[i].getItemName() << std::endl;
+        }
+    }
+
+}
+
 void welcomeInLuggageCheckin(User& user) {
     auto createScreen = [&] {
         auto summary = ftxui::vbox({
@@ -276,7 +324,7 @@ void welcomeInLuggageCheckin(User& user) {
     if(response == "tak" || response == "Tak" || response == "TAK") {
         printAllItems(user);
     } else if (response == "nie" || response == "Nie" || response == "NIE") {
-        // next ekran odprawy
+        checkIn(user);
     } else {
         return;
     }

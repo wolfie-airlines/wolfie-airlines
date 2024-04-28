@@ -8,5 +8,6 @@
 void welcomeInLuggageCheckin(User& user);
 void printAllItems(User& user);
 void printSpecificItem(Item& item);
+void checkIn(User& user);
 
 #endif //AIRPORT_LUGGAGE_PRINTS_H
