@@ -1,59 +1,93 @@
 #include "luggage_prints.h"
 #include "ftxui/dom/elements.hpp"
-#include "../item/Item.h"
 #include "ftxui/dom/table.hpp"
 #include "../item/ItemHandler.h"
 #include "../../functions/info_print_functions.h"
 
 void printSpecificItem(Item& item) {
     auto createScreen = [&] {
+        std::string description = item.getDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.getDescription();
+
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(3) << item.getWeight();
+        std::string weight = stream.str();
+
+        std::vector<ftxui::Element> elements;
+        std::vector<std::string> hints = item.getHints();
+
+        if (!hints.empty()) {
+            std::vector<ftxui::Element> hintElements;
+            for (const auto& hint : hints) {
+                std::string hintWithBullet = "• " + hint;
+                hintElements.push_back(ftxui::paragraph(hintWithBullet) | ftxui::color(ftxui::Color::White));
+            }
+
+            auto hintBox = ftxui::vbox(std::move(hintElements));
+
+            elements.push_back(ftxui::hbox({
+                                                   ftxui::text("Ważne informacje: ") | ftxui::bold | ftxui::color(ftxui::Color::DarkSeaGreen2),
+                                                   hintBox
+                                           }));
+        }
+
         auto summary = ftxui::vbox({
-                                           ftxui::hbox({ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈")}) | color(ftxui::Color::GrayDark),
-                                           ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignCenter("INFORMACJE O PRZEDMIOCIE") | ftxui::bold
+                                                               ftxui::paragraphAlignCenter("KARTA PRZEDMIOTU") | ftxui::bold
                                                        }) | color(ftxui::Color::Orange3),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Nazwa przedmiotu:"),
-                                                               ftxui::paragraphAlignRight(item.getItemName())
-                                                       }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::paragraphAlignCenter(item.getItemName()) | ftxui::bold
+                                                       }) | color(ftxui::Color::Orange1),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Zabroniony:"),
-                                                               ftxui::paragraphAlignRight(item.isForbidden() ? "Tak" : "Nie")
-                                                       }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::text("Przedmiot: ") | ftxui::bold | color(ftxui::Color::SkyBlue1),
+                                                               ftxui::text(item.getItemName()) | color(ftxui::Color::White)
+                                                       }),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Bagaż rejestrowany:"),
-                                                               ftxui::paragraphAlignRight(item.isRegisteredLuggage() ? "Tak" : "Nie")
-                                                       }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::text("Opis przedmiotu: ") | ftxui::bold | color(ftxui::Color::DarkSeaGreen2),
+                                                               ftxui::paragraph(description) | color(ftxui::Color::White)
+                                                       }),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Bagaż podręczny:"),
-                                                               ftxui::paragraphAlignRight(item.isHandLuggage() ? "Tak" : "Nie")
-                                                       }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::text("Zabroniony w transporcie lotniczym: ") | ftxui::bold | color(ftxui::Color::RedLight),
+                                                               ftxui::text(item.isForbidden() ? "TAK" : "NIE") | color(
+                                                                       item.isForbidden() ? ftxui::Color::RedLight : ftxui::Color::GreenLight)
+                                                       }),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Zgoda pilota:"),
-                                                               ftxui::paragraphAlignRight(item.isPilotAllowance() ? "Tak" : "Nie")
-                                                       }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::text("Przewóz w bagażu rejestrowanym: ") | ftxui::bold | color(ftxui::Color::Aquamarine1),
+                                                               ftxui::text(item.isRegisteredLuggage() ? "✅" : "❌")
+                                                       }),
                                            ftxui::separator(),
                                            ftxui::hbox({
-                                                               ftxui::paragraphAlignLeft("Maksymalna ilość:"),
-                                                               ftxui::paragraphAlignRight(std::to_string(item.getMaxCount()))
-                                                         }) | color(ftxui::Color::GrayDark),
+                                                               ftxui::text("Przewóz w bagażu podręcznym: ") | ftxui::bold | color(ftxui::Color::MediumOrchid3),
+                                                               ftxui::text(item.isHandLuggage() ? "✅" : "❌")
+                                                       }),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::text("Wymagana zgoda pilota: ") | ftxui::bold | color(ftxui::Color::LightSkyBlue1),
+                                                               ftxui::text(item.isPilotAllowance() ? "✅" : "❌")
+                                                       }),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::text("Maksymalna ilość (sztuk): ") | ftxui::bold | color(ftxui::Color::LightCoral),
+                                                               ftxui::text(std::to_string((int) item.getMaxCount()))  | color(ftxui::Color::Salmon1)
+                                                       }),
+                                           ftxui::separator(),
+                                           ftxui::hbox({
+                                                               ftxui::text("Waga (jednej sztuki przedmiotu, wyznaczana na oko): ") | ftxui::bold | color(ftxui::Color::SandyBrown),
+                                                               ftxui::text(weight + " kg") | color(ftxui::Color::LightPink1)
+                                                       }),
                                              ftxui::separator(),
-                                             ftxui::hbox({
-                                                                ftxui::paragraphAlignLeft("Waga:"),
-                                                                ftxui::paragraphAlignRight(std::to_string(item.getWeight()))
-                                                            }) | color(ftxui::Color::GrayDark),
-                                      });
+                                             elements.empty() ? ftxui::separator() : ftxui::hbox(elements),
+                                   });
+
         auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
         return std::make_shared<ftxui::Element>(document);
     };
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
+    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()), ftxui::Dimension::Fit(*createScreen()));
     ftxui::Render(userScreen, *createScreen());
     std::cout << userScreen.ToString() << '\0' << std::endl;
 }

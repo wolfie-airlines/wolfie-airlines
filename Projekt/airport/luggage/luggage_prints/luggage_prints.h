@@ -3,9 +3,10 @@
 
 
 #include "../../user/User.h"
-
+#include "../item/Item.h"
 
 void welcomeInLuggageCheckin(User& user);
 void printAllItems(User& user);
+void printSpecificItem(Item& item);
 
 #endif //AIRPORT_LUGGAGE_PRINTS_H
