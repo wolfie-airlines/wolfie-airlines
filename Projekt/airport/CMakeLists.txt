@@ -66,6 +66,10 @@ add_executable(airport main.cpp
         luggage/Luggage.h
         luggage/luggage_prints/luggage_prints.h
         luggage/luggage_prints/luggage_prints.cpp
+        luggage/item/ItemHandler.h
+        luggage/item/ItemHandler.cpp
+        luggage/item/ItemHandler.h
+        luggage/item/ItemHandler.h
 )
 
 include(FetchContent)
