@@ -110,7 +110,13 @@ void printAllItems(User& user) {
         table.SelectColumn(1).DecorateCells(ftxui::color(ftxui::Color::SkyBlue1));
 
         // Kolory zabronionych przedmiotów
-        table.SelectColumn(2).DecorateCells(ftxui::color(ftxui::Color::RedLight));
+        for (int i = 0; i < rows.size(); i++) {
+            if (rows[i][2] == "TAK") {
+                table.SelectCell(2, i).DecorateCells(ftxui::color(ftxui::Color::RedLight));
+            } else {
+                table.SelectCell(2, i).DecorateCells(ftxui::color(ftxui::Color::White));
+            }
+        }
 
         // Kolory bagażu rejestrowanego
         table.SelectColumn(3).DecorateCells(ftxui::color(ftxui::Color::Aquamarine1));
