@@ -102,11 +102,11 @@ void printAllItems(User& user) {
     }
 
     std::vector<Item> items = getItems(user);
-    int totalPages = (items.size() + 4) / 5;
+    int totalPages = (items.size() + 7) / 8;
 
     while(true) {
         std::vector<std::vector<std::string>> rows;
-        for (int i = page * 5; i < (page + 1) * 5 && i < items.size(); i++) {
+        for (int i = page * 8; i < (page + 1) * 8 && i < items.size(); i++) {
             const auto &item = items[i];
             std::string isForbidden = item.isForbidden() ? "TAK" : "NIE";
             std::string isRegisteredLuggage = item.isRegisteredLuggage() ? "✅" : "❌";
@@ -162,7 +162,7 @@ void printAllItems(User& user) {
         table.SelectColumn(5).DecorateCells(ftxui::color(ftxui::Color::LightSkyBlue1));
 
         // Oddziałka między wierszami
-        for(int i = 2; i < 5; i++) {
+        for(int i = 2; i < 9; i++) {
             table.SelectRow(i).Border(ftxui::LIGHT);
         }
 
