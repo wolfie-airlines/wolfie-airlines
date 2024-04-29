@@ -73,6 +73,7 @@ void Luggage::getItemCount() {
 
     std::vector<std::string> itemQuantities(items.size());
     std::vector<Component> itemInputs;
+    auto screen = ScreenInteractive::TerminalOutput();
 
     for (size_t i = 0; i < items.size(); ++i) {
         size_t index = i;
@@ -91,6 +92,17 @@ void Luggage::getItemCount() {
         itemInputs.push_back(input_item_quantity);
     }
 
+    auto finalButton = Button("Potwierdź", [&] {
+        screen.ExitLoopClosure()();
+    }) | color(Color::YellowLight) | size(WIDTH, LESS_THAN, 20);
+
+    itemInputs.push_back(finalButton);
+
+    auto layout = ftxui::Container::Vertical({
+                                                     itemInputs,
+                                             });
+
+
     auto component = Container::Vertical(itemInputs);
 
     auto renderer = Renderer(component, [&] {
@@ -98,10 +110,26 @@ void Luggage::getItemCount() {
         for (size_t i = 0; i < items.size(); ++i) {
             elements.push_back(hbox(text(items[i].getItemName() + " : "), itemInputs[i]->Render()));
         }
+        elements.push_back(finalButton->Render());
         elements.push_back(text("Waga bagażu: " + std::to_string(totalWeight)));
-        return vbox(elements) | border;
+        return vbox({
+                                hbox({
+                                            paragraph("Podaj ilość przedmiotów, które chcesz zabrać ze sobą:") | bold
+                                    }) | color(Color::MediumOrchid1),
+                                separator(),
+                                vbox(elements),
+        }) | border | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
     });
 
-    auto screen = ScreenInteractive::TerminalOutput();
     screen.Loop(renderer);
+
+
+
+    for (size_t i = 0; i < items.size(); ++i) {
+        std::cout << items[i].getItemName() << " : " << itemQuantities[i] << std::endl;
+        //TODO: obliczanie wagi bagażu czy przekracza czy nie przekracza limitu
+        // jeśli przekracza limit 20kg, obliczana jest nadpłata za każdy kilogram aż do 32kg
+        // jeśli przekracza 32kg, bagaż nie zostanie przyjęty
+        // po zapłaceniu nadpłaty, bagaż zostanie przyjęty -> do bazy danych
+    }
 }
