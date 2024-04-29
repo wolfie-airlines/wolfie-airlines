@@ -7,40 +7,41 @@
 #include "ftxui/component/screen_interactive.hpp"
 
 void printSpecificItem(Item& item) {
+    std::string description = item.getDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.getDescription();
+
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(3) << item.getWeight();
+    std::string weight = stream.str();
+
+    std::vector<ftxui::Element> elements;
+    std::vector<std::string> hints = item.getHints();
+
+
+    if (!hints.empty()) {
+        std::vector<ftxui::Element> hintElements;
+        for (const auto& hint : hints) {
+            std::string hintWithBullet = "• " + hint;
+            hintElements.push_back(ftxui::paragraph(hintWithBullet) | ftxui::color(ftxui::Color::White));
+        }
+
+        auto hintBox = ftxui::vbox(std::move(hintElements));
+
+        elements.push_back(ftxui::hbox({
+                                               ftxui::text("Ważne informacje: ") | ftxui::bold | ftxui::color(ftxui::Color::DarkSeaGreen2),
+                                               hintBox
+                                       }));
+    }
+
+    const std::string& profession = item.getProfession();
+    ftxui::Element professionElement = ftxui::hbox({});
+    if(!profession.empty()) {
+        professionElement = ftxui::hbox({
+                                                ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold | ftxui::color(ftxui::Color::Gold1),
+                                                ftxui::text(profession) | ftxui::color(ftxui::Color::White)
+                                        });
+    }
+
     auto createScreen = [&] {
-        std::string description = item.getDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.getDescription();
-
-        std::stringstream stream;
-        stream << std::fixed << std::setprecision(3) << item.getWeight();
-        std::string weight = stream.str();
-
-        std::vector<ftxui::Element> elements;
-        std::vector<std::string> hints = item.getHints();
-
-        if (!hints.empty()) {
-            std::vector<ftxui::Element> hintElements;
-            for (const auto& hint : hints) {
-                std::string hintWithBullet = "• " + hint;
-                hintElements.push_back(ftxui::paragraph(hintWithBullet) | ftxui::color(ftxui::Color::White));
-            }
-
-            auto hintBox = ftxui::vbox(std::move(hintElements));
-
-            elements.push_back(ftxui::hbox({
-                                                   ftxui::text("Ważne informacje: ") | ftxui::bold | ftxui::color(ftxui::Color::DarkSeaGreen2),
-                                                   hintBox
-                                           }));
-        }
-
-        const std::string& profession = item.getProfession();
-        std::vector<ftxui::Element> professionElements;
-        if(!profession.empty()) {
-            professionElements.push_back(ftxui::hbox({
-                                                             ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold | ftxui::color(ftxui::Color::Gold1),
-                                                             ftxui::text(profession) | ftxui::color(ftxui::Color::White)
-                                                     }));
-        }
-
         auto summary = ftxui::vbox({
                                            ftxui::hbox({
                                                                ftxui::paragraphAlignCenter("KARTA PRZEDMIOTU") | ftxui::bold
@@ -91,12 +92,13 @@ void printSpecificItem(Item& item) {
                                                                ftxui::text(weight + " kg") | color(ftxui::Color::LightPink1)
                                                        }),
                                              ftxui::separator(),
-                                             elements.empty() ? ftxui::separator() : ftxui::hbox(elements),
+                                             elements.empty() ? ftxui::hbox({}) : ftxui::hbox(elements),
                                              ftxui::separator(),
-                                             professionElements.empty() ? ftxui::hbox() : ftxui::hbox(professionElements),
+                                             professionElement,
                                    });
 
         auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
         return std::make_shared<ftxui::Element>(document);
     };
 
@@ -263,7 +265,8 @@ void checkIn(User& user) {
         CheckboxOption option;
         option.label = items[i].getItemName();
         option.checked = checkbox_states[i].get();
-        checkbox_components.push_back(Checkbox(option));
+        ftxui::Color itemColor = items[i].isForbidden() && items[i].getProfession() != user.profession ? ftxui::Color::RedLight : ftxui::Color::White;
+        checkbox_components.push_back(Checkbox(option) | ftxui::color(itemColor));
     }
 
     auto finishButton = Button("Zakończ wybieranie", [&] {

@@ -53,6 +53,7 @@ bool Luggage::confirmItems(User& user) {
 
     for (const auto& item : items) {
         if (item.isForbidden() && item.getProfession() != user.profession) {
+            std::cout << item.getProfession() << std::endl;
             errorFunction("Nie możesz zabrać tego przedmiotu ze sobą!", "Ten przedmiot jest zabroniony i dostępny tylko dla osób o zawodzie " + item.getProfession() + "!");
             return false;
         }
