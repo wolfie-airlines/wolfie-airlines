@@ -55,7 +55,7 @@ std::tuple<bool, std::string> Luggage::confirmItems(User& user) {
         if (item.isForbidden() && item.getProfession() != user.profession && !item.getProfession().empty()) {
             std::string message = "Przedmiot " + item.getItemName() + " jest zabroniony/dostępny tylko dla osób o zawodzie " + item.getProfession() + "!";
             return {false, message};
-        } else if (item.isForbidden()) {
+        } else if (item.isForbidden() && item.getProfession().empty()) {
             std::string message = "Przedmiot " + item.getItemName() + " jest zabroniony!";
             return {false, message};
         }
