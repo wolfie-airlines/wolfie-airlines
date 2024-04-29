@@ -4,6 +4,7 @@
 #include <string>
 #include "mongocxx/client.hpp"
 #include "../flights/FlightConnection.h"
+#include "../luggage/Luggage.h"
 
 class User {
 private:
@@ -60,7 +61,6 @@ public:
     void loginAsAdmin();
     [[nodiscard]] bool checkIfAdmin() const;
     void setIsAdmin(bool isAdministrator) { User::isAdmin = isAdministrator; }
-
 };
 
 #endif // USER_H

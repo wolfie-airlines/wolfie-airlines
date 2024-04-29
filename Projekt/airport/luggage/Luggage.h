@@ -19,22 +19,14 @@ class Luggage {
     const double euroToPln = 4.32; // tworzyłem to na obecnym kursie
 
 public:
-    void addItem(const Item& item) {
-        if (totalWeight + item.getWeight() > maxAllowedWeight) {
-            std::cout<< "Dodanie tego przedmiotu przekroczy maksymalną wagę." << std::endl;
-        }
-        items.push_back(item);
-        totalWeight += item.getWeight();
-    }
+    Luggage(
+            const std::vector<Item> &items,
+            double totalWeight
+    ) : items(items), totalWeight(totalWeight) {}
 
-    [[nodiscard]] double calculateOverweightFee() const {
-        if (totalWeight <= maxWeight) {
-            return 0.0;
-        }
-        double overweight = totalWeight - maxWeight;
-        double feeInEuros = overweight * overweightFeePerKg;
-        return feeInEuros * euroToPln;
-    }
+    void getItemCount();
+
+    bool confirmItems();
 };
 
 
