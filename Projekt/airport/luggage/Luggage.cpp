@@ -4,7 +4,7 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "../functions/info_print_functions.h"
 
-bool Luggage::confirmItems(User& user) {
+std::tuple<bool, std::string> Luggage::confirmItems(User& user) {
     ftxui::Elements elements;
     auto screen = ftxui::ScreenInteractive::TerminalOutput();
     for (const auto& item : items) {
@@ -52,14 +52,20 @@ bool Luggage::confirmItems(User& user) {
     screen.Loop(component);
 
     for (const auto& item : items) {
-        if (item.isForbidden() && item.getProfession() != user.profession) {
-            std::cout << item.getProfession() << std::endl;
-            errorFunction("Nie możesz zabrać tego przedmiotu ze sobą!", "Ten przedmiot jest zabroniony i dostępny tylko dla osób o zawodzie " + item.getProfession() + "!");
-            return false;
+        if (item.isForbidden() && item.getProfession() != user.profession && !item.getProfession().empty()) {
+            std::string message = "Przedmiot " + item.getItemName() + " jest zabroniony/dostępny tylko dla osób o zawodzie " + item.getProfession() + "!";
+            return {false, message};
+        } else if (item.isForbidden()) {
+            std::string message = "Przedmiot " + item.getItemName() + " jest zabroniony!";
+            return {false, message};
         }
     }
 
-    return checked;
+    if(!checked) {
+        return {false, "Nie potwierdzono zawartości bagażu!"};
+    } else {
+        return {true, ""};
+    }
 }
 
 void Luggage::getItemCount() {

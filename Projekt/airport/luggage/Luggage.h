@@ -27,7 +27,7 @@ public:
 
     void getItemCount();
 
-    bool confirmItems(User& user);
+    std::tuple<bool, std::string> confirmItems(User& user);
 };
 
 

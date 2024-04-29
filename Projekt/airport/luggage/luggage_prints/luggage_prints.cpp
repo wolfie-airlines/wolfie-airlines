@@ -330,12 +330,14 @@ void checkIn(User& user) {
 
     Luggage luggage(selectedItems, totalWeight);
 
-    bool confirmed = luggage.confirmItems(user);
+    auto result = luggage.confirmItems(user);
+    bool confirmed = std::get<0>(result);
+    std::string message = std::get<1>(result);
 
     if(confirmed) {
        luggage.getItemCount();
     } else {
-        errorFunction("Przerwano odprawę bagażu!", "");
+        errorFunction("Przerwano odprawę bagażu!", message);
     }
 
 }

@@ -47,12 +47,11 @@ std::vector<Item> getItems(User& user) {
             items.emplace_back(
                     itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight, profession
             );
-            continue;
+        } else {
+            items.emplace_back(
+                    itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight
+            );
         }
-
-        items.emplace_back(
-                itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight
-        );
     }
 
     return items;

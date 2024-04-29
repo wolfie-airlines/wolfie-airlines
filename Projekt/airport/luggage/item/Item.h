@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+class User;
+
 class Item {
     std::string itemName;
     std::string description;
