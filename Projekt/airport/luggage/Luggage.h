@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include "item/Item.h"
+class User;
 
 class Luggage {
     std::vector<Item> items;
@@ -26,7 +27,7 @@ public:
 
     void getItemCount();
 
-    bool confirmItems();
+    bool confirmItems(User& user);
 };
 
 

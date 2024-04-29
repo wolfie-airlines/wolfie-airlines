@@ -268,10 +268,21 @@ void checkIn(User& user) {
 
     auto finishButton = Button("Zakończ wybieranie", [&] {
         screen.ExitLoopClosure()();
-    });
-    checkbox_components.push_back(finishButton);
+    }) | ftxui::center | ftxui::bold | ftxui::borderEmpty;
 
-    auto checkboxes = Container::Vertical(checkbox_components);
+    std::vector<Component> vertical_containers;
+
+    for (size_t i = 0; i < checkbox_components.size(); i += 8) {
+        std::vector<Component> group;
+        for (size_t j = i; j < i + 8 && j < checkbox_components.size(); ++j) {
+            group.push_back(checkbox_components[j]);
+        }
+        vertical_containers.push_back(Container::Vertical(group));
+    }
+
+    vertical_containers.back()->Add(finishButton);
+
+    auto checkboxes = Container::Horizontal(vertical_containers);
 
     auto layout = Container::Vertical({
                                               checkboxes,
@@ -279,18 +290,49 @@ void checkIn(User& user) {
 
     auto component = Renderer(layout, [&] {
         return vbox({
-                            checkboxes->Render(),
-                            separator(),
+                            ftxui::hbox({
+                                                ftxui::text(user.username) | color(ftxui::Color::Gold1),
+                                                ftxui::text(", wybierz rzeczy, które chcesz ze sobą wziąć:")
+                                        }) | ftxui::bold | ftxui::center,
+                            ftxui::separator(),
+                            ftxui::vbox({
+                                                ftxui::paragraphAlignCenter("Wystarczy zaznaczyć elementy, które chcesz ze sobą zabrać, a my zajmiemy się resztą.") | ftxui::bold | color(ftxui::Color::YellowLight),
+                                                ftxui::paragraphAlignCenter("Pamiętaj, że jeśli wykonujesz konkretny zawód, przysługują ci korzyści odnośnie zabierania ze sobą rzeczy na pokład.") | ftxui::bold | color(ftxui::Color::Khaki3)
+                                        }),
+                            ftxui::separator(),
+                            ftxui::vbox({
+                                                ftxui::hbox({
+                                                                    ftxui::paragraphAlignCenter("Po zakończonym wybieraniu, kliknij w przycisk \"ZAKOŃCZ WYBIERANIE\".") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
+                                                            }),
+                                        }),
+                            ftxui::separator(),
+                            checkboxes->Render() | ftxui::center,
                     }) |
                xflex | border;
     });
 
     screen.Loop(component);
 
+    std::vector<Item> selectedItems;
     for (size_t i = 0; i < items.size(); ++i) {
         if (*checkbox_states[i]) {
-            std::cout << items[i].getItemName() << std::endl;
+            selectedItems.push_back(items[i]);
         }
+    }
+
+    double totalWeight = 0;
+    for (const auto& item : selectedItems) {
+        totalWeight += item.getWeight();
+    }
+
+    Luggage luggage(selectedItems, totalWeight);
+
+    bool confirmed = luggage.confirmItems(user);
+
+    if(confirmed) {
+       luggage.getItemCount();
+    } else {
+        errorFunction("Przerwano odprawę bagażu!", "");
     }
 
 }

@@ -259,8 +259,8 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 // during RELWITHDEBINFO builds.
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
-//No help, variable specified on the command line.
-CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=C:\Users\szymo\.vcpkg-clion\airport\scripts\buildsystems\vcpkg.cmake
+//The CMake toolchain file
+CMAKE_TOOLCHAIN_FILE:FILEPATH=C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -435,12 +435,6 @@ mongoc-1.0_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/a
 
 //The directory containing a CMake configuration file for mongocxx.
 mongocxx_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/mongocxx
-
-//The directory containing a CMake configuration file for nayuki-qr-code-generator.
-nayuki-qr-code-generator_DIR:PATH=nayuki-qr-code-generator_DIR-NOTFOUND
-
-//The directory containing a CMake configuration file for nayuki-qrcode.
-nayuki-qrcode_DIR:PATH=nayuki-qrcode_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for unofficial-nayuki-qr-code-generator.
 unofficial-nayuki-qr-code-generator_DIR:PATH=C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/unofficial-nayuki-qr-code-generator

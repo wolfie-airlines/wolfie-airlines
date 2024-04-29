@@ -1,9 +1,10 @@
 "C:\Users\szymo\AppData\Local\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:\Users\szymo\.vcpkg-clion\airport\scripts\buildsystems\vcpkg.cmake --profiling-format=google-trace --profiling-output=CMakeFiles\clion-event-trace.json -G Ninja -S C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport -B C:\Users\szymo\Documents\GitHub\7b365783-gr71-repo\Projekt\airport\cmake-build-debug-event-trace
 -- Running vcpkg install
+waiting to take filesystem lock on C:\Users\szymo\.vcpkg-clion\airport\.vcpkg-root...
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
-Total install time: 600 ns
+Total install time: 500 ns
 cryptopp provides CMake targets:
 
   # this is heuristically generated, and may not be correct
@@ -30,6 +31,18 @@ nayuki-qr-code-generator provides CMake targets:
   target_link_libraries(main PRIVATE unofficial::nayuki-qr-code-generator::nayuki-qr-code-generator)
 
 -- Running vcpkg install - done
+-- The C compiler identification is MSVC 19.39.33523.0
+-- The CXX compiler identification is MSVC 19.39.33523.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
 CMake Error at C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-gitupdate.cmake:34 (message):
   Failed to get the hash for HEAD:
 
