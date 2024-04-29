@@ -32,6 +32,15 @@ void printSpecificItem(Item& item) {
                                            }));
         }
 
+        const std::string& profession = item.getProfession();
+        std::vector<ftxui::Element> professionElements;
+        if(!profession.empty()) {
+            professionElements.push_back(ftxui::hbox({
+                                                             ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold | ftxui::color(ftxui::Color::Gold1),
+                                                             ftxui::text(profession) | ftxui::color(ftxui::Color::White)
+                                                     }));
+        }
+
         auto summary = ftxui::vbox({
                                            ftxui::hbox({
                                                                ftxui::paragraphAlignCenter("KARTA PRZEDMIOTU") | ftxui::bold
@@ -83,6 +92,8 @@ void printSpecificItem(Item& item) {
                                                        }),
                                              ftxui::separator(),
                                              elements.empty() ? ftxui::separator() : ftxui::hbox(elements),
+                                             ftxui::separator(),
+                                             professionElements.empty() ? ftxui::hbox() : ftxui::hbox(professionElements),
                                    });
 
         auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
@@ -255,7 +266,7 @@ void checkIn(User& user) {
         checkbox_components.push_back(Checkbox(option));
     }
 
-    auto finishButton = Button("Zakończ", [&] {
+    auto finishButton = Button("Zakończ wybieranie", [&] {
         screen.ExitLoopClosure()();
     });
     checkbox_components.push_back(finishButton);

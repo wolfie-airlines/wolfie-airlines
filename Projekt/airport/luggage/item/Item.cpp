@@ -6,6 +6,21 @@
 
 Item::Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints,
            bool forbidden, bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount,
+           double weight, std::string &profession) {
+    this->itemName = itemName;
+    this->description = description;
+    this->hints = hints;
+    this->forbidden = forbidden;
+    this->registeredLuggage = registeredLuggage;
+    this->handLuggage = handLuggage;
+    this->pilotAllowance = pilotAllowance;
+    this->maxCount = maxCount;
+    this->weight = weight;
+    this->profession = profession;
+}
+
+Item::Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints,
+           bool forbidden, bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount,
            double weight) {
     this->itemName = itemName;
     this->description = description;
@@ -20,6 +35,10 @@ Item::Item(const std::string &itemName, const std::string &description, const st
 
 const std::string &Item::getItemName() const {
     return itemName;
+}
+
+const std::string &Item::getProfession() const {
+    return profession;
 }
 
 const std::string &Item::getDescription() const {

@@ -41,6 +41,15 @@ std::vector<Item> getItems(User& user) {
         } else {
             weight = static_cast<double>(item["weightForOne"].get_int32().value);
         }
+
+        if(item["profession"]) {
+            std::string profession = (std::string) item["profession"].get_string().value;
+            items.emplace_back(
+                    itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight, profession
+            );
+            continue;
+        }
+
         items.emplace_back(
                 itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight
         );

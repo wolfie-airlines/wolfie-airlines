@@ -19,14 +19,19 @@ class Item {
     bool pilotAllowance;
     double maxCount;
     double weight;
+    std::string profession;
 
 public:
+    Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
+         bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight, std::string &profession);
     Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
          bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight);
 
     [[nodiscard]] const std::string &getItemName() const;
 
     [[nodiscard]] const std::string &getDescription() const;
+
+    [[nodiscard]] const std::string &getProfession() const;
 
     [[nodiscard]] const std::vector<std::string> &getHints() const;
 
