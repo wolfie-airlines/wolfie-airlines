@@ -191,6 +191,9 @@ void printAllItems(User& user) {
                                            ftxui::hbox({ftxui::paragraphAlignCenter("LISTA WSZYSTKICH PRZEDMIOTÓW")}) |
                                            color(ftxui::Color::GrayDark),
                                            table.Render(),
+                                           ftxui::hbox({
+                                                               ftxui::paragraphAlignRight("Strona " + std::to_string(page + 1) + "/" + std::to_string(totalPages)) | ftxui::color(ftxui::Color::YellowLight) | ftxui::bold,
+                                                       }),
                                            ftxui::vbox({
                                                ftxui::separator(),
                                                ftxui::hbox({
@@ -235,7 +238,7 @@ void printAllItems(User& user) {
         } else {
             try {
                 int itemNumber = std::stoi(response);
-                if(itemNumber >= 1 && itemNumber <= 31) {
+                if(itemNumber >= 1 && itemNumber <= 34) {
                     int index = itemNumber - 1;
                     if(index < items.size()) {
                         printSpecificItem(items[index]);
@@ -285,10 +288,10 @@ void checkIn(User& user) {
 
     vertical_containers.back()->Add(finishButton);
 
-    auto checkboxes = Container::Horizontal(vertical_containers);
+    auto specialCheckboxes = Container::Horizontal(vertical_containers);
 
     auto layout = Container::Vertical({
-                                              checkboxes,
+                                              specialCheckboxes,
                                       });
 
     auto component = Renderer(layout, [&] {
@@ -309,7 +312,9 @@ void checkIn(User& user) {
                                                             }),
                                         }),
                             ftxui::separator(),
-                            checkboxes->Render() | ftxui::center,
+                            specialCheckboxes->Render() | ftxui::center,
+                            ftxui::separator(),
+//                            normalCheckboxes->Render() | ftxui::center,
                     }) |
                xflex | border;
     });
