@@ -6,6 +6,9 @@
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/component.hpp"
 #include "../../../functions/info_print_functions.h"
+#include "../../../functions/main_prints/main_prints.h"
+
+const int PAGE_SIZE = 9;
 
 int CreateFlightChoiceScreen() {
     using namespace ftxui;
@@ -30,7 +33,7 @@ int CreateFlightChoiceScreen() {
     return selected;
 }
 
-std::string pageSizeString(int totalPages) {
+std::string PAGE_SIZEString(int totalPages) {
     //budowanie napisu dla menu w formie slashy
     std::string result;
     for (int i = 1; i <= totalPages; i++) {
@@ -64,15 +67,14 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
 
     ftxui::Elements document;
 
-    int pageSize = 9;
     int currentPage = 1;
-    int totalPages = (connections.size() + pageSize - 1) / pageSize;
-    std::string menuPageString = totalPages == 1 ? " " : pageSizeString(totalPages);
+    int totalPages = (connections.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+    std::string menuPageString = totalPages == 1 ? " " : PAGE_SIZEString(totalPages);
 
 
     while (true) {
-        int startIndex = (currentPage - 1) * pageSize;
-        int endIndex = std::min<int>(startIndex + pageSize, connections.size());
+        int startIndex = (currentPage - 1) * PAGE_SIZE;
+        int endIndex = std::min<int>(startIndex + PAGE_SIZE, connections.size());
 
         document.clear();
         std::string premiumCard = user.premiumCard;
@@ -112,9 +114,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection>& connections, Us
                                      }) | style;
 
 
-        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
-        ftxui::Render(userScreen, container);
-        std::cout << userScreen.ToString() << '\0' << std::endl;
+        printFullWidthScreen(container);
 
         if(totalPages != 1 ) {
             std::string input;
@@ -188,7 +188,5 @@ void CreateFoundFlightScreen(FlightConnection& connection, User& user) {
                 }),
             }) | style;
 
-        auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
-        ftxui::Render(userScreen, container);
-        std::cout << userScreen.ToString() << '\0' << std::endl;
+        printFullWidthScreen(container);
 }
