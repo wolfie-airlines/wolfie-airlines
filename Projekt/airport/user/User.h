@@ -62,7 +62,8 @@ public:
     [[nodiscard]] bool checkIfAdmin() const;
     void setIsAdmin(bool isAdministrator) { User::isAdmin = isAdministrator; }
     void saveLuggage(int flightNumber);
-    mongocxx::cursor findUserInDatabase(mongocxx::collection& collection);
+    mongocxx::cursor findUserInDatabase();
+    bsoncxx::array::view findUserFlights();
 };
 
 #endif // USER_H

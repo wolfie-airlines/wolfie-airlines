@@ -331,14 +331,27 @@ void User::saveLuggage(int flightNumber) {
     validFunction("Bagaż został odprawiony pomyślnie!", "Życzymy udanego lotu!");
 }
 
-mongocxx::cursor User::findUserInDatabase(mongocxx::collection& collection) {
+mongocxx::cursor User::findUserInDatabase() {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),
             bsoncxx::builder::basic::kvp("password", getPassword())
     );
 
     bsoncxx::document::view filter_view = filter_builder.view();
-    mongocxx::cursor cursor = collection.find(filter_view);
+    mongocxx::cursor cursor = _collection.find(filter_view);
 
     return cursor;
+}
+
+bsoncxx::array::view User::findUserFlights() {
+    mongocxx::cursor cursor = findUserInDatabase();
+    if (cursor.begin() == cursor.end()) {
+        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+    }
+
+    bsoncxx::document::view userView = *cursor.begin();
+    bsoncxx::document::element userFlightsElement = userView["userFlights"];
+    bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+
+    return userFlightsArray;
 }

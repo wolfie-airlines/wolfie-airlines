@@ -2,22 +2,11 @@
 #include "../../functions/info_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 
+const int PAGE_SIZE = 4;
+
 std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
-    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", user.email),
-            bsoncxx::builder::basic::kvp("password", user.getPassword())
-    );
 
-    bsoncxx::document::view filter_view = filter_builder.view();
-    mongocxx::cursor cursor = user.getCollection().find(filter_view);
-    if (cursor.begin() == cursor.end()) {
-        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-        return {};
-    }
-
-    bsoncxx::document::view userView = *cursor.begin();
-    bsoncxx::document::element userFlightsElement = userView["userFlights"];
-    bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+    bsoncxx::array::view userFlightsArray = user.findUserFlights();
 
     if (userFlightsArray.begin() == userFlightsArray.end()) {
         errorFunction("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
@@ -40,17 +29,17 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
         flightsInfo.push_back(info);
     }
 
-    int pageSize = 4;
+    
     int currentPage = 1;
     int totalTickets = 0;
     for (const auto &flightInfo: flightsInfo) {
         totalTickets += flightInfo.seats.size();
     }
-    int totalPages = (totalTickets + pageSize - 1) / pageSize;
+    int totalPages = (totalTickets + PAGE_SIZE - 1) / PAGE_SIZE;
 
     while (true) {
-        int startIndex = (currentPage - 1) * pageSize;
-        int endIndex = startIndex + pageSize;
+        int startIndex = (currentPage - 1) * PAGE_SIZE;
+        int endIndex = startIndex + PAGE_SIZE;
 
         ftxui::Elements elements;
         int currentTicket = 0;
