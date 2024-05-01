@@ -27,9 +27,9 @@ int main(int argc, char *argv[]) {
     auto collection = db["connection_test"];
 
     // testowy dokument dla pingu do kolekcji
-    auto result = collection.insert_one(make_document(kvp("ping", 1)));
+    auto testPing = collection.insert_one(make_document(kvp("ping", 1)));
 
-    if (!result) {
+    if (!testPing) {
       std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
       return EXIT_FAILURE;
     }
