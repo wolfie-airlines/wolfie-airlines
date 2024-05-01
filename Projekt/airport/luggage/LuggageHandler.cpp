@@ -119,9 +119,9 @@ void checkIn(User& user, int flightNumber) {
                 errorFunction("Nie udało się przetworzyć płatności.", "Odprawa bagażowa została przerwana.");
                 return;
             }
-            user.saveLuggage(flightNumber);
+            user.luggageCheckin(flightNumber);
         } else {
-            user.saveLuggage(flightNumber);
+            user.luggageCheckin(flightNumber);
         }
     } else {
         errorFunction("Przerwano odprawę bagażu!", message);

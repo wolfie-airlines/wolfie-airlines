@@ -61,7 +61,7 @@ public:
     void loginAsAdmin();
     [[nodiscard]] bool checkIfAdmin() const;
     void setIsAdmin(bool isAdministrator) { User::isAdmin = isAdministrator; }
-    void saveLuggage(int flightNumber);
+    void luggageCheckin(int flightNumber);
     mongocxx::cursor findUserInDatabase();
 
     template <typename T>
