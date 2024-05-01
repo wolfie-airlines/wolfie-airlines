@@ -5,16 +5,14 @@
 #include "flight_functions.h"
 #include "../../functions/info_print_functions.h"
 #include "flight_prints/flight_print_functions.h"
+#include "../../functions/main_prints/main_prints.h"
 
 const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
 const std::string TRY_AGAIN = "Spróbuj ponownie.";
 
 void handleFlightSearchByCity(FlightConnection& flightConnection, User& user) {
-    std::string departureCity, destinationCity;
-    std::cout << "Podaj miasto wylotu: ";
-    std::cin >> departureCity;
-    std::cout << "Podaj miasto przylotu: ";
-    std::cin >> destinationCity;
+    std::string departureCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
+    std::string destinationCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
     FlightConnection connection = flightConnection.findConnection(departureCity, destinationCity);
 
@@ -26,9 +24,7 @@ void handleFlightSearchByCity(FlightConnection& flightConnection, User& user) {
 }
 
 void handleFlightSearchById(FlightConnection& flightConnection, User& user) {
-    std::string flightId;
-    std::cout << "Podaj identyfikator lotu: ";
-    std::cin >> flightId;
+    std::string flightId = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj identyfikator lotu: ");
 
     FlightConnection connection = flightConnection.findConnectionById(flightId);
 
@@ -40,11 +36,8 @@ void handleFlightSearchById(FlightConnection& flightConnection, User& user) {
 }
 
 void handleFlightSearchByPrice(FlightConnection& flightConnection, User& user) {
-    double minPrice, maxPrice;
-    std::cout << "Podaj minimalną kwotę: ";
-    std::cin >> minPrice;
-    std::cout << "Podaj maksymalną kwotę: ";
-    std::cin >> maxPrice;
+    double minPrice = displayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj minimalną cenę: ");
+    double maxPrice = displayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj maksymalną cenę: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
     if(connections.empty()) {
@@ -59,9 +52,7 @@ void handleFlightSearchByPrice(FlightConnection& flightConnection, User& user) {
 }
 
 void handleFlightSearchByDeparture(FlightConnection& flightConnection, User& user) {
-    std::string departureCity;
-    std::cout << "Podaj miasto wylotu: ";
-    std::cin >> departureCity;
+    std::string departureCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionsByDeparture(departureCity);
     if(connections.empty()) {
@@ -76,9 +67,7 @@ void handleFlightSearchByDeparture(FlightConnection& flightConnection, User& use
 }
 
 void handleFlightSearchByDestination(FlightConnection& flightConnection, User& user) {
-    std::string destinationCity;
-    std::cout << "Podaj miasto przylotu: ";
-    std::cin >> destinationCity;
+    std::string destinationCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionsByDestination(destinationCity);
     if(connections.empty()) {
