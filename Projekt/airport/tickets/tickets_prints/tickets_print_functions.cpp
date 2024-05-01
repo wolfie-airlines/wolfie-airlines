@@ -4,7 +4,6 @@
 #include "ftxui/component/component.hpp"
 #include <iomanip>
 #include "qrcodegen.hpp"
-#include "../../qr-code/qrcode_prints.h"
 #include "../../functions/info_print_functions.h"
 #include <windows.h>
 #include <shellapi.h>
@@ -50,56 +49,6 @@ bool validChoice(const std::string& choiceTitle, const std::string& choiceText) 
 
     if(answer == "tak" || answer == "Tak" || answer == "TAK") return true;
     else return false;
-}
-
-std::string displayMessageAndCaptureInput(const std::string& titleMessage, const std::string& textMessage) {
-    auto createScreen = [&] {
-        auto summary = ftxui::vbox({
-                                           ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::White),
-                                           ftxui::separator(),
-                                           ftxui::hbox({
-                                                               ftxui::text(textMessage) | ftxui::bold | color(ftxui::Color::GrayLight)}),
-                                           ftxui::separator(),
-                                           ftxui::hbox({ ftxui::text(L"back. \U0001F519  Wróć do głównego menu.") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
-                                   });
-        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-        return std::make_shared<ftxui::Element>(document);
-    };
-
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-    ftxui::Render(userScreen, *createScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
-
-    std::string answer;
-    std::cin >> answer;
-
-    return answer;
-}
-
-std::string displayWarningAndCaptureInput(const std::string& titleMessage, const std::string& textMessage) {
-    auto createScreen = [&] {
-        auto summary = ftxui::vbox({
-                                           ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::Red),
-                                           ftxui::separator(),
-                                           ftxui::hbox({
-                                                               ftxui::text(textMessage) | ftxui::bold | color(ftxui::Color::RedLight)}),
-                                           ftxui::separator(),
-                                           ftxui::hbox({ ftxui::text(L"back. \U0001F519  Wróć do głównego menu.") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
-                                   });
-        auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-        document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-        return std::make_shared<ftxui::Element>(document);
-    };
-
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-    ftxui::Render(userScreen, *createScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
-
-    std::string answer;
-    std::cin >> answer;
-
-    return answer;
 }
 
 void printTicketInvoice(
@@ -158,7 +107,7 @@ void printTicketInvoice(
                                            ftxui::hbox({
                                                                ftxui::paragraphAlignRight("Zapłacono: " + targetPrice + " PLN") | ftxui::bold | color(ftxui::Color::Gold1)
                                            }),
-                                           ftxui::hbox({ ftxui::text(L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Zeskanuj kod poniżej:") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
+                                           ftxui::hbox({ ftxui::text(L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Przejdź do zakładki 'Moje bilety'!") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold }),
                                    });
         auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
         document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
@@ -168,7 +117,6 @@ void printTicketInvoice(
     auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
     ftxui::Render(userScreen, *createScreen());
     std::cout << userScreen.ToString() << '\0' << std::endl;
-    createQR(user.email, user.username, foundConnection.getIdentifier(), selectedSeats);
 }
 
 void openWebsite() {
