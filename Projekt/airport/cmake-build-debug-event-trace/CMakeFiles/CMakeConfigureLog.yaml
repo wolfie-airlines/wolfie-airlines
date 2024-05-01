@@ -109,8 +109,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-x87x2d"
-      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-x87x2d"
+      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-7oqidf"
+      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-7oqidf"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -122,11 +122,11 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-x87x2d'
+        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-7oqidf'
         
-        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_76fab
-        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_76fab.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_76fab.dir\\ /FS -c "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_76fab.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_76fab.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_76fab.exe /implib:cmTC_76fab.lib /pdb:cmTC_76fab.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-x87x2d && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-x87x2d/cmTC_76fab.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_07ef3
+        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_07ef3.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_07ef3.dir\\ /FS -c "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_07ef3.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_07ef3.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_07ef3.exe /implib:cmTC_07ef3.lib /pdb:cmTC_07ef3.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-7oqidf && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-7oqidf/cmTC_07ef3.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
         
       exitCode: 0
   -
@@ -138,8 +138,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-miillb"
-      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-miillb"
+      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-jugxgn"
+      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-jugxgn"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -151,11 +151,118 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-miillb'
+        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-jugxgn'
         
-        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_8e72f
-        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /EHsc  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_8e72f.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_8e72f.dir\\ /FS -c "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8e72f.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8e72f.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_8e72f.exe /implib:cmTC_8e72f.lib /pdb:cmTC_8e72f.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-miillb && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-miillb/cmTC_8e72f.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_371b4
+        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /EHsc  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_371b4.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_371b4.dir\\ /FS -c "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_371b4.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_371b4.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_371b4.exe /implib:cmTC_371b4.lib /pdb:cmTC_371b4.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-jugxgn && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-jugxgn/cmTC_371b4.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
         
       exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "cmake-build-debug-event-trace/_deps/ftxui-src/CMakeLists.txt:152 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-c90ifn"
+      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-c90ifn"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/szymo/.vcpkg-clion/airport"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-c90ifn'
+        
+        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_90c71
+        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_90c71.dir\\src.c.obj /FdCMakeFiles\\cmTC_90c71.dir\\ /FS -c C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-c90ifn\\src.c
+        FAILED: CMakeFiles/cmTC_90c71.dir/src.c.obj 
+        C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_90c71.dir\\src.c.obj /FdCMakeFiles\\cmTC_90c71.dir\\ /FS -c C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-c90ifn\\src.c
+        C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-c90ifn\\src.c(1): fatal error C1083: Nie można otworzyć pliku dołącz: 'pthread.h': No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "cmake-build-debug-event-trace/_deps/ftxui-src/CMakeLists.txt:152 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-o409rl"
+      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-o409rl"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/szymo/.vcpkg-clion/airport"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-o409rl'
+        
+        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_793d3
+        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_793d3.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_793d3.dir\\ /FS -c C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-o409rl\\CheckFunctionExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_793d3.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_793d3.dir\\CheckFunctionExists.c.obj  /out:cmTC_793d3.exe /implib:cmTC_793d3.lib /pdb:cmTC_793d3.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-o409rl && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-o409rl/cmTC_793d3.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        FAILED: cmTC_793d3.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_793d3.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_793d3.dir\\CheckFunctionExists.c.obj  /out:cmTC_793d3.exe /implib:cmTC_793d3.lib /pdb:cmTC_793d3.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-o409rl && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-o409rl/cmTC_793d3.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        LINK Pass 1: command "C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_793d3.dir\\CheckFunctionExists.c.obj /out:cmTC_793d3.exe /implib:cmTC_793d3.lib /pdb:cmTC_793d3.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_793d3.dir/intermediate.manifest CMakeFiles\\cmTC_793d3.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: nie można otworzyć pliku "pthreads.lib"\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "cmake-build-debug-event-trace/_deps/ftxui-src/CMakeLists.txt:152 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-tqlbl4"
+      binary: "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-tqlbl4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/szymo/.vcpkg-clion/airport"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-tqlbl4'
+        
+        Run Build Command(s): "C:/Users/szymo/AppData/Local/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_ced41
+        [1/2] C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_ced41.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_ced41.dir\\ /FS -c C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-tqlbl4\\CheckFunctionExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_ced41.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_ced41.dir\\CheckFunctionExists.c.obj  /out:cmTC_ced41.exe /implib:cmTC_ced41.lib /pdb:cmTC_ced41.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-tqlbl4 && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-tqlbl4/cmTC_ced41.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        FAILED: cmTC_ced41.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Users\\szymo\\AppData\\Local\\JetBrains\\CLion 2023.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_ced41.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_ced41.dir\\CheckFunctionExists.c.obj  /out:cmTC_ced41.exe /implib:cmTC_ced41.lib /pdb:cmTC_ced41.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && C:\\WINDOWS\\system32\\cmd.exe /C "cd /D C:\\Users\\szymo\\Documents\\GitHub\\7b365783-gr71-repo\\Projekt\\airport\\cmake-build-debug-event-trace\\CMakeFiles\\CMakeScratch\\TryCompile-tqlbl4 && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/CMakeScratch/TryCompile-tqlbl4/cmTC_ced41.exe -installedDir C:/Users/szymo/.vcpkg-clion/airport/installed/x64-windows/debug/bin -OutVariable out""
+        LINK Pass 1: command "C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1439~1.335\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_ced41.dir\\CheckFunctionExists.c.obj /out:cmTC_ced41.exe /implib:cmTC_ced41.lib /pdb:cmTC_ced41.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_ced41.dir/intermediate.manifest CMakeFiles\\cmTC_ced41.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: nie można otworzyć pliku "pthread.lib"\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
 ...

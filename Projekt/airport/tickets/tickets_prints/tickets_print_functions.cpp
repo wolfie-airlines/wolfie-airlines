@@ -1,8 +1,9 @@
-#include "tickets_print_functions.h"
-
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
 #include <shellapi.h>
-#include <windows.h>
 
+#include "tickets_print_functions.h"
 #include <iomanip>
 
 #include "../../functions/info_print_functions.h"

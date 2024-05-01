@@ -1,23 +1,23 @@
 #include <iostream>
 
 #include "../../../functions/info_print_functions.h"
-#include "../../User.h"
 #include "../user_prints/user_print_functions.h"
+#include "../../../functions/main_prints/main_prints.h"
 
 void handlePaymentOption(User &user) {
   int answer = CreateDefaultPaymentScreen();
   if (answer == 0) {
     // zmiana na VISĘ
-    std::cout << "Podaj 3 ostatnie cyfry karty: ";
-    std::string cardNumber;
-    std::cin >> cardNumber;
-    std::cout << "Podaj kod CVV karty: ";
-    std::string cvv;
-    std::cin >> cvv;
     if (user.paymentMethod == "visa") {
       errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
       return;
     }
+
+    std::string
+        cardNumber = displayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 ostatnie cyfry karty: ");
+    std::string
+        cvv = displayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 cyfrowy kod CVV karty: ");
+
     user.setVisa(cardNumber, cvv);
   } else if (answer == 1) {
     user.setBlik("blik");

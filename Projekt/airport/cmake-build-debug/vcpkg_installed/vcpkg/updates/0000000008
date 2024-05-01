@@ -1,8 +1,10 @@
-Package: libbson
-Version: 1.26.1
-Depends: vcpkg-cmake, vcpkg-cmake-config
+Package: curl
+Version: 8.7.1
+Port-Version: 2
+Depends: vcpkg-cmake, vcpkg-cmake-config, zlib
 Architecture: x64-windows
 Multi-Arch: same
-Abi: b152763ea97f4c2f86680a3b6ba65c5b73fe96001dd1f5975ac1ccd46bfac97f
-Description: libbson is a library providing useful routines related to building, parsing, and iterating BSON documents.
-Status: purge ok half-installed
+Abi: 8a593f8dd5de22e43cbfb6427d0c878d74c90bdb9a86ba6111061c2c650ee44a
+Description: A library for transferring data with URLs
+Default-Features: non-http, ssl
+Status: install ok half-installed

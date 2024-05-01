@@ -1,9 +1,0 @@
-Package: nayuki-qr-code-generator
-Version: 1.8.0
-Port-Version: 1
-Depends: vcpkg-cmake, vcpkg-cmake-config
-Architecture: x64-windows
-Multi-Arch: same
-Abi: d410f0b7519dba0ab4d007e8cdf9698cdf3b84228bf47c935cffa3a26c12aea4
-Description: High-quality QR Code generator library in C++
-Status: install ok installed

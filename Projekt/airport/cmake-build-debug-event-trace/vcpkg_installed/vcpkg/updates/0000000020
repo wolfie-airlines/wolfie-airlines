@@ -1,8 +1,8 @@
-Package: cryptopp
-Version: 8.9.0
-Depends: vcpkg-cmake, vcpkg-cmake-config
+Package: mongo-c-driver
+Version: 1.26.1
+Depends: libbson, vcpkg-cmake, vcpkg-cmake-config, zlib
 Architecture: x64-windows
 Multi-Arch: same
-Abi: 28922ec7079222c43e7b2cab67b11cc2e0623ff8d684d6e4fc8ae7ed9cb9f7e3
-Description: Crypto++ is a free C++ class library of cryptographic schemes.
+Abi: 8df114a9d77d1decc8559a1b11e13e0fc0571e9c92588a4f1e61638ed9dd7139
+Description: Client library written in C for MongoDB.
 Status: install ok half-installed

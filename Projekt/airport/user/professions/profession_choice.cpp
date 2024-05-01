@@ -1,11 +1,13 @@
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <Windows.h>
-
 #include <random>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 #include "../../functions/helpers.h"
 #include "profession_handler.h"
 #include "profession_prints/profession_prints.h"
-#pragma comment(lib, "winmm.lib")
 
 void musicProfession(User &user) {
   const std::string soundFiles[] = {
