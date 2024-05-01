@@ -1,5 +1,6 @@
 #include "plane.h"
 #include <iostream>
+#include <unordered_set>
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 #include "../functions/info_print_functions.h"
@@ -23,15 +24,19 @@ void processSeatSelectionAndPurchase(
 
     auto seatStyle = size(WIDTH, EQUAL, 10);
 
+    // szybsze wyszukiwanie zajętych miejsc niż wektor
+    std::unordered_set<int> seatsTakenSet(seatsTaken.begin(), seatsTaken.end());
+
     auto make_seat_box = [&](int seatNumber, bool selected) {
         int rowNumber = (seatNumber % 9 == 0 ? seatNumber / 9 : seatNumber / 9 + 1);
         int seatInRow = (seatNumber % 9 == 0 ? 9 : seatNumber % 9);
         std::string title = " R:" + std::to_string(rowNumber) + " M:" + std::to_string(seatInRow);
 
-        if (selected) {
+        if (selected || seatsTakenSet.count(seatNumber)) {
+            auto seatColor = selected ? Color::Orange1 : Color::Red1;
             return window(
                     text(title) | hcenter | bold | seatStyle,
-                    text("WYBRANE") | hcenter | bold | color(Color::Orange1) | seatStyle
+                    text(selected ? "WYBRANE" : "\u274C") | hcenter | bold | seatStyle | color(seatColor)
             );
         }
 
@@ -39,11 +44,6 @@ void processSeatSelectionAndPurchase(
             return window(
                     text(title) | hcenter | bold | seatStyle,
                     text("\U0001f198") | hcenter | bold | color(Color::Orange1) | seatStyle
-            );
-        } else if (std::find(seatsTaken.begin(), seatsTaken.end(), seatNumber) != seatsTaken.end()) {
-            return window(
-                    text(title) | hcenter | bold | seatStyle,
-                    text("\u274C") | hcenter | dim | color(Color::Red) | seatStyle
             );
         } else {
             return window(
@@ -56,6 +56,7 @@ void processSeatSelectionAndPurchase(
     auto style = size(WIDTH, GREATER_THAN, 150) | border;
 
     std::vector<Element> seats;
+    seats.reserve(81);
     Elements document;
 
     for (int i = 0; i < 81; i++) {
@@ -107,7 +108,7 @@ void processSeatSelectionAndPurchase(
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
 
-    int ticketAmount = 0;
+    int ticketAmount;
     while (true) {
         std::string ticketAmountInput = displayMessageAndCaptureInput(
                 "Zakup biletów",
