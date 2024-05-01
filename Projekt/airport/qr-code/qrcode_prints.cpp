@@ -14,7 +14,7 @@ void createQR(const std::string& email, const std::string& username, const std::
 
     std::string text = "https://wolfie-airlines-webpage.vercel.app/odprawy/" + username + "/" + email + "/" + flightId + "/" + seatsString;
 
-    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW; // im mniej tym więcej możliwości bitów do zakodowania
+    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW; // im mniej, tym więcej możliwości bitów do zakodowania
 
     std::vector<QrSegment> segs = QrSegment::makeSegments(text.c_str());
     const QrCode qr = QrCode::encodeSegments(segs, errCorLvl, 1, 40);
