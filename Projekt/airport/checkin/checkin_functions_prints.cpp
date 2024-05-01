@@ -1,26 +1,27 @@
 #include "checkin_functions_prints.h"
-#include "ftxui/dom/elements.hpp"
+
 #include "../functions/info_print_functions.h"
-#include "../qr-code/qrcode_prints.h"
 #include "../functions/main_prints/main_prints.h"
+#include "../qr-code/qrcode_prints.h"
 #include "../user/user_functions/user_tickets/user_tickets_print_functions.h"
+#include "ftxui/dom/elements.hpp"
 
 const std::string CHECKIN_SCREEN_TITLE = "ODPRAWA BILETOWA";
 const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
 
 std::shared_ptr<ftxui::Element> createCheckinScreen(const std::string& message) {
     auto summary = ftxui::vbox({
-                                       ftxui::hbox({ftxui::paragraphAlignCenter(CHECKIN_SCREEN_TITLE)}) | color(ftxui::Color::GrayDark),
-                                       ftxui::separator(),
-                                       ftxui::hbox({ftxui::paragraphAlignRight(message)}) | color(ftxui::Color::LightSteelBlue),
-                               });
+        ftxui::hbox({ftxui::paragraphAlignCenter(CHECKIN_SCREEN_TITLE)}) | color(ftxui::Color::GrayDark),
+        ftxui::separator(),
+        ftxui::hbox({ftxui::paragraphAlignRight(message)}) | color(ftxui::Color::LightSteelBlue),
+    });
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter(AIRPORT_NAME), summary)});
     return std::make_shared<ftxui::Element>(document);
 }
 
 void printCheckinScreen(User& user) {
     mongocxx::cursor cursor = user.findUserInDatabase();
-    if(cursor.begin() == cursor.end()) {
+    if (cursor.begin() == cursor.end()) {
         errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
         return;
     }
@@ -36,7 +37,7 @@ void printCheckinScreen(User& user) {
 
     // jeśli wszystkie bilety są już odprawione, też nie ma sensu wykonywać tej funkcji
     bool allCheckedIn = true;
-    for (const auto &flight: userFlightsArray) {
+    for (const auto& flight : userFlightsArray) {
         if (!flight["checkin"].get_bool().value) {
             allCheckedIn = false;
             break;
@@ -49,10 +50,9 @@ void printCheckinScreen(User& user) {
     }
 
     std::optional<std::string> option = createTicketsScreen(user, true);
-    if(option == "quit") {
+    if (option == "quit") {
         errorFunction("Anulowano odprawę.", "Odprawa biletowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
     } else if (option == "wybieram") {
-
         auto checkinScreen = createCheckinScreen("Podaj NUMER LOTU, na który chciałbyś się odprawić:");
         printScreen(checkinScreen);
 
@@ -69,9 +69,9 @@ void printCheckinScreen(User& user) {
             return;
         }
 
-        std::string flightId = (std::string) userFlightsArray[flightNumber - 1]["flightId"].get_string().value;
+        std::string flightId = (std::string)userFlightsArray[flightNumber - 1]["flightId"].get_string().value;
         std::vector<int> seats;
-        for (const auto &seat: userFlightsArray[flightNumber - 1]["seats"].get_array().value) {
+        for (const auto& seat : userFlightsArray[flightNumber - 1]["seats"].get_array().value) {
             seats.push_back(seat.get_int32().value);
         }
 

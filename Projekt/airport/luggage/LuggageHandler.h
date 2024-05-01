@@ -6,5 +6,4 @@
 void checkIn(User& user, int flightNumber);
 void welcomeInLuggageCheckin(User& user);
 
-
-#endif //AIRPORT_LUGGAGEHANDLER_H
+#endif  // AIRPORT_LUGGAGEHANDLER_H

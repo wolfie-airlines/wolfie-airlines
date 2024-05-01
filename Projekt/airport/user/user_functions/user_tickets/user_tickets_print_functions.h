@@ -1,9 +1,10 @@
 #ifndef AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
 #define AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
 
-#include "../../User.h"
 #include <string>
 #include <vector>
+
+#include "../../User.h"
 
 struct FlightInfo {
     int flightNumber;
@@ -19,4 +20,4 @@ struct FlightInfo {
 
 std::optional<std::string> createTicketsScreen(User& user, bool isCheckin = false);
 
-#endif //AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
+#endif  // AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H

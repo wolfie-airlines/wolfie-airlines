@@ -1,11 +1,13 @@
 #include "profession_handler.h"
-#include "ftxui/component/screen_interactive.hpp"
-#include "ftxui/component/component_options.hpp"
+
+#include <iomanip>
 #include <random>
 #include <variant>
-#include <iomanip>
 
-template<typename T>
+#include "ftxui/component/component_options.hpp"
+#include "ftxui/component/screen_interactive.hpp"
+
+template <typename T>
 bool areEqualWithTolerance(T a, T b, T tolerance = std::numeric_limits<T>::epsilon()) {
     return std::abs(a - b) < tolerance;
 }
@@ -29,17 +31,17 @@ bool guessMusicAuthor(const std::string &musicLink) {
     }
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({
-                                                               ftxui::text(
-                                                                       L"Jaki wykonawca/zespół stworzył ten utwór?") |
-                                                               ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({
-                                                               ftxui::text(
-                                                                       L"W przypadku wykonawcy podaj jedynie jego nazwisko.") |
-                                                               ftxui::bold}) | color(ftxui::Color::Orange3),
-                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
-                                           color(ftxui::Color::BlueLight),
-                                   });
+            ftxui::hbox({ftxui::text(
+                             L"Jaki wykonawca/zespół stworzył ten utwór?") |
+                         ftxui::bold}) |
+                color(ftxui::Color::Orange4),
+            ftxui::hbox({ftxui::text(
+                             L"W przypadku wykonawcy podaj jedynie jego nazwisko.") |
+                         ftxui::bold}) |
+                color(ftxui::Color::Orange3),
+            ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
+                color(ftxui::Color::BlueLight),
+        });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
 
@@ -60,7 +62,7 @@ bool guessDoctorQuestion(User &user) {
     auto collection = user.getSpecificCollection("doctor-question");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> documents;
-    for (auto &&doc: cursor) {
+    for (auto &&doc : cursor) {
         documents.push_back(doc);
     }
 
@@ -74,23 +76,23 @@ bool guessDoctorQuestion(User &user) {
     std::uniform_int_distribution<> distrib(0, documents.size() - 1);
 
     int random_index = distrib(gen);
-    std::string validAnswer = (std::string) documents[random_index]["answer"].get_string().value;
-    std::string objawy = (std::string) documents[random_index]["question"].get_string().value;
+    std::string validAnswer = (std::string)documents[random_index]["answer"].get_string().value;
+    std::string objawy = (std::string)documents[random_index]["question"].get_string().value;
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({
-                                                               ftxui::text(
-                                                                       L"Zdiagnozuj poniższą chorobę na podstawie objaw:") |
-                                                               ftxui::bold}) | color(ftxui::Color::Orange4),
-                                           ftxui::hbox({ftxui::text(objawy) | ftxui::bold}) |
-                                           color(ftxui::Color::Orange3),
-                                           ftxui::hbox({
-                                                               ftxui::text(
-                                                                       L"Podpowiedź: Nazwa choroby jest zawsze jednym słowem.") |
-                                                               ftxui::bold}) | color(ftxui::Color::YellowLight),
-                                           ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
-                                           color(ftxui::Color::BlueLight),
-                                   });
+            ftxui::hbox({ftxui::text(
+                             L"Zdiagnozuj poniższą chorobę na podstawie objaw:") |
+                         ftxui::bold}) |
+                color(ftxui::Color::Orange4),
+            ftxui::hbox({ftxui::text(objawy) | ftxui::bold}) |
+                color(ftxui::Color::Orange3),
+            ftxui::hbox({ftxui::text(
+                             L"Podpowiedź: Nazwa choroby jest zawsze jednym słowem.") |
+                         ftxui::bold}) |
+                color(ftxui::Color::YellowLight),
+            ftxui::hbox({ftxui::text(L"Odpowiedź wprowadź poniżej") | ftxui::bold}) |
+                color(ftxui::Color::BlueLight),
+        });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
 
@@ -110,7 +112,7 @@ bool guessInformaticQuestion(User &user) {
     auto collection = user.getSpecificCollection("informatic-questions");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> questions;
-    for (auto &&doc: cursor) {
+    for (auto &&doc : cursor) {
         questions.push_back(doc);
     }
 
@@ -123,10 +125,10 @@ bool guessInformaticQuestion(User &user) {
     std::uniform_int_distribution<> distrib(0, questions.size() - 1);
     int randomIndex = distrib(gen);
 
-    std::string language = (std::string) questions[randomIndex]["language"].get_string().value;
-    std::string error = (std::string) questions[randomIndex]["error"].get_string().value;
+    std::string language = (std::string)questions[randomIndex]["language"].get_string().value;
+    std::string error = (std::string)questions[randomIndex]["error"].get_string().value;
     auto code = ftxui::vbox();
-    std::string codeString = (std::string) questions[randomIndex]["code"].get_string().value;
+    std::string codeString = (std::string)questions[randomIndex]["code"].get_string().value;
     std::istringstream codeStream(codeString);
     std::string line;
     int lineNumber = 1;
@@ -140,17 +142,17 @@ bool guessInformaticQuestion(User &user) {
     auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
     auto container = ftxui::vbox({
-                                         ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) |
-                                         color(ftxui::Color::YellowLight),
-                                         ftxui::separator(),
-                                         code | ftxui::border,
-                                         ftxui::separator(),
-                                         ftxui::hbox({ftxui::text("Błąd w wyświetlonym kodzie: ") | ftxui::bold}) |
-                                         color(ftxui::Color::IndianRed),
-                                         ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
-                                         ftxui::separator(),
-                                         answer | color(ftxui::Color::BlueLight),
-                                 });
+        ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) |
+            color(ftxui::Color::YellowLight),
+        ftxui::separator(),
+        code | ftxui::border,
+        ftxui::separator(),
+        ftxui::hbox({ftxui::text("Błąd w wyświetlonym kodzie: ") | ftxui::bold}) |
+            color(ftxui::Color::IndianRed),
+        ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
+        ftxui::separator(),
+        answer | color(ftxui::Color::BlueLight),
+    });
 
     auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
 
@@ -171,7 +173,7 @@ bool guessMathQuestion(User &user) {
     auto collection = user.getSpecificCollection("math-questions");
     auto cursor = collection.find({});
     std::vector<bsoncxx::document::view> questions;
-    for (auto &&doc: cursor) {
+    for (auto &&doc : cursor) {
         questions.push_back(doc);
     }
 
@@ -185,9 +187,9 @@ bool guessMathQuestion(User &user) {
     std::uniform_int_distribution<> distrib(0, questions.size() - 1);
     int randomIndex = distrib(gen);
 
-    std::string topic = (std::string) questions[randomIndex]["problem"].get_string().value;
-    std::string description = (std::string) questions[randomIndex]["description"].get_string().value;
-    std::string hint = (std::string) questions[randomIndex]["hint"].get_string().value;
+    std::string topic = (std::string)questions[randomIndex]["problem"].get_string().value;
+    std::string description = (std::string)questions[randomIndex]["description"].get_string().value;
+    std::string hint = (std::string)questions[randomIndex]["hint"].get_string().value;
     bsoncxx::types::bson_value::view solutionValue = questions[randomIndex]["solution"].get_value();
     std::string userAnswer;
     std::string solution;
@@ -218,7 +220,7 @@ bool guessMathQuestion(User &user) {
         ftxui::separator(),
         ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold}) | color(ftxui::Color::BlueLight),
         ftxui::hbox({ftxui::text(hint) | ftxui::bold}) | color(ftxui::Color::Blue),
-      });
+    });
 
     auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
 
@@ -245,11 +247,11 @@ bool guessMathQuestion(User &user) {
 bool displayPoliceProfession(User &user) {
     auto summary = [&] {
         auto content = ftxui::vbox({
-                                           ftxui::hbox({ftxui::text(L"Sprawdźmy Cię funkcjonariuszu") | ftxui::bold}) |
-                                           color(ftxui::Color::YellowLight),
-                                           ftxui::hbox({ftxui::text(L"Wpisz swój numer odznaki") | ftxui::bold}) |
-                                           color(ftxui::Color::White),
-                                   });
+            ftxui::hbox({ftxui::text(L"Sprawdźmy Cię funkcjonariuszu") | ftxui::bold}) |
+                color(ftxui::Color::YellowLight),
+            ftxui::hbox({ftxui::text(L"Wpisz swój numer odznaki") | ftxui::bold}) |
+                color(ftxui::Color::White),
+        });
         return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
     };
 
@@ -267,8 +269,4 @@ bool displayPoliceProfession(User &user) {
     }
 
     return badgeNumber != 123456;
-
-
 }
-
-

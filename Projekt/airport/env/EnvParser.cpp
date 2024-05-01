@@ -1,6 +1,7 @@
 #include "EnvParser.h"
-#include <iostream>
+
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
 // definicja konstruktora domyślnego -> inicjalizuje obiekt

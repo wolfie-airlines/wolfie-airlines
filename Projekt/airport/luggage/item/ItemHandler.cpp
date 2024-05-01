@@ -10,17 +10,17 @@ double getDoubleValue(const bsoncxx::document::view& item, const std::string& ke
 
 std::vector<std::string> getArrayValue(const bsoncxx::document::view& item, const std::string& key) {
     std::vector<std::string> array;
-    if(item[key]) {
+    if (item[key]) {
         for (const auto& element : item[key].get_array().value) {
-            array.push_back((std::string) element.get_string().value);
+            array.push_back((std::string)element.get_string().value);
         }
     }
     return array;
 }
 
 std::string getStringValue(const bsoncxx::document::view& item, const std::string& key) {
-    if(item[key]) {
-        return (std::string) item[key].get_string().value;
+    if (item[key]) {
+        return (std::string)item[key].get_string().value;
     }
     return "";
 }
@@ -43,7 +43,7 @@ std::vector<Item> getItems(User& user) {
         std::string profession = getStringValue(item, "profession");
         std::string category = getStringValue(item, "category");
 
-        if(profession.empty()) {
+        if (profession.empty()) {
             category = category.empty() ? "special" : category;
             items.emplace_back(itemName, description, hints, forbidden, registeredLuggage, handLuggage, pilotAllowance, maxCount, weight, category);
         } else {

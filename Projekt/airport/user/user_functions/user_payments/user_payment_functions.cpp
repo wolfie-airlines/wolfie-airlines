@@ -1,7 +1,8 @@
-#include "../../User.h"
-#include "../../../functions/info_print_functions.h"
-#include "../user_prints/user_print_functions.h"
 #include <iostream>
+
+#include "../../../functions/info_print_functions.h"
+#include "../../User.h"
+#include "../user_prints/user_print_functions.h"
 
 void handlePaymentOption(User& user) {
     int answer = CreateDefaultPaymentScreen();
@@ -13,14 +14,14 @@ void handlePaymentOption(User& user) {
         std::cout << "Podaj kod CVV karty: ";
         std::string cvv;
         std::cin >> cvv;
-        if(user.paymentMethod == "visa") {
+        if (user.paymentMethod == "visa") {
             errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
             return;
         }
         user.setVisa(cardNumber, cvv);
     } else if (answer == 1) {
         user.setBlik("blik");
-    } else if(answer == 2 ) {
+    } else if (answer == 2) {
         return;
     } else {
         errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
@@ -29,22 +30,17 @@ void handlePaymentOption(User& user) {
 
 bool paymentAuth(User& user, const std::string& paymentMethod, const std::string& titleMessage, int targetPrice) {
     std::string price = std::to_string(targetPrice);
-    if(paymentMethod == "blik") {
+    if (paymentMethod == "blik") {
         auto createBlikScreen = [&] {
-            auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
-                                               ftxui::separator(),
-                                               ftxui::hbox({
-                                                                   ftxui::text(L"Podaj 6 cyfrowy kod BLIK poniżej:") | ftxui::bold | color(ftxui::Color::Green)
-                                               }),
-                                               ftxui::separator(),
-                                               ftxui::hbox({
-                                                            ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
+            auto summary = ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::text(L"Podaj 6 cyfrowy kod BLIK poniżej:") | ftxui::bold | color(ftxui::Color::Green)}),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
 
-                                               })
-                                       });
+                                        })});
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
             return std::make_shared<ftxui::Element>(document);
@@ -57,7 +53,7 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         std::string blikCode;
         std::cin >> blikCode;
 
-        if(blikCode == "quit") {
+        if (blikCode == "quit") {
             errorFunction("Płatność została anulowana.", "");
             return false;
         }
@@ -73,9 +69,8 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         }
 
         bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-                bsoncxx::builder::basic::kvp("email", user.email),
-                bsoncxx::builder::basic::kvp("password", user.getPassword())
-        );
+            bsoncxx::builder::basic::kvp("email", user.email),
+            bsoncxx::builder::basic::kvp("password", user.getPassword()));
 
         bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
 
@@ -87,10 +82,8 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         }
 
         bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-                bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                        bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice)
-                ))
-        );
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                     bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice))));
 
         bsoncxx::document::view update_view = update_builder.view();
         user.getCollection().update_one(filter_view_email_password, update_view);
@@ -98,22 +91,17 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         user.moneySpent += targetPrice;
         validFunction("Płatność została zaakceptowana! Dziękujemy!", "");
         return true;
-    } else if(paymentMethod == "visa") {
+    } else if (paymentMethod == "visa") {
         auto createVisaDigitScreen = [&] {
-            auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
-                                               ftxui::separator(),
-                                               ftxui::hbox({
-                                                                   ftxui::text(L"Podaj 3 ostatnie cyfry karty: ") | ftxui::bold | color(ftxui::Color::Green)
-                                               }),
-                                               ftxui::separator(),
-                                                  ftxui::hbox({
-                                                                ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
+            auto summary = ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::text(L"Podaj 3 ostatnie cyfry karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
+                                        ftxui::separator(),
+                                        ftxui::hbox({ftxui::text(L"quit. Anulowanie płatności") | ftxui::bold | color(ftxui::Color::RedLight)
 
-                                                  })
-                                       });
+                                        })});
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
             return std::make_shared<ftxui::Element>(document);
@@ -126,7 +114,7 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         std::string cardNumber;
         std::cin >> cardNumber;
 
-        if(cardNumber == "quit") {
+        if (cardNumber == "quit") {
             errorFunction("Płatność została anulowana.", "");
             return false;
         }
@@ -138,13 +126,12 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
 
         auto createVisaCVVScreen = [&] {
             auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
-                                               ftxui::separator(),
-                                               ftxui::hbox({
-                                                                   ftxui::text(L"Podaj 3 cyfrowy kod CVV karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
-                                       });
+                ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+                ftxui::separator(),
+                ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")}) | color(ftxui::Color::LightSteelBlue),
+                ftxui::separator(),
+                ftxui::hbox({ftxui::text(L"Podaj 3 cyfrowy kod CVV karty: ") | ftxui::bold | color(ftxui::Color::Green)}),
+            });
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
             return std::make_shared<ftxui::Element>(document);
@@ -163,14 +150,12 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         }
 
         bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-                bsoncxx::builder::basic::kvp("email", user.email),
-                bsoncxx::builder::basic::kvp("password", user.getPassword()),
-                bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
-                        bsoncxx::builder::basic::kvp("type", paymentMethod),
-                        bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
-                        bsoncxx::builder::basic::kvp("cvv", cvv)
-                ))
-        );
+            bsoncxx::builder::basic::kvp("email", user.email),
+            bsoncxx::builder::basic::kvp("password", user.getPassword()),
+            bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
+                                                              bsoncxx::builder::basic::kvp("type", paymentMethod),
+                                                              bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
+                                                              bsoncxx::builder::basic::kvp("cvv", cvv))));
 
         bsoncxx::document::view filter_view = filter_builder.view();
 
@@ -182,9 +167,8 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         }
 
         bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-                bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                        bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice)
-                )));
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                     bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice))));
         bsoncxx::document::view update_view = update_builder.view();
         user.getCollection().update_one(filter_view, update_view);
 

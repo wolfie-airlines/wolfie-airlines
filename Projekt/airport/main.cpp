@@ -1,8 +1,9 @@
+#include <bsoncxx/builder/basic/document.hpp>
 #include <cstdlib>
 #include <iostream>
-#include <bsoncxx/builder/basic/document.hpp>
-#include "env/EnvParser.h"
+
 #include "authentication/Authentication.h"
+#include "env/EnvParser.h"
 #include "flights/FlightConnection.h"
 #include "functions/MainHandler.h"
 
@@ -42,4 +43,3 @@ int main(int argc, char* argv[]) {
 
     return EXIT_SUCCESS;
 }
-

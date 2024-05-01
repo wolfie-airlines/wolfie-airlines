@@ -21,9 +21,9 @@ class Item {
     double maxCount;
     double weight;
     std::string profession;
-    std::string category="special";
+    std::string category = "special";
 
-public:
+   public:
     Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
          bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight, std::string &profession, std::string &category);
     Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
@@ -50,8 +50,6 @@ public:
     [[nodiscard]] double getWeight() const;
 
     [[nodiscard]] std::string getCategory() const;
-
 };
 
-
-#endif //AIRPORT_ITEM_H
+#endif  // AIRPORT_ITEM_H

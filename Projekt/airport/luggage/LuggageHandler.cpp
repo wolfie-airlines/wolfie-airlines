@@ -1,11 +1,12 @@
 #include "LuggageHandler.h"
-#include "ftxui/component/screen_interactive.hpp"
-#include "item/ItemHandler.h"
-#include "ftxui/component/component.hpp"
-#include "luggage_prints/luggage_prints.h"
+
 #include "../functions/info_print_functions.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
 #include "../user/user_functions/user_tickets/user_tickets_print_functions.h"
+#include "ftxui/component/component.hpp"
+#include "ftxui/component/screen_interactive.hpp"
+#include "item/ItemHandler.h"
+#include "luggage_prints/luggage_prints.h"
 
 void checkIn(User& user, int flightNumber) {
     using namespace ftxui;
@@ -32,8 +33,9 @@ void checkIn(User& user, int flightNumber) {
     }
 
     auto finishButton = Button("Potwierdź wybór", [&] {
-        screen.ExitLoopClosure()();
-    }) | ftxui::center | ftxui::bold | ftxui::borderEmpty;
+                            screen.ExitLoopClosure()();
+                        }) |
+                        ftxui::center | ftxui::bold | ftxui::borderEmpty;
 
     normal_checkbox_components.push_back(finishButton);
 
@@ -41,44 +43,41 @@ void checkIn(User& user, int flightNumber) {
     auto normalCheckboxes = Container::Horizontal(createGroups(normal_checkbox_components));
 
     auto layout = Container::Vertical({
-                                              specialCheckboxes,
-                                              normalCheckboxes,
-                                      });
+        specialCheckboxes,
+        normalCheckboxes,
+    });
 
     auto component = Renderer(layout, [&] {
         return vbox({
-                            ftxui::hbox({
-                                                ftxui::text(user.username) | color(ftxui::Color::Gold1),
-                                                ftxui::text(", wybierz rzeczy, które chcesz ze sobą wziąć:")
-                                        }) | ftxui::bold | ftxui::center,
-                            ftxui::separator(),
-                            ftxui::vbox({
-                                                ftxui::paragraphAlignCenter("Wystarczy zaznaczyć elementy, które chcesz ze sobą zabrać, a my zajmiemy się resztą.") | ftxui::bold | color(ftxui::Color::YellowLight),
-                                                ftxui::paragraphAlignCenter("Pamiętaj, że jeśli wykonujesz konkretny zawód, przysługują ci korzyści odnośnie zabierania ze sobą rzeczy na pokład.") | ftxui::bold | color(ftxui::Color::Khaki3)
-                                        }),
-                            ftxui::separator(),
-                            ftxui::vbox({
-                                                ftxui::hbox({
-                                                                    ftxui::paragraphAlignCenter("Po zakończonym wybieraniu, kliknij w przycisk \"ZAKOŃCZ WYBIERANIE\".") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
-                                                            }),
-                                                ftxui::separator(),
-                                                ftxui::hbox({
-                                                                    ftxui::paragraphAlignCenter("SPECJAŁY") | ftxui::color(ftxui::Color::Gold1) | ftxui::bold,
-                                                            }),
-                                        }),
-                            ftxui::separator(),
-                            hbox({
-                                         specialCheckboxes->Render() | ftxui::center,
-                                         separator(),
-                                         ftxui::vbox({
-                                                             ftxui::hbox({
-                                                                                 ftxui::paragraphAlignCenter("ZWYKŁE") | ftxui::color(ftxui::Color::BlueLight) | ftxui::bold,
-                                                                         }),
-                                                             ftxui::separator(),
-                                                             normalCheckboxes->Render() | ftxui::center,
-                                                     }),
-                                 }),
-                    }) |
+                   ftxui::hbox({ftxui::text(user.username) | color(ftxui::Color::Gold1),
+                                ftxui::text(", wybierz rzeczy, które chcesz ze sobą wziąć:")}) |
+                       ftxui::bold | ftxui::center,
+                   ftxui::separator(),
+                   ftxui::vbox({ftxui::paragraphAlignCenter("Wystarczy zaznaczyć elementy, które chcesz ze sobą zabrać, a my zajmiemy się resztą.") | ftxui::bold | color(ftxui::Color::YellowLight),
+                                ftxui::paragraphAlignCenter("Pamiętaj, że jeśli wykonujesz konkretny zawód, przysługują ci korzyści odnośnie zabierania ze sobą rzeczy na pokład.") | ftxui::bold | color(ftxui::Color::Khaki3)}),
+                   ftxui::separator(),
+                   ftxui::vbox({
+                       ftxui::hbox({
+                           ftxui::paragraphAlignCenter("Po zakończonym wybieraniu, kliknij w przycisk \"ZAKOŃCZ WYBIERANIE\".") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
+                       }),
+                       ftxui::separator(),
+                       ftxui::hbox({
+                           ftxui::paragraphAlignCenter("SPECJAŁY") | ftxui::color(ftxui::Color::Gold1) | ftxui::bold,
+                       }),
+                   }),
+                   ftxui::separator(),
+                   hbox({
+                       specialCheckboxes->Render() | ftxui::center,
+                       separator(),
+                       ftxui::vbox({
+                           ftxui::hbox({
+                               ftxui::paragraphAlignCenter("ZWYKŁE") | ftxui::color(ftxui::Color::BlueLight) | ftxui::bold,
+                           }),
+                           ftxui::separator(),
+                           normalCheckboxes->Render() | ftxui::center,
+                       }),
+                   }),
+               }) |
                xflex | border;
     });
     screen.Loop(component);
@@ -90,7 +89,7 @@ void checkIn(User& user, int flightNumber) {
         }
     }
 
-    if(selectedItems.empty()) {
+    if (selectedItems.empty()) {
         errorFunction("Nie wybrano żadnych przedmiotów!", "Musisz wybrać co najmniej jeden przedmiot.");
         return;
     }
@@ -106,11 +105,11 @@ void checkIn(User& user, int flightNumber) {
     bool confirmed = std::get<0>(result);
     std::string message = std::get<1>(result);
 
-    if(confirmed) {
+    if (confirmed) {
         double weight = luggage.processItemsAndGetWeight();
         if (weight > luggage.maxAllowedWeight) {
             errorFunction("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
-        } else if(weight > luggage.maxWeight) {
+        } else if (weight > luggage.maxWeight) {
             double extraFee = luggage.calculateOverweightFee(weight);
             const std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
             bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, extraFee);
@@ -130,7 +129,7 @@ void checkIn(User& user, int flightNumber) {
 
 void welcomeInLuggageCheckin(User& user) {
     mongocxx::cursor cursor = user.findUserInDatabase();
-    if(cursor.begin() == cursor.end()) {
+    if (cursor.begin() == cursor.end()) {
         errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
         return;
     }
@@ -145,7 +144,7 @@ void welcomeInLuggageCheckin(User& user) {
     }
 
     bool allCheckedIn = true;
-    for (const auto &flight: userFlightsArray) {
+    for (const auto& flight : userFlightsArray) {
         if (!flight["luggageCheckin"].get_bool().value) {
             allCheckedIn = false;
             break;
@@ -164,13 +163,13 @@ void welcomeInLuggageCheckin(User& user) {
     } else if (option == "wybieram") {
         auto checkinScreen = [&] {
             auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA")}) |
-                                               color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight(
-                                                       "Podaj NUMER LOTU, na który chciałbyś odprawić swój bagaż:")}) |
-                                               color(ftxui::Color::LightSteelBlue),
-                                       });
+                ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA")}) |
+                    color(ftxui::Color::GrayDark),
+                ftxui::separator(),
+                ftxui::hbox({ftxui::paragraphAlignRight(
+                    "Podaj NUMER LOTU, na który chciałbyś odprawić swój bagaż:")}) |
+                    color(ftxui::Color::LightSteelBlue),
+            });
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             return std::make_shared<ftxui::Element>(document);
         };
@@ -195,44 +194,39 @@ void welcomeInLuggageCheckin(User& user) {
 
         auto createScreen = [&] {
             auto summary = ftxui::vbox({
-                                               ftxui::hbox({
-                                                                   ftxui::text(user.username) |
-                                                                   color(ftxui::Color::Gold1),
-                                                                   ftxui::text(", witamy w odprawie bagażowej!")
-                                                           }) | ftxui::bold | ftxui::center,
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                                   ftxui::paragraphAlignCenter(
-                                                                           "Przed rozpoczęciem masz możliwość wyświetlenia listy wszystkich dozwolonych i zabronionych rzeczy do wzięcia do bagażu.") |
-                                                                   ftxui::bold | color(ftxui::Color::YellowLight),
-                                                                   ftxui::paragraphAlignCenter("Chcesz to zrobić? ") |
-                                                                   ftxui::bold | color(ftxui::Color::Khaki3)
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                                   ftxui::hbox({
-                                                                                       ftxui::text(
-                                                                                               "tak. Wyświetla listę wszystkich przedmiotów") |
-                                                                                       ftxui::color(
-                                                                                               ftxui::Color::CadetBlue) |
-                                                                                       ftxui::bold,
-                                                                               }),
-                                                                   ftxui::hbox({
-                                                                                       ftxui::text(
-                                                                                               "nie. Przenosi do następnego ekranu odprawy") |
-                                                                                       ftxui::color(
-                                                                                               ftxui::Color::DarkOliveGreen2) |
-                                                                                       ftxui::bold,
-                                                                               }),
-                                                                   ftxui::hbox({
-                                                                                       ftxui::text(
-                                                                                               "quit. \U0001f51a Kończy odprawę") |
-                                                                                       ftxui::color(
-                                                                                               ftxui::Color::RedLight) |
-                                                                                       ftxui::bold
-                                                                               }),
-                                                           }),
-                                       });
+                ftxui::hbox({ftxui::text(user.username) |
+                                 color(ftxui::Color::Gold1),
+                             ftxui::text(", witamy w odprawie bagażowej!")}) |
+                    ftxui::bold | ftxui::center,
+                ftxui::separator(),
+                ftxui::vbox({ftxui::paragraphAlignCenter(
+                                 "Przed rozpoczęciem masz możliwość wyświetlenia listy wszystkich dozwolonych i zabronionych rzeczy do wzięcia do bagażu.") |
+                                 ftxui::bold | color(ftxui::Color::YellowLight),
+                             ftxui::paragraphAlignCenter("Chcesz to zrobić? ") |
+                                 ftxui::bold | color(ftxui::Color::Khaki3)}),
+                ftxui::separator(),
+                ftxui::vbox({
+                    ftxui::hbox({
+                        ftxui::text(
+                            "tak. Wyświetla listę wszystkich przedmiotów") |
+                            ftxui::color(
+                                ftxui::Color::CadetBlue) |
+                            ftxui::bold,
+                    }),
+                    ftxui::hbox({
+                        ftxui::text(
+                            "nie. Przenosi do następnego ekranu odprawy") |
+                            ftxui::color(
+                                ftxui::Color::DarkOliveGreen2) |
+                            ftxui::bold,
+                    }),
+                    ftxui::hbox({ftxui::text(
+                                     "quit. \U0001f51a Kończy odprawę") |
+                                 ftxui::color(
+                                     ftxui::Color::RedLight) |
+                                 ftxui::bold}),
+                }),
+            });
             auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
             document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
             return std::make_shared<ftxui::Element>(document);

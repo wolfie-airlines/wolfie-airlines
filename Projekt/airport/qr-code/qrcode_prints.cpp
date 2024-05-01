@@ -1,7 +1,7 @@
-#include <iostream>
-#include <sstream>
 #include "qrcode_prints.h"
 
+#include <iostream>
+#include <sstream>
 
 void createQR(const std::string& email, const std::string& username, const std::string& flightId, std::vector<int> seats) {
     std::string seatsString;
@@ -14,14 +14,14 @@ void createQR(const std::string& email, const std::string& username, const std::
 
     std::string text = "https://wolfie-airlines-webpage.vercel.app/odprawy/" + username + "/" + email + "/" + flightId + "/" + seatsString;
 
-    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW; // im mniej, tym więcej możliwości bitów do zakodowania
+    const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // im mniej, tym więcej możliwości bitów do zakodowania
 
     std::vector<QrSegment> segs = QrSegment::makeSegments(text.c_str());
     const QrCode qr = QrCode::encodeSegments(segs, errCorLvl, 1, 40);
     printQr(qr);
 }
 
-void printQr(const QrCode &qr) {
+void printQr(const QrCode& qr) {
     int border = 0;
     for (int y = -border; y < qr.getSize() + border; y++) {
         for (int x = -border; x < qr.getSize() + border; x++) {

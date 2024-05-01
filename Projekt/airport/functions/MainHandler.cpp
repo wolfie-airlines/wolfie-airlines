@@ -1,22 +1,23 @@
-#include <iostream>
 #include <future>
+#include <iostream>
 #include <string>
 #include <vector>
-#include "ftxui/screen/screen.hpp"
-#include "ftxui/dom/elements.hpp"
+
 #include "../authentication/Authentication.h"
-#include "info_print_functions.h"
+#include "../authentication/auth_functions/AuthPrintHandler.h"
+#include "../checkin/checkin_functions_prints.h"
 #include "../flights/flights_functions/flight_functions.h"
-#include "../user/user_functions/user_prints/user_print_functions.h"
-#include "../user/user_functions/user_settings/user_settings_handler.h"
-#include "../user/premium_cards/premium_cards.h"
-#include "../user/discounts/discounts.h"
+#include "../luggage/LuggageHandler.h"
 #include "../tickets/tickets.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
-#include "../checkin/checkin_functions_prints.h"
-#include "../authentication/auth_functions/AuthPrintHandler.h"
+#include "../user/discounts/discounts.h"
+#include "../user/premium_cards/premium_cards.h"
+#include "../user/user_functions/user_prints/user_print_functions.h"
+#include "../user/user_functions/user_settings/user_settings_handler.h"
 #include "../user/user_functions/user_tickets/user_tickets_print_functions.h"
-#include "../luggage/LuggageHandler.h"
+#include "ftxui/dom/elements.hpp"
+#include "ftxui/screen/screen.hpp"
+#include "info_print_functions.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -24,22 +25,22 @@ void handleRegistration(Authentication& auth) {
 
     std::tie(username, email, password, cancelled) = registerUser();
 
-    if(username.empty() && !cancelled) {
+    if (username.empty() && !cancelled) {
         errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
         return;
     }
 
-    if(email.empty() && !cancelled) {
+    if (email.empty() && !cancelled) {
         errorFunction("Nie podano adresu e-mail.", "Spróbuj ponownie.");
         return;
     }
 
-    if(password.empty() && !cancelled) {
+    if (password.empty() && !cancelled) {
         errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
         return;
     }
 
-    if(cancelled) {
+    if (cancelled) {
         errorFunction("Rejestracja anulowana.", "Zawsze możesz ponowić próbę.");
         return;
     }
@@ -59,17 +60,17 @@ bool handleLogin(Authentication& auth, User& currentUser) {
     std::tuple<std::string, std::string, bool> loginData = login();
     std::tie(username, password, cancelled) = loginData;
 
-    if(username.empty() && !cancelled) {
+    if (username.empty() && !cancelled) {
         errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
         return false;
     }
 
-    if(password.empty() && !cancelled) {
+    if (password.empty() && !cancelled) {
         errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
         return false;
     }
 
-    if(cancelled) {
+    if (cancelled) {
         errorFunction("Logowanie anulowane.", "Zawsze możesz ponowić próbę.");
         return false;
     }
@@ -120,8 +121,7 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
                 errorFunction("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
             } else if (choice == "5") {
                 openWebsite();
-            }
-            else if (choice == "quit") {
+            } else if (choice == "quit") {
                 seeyaFunction();
                 break;
             } else {
@@ -131,29 +131,25 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             handleUserMenu(currentUser);
             std::string userChoice;
             std::cin >> userChoice;
-            if(userChoice == "settings") {
+            if (userChoice == "settings") {
                 handleSettingsOption(currentUser);
-            }
-            else if(userChoice == "profil") {
+            } else if (userChoice == "profil") {
                 CreateProfileScreen(currentUser);
-            }
-            else if (userChoice == "logout") {
+            } else if (userChoice == "logout") {
                 logoutFunction(currentUser);
                 isLoggedIn = false;
-            } else if(userChoice == "1") {
+            } else if (userChoice == "1") {
                 handleFlightOptions(flightConnection, currentUser);
-            }
-            else if(userChoice == "2") {
+            } else if (userChoice == "2") {
                 handleTicketChoice(flightConnection, currentUser);
-            }
-            else if(userChoice == "3") {
-                if(currentUser.discountType == "ulga") {
+            } else if (userChoice == "3") {
+                if (currentUser.discountType == "ulga") {
                     errorFunction("Nie możesz zakupić karty premium.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
                 } else {
                     handlePremiumCard(currentUser);
                 }
             } else if (userChoice == "4") {
-                if(currentUser.discountType == "premium") {
+                if (currentUser.discountType == "premium") {
                     errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
                 } else if (currentUser.discountType == "ulga") {
                     errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
@@ -172,5 +168,3 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
         }
     }
 }
-
-

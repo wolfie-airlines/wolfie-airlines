@@ -1,11 +1,13 @@
+#include "flight_functions.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../FlightConnection.h"
-#include "flight_functions.h"
+
 #include "../../functions/info_print_functions.h"
-#include "flight_prints/flight_print_functions.h"
 #include "../../functions/main_prints/main_prints.h"
+#include "../FlightConnection.h"
+#include "flight_prints/flight_print_functions.h"
 
 const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
 const std::string TRY_AGAIN = "Spróbuj ponownie.";
@@ -40,10 +42,10 @@ void handleFlightSearchByPrice(FlightConnection& flightConnection, User& user) {
     double maxPrice = displayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj maksymalną cenę: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
-    if(connections.empty()) {
+    if (connections.empty()) {
         errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
     } else {
-        if(connections.size() == 1) {
+        if (connections.size() == 1) {
             CreateFoundFlightScreen(connections[0], user);
         } else {
             CreateAllFlightsScreen(connections, user);
@@ -55,10 +57,10 @@ void handleFlightSearchByDeparture(FlightConnection& flightConnection, User& use
     std::string departureCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionsByDeparture(departureCity);
-    if(connections.empty()) {
+    if (connections.empty()) {
         errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
     } else {
-        if(connections.size() == 1) {
+        if (connections.size() == 1) {
             CreateFoundFlightScreen(connections[0], user);
         } else {
             CreateAllFlightsScreen(connections, user);
@@ -70,10 +72,10 @@ void handleFlightSearchByDestination(FlightConnection& flightConnection, User& u
     std::string destinationCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
     std::vector<FlightConnection> connections = flightConnection.findConnectionsByDestination(destinationCity);
-    if(connections.empty()) {
+    if (connections.empty()) {
         errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
     } else {
-        if(connections.size() == 1) {
+        if (connections.size() == 1) {
             CreateFoundFlightScreen(connections[0], user);
         } else {
             CreateAllFlightsScreen(connections, user);
@@ -97,7 +99,7 @@ void handleFlightOptions(FlightConnection& flightConnection, User& user) {
         handleFlightSearchByDeparture(flightConnection, user);
     } else if (answer == 5) {
         handleFlightSearchByDestination(flightConnection, user);
-    } else if(answer == 7 ) {
+    } else if (answer == 7) {
         return;
     } else {
         errorFunction("Nieprawidłowy wybór.", TRY_AGAIN);

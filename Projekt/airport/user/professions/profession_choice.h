@@ -10,4 +10,4 @@ void informaticProfession(User& user);
 void doctorProfession(User& user);
 void policeProfession(User& user);
 
-#endif //AIRPORT_PROFESSION_CHOICE_H
+#endif  // AIRPORT_PROFESSION_CHOICE_H

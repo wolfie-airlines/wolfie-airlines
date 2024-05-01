@@ -7,5 +7,4 @@
 std::tuple<std::string, std::string, std::string, bool> registerUser();
 std::tuple<std::string, std::string, bool> login();
 
-
-#endif //AIRPORT_AUTHPRINTHANDLER_H
+#endif  // AIRPORT_AUTHPRINTHANDLER_H

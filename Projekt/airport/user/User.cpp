@@ -1,25 +1,21 @@
 #include "User.h"
-#include "../functions/info_print_functions.h"
-#include "../env/EnvParser.h"
-#include "../functions/helpers.h"
-#include "../admin/Admin.h"
-#include "premium_cards/premium_cards.h"
-#include "bsoncxx/json.hpp"
+
 #include <utility>
 
+#include "../admin/Admin.h"
+#include "../env/EnvParser.h"
+#include "../functions/helpers.h"
+#include "../functions/info_print_functions.h"
+#include "bsoncxx/json.hpp"
+#include "premium_cards/premium_cards.h"
+
 User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
-           std::string paymentMethod, mongocxx::client &client, std::string  profession,
+           std::string paymentMethod, mongocxx::client &client, std::string profession,
            std::string registrationDate, double moneySpent, double moneySaved, int ticketBought,
            std::vector<bsoncxx::document::value> userFlights, bool isAdmin)
-        : username(std::move(username)), email(std::move(email)),
-        discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)),
-        paymentMethod(std::move(paymentMethod)), _client(client),
-        profession(std::move(profession)), registrationDate(std::move(registrationDate)),
-        moneySpent(moneySpent), moneySaved(moneySaved), ticketBought(ticketBought),
-        userFlights(std::move(userFlights)), isAdmin(isAdmin)  {}
+    : username(std::move(username)), email(std::move(email)), discount(discount), discountType(std::move(discountType)), premiumCard(std::move(premiumCard)), paymentMethod(std::move(paymentMethod)), _client(client), profession(std::move(profession)), registrationDate(std::move(registrationDate)), moneySpent(moneySpent), moneySaved(moneySaved), ticketBought(ticketBought), userFlights(std::move(userFlights)), isAdmin(isAdmin) {}
 
-
-        // Resetowanie użytkownika
+// Resetowanie użytkownika
 void User::reset() {
     username = "gosc";
     email = "brak";
@@ -36,9 +32,8 @@ void User::reset() {
     isAdmin = false;
 }
 
-
 // Zwracanie kolekcji użytkownika/za pomocą klasy użytkownika
-mongocxx::collection& User::getCollection() {
+mongocxx::collection &User::getCollection() {
     return _collection;
 }
 
@@ -48,9 +43,8 @@ mongocxx::collection User::getSpecificCollection(const std::string &collectionNa
 
 mongocxx::cursor User::findUserInDatabase() {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view = filter_builder.view();
 
@@ -69,11 +63,9 @@ void User::setPassword(const std::string &newPass) {
 }
 
 void User::changePassword(const std::string &newPassword) {
-
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", password));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
@@ -100,10 +92,8 @@ void User::changePassword(const std::string &newPassword) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("password", newPassword)
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("password", newPassword))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view_email_password, update_view);
@@ -115,8 +105,7 @@ void User::changePassword(const std::string &newPassword) {
 void User::changeUsername(const std::string &newUsername) {
     // sprawdzenie czy nazwa jest zajeta
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("username", newUsername)
-    );
+        bsoncxx::builder::basic::kvp("username", newUsername));
 
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
@@ -126,9 +115,8 @@ void User::changeUsername(const std::string &newUsername) {
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", password));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
@@ -139,10 +127,8 @@ void User::changeUsername(const std::string &newUsername) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("username", newUsername)
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("username", newUsername))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view_email_password, update_view);
@@ -152,10 +138,9 @@ void User::changeUsername(const std::string &newUsername) {
 }
 
 void User::changeEmail(const std::string &newEmail) {
-    //sprawdzanie czy email jest zajety
+    // sprawdzanie czy email jest zajety
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", newEmail)
-    );
+        bsoncxx::builder::basic::kvp("email", newEmail));
 
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
@@ -165,9 +150,8 @@ void User::changeEmail(const std::string &newEmail) {
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", password)
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", password));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
@@ -178,10 +162,8 @@ void User::changeEmail(const std::string &newEmail) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("email", newEmail)
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("email", newEmail))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view_email_password, update_view);
@@ -195,7 +177,7 @@ bool User::checkIfAdmin() const {
 }
 
 void User::loginAsAdmin() {
-    if(isAdmin) {
+    if (isAdmin) {
         errorFunction("Jesteś już zalogowany jako administrator.", "");
         return;
     }
@@ -210,16 +192,14 @@ void User::loginAsAdmin() {
 
     std::string providedPasswordHashed = hashString(providedPassword);
 
-    if(providedPasswordHashed == adminPasswordHashed) {
+    if (providedPasswordHashed == adminPasswordHashed) {
         validFunction("Zalogowano jako administrator.", "");
         Admin admin = Admin(username, email, discount, discountType, premiumCard, paymentMethod, _client, profession, registrationDate, moneySpent, moneySaved, ticketBought, userFlights, true, adminPasswordHashed);
         setIsAdmin(true);
     } else {
         errorFunction("Błędne hasło administratora.", "");
     }
-
 }
-
 
 // Płatności użytkownika (zniżki, ulgi, płatności kartą/blikiem)
 
@@ -244,9 +224,8 @@ std::string User::recognizeDiscount() const {
 
 void User::setDiscount(double disc, const std::string &discType) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
 
@@ -258,12 +237,9 @@ void User::setDiscount(double disc, const std::string &discType) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("discountType", discType),
-                    bsoncxx::builder::basic::kvp("discount", disc)
-            ))
-    );
-
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("discountType", discType),
+                                                 bsoncxx::builder::basic::kvp("discount", disc))));
 
     bsoncxx::document::view update_view = update_builder.view();
     getCollection().update_one(filter_view_email_password, update_view);
@@ -272,11 +248,10 @@ void User::setDiscount(double disc, const std::string &discType) {
     validFunction("Zniżka została przypisana do konta", "Możesz zobaczyć ją w profilu i już zacząć z niej korzystać!");
 }
 
-void User::setPremiumCard(User& user, const std::string& card) {
+void User::setPremiumCard(User &user, const std::string &card) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", user.email),
-            bsoncxx::builder::basic::kvp("password", user.getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", user.email),
+        bsoncxx::builder::basic::kvp("password", user.getPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
 
@@ -288,12 +263,10 @@ void User::setPremiumCard(User& user, const std::string& card) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("premiumCard", card),
-                    bsoncxx::builder::basic::kvp("discountType", "premium"),
-                    bsoncxx::builder::basic::kvp("discount", getCardDiscount(card))
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("premiumCard", card),
+                                                 bsoncxx::builder::basic::kvp("discountType", "premium"),
+                                                 bsoncxx::builder::basic::kvp("discount", getCardDiscount(card)))));
 
     bsoncxx::document::view update_view = update_builder.view();
     user.getCollection().update_one(filter_view_email_password, update_view);
@@ -305,16 +278,14 @@ void User::setPremiumCard(User& user, const std::string& card) {
 }
 
 void User::setBlik(const std::string &payment) {
-
     if (paymentMethod == payment) {
         errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
         return;
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
@@ -332,12 +303,9 @@ void User::setBlik(const std::string &payment) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
-                            bsoncxx::builder::basic::kvp("type", "blik")
-                    ))
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
+                                                                                                   bsoncxx::builder::basic::kvp("type", "blik"))))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view_email_password, update_view);
@@ -348,9 +316,8 @@ void User::setBlik(const std::string &payment) {
 
 void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
     mongocxx::cursor cursor_user = _collection.find(filter_view_email_password);
@@ -361,9 +328,8 @@ void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
 
     // sprawdzenie czy taka karta już istnieje
     bsoncxx::document::value filter_builder_card_cvv = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("paymentMethod.cardNumber", cardNumber),
-            bsoncxx::builder::basic::kvp("paymentMethod.cvv", cvv)
-    );
+        bsoncxx::builder::basic::kvp("paymentMethod.cardNumber", cardNumber),
+        bsoncxx::builder::basic::kvp("paymentMethod.cvv", cvv));
 
     bsoncxx::document::view filter_view_card_cvv = filter_builder_card_cvv.view();
     mongocxx::cursor cursor_card_cvv = _collection.find(filter_view_card_cvv);
@@ -373,14 +339,11 @@ void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
-                            bsoncxx::builder::basic::kvp("type", "visa"),
-                            bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
-                            bsoncxx::builder::basic::kvp("cvv", cvv)
-                    ))
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
+                                                                                                   bsoncxx::builder::basic::kvp("type", "visa"),
+                                                                                                   bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
+                                                                                                   bsoncxx::builder::basic::kvp("cvv", cvv))))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view_email_password, update_view);
@@ -391,11 +354,10 @@ void User::setVisa(const std::string &cardNumber, const std::string &cvv) {
 
 // Loty użytkownika (bilety, bagaż, odprawa)
 
-void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection& flightConnection) {
+void User::addTicketToUser(const std::vector<int> &seats, const FlightConnection &flightConnection) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
@@ -405,18 +367,16 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("ticketBought", ticketBought + (int) seats.size())
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("ticketBought", ticketBought + (int)seats.size()))));
 
-    ticketBought += (int) seats.size();
+    ticketBought += (int)seats.size();
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view, update_view);
 
     bsoncxx::builder::basic::array seats_array;
-    for (const auto& seat : seats) {
+    for (const auto &seat : seats) {
         seats_array.append(seat);
     }
 
@@ -428,30 +388,26 @@ void User::addTicketToUser(const std::vector<int>& seats, const FlightConnection
     auto flightPrice = flightConnection.getPrice();
 
     bsoncxx::document::value ticket_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("flightId", flightId),
-            bsoncxx::builder::basic::kvp("departure", departure),
-            bsoncxx::builder::basic::kvp("destination", destination),
-            bsoncxx::builder::basic::kvp("departureTime", departureTime),
-            bsoncxx::builder::basic::kvp("arrivalTime", arrivalTime),
-            bsoncxx::builder::basic::kvp("price", flightPrice),
-            bsoncxx::builder::basic::kvp("seats", seats_array),
-            bsoncxx::builder::basic::kvp("checkin", false),
-            bsoncxx::builder::basic::kvp("luggageCheckin", false)
-    );
+        bsoncxx::builder::basic::kvp("flightId", flightId),
+        bsoncxx::builder::basic::kvp("departure", departure),
+        bsoncxx::builder::basic::kvp("destination", destination),
+        bsoncxx::builder::basic::kvp("departureTime", departureTime),
+        bsoncxx::builder::basic::kvp("arrivalTime", arrivalTime),
+        bsoncxx::builder::basic::kvp("price", flightPrice),
+        bsoncxx::builder::basic::kvp("seats", seats_array),
+        bsoncxx::builder::basic::kvp("checkin", false),
+        bsoncxx::builder::basic::kvp("luggageCheckin", false));
 
     bsoncxx::document::view ticket_view = ticket_builder.view();
     _collection.update_one(filter_view, bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$push", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("userFlights", ticket_view)
-            ))
-    ));
+                                            bsoncxx::builder::basic::kvp("$push", bsoncxx::builder::basic::make_document(
+                                                                                      bsoncxx::builder::basic::kvp("userFlights", ticket_view)))));
 
-    if(seats.size() == 1) {
+    if (seats.size() == 1) {
         validFunction("Bilet został pomyślnie zakupiony.", "Możesz zobaczyć go w zakładce 'Moje bilety'.");
     } else {
         validFunction("Bilety zostały pomyślnie zakupione.", "Możesz zobaczyć je w zakładce 'Moje bilety'.");
     }
-
 }
 
 void User::updateMoneySaved(double normPrice, double discPrice) {
@@ -459,9 +415,8 @@ void User::updateMoneySaved(double normPrice, double discPrice) {
     moneySaved += saved;
 
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
@@ -471,10 +426,8 @@ void User::updateMoneySaved(double normPrice, double discPrice) {
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("moneySaved", moneySaved += saved)
-            ))
-    );
+        bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                                                 bsoncxx::builder::basic::kvp("moneySaved", moneySaved += saved))));
 
     bsoncxx::document::view update_view = update_builder.view();
     _collection.update_one(filter_view, update_view);
@@ -482,9 +435,8 @@ void User::updateMoneySaved(double normPrice, double discPrice) {
 
 void User::luggageCheckin(int flightNumber) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", email),
-            bsoncxx::builder::basic::kvp("password", getPassword())
-    );
+        bsoncxx::builder::basic::kvp("email", email),
+        bsoncxx::builder::basic::kvp("password", getPassword()));
 
     bsoncxx::document::view filter_view = filter_builder.view();
     mongocxx::cursor cursor = _collection.find(filter_view);
@@ -501,7 +453,7 @@ void User::luggageCheckin(int flightNumber) {
     int flightIndex = flightNumber - 1;
 
     // sprawdź czy bagaż dla tego lotu jest już odprawiony
-    if(userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
+    if (userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
         errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
         return;
     }
@@ -520,8 +472,3 @@ void User::luggageCheckin(int flightNumber) {
 
     validFunction("Bagaż został odprawiony pomyślnie!", "Życzymy udanego lotu!");
 }
-
-
-
-
-

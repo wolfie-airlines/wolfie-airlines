@@ -1,4 +1,5 @@
 #include "AuthPrintHandler.h"
+
 #include "ftxui/component/component.hpp"
 #include "ftxui/component/screen_interactive.hpp"
 
@@ -19,10 +20,10 @@ std::tuple<std::string, std::string, std::string, bool> registerUser() {
     auto screen = ScreenInteractive::TerminalOutput();
 
     auto component = Container::Vertical({
-                                                 input_username,
-                                                 input_email,
-                                                 input_password,
-                                         });
+        input_username,
+        input_email,
+        input_password,
+    });
 
     component |= CatchEvent([&](const Event& event) {
         if (event == Event::Escape) {
@@ -38,13 +39,13 @@ std::tuple<std::string, std::string, std::string, bool> registerUser() {
 
     auto renderer = Renderer(component, [&] {
         return vbox({
-                            hbox(text("Nazwa użytkownika : "), input_username->Render()),
-                            hbox(text("Email             : "), input_email->Render()),
-                            hbox(text("Hasło             : "), input_password->Render()),
-                            separator(),
-                            hbox(text("W celu zatwierdzenia kliknij klawisz Enter") | bold | color(Color::YellowLight)),
-                            hbox(text("Jeśli chcesz anulować kliknij klawisz Escape") | bold | color(Color::RedLight)),
-                    }) |
+                   hbox(text("Nazwa użytkownika : "), input_username->Render()),
+                   hbox(text("Email             : "), input_email->Render()),
+                   hbox(text("Hasło             : "), input_password->Render()),
+                   separator(),
+                   hbox(text("W celu zatwierdzenia kliknij klawisz Enter") | bold | color(Color::YellowLight)),
+                   hbox(text("Jeśli chcesz anulować kliknij klawisz Escape") | bold | color(Color::RedLight)),
+               }) |
                border;
     });
     screen.Loop(renderer);
@@ -66,9 +67,9 @@ std::tuple<std::string, std::string, bool> login() {
     auto screen = ScreenInteractive::TerminalOutput();
 
     auto component = Container::Vertical({
-                                                 input_username,
-                                                 input_password,
-                                         });
+        input_username,
+        input_password,
+    });
 
     component |= CatchEvent([&](const Event& event) {
         if (event == Event::Escape) {
@@ -84,12 +85,12 @@ std::tuple<std::string, std::string, bool> login() {
 
     auto renderer = Renderer(component, [&] {
         return vbox({
-                            hbox(text("Nazwa użytkownika : "), input_username->Render()),
-                            hbox(text("Hasło   : "), input_password->Render()),
-                            separator(),
-                            hbox(text("W celu zatwierdzenia kliknij ENTER") | bold | color(Color::YellowLight)),
-                            hbox(text("Jeśli chcesz anulować kliknij klawisz Escape") | bold | color(Color::RedLight)),
-                    }) |
+                   hbox(text("Nazwa użytkownika : "), input_username->Render()),
+                   hbox(text("Hasło   : "), input_password->Render()),
+                   separator(),
+                   hbox(text("W celu zatwierdzenia kliknij ENTER") | bold | color(Color::YellowLight)),
+                   hbox(text("Jeśli chcesz anulować kliknij klawisz Escape") | bold | color(Color::RedLight)),
+               }) |
                border;
     });
     screen.Loop(renderer);

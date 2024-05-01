@@ -1,19 +1,20 @@
 #include "plane.h"
+
 #include <iostream>
 #include <unordered_set>
+
+#include "../functions/info_print_functions.h"
+#include "../functions/main_prints/main_prints.h"
+#include "../tickets/tickets_prints/tickets_print_functions.h"
+#include "../user/user_functions/user_payments/user_payment_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
-#include "../functions/info_print_functions.h"
-#include "../user/user_functions/user_payments/user_payment_functions.h"
-#include "../tickets/tickets_prints/tickets_print_functions.h"
-#include "../functions/main_prints/main_prints.h"
-
 
 void processSeatSelectionAndPurchase(
-        std::vector<int> seatsTaken,
-        FlightConnection& flightConnection,
-        FlightConnection& foundConnection,
-        User& user) {
+    std::vector<int> seatsTaken,
+    FlightConnection& flightConnection,
+    FlightConnection& foundConnection,
+    User& user) {
     using namespace ftxui;
     std::string planeId = "WOLFIE PLANE #";
     std::string flight_identifier = foundConnection.getIdentifier();
@@ -35,21 +36,18 @@ void processSeatSelectionAndPurchase(
         if (selected || seatsTakenSet.count(seatNumber)) {
             auto seatColor = selected ? Color::Orange1 : Color::Red1;
             return window(
-                    text(title) | hcenter | bold | seatStyle,
-                    text(selected ? "WYBRANE" : "\u274C") | hcenter | bold | seatStyle | color(seatColor)
-            );
+                text(title) | hcenter | bold | seatStyle,
+                text(selected ? "WYBRANE" : "\u274C") | hcenter | bold | seatStyle | color(seatColor));
         }
 
         if (seatNumber == 37 || seatNumber == 45) {
             return window(
-                    text(title) | hcenter | bold | seatStyle,
-                    text("\U0001f198") | hcenter | bold | color(Color::Orange1) | seatStyle
-            );
+                text(title) | hcenter | bold | seatStyle,
+                text("\U0001f198") | hcenter | bold | color(Color::Orange1) | seatStyle);
         } else {
             return window(
-                    text(title) | hcenter | bold | seatStyle,
-                    text("DOSTĘPNE") | hcenter | dim | bold | color(Color::Green) | seatStyle
-            );
+                text(title) | hcenter | bold | seatStyle,
+                text("DOSTĘPNE") | hcenter | dim | bold | color(Color::Green) | seatStyle);
         }
     };
 
@@ -68,7 +66,7 @@ void processSeatSelectionAndPurchase(
         Elements row;
         for (size_t j = i; j < i + 9 && j < seats.size(); j++) {
             row.push_back(seats[j]);
-            if ((j + 1 - i) % 3 == 0 && j < i + 8) { // oddziałka co 3 miejsce w kolumnie
+            if ((j + 1 - i) % 3 == 0 && j < i + 8) {  // oddziałka co 3 miejsce w kolumnie
                 row.push_back(separator());
             }
         }
@@ -79,41 +77,33 @@ void processSeatSelectionAndPurchase(
     }
 
     auto container = vbox({
-                                  hbox({
-                                               text(planeId) | bold}) | color(Color::Blue) | hcenter,
-                                  separator(),
-                                  vbox(document) | hcenter,
-                                  separator(),
-                                  text("LEGENDA") | ftxui::color(ftxui::Color::BlueLight) | bold | hcenter,
-                                  ftxui::vbox({
-                                                      ftxui::hbox({
-                                                                          ftxui::text("\U0001f198 "),
-                                                                          ftxui::text("- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)") | ftxui::color(ftxui::Color::Orange1)
-                                                                  }),
-                                                      ftxui::hbox({
-                                                                          ftxui::text("\u274C "),
-                                                                          ftxui::text("- zajęte miejsce") | ftxui::color(ftxui::Color::Red1) | ftxui::bold
-                                                                  }),
-                                                      ftxui::hbox({
-                                                                          ftxui::text("R ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
-                                                                          ftxui::text("- rząd (numer rzędu),") | ftxui::color(ftxui::Color::Grey84),
-                                                                          ftxui::text(" M ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
-                                                                          ftxui::text("- miejsce (numer miejsca)") | ftxui::color(ftxui::Color::Grey84)
-                                                                  }),
-                                                }) | ftxui::hcenter,
-                          }) | style;
+                         hbox({text(planeId) | bold}) | color(Color::Blue) | hcenter,
+                         separator(),
+                         vbox(document) | hcenter,
+                         separator(),
+                         text("LEGENDA") | ftxui::color(ftxui::Color::BlueLight) | bold | hcenter,
+                         ftxui::vbox({
+                             ftxui::hbox({ftxui::text("\U0001f198 "),
+                                          ftxui::text("- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)") | ftxui::color(ftxui::Color::Orange1)}),
+                             ftxui::hbox({ftxui::text("\u274C "),
+                                          ftxui::text("- zajęte miejsce") | ftxui::color(ftxui::Color::Red1) | ftxui::bold}),
+                             ftxui::hbox({ftxui::text("R ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                          ftxui::text("- rząd (numer rzędu),") | ftxui::color(ftxui::Color::Grey84),
+                                          ftxui::text(" M ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                          ftxui::text("- miejsce (numer miejsca)") | ftxui::color(ftxui::Color::Grey84)}),
+                         }) | ftxui::hcenter,
+                     }) |
+                     style;
 
     auto userScreen = Screen::Create(Dimension::Fit(container), Dimension::Fit(container));
     Render(userScreen, container);
     std::cout << userScreen.ToString() << '\0' << std::endl;
 
-
     int ticketAmount;
     while (true) {
         std::string ticketAmountInput = displayMessageAndCaptureStringInput(
-                "Zakup biletów",
-                "Podaj liczbę biletów (od 1 do 4):"
-        );
+            "Zakup biletów",
+            "Podaj liczbę biletów (od 1 do 4):");
 
         if (ticketAmountInput == "back") {
             errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
@@ -136,9 +126,8 @@ void processSeatSelectionAndPurchase(
 
     for (int i = 0; i < ticketAmount; ++i) {
         std::string rowInput = displayMessageAndCaptureStringInput(
-                "Zakup biletów",
-                "Podaj rząd dla biletu " + std::to_string(i + 1) + ":"
-        );
+            "Zakup biletów",
+            "Podaj rząd dla biletu " + std::to_string(i + 1) + ":");
         int rowInputNumber;
         try {
             rowInputNumber = std::stoi(rowInput);
@@ -151,9 +140,8 @@ void processSeatSelectionAndPurchase(
             return;
         }
         std::string seatInput = displayMessageAndCaptureStringInput(
-                "Zakup biletów",
-                "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":"
-        );
+            "Zakup biletów",
+            "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":");
         int seat;
         try {
             seat = std::stoi(seatInput);
@@ -186,7 +174,7 @@ void processSeatSelectionAndPurchase(
             Elements row;
             for (size_t j = i; j < i + 9 && j < seats.size(); j++) {
                 row.push_back(seats[j]);
-                if ((j + 1 - i) % 3 == 0 && j < i + 8) { // oddziałka co 3 miejsce w kolumnie
+                if ((j + 1 - i) % 3 == 0 && j < i + 8) {  // oddziałka co 3 miejsce w kolumnie
                     row.push_back(separator());
                 }
             }
@@ -198,21 +186,20 @@ void processSeatSelectionAndPurchase(
     }
 
     auto containerWithSelectedSeats = vbox({
-                                                   hbox({
-                                                                text(planeId) | bold}) | color(Color::Blue) | hcenter,
-                                                   separator(),
-                                                   vbox(document) | hcenter,
-                                                   separator(),
-                                                   text("Czy potwierdzasz wybrane miejsca?") | bold | hcenter,
-                                                   text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
-                                           }) | style;
+                                          hbox({text(planeId) | bold}) | color(Color::Blue) | hcenter,
+                                          separator(),
+                                          vbox(document) | hcenter,
+                                          separator(),
+                                          text("Czy potwierdzasz wybrane miejsca?") | bold | hcenter,
+                                          text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
+                                      }) |
+                                      style;
 
     printNodeScreen(containerWithSelectedSeats);
 
     std::string confirmChoice = displayMessageAndCaptureStringInput(
-            "Zakup biletów",
-            "Czy potwierdzasz wybrane miejsca? (tak)"
-    );
+        "Zakup biletów",
+        "Czy potwierdzasz wybrane miejsca? (tak)");
 
     if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
         errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
@@ -228,7 +215,7 @@ void processSeatSelectionAndPurchase(
         return;
     }
 
-    if(user.discount != 1) {
+    if (user.discount != 1) {
         user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
     }
 
@@ -236,5 +223,3 @@ void processSeatSelectionAndPurchase(
     user.addTicketToUser(selectedSeats, foundConnection);
     printTicketInvoice(user, foundConnection, selectedSeats);
 }
-
-

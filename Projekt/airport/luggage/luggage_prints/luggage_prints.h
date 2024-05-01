@@ -9,4 +9,4 @@ std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component>& 
 void printAllItems(User& user);
 void printSpecificItem(Item& item);
 
-#endif //AIRPORT_LUGGAGE_PRINTS_H
+#endif  // AIRPORT_LUGGAGE_PRINTS_H
