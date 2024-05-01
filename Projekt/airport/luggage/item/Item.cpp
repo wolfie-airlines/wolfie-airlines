@@ -1,12 +1,8 @@
-//
-// Created by szymo on 26.04.2024.
-//
-
 #include "Item.h"
 
 Item::Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints,
            bool forbidden, bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount,
-           double weight, std::string &profession) {
+           double weight, std::string &profession, std::string &category) {
     this->itemName = itemName;
     this->description = description;
     this->hints = hints;
@@ -17,11 +13,12 @@ Item::Item(const std::string &itemName, const std::string &description, const st
     this->maxCount = maxCount;
     this->weight = weight;
     this->profession = profession;
+    this->category = category;
 }
 
 Item::Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints,
            bool forbidden, bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount,
-           double weight) {
+           double weight, std::string &category) {
     this->itemName = itemName;
     this->description = description;
     this->hints = hints;
@@ -31,6 +28,7 @@ Item::Item(const std::string &itemName, const std::string &description, const st
     this->pilotAllowance = pilotAllowance;
     this->maxCount = maxCount;
     this->weight = weight;
+    this->category = category;
 }
 
 const std::string &Item::getItemName() const {
@@ -71,4 +69,8 @@ double Item::getMaxCount() const {
 
 double Item::getWeight() const {
     return weight;
+}
+
+std::string Item::getCategory() const {
+    return category;
 }

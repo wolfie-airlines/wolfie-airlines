@@ -22,12 +22,13 @@ class Item {
     double maxCount;
     double weight;
     std::string profession;
+    std::string category="special";
 
 public:
     Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
-         bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight, std::string &profession);
+         bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight, std::string &profession, std::string &category);
     Item(const std::string &itemName, const std::string &description, const std::vector<std::string> &hints, bool forbidden,
-         bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight);
+         bool registeredLuggage, bool handLuggage, bool pilotAllowance, double maxCount, double weight, std::string &category);
 
     [[nodiscard]] const std::string &getItemName() const;
 
@@ -48,6 +49,8 @@ public:
     [[nodiscard]] double getMaxCount() const;
 
     [[nodiscard]] double getWeight() const;
+
+    [[nodiscard]] std::string getCategory() const;
 
 };
 
