@@ -16,36 +16,18 @@ double getCardDiscount(const std::string& card) {
     }
 }
 
-void User::setPremiumCard(User& user, const std::string& card) {
-    bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", user.email),
-            bsoncxx::builder::basic::kvp("password", user.getPassword())
-    );
-
-    bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
-
-    mongocxx::cursor cursor_user = user.getCollection().find(filter_view_email_password);
-
-    if (cursor_user.begin() == cursor_user.end()) {
-        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-        return;
+std::string recognizeDiscountCard(double discount) {
+    if(discount == 1) {
+        return "szara";
+    } else if(discount == 0.95) {
+        return "niebieska";
+    } else if(discount == 0.9) {
+        return "złota";
+    } else if(discount == 0.85) {
+        return "platynowa";
+    } else {
+        return "brak";
     }
-
-    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("premiumCard", card),
-                    bsoncxx::builder::basic::kvp("discountType", "premium"),
-                    bsoncxx::builder::basic::kvp("discount", getCardDiscount(card))
-            ))
-    );
-
-    bsoncxx::document::view update_view = update_builder.view();
-    user.getCollection().update_one(filter_view_email_password, update_view);
-
-    user.premiumCard = card;
-    User::discount = getCardDiscount(card);
-    User::discountType = "premium";
-    validFunction("Karta została przypisana do konta", "Możesz zobaczyć ją w profilu i już zacząć z niej korzystać!");
 }
 
 void handleCardChoice(const std::string& card, int price, User& user) {
@@ -61,17 +43,31 @@ void handlePremiumCard(User& user) {
     std::string choice = displayPremiumCardInfo();
     std::string card;
     int price;
+    std::string premiumCard = recognizeDiscountCard(user.discount);
 
-    if(choice == "Szara" || choice == "szara" || choice == "SZARA") {
+    for(int i = 0; i < choice.size(); i++) {
+        choice[i] = tolower(choice[i]);
+    }
+
+    for(int i = 0; i < premiumCard.size(); i++) {
+        premiumCard[i] = tolower(premiumCard[i]);
+    }
+
+    if(choice == premiumCard) {
+        errorFunction("Posiadasz już tę kartę premium.", "");
+        return;
+    }
+
+    if(choice == "szara") {
         card = "szara";
         price = 100;
-    } else if(choice == "Niebieska" || choice == "niebieska" || choice == "NIEBIESKA") {
+    } else if(choice == "niebieska") {
         card = "niebieska";
         price = 200;
-    } else if(choice == "Złota" || choice == "złota" || choice == "ZŁOTA") {
+    } else if(choice == "złota") {
         card = "złota";
         price = 350;
-    } else if(choice == "Platynowa" || choice == "platynowa" || choice == "PLATYNOWA") {
+    } else if(choice == "platynowa") {
         card = "platynowa";
         price = 450;
     } else {
