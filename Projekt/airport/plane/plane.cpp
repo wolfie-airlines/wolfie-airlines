@@ -24,7 +24,6 @@ void processSeatSelectionAndPurchase(
 
     auto seatStyle = size(WIDTH, EQUAL, 10);
 
-    // szybsze wyszukiwanie zajętych miejsc niż wektor
     std::unordered_set<int> seatsTakenSet(seatsTaken.begin(), seatsTaken.end());
 
     auto make_seat_box = [&](int seatNumber, bool selected) {
