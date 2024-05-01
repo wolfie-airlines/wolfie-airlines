@@ -4,6 +4,7 @@
 #include "../plane/plane.h"
 #include "tickets_prints/tickets_print_functions.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
+#include "../functions/main_prints/main_prints.h"
 #include <random>
 
 const int MAX_TICKETS = 4;
@@ -19,7 +20,7 @@ void processPurchase(
     std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flight_identifier);
     int ticketAmount;
     while (true) {
-        std::string ticketAmountInput = displayMessageAndCaptureInput(
+        std::string ticketAmountInput = displayMessageAndCaptureStringInput(
                 "Zakup biletów",
                 "Podaj liczbę biletów do kupienia (minimalnie 1 do maksymalnie " + std::to_string(MAX_TICKETS) + "):"
         );
@@ -72,14 +73,16 @@ void processPurchase(
     std::string confirmChoice;
 
     if(ticketAmount == 1) {
-        confirmChoice = displayMessageAndCaptureInput(
+        confirmChoice = displayMessageAndCaptureStringInput(
                 "Potwierdzenie zakupu biletów",
-                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilet na lot " + foundConnection.getIdentifier() + " (tak/nie)"
+                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilet na lot " +
+                foundConnection.getIdentifier() + " (tak/nie)"
         );
     } else {
-        confirmChoice = displayMessageAndCaptureInput(
+        confirmChoice = displayMessageAndCaptureStringInput(
                 "Potwierdzenie zakupu biletów",
-                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilety na lot " + foundConnection.getIdentifier() + " (tak/nie)"
+                "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilety na lot " +
+                foundConnection.getIdentifier() + " (tak/nie)"
         );
     }
 
@@ -107,7 +110,7 @@ void processPurchase(
 }
 
 void handleFlightById(FlightConnection& flightConnection, User& user) {
-    std::string flightId = displayMessageAndCaptureInput(
+    std::string flightId = displayMessageAndCaptureStringInput(
             "Zakup biletów",
             "Podaj identyfikator lotu:"
     );
@@ -141,12 +144,12 @@ void handleFlightById(FlightConnection& flightConnection, User& user) {
 }
 
 void handleFlightByData(FlightConnection& flightConnection, User& user) {
-    std::string departureCity = displayMessageAndCaptureInput(
+    std::string departureCity = displayMessageAndCaptureStringInput(
             "Zakup biletów",
             "Podaj miasto wylotu:"
     );
 
-    std::string arrivalCity = displayMessageAndCaptureInput(
+    std::string arrivalCity = displayMessageAndCaptureStringInput(
             "Zakup biletów",
             "Podaj miasto przylotu:"
     );
