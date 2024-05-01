@@ -139,20 +139,20 @@ bool paymentAuth(User& user, const std::string& paymentMethod, const std::string
         ftxui::Render(userScreen, *createBlikScreen());
         std::cout << userScreen.ToString() << '\0' << std::endl;
 
-        int blikCode;
+        std::string blikCode;
         std::cin >> blikCode;
 
-        if(std::to_string(blikCode) == "quit") {
+        if(blikCode == "quit") {
             errorFunction("Płatność została anulowana.", "");
             return false;
         }
 
-        if (std::to_string(blikCode).length() != 6) {
+        if (blikCode.length() != 6) {
             errorFunction("Kod BLIK musi składać się z 6 cyfr.", "Spróbuj ponownie.");
             return false;
         }
 
-        if (blikCode == 123456) {
+        if (blikCode == "123456") {
             errorFunction("Kod BLIK jest nieprawidłowy.", "Spróbuj ponownie.");
             return false;
         }
