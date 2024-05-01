@@ -6,6 +6,7 @@
 #include "../functions/info_print_functions.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
+#include "../functions/main_prints/main_prints.h"
 
 
 void processSeatSelectionAndPurchase(
@@ -109,7 +110,7 @@ void processSeatSelectionAndPurchase(
 
     int ticketAmount;
     while (true) {
-        std::string ticketAmountInput = displayMessageAndCaptureInput(
+        std::string ticketAmountInput = displayMessageAndCaptureStringInput(
                 "Zakup biletów",
                 "Podaj liczbę biletów (od 1 do 4):"
         );
@@ -134,7 +135,7 @@ void processSeatSelectionAndPurchase(
     std::vector<int> selectedSeats;
 
     for (int i = 0; i < ticketAmount; ++i) {
-        std::string rowInput = displayMessageAndCaptureInput(
+        std::string rowInput = displayMessageAndCaptureStringInput(
                 "Zakup biletów",
                 "Podaj rząd dla biletu " + std::to_string(i + 1) + ":"
         );
@@ -149,7 +150,7 @@ void processSeatSelectionAndPurchase(
             errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
             return;
         }
-        std::string seatInput = displayMessageAndCaptureInput(
+        std::string seatInput = displayMessageAndCaptureStringInput(
                 "Zakup biletów",
                 "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":"
         );
@@ -206,11 +207,9 @@ void processSeatSelectionAndPurchase(
                                                    text("Każdy inny wybór spowoduje anulowanie kupowania biletów.") | bold | hcenter,
                                            }) | style;
 
-    auto userScreenWithSelectedSeats = Screen::Create(Dimension::Fit(containerWithSelectedSeats), Dimension::Fit(containerWithSelectedSeats));
-    Render(userScreenWithSelectedSeats, containerWithSelectedSeats);
-    std::cout << userScreenWithSelectedSeats.ToString() << '\0' << std::endl;
+    printNodeScreen(containerWithSelectedSeats);
 
-    std::string confirmChoice = displayMessageAndCaptureInput(
+    std::string confirmChoice = displayMessageAndCaptureStringInput(
             "Zakup biletów",
             "Czy potwierdzasz wybrane miejsca? (tak)"
     );
