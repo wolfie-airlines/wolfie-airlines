@@ -63,7 +63,27 @@ public:
     void setIsAdmin(bool isAdministrator) { User::isAdmin = isAdministrator; }
     void saveLuggage(int flightNumber);
     mongocxx::cursor findUserInDatabase();
-    bsoncxx::array::view findUserFlights();
+
+    template <typename T>
+    void updateUserInDatabase(
+            const std::string& valueInDatabase,
+            const T& valueToSet
+    ) {
+        bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+                bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                        bsoncxx::builder::basic::kvp(valueInDatabase, valueToSet)
+                ))
+        );
+
+        bsoncxx::document::view update_view = update_builder.view();
+        bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
+                bsoncxx::builder::basic::kvp("email", email),
+                bsoncxx::builder::basic::kvp("password", getPassword())
+        );
+
+        bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
+        _collection.update_one(filter_view_email_password, update_view);
+    }
 };
 
 #endif // USER_H
