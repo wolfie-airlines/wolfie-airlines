@@ -7,8 +7,8 @@
 #include "../user/User.h"
 
 void processSeatSelectionAndPurchase(std::vector<int> seatsTaken,
-                                     FlightConnection& flightConnection,
-                                     FlightConnection& foundConnection,
-                                     User& user);
+                                     FlightConnection &flightConnection,
+                                     FlightConnection &foundConnection,
+                                     User &user);
 
 #endif  // AIRPORT_PLANE_H

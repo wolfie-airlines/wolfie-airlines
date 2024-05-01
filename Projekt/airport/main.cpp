@@ -7,39 +7,39 @@
 #include "flights/FlightConnection.h"
 #include "functions/MainHandler.h"
 
-int main(int argc, char* argv[]) {
-    mongocxx::instance inst;
-    using bsoncxx::builder::basic::kvp;
-    using bsoncxx::builder::basic::make_document;
-    EnvParser parser;
-    parser.parseEnvFile();
+int main(int argc, char *argv[]) {
+  mongocxx::instance inst;
+  using bsoncxx::builder::basic::kvp;
+  using bsoncxx::builder::basic::make_document;
+  EnvParser parser;
+  parser.parseEnvFile();
 
-    try {
-        const auto uri_str = (argc >= 2) ? argv[1] : parser.getValue("DATABASE_URL");
-        auto uri = mongocxx::uri{uri_str};
+  try {
+    const auto uri_str = (argc >= 2) ? argv[1] : parser.getValue("DATABASE_URL");
+    auto uri = mongocxx::uri{uri_str};
 
-        mongocxx::client client{uri};
+    mongocxx::client client{uri};
 
-        Authentication auth{uri_str, "projekt", "users"};
-        FlightConnection flightConnection{uri_str, "projekt", "flight_connections"};
+    Authentication auth{uri_str, "projekt", "users"};
+    FlightConnection flightConnection{uri_str, "projekt", "flight_connections"};
 
-        auto db = client["projekt"];
-        auto collection = db["connection_test"];
+    auto db = client["projekt"];
+    auto collection = db["connection_test"];
 
-        // testowy dokument dla pingu do kolekcji
-        auto result = collection.insert_one(make_document(kvp("ping", 1)));
+    // testowy dokument dla pingu do kolekcji
+    auto result = collection.insert_one(make_document(kvp("ping", 1)));
 
-        if (!result) {
-            std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
-            return EXIT_FAILURE;
-        }
-        User currentUser{client};
-        bool isLoggedIn = false;
-        processChoice(isLoggedIn, auth, currentUser, flightConnection);
-    } catch (const std::exception& ex) {
-        std::cout << "Blad operacji: " << ex.what() << std::endl;
-        return EXIT_FAILURE;
+    if (!result) {
+      std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
+      return EXIT_FAILURE;
     }
+    User currentUser{client};
+    bool isLoggedIn = false;
+    processChoice(isLoggedIn, auth, currentUser, flightConnection);
+  } catch (const std::exception &ex) {
+    std::cout << "Blad operacji: " << ex.what() << std::endl;
+    return EXIT_FAILURE;
+  }
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }

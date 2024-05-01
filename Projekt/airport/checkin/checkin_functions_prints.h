@@ -3,6 +3,6 @@
 
 #include "../user/User.h"
 
-void printCheckinScreen(User& user);
+void printCheckinScreen(User &user);
 
 #endif  // AIRPORT_CHECKIN_FUNCTIONS_H

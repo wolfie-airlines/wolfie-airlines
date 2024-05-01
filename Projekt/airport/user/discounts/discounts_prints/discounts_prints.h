@@ -4,6 +4,6 @@
 #include <string>
 
 std::string displayDiscountInfo();
-bool validDiscount(const std::string& discountChoice);
+bool validDiscount(const std::string &discountChoice);
 
 #endif  // AIRPORT_DISCOUNTS_PRINTS_H

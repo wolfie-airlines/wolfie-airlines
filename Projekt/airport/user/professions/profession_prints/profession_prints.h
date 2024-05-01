@@ -8,6 +8,6 @@
 int CreateProfessionScreen();
 std::string displayProfessionInfo();
 void invalidAnswer();
-void validAnswer(const std::string& category, User& user);
+void validAnswer(const std::string &category, User &user);
 
 #endif  // AIRPORT_PROFESSION_PRINTS_H
