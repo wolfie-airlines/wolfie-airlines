@@ -171,7 +171,7 @@ std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
                 document = ftxui::vbox({document, navigation});
             } else if(isCheckin) {
                 auto navigation = ftxui::vbox({
-                                                      ftxui::hbox({ftxui::paragraphAlignCenter("ODPARAWA BILETOWA 🎫")}) |
+                                                      ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA 🎫")}) |
                                                       color(ftxui::Color::White),
                                                         ftxui::separator(),
                                                         ftxui::hbox({

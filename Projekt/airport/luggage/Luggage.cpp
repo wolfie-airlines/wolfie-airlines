@@ -3,6 +3,7 @@
 #include "ftxui/component/component.hpp"
 #include "ftxui/component/screen_interactive.hpp"
 #include "../functions/info_print_functions.h"
+#include "../user/user_functions/user_payments/user_payment_functions.h"
 
 std::tuple<bool, std::string> Luggage::confirmItems(User& user) {
     ftxui::Elements elements;
@@ -68,7 +69,7 @@ std::tuple<bool, std::string> Luggage::confirmItems(User& user) {
     }
 }
 
-void Luggage::getItemCount() {
+double Luggage::getItemCount(User& user) {
     using namespace ftxui;
 
     std::vector<std::string> itemQuantities(items.size());
@@ -117,19 +118,28 @@ void Luggage::getItemCount() {
                                             paragraph("Podaj ilość przedmiotów, które chcesz zabrać ze sobą:") | bold
                                     }) | color(Color::MediumOrchid1),
                                 separator(),
+                                hbox({
+                                             paragraph("W Wolfie Airlines każdy bagaż do 20kg jest zupełnie za darmo!") | bold
+                                     }) | color(Color::GreenLight),
+                                separator(),
                                 vbox(elements),
-        }) | border | size(ftxui::WIDTH, ftxui::LESS_THAN, 120);
+        }) | border | size(ftxui::WIDTH, ftxui::LESS_THAN, 100);
     });
 
     screen.Loop(renderer);
 
 
-
+    double weight = 0;
     for (size_t i = 0; i < items.size(); ++i) {
-        std::cout << items[i].getItemName() << " : " << itemQuantities[i] << std::endl;
-        //TODO: obliczanie wagi bagażu czy przekracza czy nie przekracza limitu
-        // jeśli przekracza limit 20kg, obliczana jest nadpłata za każdy kilogram aż do 32kg
-        // jeśli przekracza 32kg, bagaż nie zostanie przyjęty
-        // po zapłaceniu nadpłaty, bagaż zostanie przyjęty -> do bazy danych
+        // jeśli każde pole jest puste, nie sprawdzamy dalej, od razu błąd
+        if (itemQuantities[i].empty() || itemQuantities[i] == "0") {
+            errorFunction("Nie podano ilości przedmiotu " + items[i].getItemName() + "!", "Spróbuj ponownie.");
+            return -1;
+        }
+
+        weight += std::stoi(itemQuantities[i]) * items[i].getWeight();
     }
+
+return weight;
+
 }

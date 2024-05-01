@@ -16,8 +16,7 @@ class Luggage {
     double maxWeight = 20.0;
     double totalWeight = 0.0;
     const double maxAllowedWeight = 32.0;
-    const double overweightFeePerKg = 2.0;
-    const double euroToPln = 4.32; // tworzyłem to na obecnym kursie
+    // tworzyłem to na obecnym kursie
 
 public:
     Luggage(
@@ -25,9 +24,12 @@ public:
             double totalWeight
     ) : items(items), totalWeight(totalWeight) {}
 
-    void getItemCount();
+    double getItemCount(User& user);
 
     std::tuple<bool, std::string> confirmItems(User& user);
+
+    const double overweightFeePerKg = 2.0;
+    const double euroToPln = 4.32;
 };
 
 
