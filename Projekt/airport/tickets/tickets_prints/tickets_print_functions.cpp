@@ -124,20 +124,16 @@ void druknijFakturke(
     std::string targetPrice = streamTargetPrice.str();
 
     ftxui::Elements elements;
+    elements.reserve(selectedSeats.size());
     for (const auto& ticket : selectedSeats) {
-        std::string row = std::to_string(ticket % 9 == 0 ? ticket / 9 : ticket / 9 + 1);
-        std::string seat = std::to_string(ticket % 9 == 0 ? 9 : ticket % 9);
-        std::string placeInPlane = "Rząd: ";
-        placeInPlane += row;
-        placeInPlane += ", Miejsce: ";
-        placeInPlane += seat;
+        std::string placeInPlane = "Rząd: " + std::to_string((ticket % 9 == 0 ? ticket / 9 : ticket / 9 + 1)) + ", Miejsce: " + std::to_string((ticket % 9 == 0 ? 9 : ticket % 9));
         elements.push_back(ftxui::hbox({
-                                                ftxui::paragraphAlignLeft("ID LOTU: " + foundConnection.getIdentifier()) | ftxui::bold | color(ftxui::Color::GrayLight),
-                                                ftxui::paragraphAlignLeft("MIEJSCE ODLOTU: " + foundConnection.getDepartureCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
-                                                ftxui::paragraphAlignLeft("MIEJSCE PRZYLOTU: " + foundConnection.getDestinationCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
-                                                ftxui::paragraphAlignLeft("CZAS WYLOTU: " + foundConnection.getDepartureTime()) | ftxui::bold | color(ftxui::Color::GrayLight),
-                                                ftxui::paragraphAlignLeft(placeInPlane) | ftxui::bold | color(ftxui::Color::GrayLight),
-                                        }) | ftxui::border);
+                                               ftxui::paragraphAlignLeft("ID LOTU: " + foundConnection.getIdentifier()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                               ftxui::paragraphAlignLeft("MIEJSCE ODLOTU: " + foundConnection.getDepartureCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                               ftxui::paragraphAlignLeft("MIEJSCE PRZYLOTU: " + foundConnection.getDestinationCity()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                               ftxui::paragraphAlignLeft("CZAS WYLOTU: " + foundConnection.getDepartureTime()) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                               ftxui::paragraphAlignLeft(placeInPlane) | ftxui::bold | color(ftxui::Color::GrayLight),
+                                       }) | ftxui::border);
     }
 
     auto createScreen = [&] {
