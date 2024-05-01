@@ -7,7 +7,7 @@
 #include "flights/FlightConnection.h"
 #include "functions/MainHandler.h"
 
-int main(int argc, char *argv[]) {
+int main() {
   mongocxx::instance inst;
   using bsoncxx::builder::basic::kvp;
   using bsoncxx::builder::basic::make_document;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   parser.parseEnvFile();
 
   try {
-    const auto uri_str = (argc >= 2) ? argv[1] : parser.getValue("DATABASE_URL");
+    const auto uri_str = parser.getValue("DATABASE_URL");
     auto uri = mongocxx::uri{uri_str};
 
     mongocxx::client client{uri};
