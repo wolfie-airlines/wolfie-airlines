@@ -12,7 +12,6 @@ std::string extractFileName(const std::string& path) {
     return fileName;
 }
 
-
 void countdown(int seconds, const std::string& type) {
     if(type == "music") {
         std::cout << "Skup się! Odtwarzanie zacznie się za: ";
