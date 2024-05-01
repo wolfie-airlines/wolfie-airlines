@@ -99,7 +99,7 @@ void processPurchase(
 
     flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
     user.addTicketToUser(selectedSeats, foundConnection);
-    druknijFakturke(user, foundConnection, selectedSeats);
+    printTicketInvoice(user, foundConnection, selectedSeats);
 }
 
 void handleFlightById(FlightConnection& flightConnection, User& user) {

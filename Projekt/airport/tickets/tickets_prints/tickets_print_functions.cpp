@@ -102,7 +102,7 @@ std::string displayWarningAndCaptureInput(const std::string& titleMessage, const
     return answer;
 }
 
-void druknijFakturke(
+void printTicketInvoice(
         User& user, FlightConnection& foundConnection, const std::vector<int>& selectedSeats
         ) {
 
