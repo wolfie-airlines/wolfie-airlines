@@ -289,3 +289,15 @@ void User::loginAsAdmin() {
 bool User::checkIfAdmin() const {
     return isAdmin;
 }
+
+mongocxx::cursor User::findUserInDatabase(mongocxx::collection& collection) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", email),
+            bsoncxx::builder::basic::kvp("password", getPassword())
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = collection.find(filter_view);
+
+    return cursor;
+}

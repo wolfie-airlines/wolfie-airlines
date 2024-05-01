@@ -4,15 +4,28 @@
 #include "../functions/info_print_functions.h"
 #include "../qr-code/qrcode_prints.h"
 
+const std::string CHECKIN_SCREEN_TITLE = "ODPRAWA BILETOWA";
+const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
+
+std::shared_ptr<ftxui::Element> createScreen(const std::string& message) {
+    auto summary = ftxui::vbox({
+                                       ftxui::hbox({ftxui::paragraphAlignCenter(CHECKIN_SCREEN_TITLE)}) | color(ftxui::Color::GrayDark),
+                                       ftxui::separator(),
+                                       ftxui::hbox({ftxui::paragraphAlignRight(message)}) | color(ftxui::Color::LightSteelBlue),
+                               });
+    auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter(AIRPORT_NAME), summary)});
+    return std::make_shared<ftxui::Element>(document);
+}
+
+void printScreen(const std::shared_ptr<ftxui::Element>& screen) {
+    auto finalScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen), ftxui::Dimension::Fit(*screen));
+    ftxui::Render(finalScreen, *screen);
+    std::cout << finalScreen.ToString() << '\0' << std::endl;
+}
+
+
 void createCheckinScreen(User& user) {
-
-    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("email", user.email),
-            bsoncxx::builder::basic::kvp("password", user.getPassword())
-    );
-
-    bsoncxx::document::view filter_view = filter_builder.view();
-    mongocxx::cursor cursor = user.getCollection().find(filter_view);
+    mongocxx::cursor cursor = user.findUserInDatabase(user.getCollection());
     if (cursor.begin() == cursor.end()) {
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
         return;
@@ -45,23 +58,9 @@ void createCheckinScreen(User& user) {
     if(option == "quit") {
         errorFunction("Anulowano odprawę.", "Odprawa biletowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
     } else if (option == "wybieram") {
-        auto checkinScreen = [&] {
-            auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BILETOWA")}) |
-                                               color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight(
-                                                       "Podaj NUMER LOTU, na który chciałbyś się odprawić:")}) |
-                                               color(ftxui::Color::LightSteelBlue),
-                                       });
-            auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-            return std::make_shared<ftxui::Element>(document);
-        };
 
-        auto finalCheckinScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*checkinScreen()),
-                                                        ftxui::Dimension::Fit(*checkinScreen()));
-        ftxui::Render(finalCheckinScreen, *checkinScreen());
-        std::cout << finalCheckinScreen.ToString() << '\0' << std::endl;
+        auto checkinScreen = createScreen("Podaj NUMER LOTU, na który chciałbyś się odprawić:");
+        printScreen(checkinScreen);
 
         int flightNumber;
         std::cin >> flightNumber;
@@ -82,23 +81,8 @@ void createCheckinScreen(User& user) {
             seats.push_back(seat.get_int32().value);
         }
 
-        auto qrInfoScreen = [&] {
-            auto summary = ftxui::vbox({
-                                               ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BILETOWA")}) |
-                                               color(ftxui::Color::GrayDark),
-                                               ftxui::separator(),
-                                               ftxui::hbox({ftxui::paragraphAlignRight(
-                                                       "Zeskanuj poniższy kod QR żeby się odprawić. Tak! To takie proste!")}) |
-                                               color(ftxui::Color::LightSteelBlue),
-                                       });
-            auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-            return std::make_shared<ftxui::Element>(document);
-        };
-
-        auto qrScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*qrInfoScreen()),
-                                              ftxui::Dimension::Fit(*qrInfoScreen()));
-        ftxui::Render(qrScreen, *qrInfoScreen());
-        std::cout << qrScreen.ToString() << '\0' << std::endl;
+        auto qrInfoScreen = createScreen("Zeskanuj poniższy kod QR żeby się odprawić. Tak! To takie proste!");
+        printScreen(qrInfoScreen);
 
         createQR(user.email, user.username, flightId, seats);
     }

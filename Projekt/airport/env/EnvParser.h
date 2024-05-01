@@ -11,7 +11,6 @@ private:
 public:
     EnvParser();
     void parseEnvFile();
-    // no discard zeby nie pomijac zwracanego klucza :D
     [[nodiscard]] std::string getValue(const std::string& key) const;
 
 };

@@ -61,6 +61,8 @@ public:
     void loginAsAdmin();
     [[nodiscard]] bool checkIfAdmin() const;
     void setIsAdmin(bool isAdministrator) { User::isAdmin = isAdministrator; }
+
+    mongocxx::cursor findUserInDatabase(mongocxx::collection& collection);
 };
 
 #endif // USER_H
