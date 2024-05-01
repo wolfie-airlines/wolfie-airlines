@@ -4,7 +4,7 @@
 #include "env/EnvParser.h"
 #include "authentication/Authentication.h"
 #include "flights/FlightConnection.h"
-#include "functions/handling_functions.h"
+#include "functions/MainHandler.h"
 
 int main(int argc, char* argv[]) {
     mongocxx::instance inst;
