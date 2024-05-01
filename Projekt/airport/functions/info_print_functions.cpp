@@ -49,7 +49,7 @@ std::tuple<std::string, std::string, std::string, bool> registerUser() {
                                                  input_password,
                                          });
 
-    component |= CatchEvent([&](Event event) {
+    component |= CatchEvent([&](const Event& event) {
         if (event == Event::Escape) {
             screen.Exit();
             cancelled = true;
@@ -95,7 +95,7 @@ std::tuple<std::string, std::string, bool> login() {
                                                  input_password,
                                          });
 
-    component |= CatchEvent([&](Event event) {
+    component |= CatchEvent([&](const Event& event) {
         if (event == Event::Escape) {
             screen.Exit();
             cancelled = true;

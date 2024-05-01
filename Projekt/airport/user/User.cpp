@@ -290,6 +290,47 @@ bool User::checkIfAdmin() const {
     return isAdmin;
 }
 
+void User::saveLuggage(int flightNumber) {
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", email),
+            bsoncxx::builder::basic::kvp("password", getPassword())
+    );
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = _collection.find(filter_view);
+    if (cursor.begin() == cursor.end()) {
+        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+        return;
+    }
+
+    bsoncxx::document::view userView = *cursor.begin();
+    bsoncxx::document::element userFlightsElement = userView["userFlights"];
+    bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+
+    // w całym arrayu znajdź index lotu który ma numer flightNumber -1
+    int flightIndex = flightNumber - 1;
+
+    // sprawdź czy bagaż dla tego lotu jest już odprawiony
+    if(userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
+        errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
+        return;
+    }
+
+    // zaktualizuj wartość w tym arrayu o podanym indeksie na true
+    bsoncxx::builder::basic::document update_builder;
+    std::string updateKey = "userFlights." + std::to_string(flightIndex) + ".luggageCheckin";
+    update_builder.append(bsoncxx::builder::basic::kvp(updateKey, true));
+    bsoncxx::document::value update = update_builder.extract();
+
+    bsoncxx::builder::basic::document update_doc_builder;
+    update_doc_builder.append(bsoncxx::builder::basic::kvp("$set", update));
+    bsoncxx::document::value update_doc = update_doc_builder.extract();
+
+    _collection.update_one(filter_view, update_doc.view());
+
+    validFunction("Bagaż został odprawiony pomyślnie!", "Życzymy udanego lotu!");
+}
+
 mongocxx::cursor User::findUserInDatabase(mongocxx::collection& collection) {
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("email", email),

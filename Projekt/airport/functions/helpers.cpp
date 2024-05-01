@@ -13,7 +13,7 @@ std::string extractFileName(const std::string& path) {
 }
 
 
-void countdown(int seconds, std::string type) {
+void countdown(int seconds, const std::string& type) {
     if(type == "music") {
         std::cout << "Skup się! Odtwarzanie zacznie się za: ";
     } else {

@@ -8,6 +8,21 @@
 #include "../../tickets/user_tickets/user_tickets_print_functions.h"
 #include "../../user/user_functions/user_payments/user_payment_functions.h"
 
+const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
+const std::string ITEM_CARD = "KARTA PRZEDMIOTU";
+
+std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component>& checkbox_components) {
+    std::vector<ftxui::Component> vertical_containers;
+    for (size_t i = 0; i < checkbox_components.size(); i += 8) {
+        std::vector<ftxui::Component> group;
+        for (size_t j = i; j < i + 8 && j < checkbox_components.size(); ++j) {
+            group.push_back(checkbox_components[j]);
+        }
+        vertical_containers.push_back(ftxui::Container::Vertical(group));
+    }
+    return vertical_containers;
+}
+
 void printSpecificItem(Item& item) {
     std::string description = item.getDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.getDescription();
 
@@ -256,18 +271,6 @@ void printAllItems(User& user) {
     }
 }
 
-std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component>& checkbox_components) {
-    std::vector<ftxui::Component> vertical_containers;
-    for (size_t i = 0; i < checkbox_components.size(); i += 8) {
-        std::vector<ftxui::Component> group;
-        for (size_t j = i; j < i + 8 && j < checkbox_components.size(); ++j) {
-            group.push_back(checkbox_components[j]);
-        }
-        vertical_containers.push_back(ftxui::Container::Vertical(group));
-    }
-    return vertical_containers;
-}
-
 void checkIn(User& user, int flightNumber) {
     using namespace ftxui;
     auto screen = ScreenInteractive::TerminalOutput();
@@ -371,99 +374,20 @@ void checkIn(User& user, int flightNumber) {
         double weight = luggage.getItemCount(user);
         if(weight > 20) {
             // oblicz nadpłatę
-            double extraWeight = weight - 20;
-            double extraFee = extraWeight * luggage.overweightFeePerKg * luggage.euroToPln;
-            std::cout << "Nadpłata za przekroczenie wagi: " << extraFee << " PLN" << std::endl;
-            std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
+            double extraFee = luggage.calculateOverweightFee(weight);
+            const std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
             bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, extraFee);
 
             if (!paymentSuccess) {
                 errorFunction("Nie udało się przetworzyć płatności.", "Odprawa bagażowa została przerwana.");
                 return;
             }
-
-            auto collection = user.getCollection();
-            bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("email", user.email),
-                    bsoncxx::builder::basic::kvp("password", user.getPassword())
-            );
-
-            bsoncxx::document::view filter_view = filter_builder.view();
-            mongocxx::cursor cursor = collection.find(filter_view);
-            if (cursor.begin() == cursor.end()) {
-                errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-                return;
-            }
-
-            bsoncxx::document::view userView = *cursor.begin();
-            bsoncxx::document::element userFlightsElement = userView["userFlights"];
-            bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
-
-            // w całym arrayu znajdź index lotu który ma numer flightNumber -1
-            int flightIndex = flightNumber - 1;
-
-            // sprawdź czy bagaż dla tego lotu jest już odprawiony
-            if(userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
-                errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
-                return;
-            }
-
-            // zaktualizuj wartość w tym arrayu o podanym indeksie na true
-            bsoncxx::builder::basic::document update_builder;
-            std::string updateKey = "userFlights." + std::to_string(flightIndex) + ".luggageCheckin";
-            update_builder.append(bsoncxx::builder::basic::kvp(updateKey, true));
-            bsoncxx::document::value update = update_builder.extract();
-
-            bsoncxx::builder::basic::document update_doc_builder;
-            update_doc_builder.append(bsoncxx::builder::basic::kvp("$set", update));
-            bsoncxx::document::value update_doc = update_doc_builder.extract();
-
-            collection.update_one(filter_view, update_doc.view());
-
-            validFunction("Bagaż został odprawiony pomyślnie!", "Życzymy udanego lotu!");
+            user.saveLuggage(flightNumber);
 
         } else if (weight > 32) {
             errorFunction("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
         } else {
-            auto collection = user.getCollection();
-            bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-                    bsoncxx::builder::basic::kvp("email", user.email),
-                    bsoncxx::builder::basic::kvp("password", user.getPassword())
-            );
-
-            bsoncxx::document::view filter_view = filter_builder.view();
-            mongocxx::cursor cursor = collection.find(filter_view);
-            if (cursor.begin() == cursor.end()) {
-                errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
-                return;
-            }
-
-            bsoncxx::document::view userView = *cursor.begin();
-            bsoncxx::document::element userFlightsElement = userView["userFlights"];
-            bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
-
-            // w całym arrayu znajdź index lotu który ma numer flightNumber -1
-            int flightIndex = flightNumber - 1;
-
-            // sprawdź czy bagaż dla tego lotu jest już odprawiony
-            if(userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
-                errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
-                return;
-            }
-
-            // zaktualizuj wartość w tym arrayu o podanym indeksie na true
-            bsoncxx::builder::basic::document update_builder;
-            std::string updateKey = "userFlights." + std::to_string(flightIndex) + ".luggageCheckin";
-            update_builder.append(bsoncxx::builder::basic::kvp(updateKey, true));
-            bsoncxx::document::value update = update_builder.extract();
-
-            bsoncxx::builder::basic::document update_doc_builder;
-            update_doc_builder.append(bsoncxx::builder::basic::kvp("$set", update));
-            bsoncxx::document::value update_doc = update_doc_builder.extract();
-
-            collection.update_one(filter_view, update_doc.view());
-
-            validFunction("Bagaż został odprawiony pomyślnie!", "Życzymy udanego lotu!");
+            user.saveLuggage(flightNumber);
         }
     } else {
         errorFunction("Przerwano odprawę bagażu!", message);

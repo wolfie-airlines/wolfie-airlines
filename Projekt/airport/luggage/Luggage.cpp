@@ -143,3 +143,9 @@ double Luggage::getItemCount(User& user) {
 return weight;
 
 }
+
+double Luggage::calculateOverweightFee(double weight) const {
+    double extraWeight = weight - 20;
+    double extraFee = extraWeight * overweightFeePerKg * euroToPln;
+    return extraFee;
+}

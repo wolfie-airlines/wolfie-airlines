@@ -30,6 +30,8 @@ public:
 
     const double overweightFeePerKg = 2.0;
     const double euroToPln = 4.32;
+
+    double calculateOverweightFee(double weight) const;
 };
 
 
