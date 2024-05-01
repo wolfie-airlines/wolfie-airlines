@@ -12,8 +12,8 @@ add_executable(airport main.cpp
         functions/info_print_functions.cpp
         flights/FlightConnection.h
         flights/FlightConnection.cpp
-        functions/handling_functions.cpp
-        functions/handling_functions.h
+        functions/MainHandler.cpp
+        functions/MainHandler.h
         flights/flights_functions/flight_functions.h
         flights/flights_functions/flight_functions.cpp
         flights/flights_functions/flight_prints/flight_print_functions.h
@@ -23,8 +23,8 @@ add_executable(airport main.cpp
         user/user_functions/user_prints/user_print_functions.cpp
         tickets/tickets.h
         tickets/tickets.cpp
-        user/user_functions/user_settings/user_settings_functions.h
-        user/user_functions/user_settings/user_settings_functions.cpp
+        user/user_functions/user_settings/user_settings_handler.h
+        user/user_functions/user_settings/user_settings_handler.cpp
         user/user_functions/user_payments/user_payment_functions.cpp
         user/user_functions/user_payments/user_payment_functions.h
         user/professions/user_profession_functions.h
@@ -54,8 +54,8 @@ add_executable(airport main.cpp
         admin/Admin.h
         qr-code/qrcode_prints.h
         qr-code/qrcode_prints.cpp
-        tickets/user_tickets/user_tickets_print_functions.h
-        tickets/user_tickets/user_tickets_print_functions.cpp
+        user/user_functions/user_tickets/user_tickets_print_functions.h
+        user/user_functions/user_tickets/user_tickets_print_functions.cpp
         checkin/checkin_functions_prints.h
         checkin/checkin_functions_prints.h
         checkin/checkin_functions_prints.cpp
@@ -70,6 +70,13 @@ add_executable(airport main.cpp
         luggage/item/ItemHandler.cpp
         luggage/item/ItemHandler.h
         luggage/item/ItemHandler.h
+        functions/main_prints/main_prints.h
+        functions/main_prints/main_prints.cpp
+        functions/main_prints/main_prints.cpp
+        authentication/auth_functions/AuthPrintHandler.h
+        authentication/auth_functions/AuthPrintHandler.cpp
+        luggage/LuggageHandler.h
+        luggage/LuggageHandler.cpp
 )
 
 include(FetchContent)

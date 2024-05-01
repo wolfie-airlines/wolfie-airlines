@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/mongo-c-driver-x64-windows-1.26.1-fbdc5acd-7c44-48d9-8ae7-f91d58b034ed",
-  "name": "mongo-c-driver:x64-windows@1.26.1 4c3014221bd221a7df6e1bcebce06276e630e3091e364590f2cb5b29942d35c4",
+  "documentNamespace": "https://spdx.org/spdxdocs/mongo-c-driver-x64-windows-1.26.1-8156c6af-5f7e-40d7-8bbd-de96e2382ab4",
+  "name": "mongo-c-driver:x64-windows@1.26.1 8df114a9d77d1decc8559a1b11e13e0fc0571e9c92588a4f1e61638ed9dd7139",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-7d353e869753e5609a1f1a057df3db8fd356e49d"
     ],
-    "created": "2024-03-27T20:31:26Z"
+    "created": "2024-05-01T16:49:12Z"
   },
   "relationships": [
     {
@@ -119,7 +119,7 @@
     {
       "name": "mongo-c-driver:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "4c3014221bd221a7df6e1bcebce06276e630e3091e364590f2cb5b29942d35c4",
+      "versionInfo": "8df114a9d77d1decc8559a1b11e13e0fc0571e9c92588a4f1e61638ed9dd7139",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -143,7 +143,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/disable-dynamic-when-static.patch",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/disable-dynamic-when-static.patch",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -155,7 +155,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-dependencies.patch",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-dependencies.patch",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -167,7 +167,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-include-directory.patch",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-include-directory.patch",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
@@ -179,7 +179,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-mingw.patch",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/fix-mingw.patch",
       "SPDXID": "SPDXRef-file-3",
       "checksums": [
         {
@@ -191,7 +191,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/libmongoc-1.0-config.cmake",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/libmongoc-1.0-config.cmake",
       "SPDXID": "SPDXRef-file-4",
       "checksums": [
         {
@@ -203,7 +203,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/portfile.cmake",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/portfile.cmake",
       "SPDXID": "SPDXRef-file-5",
       "checksums": [
         {
@@ -215,7 +215,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/usage",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/usage",
       "SPDXID": "SPDXRef-file-6",
       "checksums": [
         {
@@ -227,7 +227,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/szymo/.vcpkg-clion/vcpkg/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/vcpkg.json",
+      "fileName": "./C:/Users/szymo/.vcpkg-clion/airport/buildtrees/versioning_/versions/mongo-c-driver/692416ecf8db8f3b20661a2a23a3cc37e848fe84/vcpkg.json",
       "SPDXID": "SPDXRef-file-7",
       "checksums": [
         {

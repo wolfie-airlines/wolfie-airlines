@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/cryptopp-x64-windows-8.9.0-f97d3db7-778b-4b59-a306-ff2349d244b3",
-  "name": "cryptopp:x64-windows@8.9.0 b064112625c321402c30c293173866b9ce4ab69a453a2dd714c440f1657234d8",
+  "documentNamespace": "https://spdx.org/spdxdocs/cryptopp-x64-windows-8.9.0-671854e9-a9d7-4191-9e8a-743ffab014eb",
+  "name": "cryptopp:x64-windows@8.9.0 28922ec7079222c43e7b2cab67b11cc2e0623ff8d684d6e4fc8ae7ed9cb9f7e3",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-7d353e869753e5609a1f1a057df3db8fd356e49d"
     ],
-    "created": "2024-04-16T17:49:02Z"
+    "created": "2024-05-01T16:46:04Z"
   },
   "relationships": [
     {
@@ -69,7 +69,7 @@
     {
       "name": "cryptopp:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "b064112625c321402c30c293173866b9ce4ab69a453a2dd714c440f1657234d8",
+      "versionInfo": "28922ec7079222c43e7b2cab67b11cc2e0623ff8d684d6e4fc8ae7ed9cb9f7e3",
       "downloadLocation": "NONE",
       "licenseConcluded": "BSL-1.0",
       "licenseDeclared": "NOASSERTION",

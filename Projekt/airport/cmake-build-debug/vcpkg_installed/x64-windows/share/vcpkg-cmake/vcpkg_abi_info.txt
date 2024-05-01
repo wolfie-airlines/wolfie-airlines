@@ -1,4 +1,4 @@
-cmake 3.29.0
+cmake 3.29.2
 features core
 portfile.cmake a711531b7f13b7da16fa1f25d7c5737a423d4a126465dc9e6689a0f043fcc1aa
 ports.cmake 0500e9e2422fe0084c99bdd0c9de4c7069b76da14c8b58228a7e95ebac43058a

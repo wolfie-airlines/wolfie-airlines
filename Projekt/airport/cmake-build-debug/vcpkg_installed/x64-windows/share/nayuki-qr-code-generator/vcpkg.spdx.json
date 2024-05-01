@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/nayuki-qr-code-generator-x64-windows-1.8.0#1-14579f30-1687-433c-8ed9-691256cec0a7",
-  "name": "nayuki-qr-code-generator:x64-windows@1.8.0#1 00c4155498fa8e5a2fa71790e57925c6a1b39a0d2c54f26eefad84217c334611",
+  "documentNamespace": "https://spdx.org/spdxdocs/nayuki-qr-code-generator-x64-windows-1.8.0#1-15872034-6a4f-4413-a1bd-b206b498d166",
+  "name": "nayuki-qr-code-generator:x64-windows@1.8.0#1 d410f0b7519dba0ab4d007e8cdf9698cdf3b84228bf47c935cffa3a26c12aea4",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-7d353e869753e5609a1f1a057df3db8fd356e49d"
     ],
-    "created": "2024-04-19T17:39:59Z"
+    "created": "2024-05-01T16:51:04Z"
   },
   "relationships": [
     {
@@ -69,7 +69,7 @@
     {
       "name": "nayuki-qr-code-generator:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "00c4155498fa8e5a2fa71790e57925c6a1b39a0d2c54f26eefad84217c334611",
+      "versionInfo": "d410f0b7519dba0ab4d007e8cdf9698cdf3b84228bf47c935cffa3a26c12aea4",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",

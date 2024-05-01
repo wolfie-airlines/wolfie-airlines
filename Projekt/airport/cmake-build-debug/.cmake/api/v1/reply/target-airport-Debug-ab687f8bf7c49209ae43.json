@@ -49,31 +49,31 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 84,
+				"line" : 91,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 95,
+				"line" : 102,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 98,
+				"line" : 105,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 104,
+				"line" : 111,
 				"parent" : 0
 			},
 			{
 				"command" : 7,
 				"file" : 1,
-				"line" : 94,
+				"line" : 101,
 				"parent" : 0
 			},
 			{
@@ -111,7 +111,7 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 101,
+				"line" : 108,
 				"parent" : 0
 			}
 		]
@@ -202,7 +202,10 @@
 				53,
 				55,
 				57,
-				59
+				59,
+				61,
+				63,
+				65
 			]
 		}
 	],
@@ -335,7 +338,10 @@
 				53,
 				55,
 				57,
-				59
+				59,
+				61,
+				63,
+				65
 			]
 		},
 		{
@@ -369,7 +375,10 @@
 				52,
 				54,
 				56,
-				58
+				58,
+				60,
+				62,
+				64
 			]
 		}
 	],
@@ -429,12 +438,12 @@
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "functions/handling_functions.cpp",
+			"path" : "functions/MainHandler.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "functions/handling_functions.h",
+			"path" : "functions/MainHandler.h",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -489,13 +498,13 @@
 		},
 		{
 			"backtrace" : 2,
-			"path" : "user/user_functions/user_settings/user_settings_functions.h",
+			"path" : "user/user_functions/user_settings/user_settings_handler.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "user/user_functions/user_settings/user_settings_functions.cpp",
+			"path" : "user/user_functions/user_settings/user_settings_handler.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -643,13 +652,13 @@
 		},
 		{
 			"backtrace" : 2,
-			"path" : "tickets/user_tickets/user_tickets_print_functions.h",
+			"path" : "user/user_functions/user_tickets/user_tickets_print_functions.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "tickets/user_tickets/user_tickets_print_functions.cpp",
+			"path" : "user/user_functions/user_tickets/user_tickets_print_functions.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -705,6 +714,39 @@
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
 			"path" : "luggage/item/ItemHandler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "functions/main_prints/main_prints.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "functions/main_prints/main_prints.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "authentication/auth_functions/AuthPrintHandler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "authentication/auth_functions/AuthPrintHandler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "luggage/LuggageHandler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "luggage/LuggageHandler.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],
