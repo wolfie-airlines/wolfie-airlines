@@ -6,7 +6,7 @@
 
 double getDiscount(int choice);
 void handleDiscountChoice(User& user, int choice);
-void handleDiscountCard(User& user);
+void printDiscountCard(User& user);
 
 
 #endif //AIRPORT_DISCOUNTS_H
