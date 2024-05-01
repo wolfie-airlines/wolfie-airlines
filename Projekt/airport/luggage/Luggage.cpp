@@ -78,7 +78,7 @@ void Luggage::getItemCount() {
     for (size_t i = 0; i < items.size(); ++i) {
         size_t index = i;
 
-        Component input_item_quantity = Input(&itemQuantities[index], items[index].getItemName());
+        Component input_item_quantity = Input(&itemQuantities[index], "Podaj ilość dla " + items[index].getItemName());
         input_item_quantity |= CatchEvent([&, index](const Event& event) {
             if (event.is_character() && (!std::isdigit(event.character()[0]) || itemQuantities[index].size() > 3)) {
                 return true;
@@ -118,7 +118,7 @@ void Luggage::getItemCount() {
                                     }) | color(Color::MediumOrchid1),
                                 separator(),
                                 vbox(elements),
-        }) | border | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+        }) | border | size(ftxui::WIDTH, ftxui::LESS_THAN, 120);
     });
 
     screen.Loop(renderer);

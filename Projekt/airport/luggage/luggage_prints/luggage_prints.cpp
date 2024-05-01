@@ -254,13 +254,26 @@ void printAllItems(User& user) {
     }
 }
 
+std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component>& checkbox_components) {
+    std::vector<ftxui::Component> vertical_containers;
+    for (size_t i = 0; i < checkbox_components.size(); i += 8) {
+        std::vector<ftxui::Component> group;
+        for (size_t j = i; j < i + 8 && j < checkbox_components.size(); ++j) {
+            group.push_back(checkbox_components[j]);
+        }
+        vertical_containers.push_back(ftxui::Container::Vertical(group));
+    }
+    return vertical_containers;
+}
+
 void checkIn(User& user) {
     using namespace ftxui;
-    auto screen = ScreenInteractive::FitComponent();
+    auto screen = ScreenInteractive::TerminalOutput();
 
     std::vector<Item> items = getItems(user);
 
-    std::vector<Component> checkbox_components;
+    std::vector<Component> special_checkbox_components;
+    std::vector<Component> normal_checkbox_components;
     std::vector<std::shared_ptr<bool>> checkbox_states(items.size());
 
     for (size_t i = 0; i < items.size(); ++i) {
@@ -269,29 +282,26 @@ void checkIn(User& user) {
         option.label = items[i].getItemName();
         option.checked = checkbox_states[i].get();
         ftxui::Color itemColor = items[i].isForbidden() && items[i].getProfession() != user.profession ? ftxui::Color::RedLight : ftxui::Color::White;
-        checkbox_components.push_back(Checkbox(option) | ftxui::color(itemColor));
+        auto checkbox = Checkbox(option) | ftxui::color(itemColor);
+        if (items[i].getCategory() == "normal") {
+            normal_checkbox_components.push_back(checkbox);
+        } else {
+            special_checkbox_components.push_back(checkbox);
+        }
     }
 
     auto finishButton = Button("Zakończ wybieranie", [&] {
         screen.ExitLoopClosure()();
     }) | ftxui::center | ftxui::bold | ftxui::borderEmpty;
 
-    std::vector<Component> vertical_containers;
+    normal_checkbox_components.push_back(finishButton);
 
-    for (size_t i = 0; i < checkbox_components.size(); i += 8) {
-        std::vector<Component> group;
-        for (size_t j = i; j < i + 8 && j < checkbox_components.size(); ++j) {
-            group.push_back(checkbox_components[j]);
-        }
-        vertical_containers.push_back(Container::Vertical(group));
-    }
-
-    vertical_containers.back()->Add(finishButton);
-
-    auto specialCheckboxes = Container::Horizontal(vertical_containers);
+    auto specialCheckboxes = Container::Horizontal(createGroups(special_checkbox_components));
+    auto normalCheckboxes = Container::Horizontal(createGroups(normal_checkbox_components));
 
     auto layout = Container::Vertical({
                                               specialCheckboxes,
+                                              normalCheckboxes,
                                       });
 
     auto component = Renderer(layout, [&] {
@@ -310,15 +320,26 @@ void checkIn(User& user) {
                                                 ftxui::hbox({
                                                                     ftxui::paragraphAlignCenter("Po zakończonym wybieraniu, kliknij w przycisk \"ZAKOŃCZ WYBIERANIE\".") | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold,
                                                             }),
+                                                ftxui::separator(),
+                                                ftxui::hbox({
+                                                                    ftxui::paragraphAlignCenter("SPECJAŁY") | ftxui::color(ftxui::Color::Gold1) | ftxui::bold,
+                                                            }),
                                         }),
                             ftxui::separator(),
-                            specialCheckboxes->Render() | ftxui::center,
-                            ftxui::separator(),
-//                            normalCheckboxes->Render() | ftxui::center,
+                            hbox({
+                                         specialCheckboxes->Render() | ftxui::center,
+                                         separator(),
+                                         ftxui::vbox({
+                                                             ftxui::hbox({
+                                                                                 ftxui::paragraphAlignCenter("ZWYKŁE") | ftxui::color(ftxui::Color::BlueLight) | ftxui::bold,
+                                                                         }),
+                                                             ftxui::separator(),
+                                                             normalCheckboxes->Render() | ftxui::center,
+                                                     }),
+                                 }),
                     }) |
                xflex | border;
     });
-
     screen.Loop(component);
 
     std::vector<Item> selectedItems;
@@ -326,6 +347,11 @@ void checkIn(User& user) {
         if (*checkbox_states[i]) {
             selectedItems.push_back(items[i]);
         }
+    }
+
+    if(selectedItems.empty()) {
+        errorFunction("Nie wybrano żadnych przedmiotów!", "Musisz wybrać co najmniej jeden przedmiot.");
+        return;
     }
 
     double totalWeight = 0;
@@ -340,11 +366,10 @@ void checkIn(User& user) {
     std::string message = std::get<1>(result);
 
     if(confirmed) {
-       luggage.getItemCount();
+        luggage.getItemCount();
     } else {
         errorFunction("Przerwano odprawę bagażu!", message);
     }
-
 }
 
 void welcomeInLuggageCheckin(User& user) {
