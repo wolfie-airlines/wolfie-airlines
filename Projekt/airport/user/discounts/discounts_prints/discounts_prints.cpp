@@ -87,10 +87,6 @@ std::string displayDiscountInfo() {
 }
 
 bool validDiscount(const std::string& discountChoice) {
-    // 1 - Weteran wojenny
-    // 2 - Karta inwalidzka
-    // 3 - Emeryt
-    // 4 - Student
     std::string discountText;
     if(discountChoice == "1") {
         discountText = "Podaj 3 ostatnie cyfry swojej legitymacji weterana: ";
@@ -128,7 +124,7 @@ bool validDiscount(const std::string& discountChoice) {
         return false;
     }
 
-    if(discountCode.length() < 3) {
+    if (discountCode.length() != 3 || !std::all_of(discountCode.begin(), discountCode.end(), ::isdigit)) {
         return false;
     }
 
