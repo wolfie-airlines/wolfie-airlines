@@ -13,9 +13,9 @@ class User;
 
 class Luggage {
     std::vector<Item> items;
-    double maxWeight = 20.0;
+
     double totalWeight = 0.0;
-    const double maxAllowedWeight = 32.0;
+
     // tworzyłem to na obecnym kursie
 
 public:
@@ -30,6 +30,8 @@ public:
 
     const double overweightFeePerKg = 2.0;
     const double euroToPln = 4.32;
+    const double maxAllowedWeight = 32.0;
+    double maxWeight = 20.0;
 
     double calculateOverweightFee(double weight) const;
 };

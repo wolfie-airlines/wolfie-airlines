@@ -372,8 +372,9 @@ void checkIn(User& user, int flightNumber) {
 
     if(confirmed) {
         double weight = luggage.getItemCount(user);
-        if(weight > 20) {
-            // oblicz nadpłatę
+        if (weight > luggage.maxAllowedWeight) {
+            errorFunction("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
+        } else if(weight > luggage.maxWeight) {
             double extraFee = luggage.calculateOverweightFee(weight);
             const std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
             bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, extraFee);
@@ -383,9 +384,6 @@ void checkIn(User& user, int flightNumber) {
                 return;
             }
             user.saveLuggage(flightNumber);
-
-        } else if (weight > 32) {
-            errorFunction("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
         } else {
             user.saveLuggage(flightNumber);
         }
