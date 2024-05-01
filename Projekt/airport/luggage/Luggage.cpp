@@ -69,7 +69,7 @@ std::tuple<bool, std::string> Luggage::confirmItems(User& user) {
     }
 }
 
-double Luggage::getItemCount(User& user) {
+double Luggage::processItemsAndGetWeight() {
     using namespace ftxui;
 
     std::vector<std::string> itemQuantities(items.size());
@@ -131,7 +131,6 @@ double Luggage::getItemCount(User& user) {
 
     double weight = 0;
     for (size_t i = 0; i < items.size(); ++i) {
-        // jeśli każde pole jest puste, nie sprawdzamy dalej, od razu błąd
         if (itemQuantities[i].empty() || itemQuantities[i] == "0") {
             errorFunction("Nie podano ilości przedmiotu " + items[i].getItemName() + "!", "Spróbuj ponownie.");
             return -1;

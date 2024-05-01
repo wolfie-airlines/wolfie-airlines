@@ -1,10 +1,5 @@
-//
-// Created by szymo on 26.04.2024.
-//
-
 #ifndef AIRPORT_LUGGAGE_H
 #define AIRPORT_LUGGAGE_H
-
 
 #include <vector>
 #include <iostream>
@@ -13,10 +8,7 @@ class User;
 
 class Luggage {
     std::vector<Item> items;
-
     double totalWeight = 0.0;
-
-    // tworzyłem to na obecnym kursie
 
 public:
     Luggage(
@@ -24,7 +16,7 @@ public:
             double totalWeight
     ) : items(items), totalWeight(totalWeight) {}
 
-    double getItemCount(User& user);
+    double processItemsAndGetWeight();
 
     std::tuple<bool, std::string> confirmItems(User& user);
 
