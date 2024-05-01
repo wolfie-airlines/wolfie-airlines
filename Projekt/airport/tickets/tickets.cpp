@@ -6,6 +6,10 @@
 #include "../user/user_functions/user_payments/user_payment_functions.h"
 #include <random>
 
+const int MAX_TICKETS = 4;
+const int EMERGENCY_SEAT_ONE = 37;
+const int EMERGENCY_SEAT_TWO = 45;
+
 void processPurchase(
         FlightConnection& flightConnection,
         FlightConnection& foundConnection,
@@ -17,7 +21,7 @@ void processPurchase(
     while (true) {
         std::string ticketAmountInput = displayMessageAndCaptureInput(
                 "Zakup biletów",
-                "Podaj liczbę biletów do kupienia (minimalnie 1 do maksymalnie 4):"
+                "Podaj liczbę biletów do kupienia (minimalnie 1 do maksymalnie " + std::to_string(MAX_TICKETS) + "):"
         );
 
         if (ticketAmountInput == "back") {
@@ -28,11 +32,11 @@ void processPurchase(
         try {
             ticketAmount = std::stoi(ticketAmountInput);
         } catch (std::invalid_argument& e) {
-            errorFunction("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do 4.");
+            errorFunction("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do " + std::to_string(MAX_TICKETS));
             return;
         }
 
-        if (ticketAmount >= 1 && ticketAmount <= 4) {
+        if (ticketAmount >= 1 && ticketAmount <= MAX_TICKETS) {
             break;
         }
     }
@@ -48,9 +52,9 @@ void processPurchase(
             std::uniform_int_distribution<> dis(1, 81);
             seat = dis(gen);
             if (std::find(seatsTaken.begin(), seatsTaken.end(), seat) == seatsTaken.end()) {
-                if (hasPrivilege && (seat == 37 || seat == 45)) {
-                    if (std::count_if(seatsTaken.begin(), seatsTaken.end(), [](int i){return i != 37 && i != 45;}) == 79) {
-                        std::string response = displayWarningAndCaptureInput("Uwaga!", "Jedynymi dostępnymi miejscami są miejsca awaryjne (37 i 45). Czy chcesz kontynuować? (tak/nie)");
+                if (hasPrivilege && (seat == EMERGENCY_SEAT_ONE || seat == EMERGENCY_SEAT_TWO)) {
+                    if (std::count_if(seatsTaken.begin(), seatsTaken.end(), [](int i){return i != EMERGENCY_SEAT_ONE && i != EMERGENCY_SEAT_TWO;}) == 79) {
+                        std::string response = displayWarningAndCaptureInput("Uwaga!", "Jedynymi dostępnymi miejscami są miejsca awaryjne: " +  std::to_string(EMERGENCY_SEAT_ONE) + "i " + std::to_string(EMERGENCY_SEAT_TWO) + ". Czy chcesz kontynuować? (tak/nie)");
                         if (response == "tak" || response == "TAK" || response == "Tak") {
                             break;
                         }
