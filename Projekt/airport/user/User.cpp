@@ -3,6 +3,8 @@
 #include "../env/EnvParser.h"
 #include "../functions/helpers.h"
 #include "../admin/Admin.h"
+#include "premium_cards/premium_cards.h"
+#include "bsoncxx/json.hpp"
 #include <utility>
 
 User::User(std::string username, std::string email, double discount, std::string discountType, std::string premiumCard,
@@ -338,20 +340,92 @@ mongocxx::cursor User::findUserInDatabase() {
     );
 
     bsoncxx::document::view filter_view = filter_builder.view();
-    mongocxx::cursor cursor = _collection.find(filter_view);
 
+    mongocxx::cursor cursor = _collection.find(filter_view);
     return cursor;
 }
 
-bsoncxx::array::view User::findUserFlights() {
-    mongocxx::cursor cursor = findUserInDatabase();
-    if (cursor.begin() == cursor.end()) {
+
+double User::getDiscount() const {
+    return discount;
+}
+
+std::string User::recognizeDiscount() const {
+    double disc = getDiscount();
+    if (disc == 0.05) {
+        return "Weteran wojenny";
+    } else if (disc == 0.4) {
+        return "Osoba niepełnosprawna";
+    } else if (disc == 0.45) {
+        return "Emeryt";
+    } else if (disc == 0.49) {
+        return "Student";
+    } else {
+        return "brak";
+    }
+}
+
+
+void User::setDiscount(double disc, const std::string &discType) {
+    bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", email),
+            bsoncxx::builder::basic::kvp("password", getPassword())
+    );
+
+    bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
+
+    mongocxx::cursor cursor_user = findUserInDatabase();
+
+    if (cursor_user.begin() == cursor_user.end()) {
         errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+        return;
     }
 
-    bsoncxx::document::view userView = *cursor.begin();
-    bsoncxx::document::element userFlightsElement = userView["userFlights"];
-    bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("discountType", discType),
+                    bsoncxx::builder::basic::kvp("discount", disc)
+            ))
+    );
 
-    return userFlightsArray;
+
+    bsoncxx::document::view update_view = update_builder.view();
+    getCollection().update_one(filter_view_email_password, update_view);
+    User::discount = disc;
+    User::discountType = discType;
+    validFunction("Zniżka została przypisana do konta", "Możesz zobaczyć ją w profilu i już zacząć z niej korzystać!");
 }
+
+
+void User::setPremiumCard(User& user, const std::string& card) {
+    bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("email", user.email),
+            bsoncxx::builder::basic::kvp("password", user.getPassword())
+    );
+
+    bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
+
+    mongocxx::cursor cursor_user = user.getCollection().find(filter_view_email_password);
+
+    if (cursor_user.begin() == cursor_user.end()) {
+        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+        return;
+    }
+
+    bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
+            bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
+                    bsoncxx::builder::basic::kvp("premiumCard", card),
+                    bsoncxx::builder::basic::kvp("discountType", "premium"),
+                    bsoncxx::builder::basic::kvp("discount", getCardDiscount(card))
+            ))
+    );
+
+    bsoncxx::document::view update_view = update_builder.view();
+    user.getCollection().update_one(filter_view_email_password, update_view);
+
+    user.premiumCard = card;
+    User::discount = getCardDiscount(card);
+    User::discountType = "premium";
+    validFunction("Karta została przypisana do konta", "Możesz zobaczyć ją w profilu i już zacząć z niej korzystać!");
+}
+
