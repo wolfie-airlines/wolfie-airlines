@@ -8,14 +8,15 @@
 #include "info_print_functions.h"
 #include "../flights/flights_functions/flight_functions.h"
 #include "../user/user_functions/user_prints/user_print_functions.h"
-#include "../user/user_functions/user_settings/user_settings_functions.h"
+#include "../user/user_functions/user_settings/user_settings_handler.h"
 #include "../user/premium_cards/premium_cards.h"
 #include "../user/discounts/discounts.h"
 #include "../tickets/tickets.h"
 #include "../tickets/tickets_prints/tickets_print_functions.h"
-#include "../tickets/user_tickets/user_tickets_print_functions.h"
 #include "../checkin/checkin_functions_prints.h"
-#include "../luggage/luggage_prints/luggage_prints.h"
+#include "../authentication/auth_functions/AuthPrintHandler.h"
+#include "../user/user_functions/user_tickets/user_tickets_print_functions.h"
+#include "../luggage/LuggageHandler.h"
 
 void handleRegistration(Authentication& auth) {
     std::string username, email, password;
@@ -154,13 +155,15 @@ void processChoice(bool isLoggedIn, Authentication& auth, User& currentUser, Fli
             } else if (userChoice == "4") {
                 if(currentUser.discountType == "premium") {
                     errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
+                } else if (currentUser.discountType == "ulga") {
+                    errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
                 } else {
-                    handleDiscountCard(currentUser);
+                    printDiscountCard(currentUser);
                 }
             } else if (userChoice == "5") {
                 createTicketsScreen(currentUser);
             } else if (userChoice == "6") {
-                createCheckinScreen(currentUser);
+                printCheckinScreen(currentUser);
             } else if (userChoice == "7") {
                 welcomeInLuggageCheckin(currentUser);
             } else if (userChoice == "8") {

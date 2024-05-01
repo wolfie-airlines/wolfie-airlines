@@ -1,7 +1,7 @@
 #ifndef AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
 #define AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
 
-#include "../../user/User.h"
+#include "../../User.h"
 #include <string>
 #include <vector>
 

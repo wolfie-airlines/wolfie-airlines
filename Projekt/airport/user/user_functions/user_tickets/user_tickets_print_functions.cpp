@@ -1,17 +1,20 @@
 #include "user_tickets_print_functions.h"
-#include "../../functions/info_print_functions.h"
+#include "../../../functions/info_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 
 const int PAGE_SIZE = 4;
 
 std::optional<std::string> createTicketsScreen(User& user, bool isCheckin) {
 
-    bsoncxx::array::view userFlightsArray = user.findUserFlights();
-
-    if (userFlightsArray.begin() == userFlightsArray.end()) {
-        errorFunction("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
+    mongocxx::cursor cursor = user.findUserInDatabase();
+    if(cursor.begin() == cursor.end()) {
+        errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
         return {};
     }
+
+    bsoncxx::document::view userView = *cursor.begin();
+    bsoncxx::document::element userFlightsElement = userView["userFlights"];
+    bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
     std::vector<FlightInfo> flightsInfo;
     for (const auto &flight: userFlightsArray) {

@@ -1,13 +1,14 @@
 #include "checkin_functions_prints.h"
-#include "../tickets/user_tickets/user_tickets_print_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "../functions/info_print_functions.h"
 #include "../qr-code/qrcode_prints.h"
+#include "../functions/main_prints/main_prints.h"
+#include "../user/user_functions/user_tickets/user_tickets_print_functions.h"
 
 const std::string CHECKIN_SCREEN_TITLE = "ODPRAWA BILETOWA";
 const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
 
-std::shared_ptr<ftxui::Element> createScreen(const std::string& message) {
+std::shared_ptr<ftxui::Element> createCheckinScreen(const std::string& message) {
     auto summary = ftxui::vbox({
                                        ftxui::hbox({ftxui::paragraphAlignCenter(CHECKIN_SCREEN_TITLE)}) | color(ftxui::Color::GrayDark),
                                        ftxui::separator(),
@@ -17,17 +18,10 @@ std::shared_ptr<ftxui::Element> createScreen(const std::string& message) {
     return std::make_shared<ftxui::Element>(document);
 }
 
-void printScreen(const std::shared_ptr<ftxui::Element>& screen) {
-    auto finalScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen), ftxui::Dimension::Fit(*screen));
-    ftxui::Render(finalScreen, *screen);
-    std::cout << finalScreen.ToString() << '\0' << std::endl;
-}
-
-
-void createCheckinScreen(User& user) {
-    mongocxx::cursor cursor = user.findUserInDatabase(user.getCollection());
-    if (cursor.begin() == cursor.end()) {
-        errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+void printCheckinScreen(User& user) {
+    mongocxx::cursor cursor = user.findUserInDatabase();
+    if(cursor.begin() == cursor.end()) {
+        errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
         return;
     }
 
@@ -59,7 +53,7 @@ void createCheckinScreen(User& user) {
         errorFunction("Anulowano odprawę.", "Odprawa biletowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
     } else if (option == "wybieram") {
 
-        auto checkinScreen = createScreen("Podaj NUMER LOTU, na który chciałbyś się odprawić:");
+        auto checkinScreen = createCheckinScreen("Podaj NUMER LOTU, na który chciałbyś się odprawić:");
         printScreen(checkinScreen);
 
         int flightNumber;
@@ -81,7 +75,7 @@ void createCheckinScreen(User& user) {
             seats.push_back(seat.get_int32().value);
         }
 
-        auto qrInfoScreen = createScreen("Zeskanuj poniższy kod QR żeby się odprawić. Tak! To takie proste!");
+        auto qrInfoScreen = createCheckinScreen("Zeskanuj poniższy kod QR żeby się odprawić. Tak! To takie proste!");
         printScreen(qrInfoScreen);
 
         createQR(user.email, user.username, flightId, seats);
