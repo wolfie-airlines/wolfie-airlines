@@ -5,10 +5,10 @@
 
 const int PAGE_SIZE = 4;
 
-std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
+std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
   mongocxx::cursor cursor = user.findUserInDatabase();
   if (cursor.begin() == cursor.end()) {
-    errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
+    PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return {};
   }
 
@@ -19,16 +19,16 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
   std::vector<FlightInfo> flightsInfo;
   for (const auto &flight : userFlightsArray) {
     FlightInfo info;
-    info.flightId = flight["flightId"].get_string().value;
+    info.flight_id = flight["flight_id"].get_string().value;
     info.departure = flight["departure"].get_string().value;
     info.destination = flight["destination"].get_string().value;
-    info.departureTime = flight["departureTime"].get_string().value;
-    info.price = flight["price"].get_double().value;
+    info.departure_time = flight["_departureTime_"].get_string().value;
+    info.price = flight["_price_"].get_double().value;
     for (const auto &seat : flight["seats"].get_array().value) {
       info.seats.push_back(seat.get_int32().value);
     }
     info.checkin = flight["checkin"].get_bool().value;
-    info.luggageCheckin = flight["luggageCheckin"].get_bool().value;
+    info.luggage_checkin = flight["LuggageCheckin"].get_bool().value;
     flightsInfo.push_back(info);
   }
 
@@ -47,7 +47,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
     int currentTicket = 0;
     int flightNumber = 1;
     for (auto &flightInfo : flightsInfo) {
-      flightInfo.flightNumber = flightNumber;
+      flightInfo.flight_number = flightNumber;
       flightNumber++;
       for (const auto &seat : flightInfo.seats) {
         if (currentTicket >= startIndex && currentTicket < endIndex) {
@@ -58,13 +58,13 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
           placeInPlane += ", Miejsce: ";
           placeInPlane += seatStr;
           std::string checkin = flightInfo.checkin ? "✅" : "❌";
-          std::string luggageCheckin = flightInfo.luggageCheckin ? "✅" : "❌";
+          std::string luggageCheckin = flightInfo.luggage_checkin ? "✅" : "❌";
           auto ticketContent = ftxui::hbox({
                                                ftxui::vbox({
                                                                ftxui::paragraphAlignCenter("ID LOTU: ") |
                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
                                                                ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(flightInfo.flightId) |
+                                                               ftxui::paragraphAlignCenter(flightInfo.flight_id) |
                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
                                                            }),
                                                ftxui::separator(),
@@ -91,7 +91,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
                                                                    ftxui::bold | color(ftxui::Color::Aquamarine3),
                                                                ftxui::separator(),
                                                                ftxui::paragraphAlignCenter(
-                                                                   flightInfo.departureTime) |
+                                                                   flightInfo.departure_time) |
                                                                    ftxui::bold |
                                                                    color(ftxui::Color::Aquamarine3),
                                                            }),
@@ -121,7 +121,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
                                                            }),
                                            }) |
               ftxui::border;
-          elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flightNumber)),
+          elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flight_number)),
                                     ticketContent));
         }
         currentTicket++;
@@ -157,25 +157,25 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
                                                                            "Wpisz 'next' aby przejść do następnej strony.")
                                                                            |
                                                                                color(ftxui::Color::YellowLight),
-                                                                       isCheckin ? ftxui::paragraphAlignLeft(
+                                                                       is_checkin ? ftxui::paragraphAlignLeft(
                                                                            "Wpisz 'quit' aby zakończyć odprawę.") |
                                                                            color(ftxui::Color::RedLight)
-                                                                                 : ftxui::paragraphAlignLeft(
+                                                                                  : ftxui::paragraphAlignLeft(
                                                                            "Wpisz 'quit' aby wyjść z przeglądania biletów.")
                                                                            |
                                                                                color(ftxui::Color::RedLight),
-                                                                       isCheckin ? ftxui::paragraphAlignLeft(
+                                                                       is_checkin ? ftxui::paragraphAlignLeft(
                                                                            "Wpisz 'wybieram' aby przejść do wyboru biletu do odprawienia.")
                                                                            |
                                                                                color(ftxui::Color::GreenLight)
-                                                                                 : ftxui::paragraphAlignLeft(
+                                                                                  : ftxui::paragraphAlignLeft(
                                                                            "Dziękujemy za wybór Wolfie Airlines") |
                                                                            color(ftxui::Color::GreenLight),
                                                                    }),
                                                    })}) |
             ftxui::border;
         document = ftxui::vbox({document, navigation});
-      } else if (isCheckin) {
+      } else if (is_checkin) {
         auto navigation = ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA 🎫")}) |
             color(ftxui::Color::White),
                                        ftxui::separator(),
@@ -210,15 +210,15 @@ std::optional<std::string> createTicketsScreen(User &user, bool isCheckin) {
       } else if (input == "prev" && currentPage > 1) {
         currentPage--;
       } else if (input == "quit") {
-        if (isCheckin) {
+        if (is_checkin) {
           return "quit";
         } else {
           break;
         }
-      } else if (input == "wybieram" && isCheckin) {
+      } else if (input == "wybieram" && is_checkin) {
         return "wybieram";
       }
-    } else if (isCheckin) {
+    } else if (is_checkin) {
       std::string input;
       std::cin >> input;
       if (input == "quit") {

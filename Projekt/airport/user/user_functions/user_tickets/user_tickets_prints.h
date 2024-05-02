@@ -7,17 +7,17 @@
 #include "../../user.h"
 
 struct FlightInfo {
-  int flightNumber;
-  std::string flightId;
+  int flight_number;
+  std::string flight_id;
   std::string departure;
   std::string destination;
-  std::string departureTime;
+  std::string departure_time;
   double price;
   std::vector<int> seats;
   bool checkin;
-  bool luggageCheckin;
+  bool luggage_checkin;
 };
 
-std::optional<std::string> createTicketsScreen(User &user, bool isCheckin = false);
+std::optional<std::string> createTicketsScreen(User &user, bool is_checkin = false);
 
 #endif  // AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H
