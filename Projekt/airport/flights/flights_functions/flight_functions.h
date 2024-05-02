@@ -4,6 +4,6 @@
 #include "../../user/user.h"
 #include "../flight_connection.h"
 
-void handleFlightOptions(FlightConnection &flightConnection, User &user);
+void HandleFlightOptions(FlightConnection &flight_connection, User &user);
 
 #endif  // FLIGHT_FUNCTIONS_H

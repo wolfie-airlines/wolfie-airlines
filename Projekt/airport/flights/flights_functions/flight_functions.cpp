@@ -13,37 +13,37 @@ const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
 const std::string TRY_AGAIN = "Spróbuj ponownie.";
 
 void handleFlightSearchByCity(FlightConnection &flightConnection, User &user) {
-  std::string departureCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
-  std::string destinationCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
+  std::string departureCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
+  std::string destinationCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
-  FlightConnection connection = flightConnection.findConnection(departureCity, destinationCity);
+  FlightConnection connection = flightConnection.FindConnection(departureCity, destinationCity);
 
-  if (connection.getDepartureCity() == departureCity && connection.getDestinationCity() == destinationCity) {
+  if (connection.GetDepartureCity() == departureCity && connection.GetDestinationCity() == destinationCity) {
     CreateFoundFlightScreen(connection, user);
   } else {
-    errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
+    PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   }
 }
 
 void handleFlightSearchById(FlightConnection &flightConnection, User &user) {
-  std::string flightId = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj identyfikator lotu: ");
+  std::string flightId = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj identyfikator lotu: ");
 
-  FlightConnection connection = flightConnection.findConnectionById(flightId);
+  FlightConnection connection = flightConnection.FindConnectionById(flightId);
 
-  if (connection.getIdentifier() == flightId) {
+  if (connection.GetIdentifier() == flightId) {
     CreateFoundFlightScreen(connection, user);
   } else {
-    errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
+    PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   }
 }
 
 void handleFlightSearchByPrice(FlightConnection &flightConnection, User &user) {
-  double minPrice = displayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj minimalną cenę: ");
-  double maxPrice = displayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj maksymalną cenę: ");
+  double minPrice = DisplayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj minimalną cenę: ");
+  double maxPrice = DisplayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj maksymalną cenę: ");
 
-  std::vector<FlightConnection> connections = flightConnection.findConnectionByPrice(minPrice, maxPrice);
+  std::vector<FlightConnection> connections = flightConnection.FindConnectionByPrice(minPrice, maxPrice);
   if (connections.empty()) {
-    errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
+    PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
     if (connections.size() == 1) {
       CreateFoundFlightScreen(connections[0], user);
@@ -54,11 +54,11 @@ void handleFlightSearchByPrice(FlightConnection &flightConnection, User &user) {
 }
 
 void handleFlightSearchByDeparture(FlightConnection &flightConnection, User &user) {
-  std::string departureCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
+  std::string departureCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
 
-  std::vector<FlightConnection> connections = flightConnection.findConnectionsByDeparture(departureCity);
+  std::vector<FlightConnection> connections = flightConnection.FindConnectionsByDeparture(departureCity);
   if (connections.empty()) {
-    errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
+    PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
     if (connections.size() == 1) {
       CreateFoundFlightScreen(connections[0], user);
@@ -69,11 +69,11 @@ void handleFlightSearchByDeparture(FlightConnection &flightConnection, User &use
 }
 
 void handleFlightSearchByDestination(FlightConnection &flightConnection, User &user) {
-  std::string destinationCity = displayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
+  std::string destinationCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
-  std::vector<FlightConnection> connections = flightConnection.findConnectionsByDestination(destinationCity);
+  std::vector<FlightConnection> connections = flightConnection.FindConnectionsByDestination(destinationCity);
   if (connections.empty()) {
-    errorFunction(NO_FLIGHT_FOUND, TRY_AGAIN);
+    PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
     if (connections.size() == 1) {
       CreateFoundFlightScreen(connections[0], user);
@@ -83,25 +83,25 @@ void handleFlightSearchByDestination(FlightConnection &flightConnection, User &u
   }
 }
 
-void handleFlightOptions(FlightConnection &flightConnection, User &user) {
+void HandleFlightOptions(FlightConnection &flight_connection, User &user) {
   int answer = CreateFlightChoiceScreen();
   if (answer == 0) {
-    std::vector<FlightConnection> connections = flightConnection.findAllConnections();
+    std::vector<FlightConnection> connections = flight_connection.FindAllConnections();
     CreateAllFlightsScreen(connections, user);
 
   } else if (answer == 1) {
-    handleFlightSearchByCity(flightConnection, user);
+    handleFlightSearchByCity(flight_connection, user);
   } else if (answer == 2) {
-    handleFlightSearchById(flightConnection, user);
+    handleFlightSearchById(flight_connection, user);
   } else if (answer == 3) {
-    handleFlightSearchByPrice(flightConnection, user);
+    handleFlightSearchByPrice(flight_connection, user);
   } else if (answer == 4) {
-    handleFlightSearchByDeparture(flightConnection, user);
+    handleFlightSearchByDeparture(flight_connection, user);
   } else if (answer == 5) {
-    handleFlightSearchByDestination(flightConnection, user);
+    handleFlightSearchByDestination(flight_connection, user);
   } else if (answer == 7) {
     return;
   } else {
-    errorFunction("Nieprawidłowy wybór.", TRY_AGAIN);
+    PrintErrorMessage("Nieprawidłowy wybór.", TRY_AGAIN);
   }
 }
