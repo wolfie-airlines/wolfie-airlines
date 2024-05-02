@@ -9,6 +9,6 @@ bool GuessMusicAuthor(const std::string &music_link);
 bool GuessDoctorQuestion(User &user);
 bool GuessInformaticQuestion(User &user);
 bool GuessMathQuestion(User &user);
-bool DisplayPoliceProfession(User &user);
+bool DisplayPoliceProfession();
 
 #endif  // AIRPORT_PROFESSION_HANDLER_H

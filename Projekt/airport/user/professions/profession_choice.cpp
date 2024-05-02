@@ -66,7 +66,7 @@ void MathProfession(User &user) {
 }
 
 void PoliceProfession(User &user) {
-  bool questionDisplayed = DisplayPoliceProfession(user);
+  bool questionDisplayed = DisplayPoliceProfession();
   if (questionDisplayed) {
     ValidAnswer("policjant", user);
   } else {

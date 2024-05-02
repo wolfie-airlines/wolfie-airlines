@@ -235,9 +235,6 @@ bool GuessMathQuestion(User &user) {
 
   std::cin >> userAnswer;
 
-  // Printy testowe, TODO: wyrzucić potem
-  std::cout << "Rozwiazanie: " << solution << std::endl;
-  std::cout << "Odpowiedz uzytkownika: " << userAnswer << std::endl;
 
   if (solutionValue.type() == bsoncxx::type::k_double) {
     return areEqualWithTolerance(std::stod(solution), std::stod(userAnswer));
@@ -246,7 +243,7 @@ bool GuessMathQuestion(User &user) {
   }
 }
 
-bool DisplayPoliceProfession(User &user) {
+bool DisplayPoliceProfession() {
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"Sprawdźmy Cię funkcjonariuszu") | ftxui::bold}) |
