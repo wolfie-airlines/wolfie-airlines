@@ -4,7 +4,7 @@
 #include <string>
 #include <tuple>
 
-std::tuple<std::string, std::string, std::string, bool> registerUser();
-std::tuple<std::string, std::string, bool> login();
+std::tuple<std::string, std::string, std::string, bool> RegisterUser();
+std::tuple<std::string, std::string, bool> Login();
 
 #endif  // AIRPORT_AUTHPRINTHANDLER_H

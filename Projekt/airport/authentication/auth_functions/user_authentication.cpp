@@ -3,7 +3,7 @@
 #include "ftxui/component/component.hpp"
 #include "ftxui/component/screen_interactive.hpp"
 
-std::tuple<std::string, std::string, std::string, bool> registerUser() {
+std::tuple<std::string, std::string, std::string, bool> RegisterUser() {
   using namespace ftxui;
   std::string username;
   std::string email;
@@ -53,7 +53,7 @@ std::tuple<std::string, std::string, std::string, bool> registerUser() {
   return std::make_tuple(username, email, password, cancelled);
 }
 
-std::tuple<std::string, std::string, bool> login() {
+std::tuple<std::string, std::string, bool> Login() {
   using namespace ftxui;
   std::string username;
   std::string password;

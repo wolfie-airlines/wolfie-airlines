@@ -7,11 +7,10 @@ using qrcodegen::QrCode;
 using qrcodegen::QrSegment;
 using std::uint8_t;
 
-// Function prototypes
-void createQR(const std::string &email,
+void CreateQr(const std::string &email,
               const std::string &username,
-              const std::string &flightId,
+              const std::string &flight_id,
               std::vector<int> seats);
-void printQr(const QrCode &qr);
+void PrintQr(const QrCode &qr);
 
 #endif  // AIRPORT_QRCODE_PRINTS_H
