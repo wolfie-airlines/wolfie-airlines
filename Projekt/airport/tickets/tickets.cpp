@@ -13,28 +13,28 @@ const int MAX_TICKETS = 4;
 const int EMERGENCY_SEAT_ONE = 37;
 const int EMERGENCY_SEAT_TWO = 45;
 
-void processPurchase(
-    FlightConnection &flightConnection,
-    FlightConnection &foundConnection,
+void ProcessPurchase(
+    FlightConnection &flight_connection,
+    FlightConnection &found_connection,
     User &user) {
   using namespace ftxui;
-  std::string flight_identifier = foundConnection.getIdentifier();
-  std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flight_identifier);
+  std::string flight_identifier = found_connection.GetIdentifier();
+  std::vector<int> seatsTaken = flight_connection.GetSeatsTaken(flight_identifier);
   int ticketAmount;
   while (true) {
-    std::string ticketAmountInput = displayMessageAndCaptureStringInput(
+    std::string ticketAmountInput = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj liczbę biletów do kupienia (minimalnie 1 do maksymalnie " + std::to_string(MAX_TICKETS) + "):");
 
     if (ticketAmountInput == "back") {
-      errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+      PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
       return;
     }
 
     try {
       ticketAmount = std::stoi(ticketAmountInput);
     } catch (std::invalid_argument &e) {
-      errorFunction("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do " + std::to_string(MAX_TICKETS));
+      PrintErrorMessage("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do " + std::to_string(MAX_TICKETS));
       return;
     }
 
@@ -58,7 +58,7 @@ void processPurchase(
           if (std::count_if(seatsTaken.begin(),
                             seatsTaken.end(),
                             [](int i) { return i != EMERGENCY_SEAT_ONE && i != EMERGENCY_SEAT_TWO; }) == 79) {
-            std::string response = displayWarningAndCaptureInput("Uwaga!",
+            std::string response = DisplayWarningAndCaptureInput("Uwaga!",
                                                                  "Jedynymi dostępnymi miejscami są miejsca awaryjne: "
                                                                      + std::to_string(EMERGENCY_SEAT_ONE) + "i "
                                                                      + std::to_string(EMERGENCY_SEAT_TWO)
@@ -80,125 +80,125 @@ void processPurchase(
   std::string confirmChoice;
 
   if (ticketAmount == 1) {
-    confirmChoice = displayMessageAndCaptureStringInput(
+    confirmChoice = DisplayMessageAndCaptureStringInput(
         "Potwierdzenie zakupu biletów",
         "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilet na lot " +
-            foundConnection.getIdentifier() + " (tak/nie)");
+            found_connection.GetIdentifier() + " (tak/nie)");
   } else {
-    confirmChoice = displayMessageAndCaptureStringInput(
+    confirmChoice = DisplayMessageAndCaptureStringInput(
         "Potwierdzenie zakupu biletów",
         "Czy na pewno chcesz kupić " + std::to_string(ticketAmount) + " bilety na lot " +
-            foundConnection.getIdentifier() + " (tak/nie)");
+            found_connection.GetIdentifier() + " (tak/nie)");
   }
 
   if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
-    errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+    PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
     return;
   }
 
   std::string titleMessage = "Potwierdzenie zakupu biletów";
-  int price = foundConnection.getPrice() * user.discount_ * ticketAmount;
-  bool paymentSuccess = paymentAuth(user, user.payment_method_, titleMessage, price);
+  int price = found_connection.GetPrice() * user.discount_ * ticketAmount;
+  bool paymentSuccess = AuthenticatePayment(user, user.payment_method_, titleMessage, price);
 
   if (!paymentSuccess) {
-    errorFunction("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
+    PrintErrorMessage("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
     return;
   }
 
   if (user.discount_ != 1) {
-    user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
+    user.UpdateMoneySaved(found_connection.GetPrice() * ticketAmount, price);
   }
 
-  flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
-  user.addTicketToUser(selectedSeats, foundConnection);
-  printTicketInvoice(user, foundConnection, selectedSeats);
+  flight_connection.UpdateSeatsTaken(flight_identifier, selectedSeats);
+  user.AddTicketToUser(selectedSeats, found_connection);
+  PrintTicketInvoice(user, found_connection, selectedSeats);
 }
 
-void handleFlightById(FlightConnection &flightConnection, User &user) {
-  std::string flightId = displayMessageAndCaptureStringInput(
+void HandleFlightById(FlightConnection &flight_connection, User &user) {
+  std::string flightId = DisplayMessageAndCaptureStringInput(
       "Zakup biletów",
       "Podaj identyfikator lotu:");
 
-  FlightConnection foundConnection = flightConnection.findConnectionById(flightId);
+  FlightConnection foundConnection = flight_connection.FindConnectionById(flightId);
 
-  if (foundConnection.getIdentifier() != flightId) {
-    errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+  if (foundConnection.GetIdentifier() != flightId) {
+    PrintErrorMessage("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
     return;
   }
 
   CreateFoundFlightScreen(foundConnection, user);
-  bool validFlightChoice = validChoice("POTWIERDŹ WYBRANIE LOTU", "Czy o ten lot chodziło? (tak/nie)");
+  bool validFlightChoice = ValidChoice("POTWIERDŹ WYBRANIE LOTU", "Czy o ten lot chodziło? (tak/nie)");
   if (!validFlightChoice) {
-    errorFunction("Nie wybrano lotu.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie wybrano lotu.", "Spróbuj ponownie.");
     return;
   }
 
-  std::vector<int> seatsTaken = flightConnection.getSeatsTaken(flightId);
+  std::vector<int> seatsTaken = flight_connection.GetSeatsTaken(flightId);
   if (seatsTaken.size() == 81) {
-    errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
+    PrintErrorMessage("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
     return;
   }
   std::string premiumCard = user.premium_card_;
   if (premiumCard == "platynowa") {
-    processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
+    ProcessSeatSelectionAndPurchase(seatsTaken, flight_connection, foundConnection, user);
   } else {
-    processPurchase(flightConnection, foundConnection, user);
+    ProcessPurchase(flight_connection, foundConnection, user);
   }
 }
 
-void handleFlightByData(FlightConnection &flightConnection, User &user) {
-  std::string departureCity = displayMessageAndCaptureStringInput(
+void HandleFlightByData(FlightConnection &flight_connection, User &user) {
+  std::string departureCity = DisplayMessageAndCaptureStringInput(
       "Zakup biletów",
       "Podaj miasto wylotu:");
 
-  std::string arrivalCity = displayMessageAndCaptureStringInput(
+  std::string arrivalCity = DisplayMessageAndCaptureStringInput(
       "Zakup biletów",
       "Podaj miasto przylotu:");
 
-  std::vector<FlightConnection> foundArrivalConnections = flightConnection.findConnectionsByDestination(arrivalCity);
-  std::vector<FlightConnection> foundDepartureConnections = flightConnection.findConnectionsByDeparture(departureCity);
+  std::vector<FlightConnection> foundArrivalConnections = flight_connection.FindConnectionsByDestination(arrivalCity);
+  std::vector<FlightConnection> foundDepartureConnections = flight_connection.FindConnectionsByDeparture(departureCity);
 
   if (foundArrivalConnections.empty() || foundDepartureConnections.empty()) {
-    errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
     return;
   }
 
-  FlightConnection foundConnection = flightConnection.findConnection(departureCity, arrivalCity);
+  FlightConnection foundConnection = flight_connection.FindConnection(departureCity, arrivalCity);
 
-  if (foundConnection.getDepartureCity() != departureCity || foundConnection.getDestinationCity() != arrivalCity) {
-    errorFunction("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
+  if (foundConnection.GetDepartureCity() != departureCity || foundConnection.GetDestinationCity() != arrivalCity) {
+    PrintErrorMessage("Nie znaleziono takiego lotu.", "Spróbuj ponownie.");
     return;
   }
 
   CreateFoundFlightScreen(foundConnection, user);
-  bool validFlightChoice = validChoice("POTWIERDŹ WYBRANIE LOTU", "Czy o ten lot chodziło? (tak/nie)");
+  bool validFlightChoice = ValidChoice("POTWIERDŹ WYBRANIE LOTU", "Czy o ten lot chodziło? (tak/nie)");
   if (!validFlightChoice) {
-    errorFunction("Nie wybrano lotu.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie wybrano lotu.", "Spróbuj ponownie.");
     return;
   }
 
-  std::vector<int> seatsTaken = flightConnection.getSeatsTaken(foundConnection.getIdentifier());
+  std::vector<int> seatsTaken = flight_connection.GetSeatsTaken(foundConnection.GetIdentifier());
   if (seatsTaken.size() == 81) {
-    errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
+    PrintErrorMessage("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
     return;
   }
   std::string premiumCard = user.premium_card_;
   if (premiumCard == "platynowa") {
-    processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
+    ProcessSeatSelectionAndPurchase(seatsTaken, flight_connection, foundConnection, user);
   } else {
-    processPurchase(flightConnection, foundConnection, user);
+    ProcessPurchase(flight_connection, foundConnection, user);
   }
 }
 
-void handleBuyTicket(int choice, FlightConnection &flightConnection, User &user) {
+void HandleBuyTicket(int choice, FlightConnection &flight_connection, User &user) {
   if (choice == 0) {
-    handleFlightById(flightConnection, user);
+    HandleFlightById(flight_connection, user);
   } else if (choice == 1) {
-    handleFlightByData(flightConnection, user);
+    HandleFlightByData(flight_connection, user);
   }
 }
 
-void handleTicketChoice(FlightConnection &connection, User &user) {
+void HandleTicketChoice(FlightConnection &flight_connection, User &user) {
   int choice = CreateTicketMenu();
-  handleBuyTicket(choice, connection, user);
+  HandleBuyTicket(choice, flight_connection, user);
 }
