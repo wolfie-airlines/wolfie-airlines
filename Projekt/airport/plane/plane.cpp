@@ -10,14 +10,14 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 
-void processSeatSelectionAndPurchase(
-    std::vector<int> seatsTaken,
-    FlightConnection &flightConnection,
-    FlightConnection &foundConnection,
+void ProcessSeatSelectionAndPurchase(
+    std::vector<int> seats_taken,
+    FlightConnection &flight_connection,
+    FlightConnection &found_connection,
     User &user) {
   using namespace ftxui;
   std::string planeId = "WOLFIE PLANE #";
-  std::string flight_identifier = foundConnection.getIdentifier();
+  std::string flight_identifier = found_connection.GetIdentifier();
   for (char c : flight_identifier) {
     if (c != '-') {
       planeId += std::to_string(static_cast<int>(c));
@@ -26,7 +26,7 @@ void processSeatSelectionAndPurchase(
 
   auto seatStyle = size(WIDTH, EQUAL, 10);
 
-  std::unordered_set<int> seatsTakenSet(seatsTaken.begin(), seatsTaken.end());
+  std::unordered_set<int> seatsTakenSet(seats_taken.begin(), seats_taken.end());
 
   auto make_seat_box = [&](int seatNumber, bool selected) {
     int rowNumber = (seatNumber % 9 == 0 ? seatNumber / 9 : seatNumber / 9 + 1);
@@ -108,19 +108,19 @@ void processSeatSelectionAndPurchase(
 
   int ticketAmount;
   while (true) {
-    std::string ticketAmountInput = displayMessageAndCaptureStringInput(
+    std::string ticketAmountInput = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj liczbę biletów (od 1 do 4):");
 
     if (ticketAmountInput == "back") {
-      errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+      PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
       return;
     }
 
     try {
       ticketAmount = std::stoi(ticketAmountInput);
     } catch (std::invalid_argument &e) {
-      errorFunction("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do 4.");
+      PrintErrorMessage("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do 4.");
       return;
     }
 
@@ -132,38 +132,38 @@ void processSeatSelectionAndPurchase(
   std::vector<int> selectedSeats;
 
   for (int i = 0; i < ticketAmount; ++i) {
-    std::string rowInput = displayMessageAndCaptureStringInput(
+    std::string rowInput = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj rząd dla biletu " + std::to_string(i + 1) + ":");
     int rowInputNumber;
     try {
       rowInputNumber = std::stoi(rowInput);
       if (rowInputNumber < 1 || rowInputNumber > 9) {
-        errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
+        PrintErrorMessage("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
         return;
       }
     } catch (std::invalid_argument &e) {
-      errorFunction("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
+      PrintErrorMessage("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
       return;
     }
-    std::string seatInput = displayMessageAndCaptureStringInput(
+    std::string seatInput = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":");
     int seat;
     try {
       seat = std::stoi(seatInput);
       if (seat < 1 || seat > 9) {
-        errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
+        PrintErrorMessage("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
         return;
       }
     } catch (std::invalid_argument &e) {
-      errorFunction("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
+      PrintErrorMessage("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
       return;
     }
 
     int selectedSeatNumber = (rowInputNumber - 1) * 9 + seat;
-    if (std::find(seatsTaken.begin(), seatsTaken.end(), selectedSeatNumber) != seatsTaken.end()) {
-      errorFunction("Miejsce jest już zajęte.", "Wybierz inne miejsce.");
+    if (std::find(seats_taken.begin(), seats_taken.end(), selectedSeatNumber) != seats_taken.end()) {
+      PrintErrorMessage("Miejsce jest już zajęte.", "Wybierz inne miejsce.");
       return;
     }
 
@@ -203,31 +203,31 @@ void processSeatSelectionAndPurchase(
                                          }) |
       style;
 
-  printNodeScreen(containerWithSelectedSeats);
+  PrintNodeScreen(containerWithSelectedSeats);
 
-  std::string confirmChoice = displayMessageAndCaptureStringInput(
+  std::string confirmChoice = DisplayMessageAndCaptureStringInput(
       "Zakup biletów",
       "Czy potwierdzasz wybrane miejsca? (tak)");
 
   if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
-    errorFunction("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
+    PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
     return;
   }
 
   std::string titleMessage = "Potwierdzenie zakupu biletów";
-  int price = foundConnection.getPrice() * user.discount_ * ticketAmount;
-  bool paymentSuccess = paymentAuth(user, user.payment_method_, titleMessage, price);
+  int price = found_connection.GetPrice() * user.discount_ * ticketAmount;
+  bool paymentSuccess = AuthenticatePayment(user, user.payment_method_, titleMessage, price);
 
   if (!paymentSuccess) {
-    errorFunction("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
+    PrintErrorMessage("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
     return;
   }
 
   if (user.discount_ != 1) {
-    user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
+    user.UpdateMoneySaved(found_connection.GetPrice() * ticketAmount, price);
   }
 
-  flightConnection.updateSeatsTaken(flight_identifier, selectedSeats);
-  user.addTicketToUser(selectedSeats, foundConnection);
-  printTicketInvoice(user, foundConnection, selectedSeats);
+  flight_connection.UpdateSeatsTaken(flight_identifier, selectedSeats);
+  user.AddTicketToUser(selectedSeats, found_connection);
+  PrintTicketInvoice(user, found_connection, selectedSeats);
 }

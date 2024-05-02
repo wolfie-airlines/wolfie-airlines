@@ -6,9 +6,9 @@
 #include "../flights/flight_connection.h"
 #include "../user/user.h"
 
-void processSeatSelectionAndPurchase(std::vector<int> seatsTaken,
-                                     FlightConnection &flightConnection,
-                                     FlightConnection &foundConnection,
+void ProcessSeatSelectionAndPurchase(std::vector<int> seats_taken,
+                                     FlightConnection &flight_connection,
+                                     FlightConnection &found_connection,
                                      User &user);
 
 #endif  // AIRPORT_PLANE_H
