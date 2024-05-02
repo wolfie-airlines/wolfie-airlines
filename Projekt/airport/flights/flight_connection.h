@@ -8,45 +8,45 @@
 
 class FlightConnection {
  private:
-  std::string flight_id;
-  std::string departureCity;
-  std::string destinationTime;
-  std::string arrivalTime;
-  std::string departureTime;
-  std::string destinationCity;
-  int availableSeats{};
-  double price{};
+  std::string _flight_id_;
+  std::string _departureCity_;
+  std::string _destinationTime_;
+  std::string _arrivalTime_;
+  std::string _departureTime_;
+  std::string _destinationCity_;
+  int _availableSeats_{};
+  double _price_{};
 
-  mongocxx::client _client;
-  mongocxx::database _db;
-  mongocxx::collection _collection;
+  mongocxx::client _client_;
+  mongocxx::database _db_;
+  mongocxx::collection _collection_;
 
  public:
   FlightConnection(const std::string &uri_str, const std::string &db_name, const std::string &collection_name)
-      : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
+      : _client_{mongocxx::uri{uri_str}}, _db_{_client_[db_name]}, _collection_{_db_[collection_name]} {}
 
   FlightConnection(
       std::string flight_id,
-      std::string departureCity,
-      std::string destinationCity,
-      std::string departureTime,
-      std::string arrivalTime,
-      int availableSeats,
+      std::string departure_city,
+      std::string destination_city,
+      std::string departure_time,
+      std::string arrival_time,
+      int available_seats,
       double price);
 
-  [[nodiscard]] std::string getDepartureCity() const;
-  [[nodiscard]] std::string getDestinationCity() const;
-  [[nodiscard]] std::string getDepartureTime() const;
-  [[nodiscard]] std::string getArrivalTime() const;
-  [[nodiscard]] std::string getIdentifier() const;
-  [[nodiscard]] int getAvailableSeats() const;
-  [[nodiscard]] double getPrice() const;
-  std::vector<FlightConnection> findAllConnections();
-  FlightConnection findConnection(const std::string &departureCity, const std::string &destinationCity);
-  std::vector<FlightConnection> findConnectionByPrice(double &minPrice, double &maxPrice);
-  FlightConnection findConnectionById(const std::string &id);
-  std::vector<FlightConnection> findConnectionsByDeparture(const std::string &departureCity);
-  std::vector<FlightConnection> findConnectionsByDestination(const std::string &destinationCity);
-  std::vector<int> getSeatsTaken(const std::string &flight_identifier);
-  void updateSeatsTaken(const std::string &flight_identifier, const std::vector<int> &seatsTaken);
+  [[nodiscard]] std::string GetDepartureCity() const;
+  [[nodiscard]] std::string GetDestinationCity() const;
+  [[nodiscard]] std::string GetDepartureTime() const;
+  [[nodiscard]] std::string GetArrivalTime() const;
+  [[nodiscard]] std::string GetIdentifier() const;
+  [[nodiscard]] int GetAvailableSeats() const;
+  [[nodiscard]] double GetPrice() const;
+  std::vector<FlightConnection> FindAllConnections();
+  FlightConnection FindConnection(const std::string &departure_city, const std::string &destination_city);
+  std::vector<FlightConnection> FindConnectionByPrice(double &min_price, double &max_price);
+  FlightConnection FindConnectionById(const std::string &id);
+  std::vector<FlightConnection> FindConnectionsByDeparture(const std::string &departure_city);
+  std::vector<FlightConnection> FindConnectionsByDestination(const std::string &destination_city);
+  std::vector<int> GetSeatsTaken(const std::string &flight_identifier);
+  void UpdateSeatsTaken(const std::string &flight_identifier, const std::vector<int> &seats_taken);
 };
