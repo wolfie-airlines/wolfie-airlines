@@ -1,4 +1,5 @@
 #include "main_prints.h"
+#include "../../user/user_functions/user_prints/user_prints.h"
 
 #include <iostream>
 
@@ -98,4 +99,17 @@ std::string DisplayWarningAndCaptureInput(const std::string &title_message, cons
   std::cin >> answer;
 
   return answer;
+}
+
+void DisplayUserMenu(User &user) {
+  auto
+      user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(user)));
+  ftxui::Render(user_screen, *CreateUserMenu(user));
+  std::cout << user_screen.ToString() << '\0' << std::endl;
+}
+
+void DisplayMenu() {
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateDefaultMenu()));
+  ftxui::Render(screen, *CreateDefaultMenu());
+  std::cout << screen.ToString() << '\0' << std::endl;
 }
