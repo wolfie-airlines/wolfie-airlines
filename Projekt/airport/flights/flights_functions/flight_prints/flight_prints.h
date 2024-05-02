@@ -11,6 +11,6 @@
 int CreateFlightChoiceScreen();
 void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, User &user);
 void CreateFoundFlightScreen(FlightConnection &connection, User &user);
-std::string pageSizeString(int totalPages);
+std::string PageSizeString(int totalPages);
 
 #endif  // FLIGHT_PRINT_FUNCTIONS_H

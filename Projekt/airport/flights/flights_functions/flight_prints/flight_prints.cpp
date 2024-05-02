@@ -35,7 +35,7 @@ int CreateFlightChoiceScreen() {
   return selected;
 }
 
-std::string PAGE_SIZEString(int totalPages) {
+std::string PageSizeString(int totalPages) {
   // budowanie napisu dla menu w formie slashy
   std::string result;
   for (int i = 1; i <= totalPages; i++) {
@@ -73,7 +73,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
 
   int currentPage = 1;
   int totalPages = (connections.size() + PAGE_SIZE - 1) / PAGE_SIZE;
-  std::string menuPageString = totalPages == 1 ? " " : PAGE_SIZEString(totalPages);
+  std::string menuPageString = totalPages == 1 ? " " : PageSizeString(totalPages);
 
   while (true) {
     int startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -94,24 +94,24 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
 
     for (int i = startIndex; i < endIndex; i++) {
       document.push_back(ftxui::hbox({
-                                         make_box("ID LOTU", 25, 5, connections[i].getIdentifier()),
-                                         make_box("MIEJSCA", 25, 5, std::to_string(connections[i].getAvailableSeats())),
-                                         make_box("CZAS WYLOTU", 50, 5, connections[i].getDepartureTime()),
-                                         make_box("MIEJSCE WYLOTU", 50, 5, connections[i].getDepartureCity()),
-                                         make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].getDestinationCity()),
-                                         make_box("CZAS PRZYLOTU", 50, 5, connections[i].getArrivalTime()),
+                                         make_box("ID LOTU", 25, 5, connections[i].GetIdentifier()),
+                                         make_box("MIEJSCA", 25, 5, std::to_string(connections[i].GetAvailableSeats())),
+                                         make_box("CZAS WYLOTU", 50, 5, connections[i].GetDepartureTime()),
+                                         make_box("MIEJSCE WYLOTU", 50, 5, connections[i].GetDepartureCity()),
+                                         make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].GetDestinationCity()),
+                                         make_box("CZAS PRZYLOTU", 50, 5, connections[i].GetArrivalTime()),
                                          (premiumCard != "brak" || userDiscount != 1) ? make_strike_box("CENA",
                                                                                                         40,
                                                                                                         5,
-                                                                                                        std::to_string((int) connections[i].getPrice()),
+                                                                                                        std::to_string((int) connections[i].GetPrice()),
                                                                                                         std::to_string((int) (
-                                                                                                            connections[i].getPrice()
+                                                                                                            connections[i].GetPrice()
                                                                                                                 * discount))
                                                                                                             + " PLN")
                                                                                       : make_box("CENA",
                                                                                                  25,
                                                                                                  5,
-                                                                                                 std::to_string((int) connections[i].getPrice())
+                                                                                                 std::to_string((int) connections[i].GetPrice())
                                                                                                      + " PLN"),
                                      }));
     }
@@ -140,7 +140,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
                                  }) |
         style;
 
-    printFullWidthScreen(container);
+    PrintFullWidthScreen(container);
 
     if (totalPages != 1) {
       std::string input;
@@ -154,7 +154,7 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
         int inputPage = std::stoi(input);
         currentPage = std::clamp(inputPage, 1, totalPages);
       } catch (std::invalid_argument &e) {
-        errorFunction("Nieprawidłowy wybór.", "Nastąpił powrót do głównego menu.");
+        PrintErrorMessage("Nieprawidłowy wybór.", "Nastąpił powrót do głównego menu.");
         return;
       }
 
@@ -208,44 +208,44 @@ void CreateFoundFlightScreen(FlightConnection &connection, User &user) {
                                                                    make_box("ID LOTU",
                                                                             25,
                                                                             5,
-                                                                            connection.getIdentifier()),
+                                                                            connection.GetIdentifier()),
                                                                    make_box("MIEJSCA",
                                                                             25,
                                                                             5,
-                                                                            std::to_string(connection.getAvailableSeats())),
+                                                                            std::to_string(connection.GetAvailableSeats())),
                                                                    make_box("CZAS WYLOTU",
                                                                             50,
                                                                             5,
-                                                                            connection.getDepartureTime()),
+                                                                            connection.GetDepartureTime()),
                                                                    make_box("MIEJSCE WYLOTU",
                                                                             50,
                                                                             5,
-                                                                            connection.getDepartureCity()),
+                                                                            connection.GetDepartureCity()),
                                                                    make_box("MIEJSCE PRZYLOTU",
                                                                             50,
                                                                             5,
-                                                                            connection.getDestinationCity()),
+                                                                            connection.GetDestinationCity()),
                                                                    make_box("CZAS PRZYLOTU",
                                                                             50,
                                                                             5,
-                                                                            connection.getArrivalTime()),
+                                                                            connection.GetArrivalTime()),
                                                                    (premiumCard != "brak" || userDiscount != 1)
                                                                    ? make_strike_box("CENA",
                                                                                      45,
                                                                                      5,
-                                                                                     std::to_string((int) connection.getPrice()),
+                                                                                     std::to_string((int) connection.GetPrice()),
                                                                                      std::to_string((int) (
-                                                                                         connection.getPrice()
+                                                                                         connection.GetPrice()
                                                                                              * discount)) + " PLN")
                                                                    : make_box("CENA",
                                                                               25,
                                                                               5,
-                                                                              std::to_string((int) connection.getPrice())
+                                                                              std::to_string((int) connection.GetPrice())
                                                                                   + " PLN"),
                                                                }),
                                                }),
                                }) |
       style;
 
-  printFullWidthScreen(container);
+  PrintFullWidthScreen(container);
 }
