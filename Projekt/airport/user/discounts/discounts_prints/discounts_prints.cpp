@@ -5,6 +5,7 @@
 #include "../../user_functions/user_payments/user_payment_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
+#include "../../../functions/helpers.h"
 
 std::string DisplayDiscountInfo() {
   auto summary = [&] {
@@ -38,24 +39,30 @@ std::string DisplayDiscountInfo() {
     table.SelectColumn(2).DecorateCells(ftxui::center);
     table.SelectColumn(3).DecorateCells(ftxui::align_right);
 
+    std::vector<ftxui::Color> colors = {
+        ftxui::Color::GrayLight,
+        ftxui::Color::SkyBlue1,
+        ftxui::Color::Gold1,
+        ftxui::Color::LightSteelBlue1
+    };
+
     // Ustawianie kolorów kart
-    // TODO: Zrobić to jakoś ładniej
-    table.SelectCell(1, 1).DecorateCells(ftxui::color(ftxui::Color::GrayLight));
-    table.SelectCell(1, 2).DecorateCells(ftxui::color(ftxui::Color::SkyBlue1));
-    table.SelectCell(1, 3).DecorateCells(ftxui::color(ftxui::Color::Gold1));
-    table.SelectCell(1, 4).DecorateCells(ftxui::color(ftxui::Color::LightSteelBlue1));
+    SetCellColor(table, 1, 1, ftxui::Color::GrayLight);
+    SetCellColor(table, 1, 2, ftxui::Color::SkyBlue1);
+    SetCellColor(table, 1, 3, ftxui::Color::Gold1);
+    SetCellColor(table, 1, 4, ftxui::Color::LightSteelBlue1);
 
     // Ustawianie kolorów benefitów
-    table.SelectCell(2, 1).DecorateCells(ftxui::color(ftxui::Color::GrayLight));
-    table.SelectCell(2, 2).DecorateCells(ftxui::color(ftxui::Color::SkyBlue1));
-    table.SelectCell(2, 3).DecorateCells(ftxui::color(ftxui::Color::Gold1));
-    table.SelectCell(2, 4).DecorateCells(ftxui::color(ftxui::Color::LightSteelBlue1));
+    SetCellColor(table, 2, 1, ftxui::Color::GrayLight);
+    SetCellColor(table, 2, 2, ftxui::Color::SkyBlue1);
+    SetCellColor(table, 2, 3, ftxui::Color::Gold1);
+    SetCellColor(table, 2, 4, ftxui::Color::LightSteelBlue1);
 
     // Ustawianie kolorów cen
-    table.SelectCell(3, 1).DecorateCells(ftxui::color(ftxui::Color::GrayLight));
-    table.SelectCell(3, 2).DecorateCells(ftxui::color(ftxui::Color::SkyBlue1));
-    table.SelectCell(3, 3).DecorateCells(ftxui::color(ftxui::Color::Gold1));
-    table.SelectCell(3, 4).DecorateCells(ftxui::color(ftxui::Color::LightSteelBlue1));
+    SetCellColor(table, 3, 1, ftxui::Color::GrayLight);
+    SetCellColor(table, 3, 2, ftxui::Color::SkyBlue1);
+    SetCellColor(table, 3, 3, ftxui::Color::Gold1);
+    SetCellColor(table, 3, 4, ftxui::Color::LightSteelBlue1);
 
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"INFORMACJE O KARTACH") | ftxui::bold})
