@@ -1,6 +1,6 @@
 #include "premium_cards.h"
 
-#include "../../functions/info_print_functions.h"
+#include "../../functions/info_prints/info_prints.h"
 #include "premium_cards_prints/premium_cards_prints.h"
 
 double getCardDiscount(const std::string &card) {
@@ -44,7 +44,7 @@ void handlePremiumCard(User &user) {
   std::string choice = displayPremiumCardInfo();
   std::string card;
   int price;
-  std::string premiumCard = recognizeDiscountCard(user.discount);
+  std::string premiumCard = recognizeDiscountCard(user.discount_);
 
   for (int i = 0; i < choice.size(); i++) {
     choice[i] = tolower(choice[i]);

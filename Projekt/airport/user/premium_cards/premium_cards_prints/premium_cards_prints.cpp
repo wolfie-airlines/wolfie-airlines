@@ -90,7 +90,7 @@ std::string displayPremiumCardInfo() {
 }
 
 bool validCardPayment(User &user, int price) {
-  std::string paymentMethod = user.paymentMethod;
+  std::string paymentMethod = user.payment_method_;
   bool validPayment = paymentAuth(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
   return validPayment;
 }

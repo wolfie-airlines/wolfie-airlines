@@ -2,10 +2,10 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "authentication/Authentication.h"
-#include "env/EnvParser.h"
-#include "flights/FlightConnection.h"
-#include "functions/MainHandler.h"
+#include "authentication/authentication.h"
+#include "env/env.h"
+#include "flights/flight_connection.h"
+#include "functions/main_handler.h"
 
 int main() {
   mongocxx::instance inst;

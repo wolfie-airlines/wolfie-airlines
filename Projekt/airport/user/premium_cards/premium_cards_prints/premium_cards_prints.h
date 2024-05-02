@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../../User.h"
+#include "../../user.h"
 
 std::string displayPremiumCardInfo();
 bool validCardPayment(User &user, int price);

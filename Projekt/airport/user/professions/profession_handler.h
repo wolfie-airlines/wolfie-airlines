@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../User.h"
+#include "../user.h"
 
 bool guessMusicAuthor(const std::string &musicLink);
 bool guessDoctorQuestion(User &user);

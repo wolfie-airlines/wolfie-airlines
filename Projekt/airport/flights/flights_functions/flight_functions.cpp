@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-#include "../../functions/info_print_functions.h"
+#include "../../functions/info_prints/info_prints.h"
 #include "../../functions/main_prints/main_prints.h"
-#include "../FlightConnection.h"
-#include "flight_prints/flight_print_functions.h"
+#include "../flight_connection.h"
+#include "flight_prints/flight_prints.h"
 
 const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
 const std::string TRY_AGAIN = "Spróbuj ponownie.";

@@ -3,9 +3,9 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "../functions/info_print_functions.h"
+#include "../functions/info_prints/info_prints.h"
 #include "../functions/main_prints/main_prints.h"
-#include "../tickets/tickets_prints/tickets_print_functions.h"
+#include "../tickets/tickets_prints/tickets_prints.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
@@ -215,15 +215,15 @@ void processSeatSelectionAndPurchase(
   }
 
   std::string titleMessage = "Potwierdzenie zakupu biletów";
-  int price = foundConnection.getPrice() * user.discount * ticketAmount;
-  bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, price);
+  int price = foundConnection.getPrice() * user.discount_ * ticketAmount;
+  bool paymentSuccess = paymentAuth(user, user.payment_method_, titleMessage, price);
 
   if (!paymentSuccess) {
     errorFunction("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
     return;
   }
 
-  if (user.discount != 1) {
+  if (user.discount_ != 1) {
     user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
   }
 

@@ -1,9 +1,9 @@
 #include "luggage_prints.h"
 
-#include "../../functions/info_print_functions.h"
+#include "../../functions/info_prints/info_prints.h"
 #include "../../functions/main_prints/main_prints.h"
 #include "../../user/user_functions/user_payments/user_payment_functions.h"
-#include "../item/ItemHandler.h"
+#include "../item/item_handler.h"
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"

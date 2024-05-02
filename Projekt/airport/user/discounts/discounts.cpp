@@ -1,6 +1,6 @@
 #include "discounts.h"
 
-#include "../../functions/info_print_functions.h"
+#include "../../functions/info_prints/info_prints.h"
 #include "discounts_prints/discounts_prints.h"
 
 double getDiscount(std::string choice) {

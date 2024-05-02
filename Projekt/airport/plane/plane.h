@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "../flights/FlightConnection.h"
-#include "../user/User.h"
+#include "../flights/flight_connection.h"
+#include "../user/user.h"
 
 void processSeatSelectionAndPurchase(std::vector<int> seatsTaken,
                                      FlightConnection &flightConnection,

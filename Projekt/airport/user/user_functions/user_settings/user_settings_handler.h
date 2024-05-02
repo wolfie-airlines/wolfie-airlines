@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "../../User.h"
+#include "../../user.h"
 
 void handleSettingsOption(User &user);
 

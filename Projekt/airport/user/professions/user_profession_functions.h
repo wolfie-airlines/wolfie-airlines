@@ -1,7 +1,7 @@
 #ifndef AIRPORT_USER_PROFESSION_FUNCTIONS_H
 #define AIRPORT_USER_PROFESSION_FUNCTIONS_H
 
-#include "../User.h"
+#include "../user.h"
 
 void handleProfession(User &user);
 

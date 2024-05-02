@@ -2,12 +2,12 @@
 
 #include <random>
 
-#include "../flights/flights_functions/flight_prints/flight_print_functions.h"
-#include "../functions/info_print_functions.h"
+#include "../flights/flights_functions/flight_prints/flight_prints.h"
+#include "../functions/info_prints/info_prints.h"
 #include "../functions/main_prints/main_prints.h"
 #include "../plane/plane.h"
 #include "../user/user_functions/user_payments/user_payment_functions.h"
-#include "tickets_prints/tickets_print_functions.h"
+#include "tickets_prints/tickets_prints.h"
 
 const int MAX_TICKETS = 4;
 const int EMERGENCY_SEAT_ONE = 37;
@@ -44,7 +44,7 @@ void processPurchase(
   }
 
   std::vector<int> selectedSeats;
-  bool hasPrivilege = user.discountType == "ulga";
+  bool hasPrivilege = user.discount_type_ == "ulga";
 
   for (int i = 0; i < ticketAmount; i++) {
     int seat;
@@ -97,15 +97,15 @@ void processPurchase(
   }
 
   std::string titleMessage = "Potwierdzenie zakupu biletów";
-  int price = foundConnection.getPrice() * user.discount * ticketAmount;
-  bool paymentSuccess = paymentAuth(user, user.paymentMethod, titleMessage, price);
+  int price = foundConnection.getPrice() * user.discount_ * ticketAmount;
+  bool paymentSuccess = paymentAuth(user, user.payment_method_, titleMessage, price);
 
   if (!paymentSuccess) {
     errorFunction("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
     return;
   }
 
-  if (user.discount != 1) {
+  if (user.discount_ != 1) {
     user.updateMoneySaved(foundConnection.getPrice() * ticketAmount, price);
   }
 
@@ -138,7 +138,7 @@ void handleFlightById(FlightConnection &flightConnection, User &user) {
     errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
     return;
   }
-  std::string premiumCard = user.premiumCard;
+  std::string premiumCard = user.premium_card_;
   if (premiumCard == "platynowa") {
     processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
   } else {
@@ -182,7 +182,7 @@ void handleFlightByData(FlightConnection &flightConnection, User &user) {
     errorFunction("Brak miejsc na pokładzie.", "Spróbuj wybrać inny lot.");
     return;
   }
-  std::string premiumCard = user.premiumCard;
+  std::string premiumCard = user.premium_card_;
   if (premiumCard == "platynowa") {
     processSeatSelectionAndPurchase(seatsTaken, flightConnection, foundConnection, user);
   } else {

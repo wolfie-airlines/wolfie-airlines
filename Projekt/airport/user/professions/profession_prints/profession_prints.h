@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../../User.h"
+#include "../../user.h"
 
 int CreateProfessionScreen();
 std::string displayProfessionInfo();

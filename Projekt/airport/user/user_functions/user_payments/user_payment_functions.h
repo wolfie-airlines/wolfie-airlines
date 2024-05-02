@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "../../User.h"
+#include "../../user.h"
 
 void handlePaymentOption(User &user);
 bool paymentAuth(User &user, const std::string &paymentMethod, const std::string &titleMessage, int targetPrice);

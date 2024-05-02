@@ -4,23 +4,23 @@ project(airport)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(airport main.cpp
-        env/EnvParser.h
-        env/EnvParser.cpp
-        authentication/Authentication.cpp
-        user/User.cpp
-        functions/info_print_functions.h
-        functions/info_print_functions.cpp
-        flights/FlightConnection.h
-        flights/FlightConnection.cpp
-        functions/MainHandler.cpp
-        functions/MainHandler.h
+        env/env.h
+        env/env.cpp
+        authentication/authentication.cpp
+        user/user.cpp
+        functions/info_prints/info_prints.h
+        functions/info_prints/info_prints.cpp
+        flights/flight_connection.h
+        flights/flight_connection.cpp
+        functions/main_handler.cpp
+        functions/main_handler.h
         flights/flights_functions/flight_functions.h
         flights/flights_functions/flight_functions.cpp
-        flights/flights_functions/flight_prints/flight_print_functions.h
-        flights/flights_functions/flight_prints/flight_print_functions.cpp
-        tickets/tickets_prints/tickets_print_functions.cpp
-        user/user_functions/user_prints/user_print_functions.h
-        user/user_functions/user_prints/user_print_functions.cpp
+        flights/flights_functions/flight_prints/flight_prints.h
+        flights/flights_functions/flight_prints/flight_prints.cpp
+        tickets/tickets_prints/tickets_prints.cpp
+        user/user_functions/user_prints/user_prints.h
+        user/user_functions/user_prints/user_prints.cpp
         tickets/tickets.h
         tickets/tickets.cpp
         user/user_functions/user_settings/user_settings_handler.h
@@ -54,29 +54,29 @@ add_executable(airport main.cpp
         admin/Admin.h
         qr-code/qrcode_prints.h
         qr-code/qrcode_prints.cpp
-        user/user_functions/user_tickets/user_tickets_print_functions.h
-        user/user_functions/user_tickets/user_tickets_print_functions.cpp
-        checkin/checkin_functions_prints.h
-        checkin/checkin_functions_prints.h
-        checkin/checkin_functions_prints.cpp
-        luggage/item/Item.h
-        luggage/item/Item.cpp
-        luggage/Luggage.h
-        luggage/Luggage.cpp
-        luggage/Luggage.h
+        user/user_functions/user_tickets/user_tickets_prints.h
+        user/user_functions/user_tickets/user_tickets_prints.cpp
+        checkin/checkin_prints.h
+        checkin/checkin_prints.h
+        checkin/checkin_prints.cpp
+        luggage/item/item.h
+        luggage/item/item.cpp
+        luggage/luggage.h
+        luggage/luggage.cpp
+        luggage/luggage.h
         luggage/luggage_prints/luggage_prints.h
         luggage/luggage_prints/luggage_prints.cpp
-        luggage/item/ItemHandler.h
-        luggage/item/ItemHandler.cpp
-        luggage/item/ItemHandler.h
-        luggage/item/ItemHandler.h
+        luggage/item/item_handler.h
+        luggage/item/item_handler.cpp
+        luggage/item/item_handler.h
+        luggage/item/item_handler.h
         functions/main_prints/main_prints.h
         functions/main_prints/main_prints.cpp
         functions/main_prints/main_prints.cpp
-        authentication/auth_functions/AuthPrintHandler.h
-        authentication/auth_functions/AuthPrintHandler.cpp
-        luggage/LuggageHandler.h
-        luggage/LuggageHandler.cpp
+        authentication/auth_functions/user_authentication.h
+        authentication/auth_functions/user_authentication.cpp
+        luggage/luggage_handler.h
+        luggage/luggage_handler.cpp
 )
 
 include(FetchContent)

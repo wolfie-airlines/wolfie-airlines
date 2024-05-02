@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "../../../functions/info_print_functions.h"
-#include "../user_prints/user_print_functions.h"
+#include "../../../functions/info_prints/info_prints.h"
+#include "../user_prints/user_prints.h"
 #include "../../../functions/main_prints/main_prints.h"
 
 void handlePaymentOption(User &user) {
   int answer = CreateDefaultPaymentScreen();
   if (answer == 0) {
     // zmiana na VISĘ
-    if (user.paymentMethod == "visa") {
+    if (user.payment_method_ == "visa") {
       errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
       return;
     }
@@ -73,7 +73,7 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-        bsoncxx::builder::basic::kvp("email", user.email),
+        bsoncxx::builder::basic::kvp("email_", user.email_),
         bsoncxx::builder::basic::kvp("password", user.getPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
@@ -87,12 +87,12 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice))));
+            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + targetPrice))));
 
     bsoncxx::document::view update_view = update_builder.view();
     user.getCollection().update_one(filter_view_email_password, update_view);
 
-    user.moneySpent += targetPrice;
+    user.money_spent_ += targetPrice;
     validFunction("Płatność została zaakceptowana! Dziękujemy!", "");
     return true;
   } else if (paymentMethod == "visa") {
@@ -161,9 +161,9 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
     }
 
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-        bsoncxx::builder::basic::kvp("email", user.email),
+        bsoncxx::builder::basic::kvp("email_", user.email_),
         bsoncxx::builder::basic::kvp("password", user.getPassword()),
-        bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
+        bsoncxx::builder::basic::kvp("payment_method_", bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("type", paymentMethod),
             bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
             bsoncxx::builder::basic::kvp("cvv", cvv))));
@@ -179,11 +179,11 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("moneySpent", user.moneySpent + targetPrice))));
+            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + targetPrice))));
     bsoncxx::document::view update_view = update_builder.view();
     user.getCollection().update_one(filter_view, update_view);
 
-    user.moneySpent += targetPrice;
+    user.money_spent_ += targetPrice;
     validFunction("Płatność została zaakceptowana! Dziękujemy!", "");
     return true;
   } else {

@@ -122,7 +122,7 @@ void validAnswer(const std::string &category, User &user) {
   ftxui::Render(userScreen, document);
 
   user.updateUserInDatabase("profession", category);
-  user.profession = category;
+  user.profession_ = category;
 
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }

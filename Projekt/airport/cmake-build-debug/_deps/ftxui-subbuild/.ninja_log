@@ -1,12 +1,13 @@
 # ninja log v5
 4	85	7362927753446730	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	34a3552d3a743a6c
+4080	5334	7362927805949442	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	bacc8e6f573b3a0e
+5711	5817	7362927810777316	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	25f8461e264e57ee
 4	85	7362927753446730	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	34a3552d3a743a6c
+4080	5334	7362927805949442	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	bacc8e6f573b3a0e
 85	4080	7362927793408021	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	bf168dff5a7647f5
 85	4080	7362927793408021	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	bf168dff5a7647f5
-4080	5334	7362927805949442	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	bacc8e6f573b3a0e
-4080	5334	7362927805949442	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	bacc8e6f573b3a0e
-5335	5406	7362927806657673	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	3bc5f17806f627
 5335	5406	7362927806657673	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	3bc5f17806f627
+5335	5406	7362927806657673	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	3bc5f17806f627
 5406	5483	7362927807417520	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	7a2e88b5b42c106f
 5406	5483	7362927807417520	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	7a2e88b5b42c106f
 5483	5560	7362927808198581	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build	1ed9bac9df7de23
@@ -16,6 +17,5 @@
 5637	5711	7362927809719530	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	f49a6112ca89e8c3
 5637	5711	7362927809719530	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	f49a6112ca89e8c3
 5711	5817	7362927810777316	CMakeFiles/ftxui-populate-complete	25f8461e264e57ee
-5711	5817	7362927810777316	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	25f8461e264e57ee
 5711	5817	7362927810777316	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate-complete	25f8461e264e57ee
 5711	5817	7362927810777316	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	25f8461e264e57ee

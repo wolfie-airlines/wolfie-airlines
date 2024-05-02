@@ -1,20 +1,20 @@
 # ninja log v5
 5	84	7362927863855122	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	af0d1d5d419acbd4
+5567	5642	7362927919433943	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	8f49765167b68e5d
 5	84	7362927863855122	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-mkdir	af0d1d5d419acbd4
+5714	5789	7362927920914383	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install	50f833a1b72e5dd4
+4211	5488	7362927917884308	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	6db8bd5c4294a646
 85	4211	7362927905125183	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	5c0c744272dacacb
 85	4211	7362927905125183	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-download	5c0c744272dacacb
 4211	5488	7362927917884308	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	6db8bd5c4294a646
-4211	5488	7362927917884308	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-update_disconnected	6db8bd5c4294a646
 5488	5566	7362927918674654	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	c1b62843e0c4061f
 5488	5566	7362927918674654	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-patch_disconnected	c1b62843e0c4061f
 5567	5642	7362927919433943	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	8f49765167b68e5d
-5567	5642	7362927919433943	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-configure	8f49765167b68e5d
+5790	5863	7362927921638476	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	db742396f3a6e84b
 5642	5714	7362927920156999	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build	136e0429a1ac9424
 5642	5714	7362927920156999	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-build	136e0429a1ac9424
 5714	5789	7362927920914383	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install	50f833a1b72e5dd4
-5714	5789	7362927920914383	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-install	50f833a1b72e5dd4
 5790	5863	7362927921638476	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	db742396f3a6e84b
-5790	5863	7362927921638476	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-test	db742396f3a6e84b
 5864	5966	7362927922662238	CMakeFiles/ftxui-populate-complete	be0b093bf6181433
 5864	5966	7362927922662238	ftxui-populate-prefix/src/ftxui-populate-stamp/ftxui-populate-done	be0b093bf6181433
 5864	5966	7362927922662238	C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate-complete	be0b093bf6181433

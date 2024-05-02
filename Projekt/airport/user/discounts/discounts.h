@@ -1,7 +1,7 @@
 #ifndef AIRPORT_DISCOUNTS_H
 #define AIRPORT_DISCOUNTS_H
 
-#include "../User.h"
+#include "../user.h"
 
 double getDiscount(int choice);
 void handleDiscountChoice(User &user, int choice);

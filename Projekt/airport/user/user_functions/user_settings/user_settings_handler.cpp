@@ -1,9 +1,9 @@
 #include "user_settings_handler.h"
 
-#include "../../../functions/info_print_functions.h"
+#include "../../../functions/info_prints/info_prints.h"
 #include "../../professions/user_profession_functions.h"
 #include "../user_payments/user_payment_functions.h"
-#include "../user_prints/user_print_functions.h"
+#include "../user_prints/user_prints.h"
 
 void handleSettingsOption(User &user) {
   std::string option = CreateSettingsMenu(user);
@@ -23,8 +23,8 @@ void handleSettingsOption(User &user) {
     std::cin >> newPassword;
     user.changePassword(newPassword);
   } else if (option == "4") {
-    if (user.profession != "brak") {
-      errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession + ".");
+    if (user.profession_ != "brak") {
+      errorFunction("Przecież już masz swój zawód!", "Pracujesz jako " + user.profession_ + ".");
       return;
     }
     handleProfession(user);

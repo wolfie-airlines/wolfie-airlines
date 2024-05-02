@@ -1,8 +1,8 @@
 #ifndef FLIGHT_FUNCTIONS_H
 #define FLIGHT_FUNCTIONS_H
 
-#include "../../user/User.h"
-#include "../FlightConnection.h"
+#include "../../user/user.h"
+#include "../flight_connection.h"
 
 void handleFlightOptions(FlightConnection &flightConnection, User &user);
 

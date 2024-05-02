@@ -1,7 +1,7 @@
 #ifndef AIRPORT_ADMIN_H
 #define AIRPORT_ADMIN_H
 
-#include "../user/User.h"
+#include "../user/user.h"
 
 class Admin : public User {
  public:
