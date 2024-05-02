@@ -8,9 +8,9 @@
 Authentication::Authentication(const std::string &uri_str,
                                const std::string &db_name,
                                const std::string &collection_name)
-    : _client{mongocxx::uri{uri_str}}, _db{_client[db_name]}, _collection{_db[collection_name]} {}
+    : client_{mongocxx::uri{uri_str}}, db_{client_[db_name]}, _collection{db_[collection_name]} {}
 
-std::string Authentication::hashPassword(const std::string &password) {
+std::string Authentication::HashPassword(const std::string &password) {
   CryptoPP::SHA256 hash;
   std::string digest;
 
@@ -19,21 +19,21 @@ std::string Authentication::hashPassword(const std::string &password) {
   return digest;
 }
 
-bool Authentication::registerUser(const std::string &username, const std::string &email, const std::string &password) {
+bool Authentication::RegisterUser(const std::string &username, const std::string &email, const std::string &password) {
 
-  std::string hashedPassword = hashPassword(password);
+  std::string hashedPassword = HashPassword(password);
 
   auto usernameAlreadyExists =
       _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
   if (usernameAlreadyExists) {
-    errorFunction("Podana nazwa użytkownika jest już zajęta.", "Wybierz inną nazwę.");
+    PrintErrorMessage("Podana nazwa użytkownika jest już zajęta.", "Wybierz inną nazwę.");
     return false;
   }
 
   auto emailAlreadyExists =
       _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email_", email)));
   if (emailAlreadyExists) {
-    errorFunction("Podany adres e-mail jest już zajęty.", "Wybierz inny adres e-mail.");
+    PrintErrorMessage("Podany adres e-mail jest już zajęty.", "Wybierz inny adres e-mail.");
     return false;
   }
 
@@ -73,11 +73,11 @@ bool Authentication::registerUser(const std::string &username, const std::string
   return result ? true : false;
 }
 
-void Authentication::authenticateUser(const std::string &username,
+void Authentication::AuthenticateUser(const std::string &username,
                                       const std::string &password,
                                       std::promise<bool> &&promise,
                                       User &user) {
-  std::string hashedPassword = hashPassword(password);
+  std::string hashedPassword = HashPassword(password);
   auto document = bsoncxx::builder::basic::document{};
   document.append(bsoncxx::builder::basic::kvp("username", username));
   document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
@@ -97,7 +97,7 @@ void Authentication::authenticateUser(const std::string &username,
     auto discountType = (std::string) userView["discount_type_"].get_string().value;
     auto discount = userView["discount_"].get_double().value;
     user.username_ = username;
-    user.setPassword(password);
+    user.SetPassword(password);
     user.discount_ = discount;
     user.email_ = email;
     user.discount_type_ = discountType;
@@ -115,9 +115,9 @@ void Authentication::authenticateUser(const std::string &username,
     }
     user.user_flights_ = userFlightsVector;
     promise.set_value(true);
-    validFunction("Zalogowano pomyślnie.", "Witamy w systemie.");
+    PrintSuccessMessage("Zalogowano pomyślnie.", "Witamy w systemie.");
   } else {
-    errorFunction("Wprowadzono niepoprawne dane bądź taki użytkownik nie istnieje.", "");
+    PrintErrorMessage("Wprowadzono niepoprawne dane bądź taki użytkownik nie istnieje.", "");
     promise.set_value(false);
   }
 }
