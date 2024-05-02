@@ -11,7 +11,7 @@
 const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
 const std::string ITEM_CARD = "KARTA PRZEDMIOTU";
 
-std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component> &checkbox_components) {
+std::vector<ftxui::Component> CreateGroups(const std::vector<ftxui::Component> &checkbox_components) {
   std::vector<ftxui::Component> vertical_containers;
   for (size_t i = 0; i < checkbox_components.size(); i += 8) {
     std::vector<ftxui::Component> group;
@@ -23,16 +23,16 @@ std::vector<ftxui::Component> createGroups(const std::vector<ftxui::Component> &
   return vertical_containers;
 }
 
-void printSpecificItem(Item &item) {
+void PrintSpecificItem(Item &item) {
   std::string
-      description = item.getDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.getDescription();
+      description = item.GetDescription().empty() ? "Brak szczegółowego opisu przedmiotu" : item.GetDescription();
 
   std::stringstream stream;
-  stream << std::fixed << std::setprecision(3) << item.getWeight();
+  stream << std::fixed << std::setprecision(3) << item.GetWeight();
   std::string weight = stream.str();
 
   std::vector<ftxui::Element> elements;
-  std::vector<std::string> hints = item.getHints();
+  std::vector<std::string> hints = item.GetHints();
 
   if (!hints.empty()) {
     std::vector<ftxui::Element> hintElements;
@@ -48,7 +48,7 @@ void printSpecificItem(Item &item) {
                                     hintBox}));
   }
 
-  const std::string &profession = item.getProfession();
+  const std::string &profession = item.GetProfession();
   ftxui::Element professionElement = ftxui::hbox({});
   if (!profession.empty()) {
     professionElement = ftxui::hbox({ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold
@@ -61,12 +61,12 @@ void printSpecificItem(Item &item) {
                                    ftxui::hbox({ftxui::paragraphAlignCenter(ITEM_CARD) | ftxui::bold})
                                        | color(ftxui::Color::Orange3),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::paragraphAlignCenter(item.getItemName()) | ftxui::bold})
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(item.GetItemName()) | ftxui::bold})
                                        | color(ftxui::Color::Orange1),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Przedmiot: ") | ftxui::bold
                                                     | color(ftxui::Color::SkyBlue1),
-                                                ftxui::text(item.getItemName()) | color(ftxui::Color::White)}),
+                                                ftxui::text(item.GetItemName()) | color(ftxui::Color::White)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Opis przedmiotu: ") | ftxui::bold
                                                     | color(ftxui::Color::DarkSeaGreen2),
@@ -74,25 +74,25 @@ void printSpecificItem(Item &item) {
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Zabroniony w transporcie lotniczym: ") | ftxui::bold
                                                     | color(ftxui::Color::RedLight),
-                                                ftxui::text(item.isForbidden() ? "TAK" : "NIE") | color(
-                                                    item.isForbidden() ? ftxui::Color::RedLight
+                                                ftxui::text(item.IsForbidden() ? "TAK" : "NIE") | color(
+                                                    item.IsForbidden() ? ftxui::Color::RedLight
                                                                        : ftxui::Color::GreenLight)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Przewóz w bagażu rejestrowanym: ") | ftxui::bold
                                                     | color(ftxui::Color::Aquamarine1),
-                                                ftxui::text(item.isRegisteredLuggage() ? "✅" : "❌")}),
+                                                ftxui::text(item.IsRegisteredLuggage() ? "✅" : "❌")}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Przewóz w bagażu podręcznym: ") | ftxui::bold
                                                     | color(ftxui::Color::MediumOrchid3),
-                                                ftxui::text(item.isHandLuggage() ? "✅" : "❌")}),
+                                                ftxui::text(item.IsHandLuggage() ? "✅" : "❌")}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Wymagana zgoda pilota: ") | ftxui::bold
                                                     | color(ftxui::Color::LightSkyBlue1),
-                                                ftxui::text(item.isPilotAllowance() ? "✅" : "❌")}),
+                                                ftxui::text(item.IsPilotAllowance() ? "✅" : "❌")}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Maksymalna ilość (sztuk): ") | ftxui::bold
                                                     | color(ftxui::Color::LightCoral),
-                                                ftxui::text(std::to_string((int) item.getMaxCount()))
+                                                ftxui::text(std::to_string((int) item.GetMaxCount()))
                                                     | color(ftxui::Color::Salmon1)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Waga (jednej sztuki przedmiotu, wyznaczana na oko): ")
@@ -115,28 +115,28 @@ void printSpecificItem(Item &item) {
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-void printAllItems(User &user) {
+void PrintAllItems(User &user) {
   int page = 0;
-  auto collection = user.getSpecificCollection("luggage_list");
+  auto collection = user.GetSpecificCollection("luggage_list");
   auto cursor = collection.find({});
   std::vector<bsoncxx::document::view> documents;
   for (auto &&doc : cursor) {
     documents.push_back(doc);
   }
 
-  std::vector<Item> items = getItems(user);
+  std::vector<Item> items = GetItems(user);
   int totalPages = (items.size() + 7) / 8;
 
   while (true) {
     std::vector<std::vector<std::string>> rows;
     for (int i = page * 8; i < (page + 1) * 8 && i < items.size(); i++) {
       const auto &item = items[i];
-      std::string isForbidden = item.isForbidden() ? "TAK" : "NIE";
-      std::string isRegisteredLuggage = item.isRegisteredLuggage() ? "✅" : "❌";
-      std::string isHandLuggage = item.isHandLuggage() ? "✅" : "❌";
-      std::string isPilotAllowance = item.isPilotAllowance() ? "✅" : "❌";
+      std::string isForbidden = item.IsForbidden() ? "TAK" : "NIE";
+      std::string isRegisteredLuggage = item.IsRegisteredLuggage() ? "✅" : "❌";
+      std::string isHandLuggage = item.IsHandLuggage() ? "✅" : "❌";
+      std::string isPilotAllowance = item.IsPilotAllowance() ? "✅" : "❌";
       rows.push_back({std::to_string(i + 1),
-                      item.getItemName(),
+                      item.GetItemName(),
                       isForbidden,
                       isRegisteredLuggage,
                       isHandLuggage,
@@ -233,7 +233,7 @@ void printAllItems(User &user) {
                                });
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
 
-    printNodeScreen(document);
+    PrintNodeScreen(document);
 
     std::string response;
     std::cin >> response;
@@ -255,10 +255,10 @@ void printAllItems(User &user) {
         if (itemNumber >= 1 && itemNumber <= 34) {
           int index = itemNumber - 1;
           if (index < items.size()) {
-            printSpecificItem(items[index]);
+            PrintSpecificItem(items[index]);
           }
         } else {
-          errorFunction("Nie ma takiego przedmiotu!", "Wybierz poprawny numer");
+          PrintErrorMessage("Nie ma takiego przedmiotu!", "Wybierz poprawny numer");
           continue;
         }
       } catch (std::invalid_argument &e) {
