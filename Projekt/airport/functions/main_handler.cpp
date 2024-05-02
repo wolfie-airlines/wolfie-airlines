@@ -19,65 +19,65 @@
 #include "ftxui/screen/screen.hpp"
 #include "info_prints/info_prints.h"
 
-void handleRegistration(Authentication &auth) {
+void HandleRegistration(Authentication &auth) {
   std::string username, email, password;
   bool cancelled;
 
-  std::tie(username, email, password, cancelled) = registerUser();
+  std::tie(username, email, password, cancelled) = RegisterUser();
 
   if (username.empty() && !cancelled) {
-    errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
     return;
   }
 
   if (email.empty() && !cancelled) {
-    errorFunction("Nie podano adresu e-mail.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie podano adresu e-mail.", "Spróbuj ponownie.");
     return;
   }
 
   if (password.empty() && !cancelled) {
-    errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie podano hasła.", "Spróbuj ponownie.");
     return;
   }
 
   if (cancelled) {
-    errorFunction("Rejestracja anulowana.", "Zawsze możesz ponowić próbę.");
+    PrintErrorMessage("Rejestracja anulowana.", "Zawsze możesz ponowić próbę.");
     return;
   }
 
-  bool validRegister = auth.registerUser(username, email, password);
+  bool validRegister = auth.RegisterUser(username, email, password);
 
   if (validRegister) {
-    validFunction("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
+    PrintSuccessMessage("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
   } else {
-    errorFunction("Rejestracja nie powiodła się.", "Spróbuj ponownie.");
+    PrintErrorMessage("Rejestracja nie powiodła się.", "Spróbuj ponownie.");
   }
 }
 
-bool handleLogin(Authentication &auth, User &currentUser) {
+bool HandleLogin(Authentication &auth, User &user) {
   std::string username, password;
   bool cancelled;
-  std::tuple<std::string, std::string, bool> loginData = login();
+  std::tuple<std::string, std::string, bool> loginData = Login();
   std::tie(username, password, cancelled) = loginData;
 
   if (username.empty() && !cancelled) {
-    errorFunction("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie podano nazwy użytkownika.", "Spróbuj ponownie.");
     return false;
   }
 
   if (password.empty() && !cancelled) {
-    errorFunction("Nie podano hasła.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nie podano hasła.", "Spróbuj ponownie.");
     return false;
   }
 
   if (cancelled) {
-    errorFunction("Logowanie anulowane.", "Zawsze możesz ponowić próbę.");
+    PrintErrorMessage("Logowanie anulowane.", "Zawsze możesz ponowić próbę.");
     return false;
   }
 
   std::promise<bool> promise;
 
-  auth.authenticateUser(username, password, std::move(promise), currentUser);
+  auth.AuthenticateUser(username, password, std::move(promise), user);
   std::future<bool> future = promise.get_future();
 
   bool validLogin = future.get();
@@ -85,86 +85,86 @@ bool handleLogin(Authentication &auth, User &currentUser) {
   if (validLogin) {
     return true;
   } else {
-    errorFunction("Logowanie nie powiodło się.", "Spróbuj ponownie z innymi danymi.");
+    PrintErrorMessage("Logowanie nie powiodło się.", "Spróbuj ponownie z innymi danymi.");
     return false;
   }
 }
 
-void handleUserMenu(User &currentUser) {
+void HandleUserMenu(User &user) {
   auto
-      userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(currentUser)));
-  ftxui::Render(userScreen, *CreateUserMenu(currentUser));
+      userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(user)));
+  ftxui::Render(userScreen, *CreateUserMenu(user));
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-void handleMenu() {
+void HandleMenu() {
   auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateDefaultMenu()));
   ftxui::Render(screen, *CreateDefaultMenu());
   std::cout << screen.ToString() << '\0' << std::endl;
 }
 
-void processChoice(bool isLoggedIn, Authentication &auth, User &currentUser, FlightConnection &flightConnection) {
+void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightConnection &flight_connection) {
   while (true) {
-    if (!isLoggedIn) {
-      handleMenu();
+    if (!is_logged_in) {
+      HandleMenu();
       std::string choice;
       std::cin >> choice;
 
       if (choice == "1") {
-        handleRegistration(auth);
+        HandleRegistration(auth);
       } else if (choice == "2") {
-        if (handleLogin(auth, currentUser)) {
-          isLoggedIn = true;
+        if (HandleLogin(auth, user)) {
+          is_logged_in = true;
         }
       } else if (choice == "3") {
-        handleFlightOptions(flightConnection, currentUser);
+        HandleFlightOptions(flight_connection, user);
       } else if (choice == "4") {
-        errorFunction("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
+        PrintErrorMessage("Musisz być zalogowany aby kupić bilet.", "Zaloguj się aby kontynuować.");
       } else if (choice == "5") {
-        openWebsite();
+        OpenWebsite();
       } else if (choice == "quit") {
-        seeyaFunction();
+        PrintSeeya();
         break;
       } else {
-        errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+        PrintErrorMessage("Nieprawidłowy wybór.", "Spróbuj ponownie.");
       }
     } else {
-      handleUserMenu(currentUser);
+      HandleUserMenu(user);
       std::string userChoice;
       std::cin >> userChoice;
       if (userChoice == "settings") {
-        handleSettingsOption(currentUser);
+        HandleSettingsOption(user);
       } else if (userChoice == "profil") {
-        CreateProfileScreen(currentUser);
+        CreateProfileScreen(user);
       } else if (userChoice == "logout") {
-        logoutFunction(currentUser);
-        isLoggedIn = false;
+        PrintLogout(user);
+        is_logged_in = false;
       } else if (userChoice == "1") {
-        handleFlightOptions(flightConnection, currentUser);
+        HandleFlightOptions(flight_connection, user);
       } else if (userChoice == "2") {
-        handleTicketChoice(flightConnection, currentUser);
+        HandleTicketChoice(flight_connection, user);
       } else if (userChoice == "3") {
-        if (currentUser.discount_type_ == "ulga") {
-          errorFunction("Nie możesz zakupić karty premium.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
+        if (user.discount_type_ == "ulga") {
+          PrintErrorMessage("Nie możesz zakupić karty premium.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
         } else {
-          handlePremiumCard(currentUser);
+          HandlePremiumCard(user);
         }
       } else if (userChoice == "4") {
-        if (currentUser.discount_type_ == "premium") {
-          errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
-        } else if (currentUser.discount_type_ == "ulga") {
-          errorFunction("Nie możesz starać się o ulgę.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
+        if (user.discount_type_ == "premium") {
+          PrintErrorMessage("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
+        } else if (user.discount_type_ == "ulga") {
+          PrintErrorMessage("Nie możesz starać się o ulgę.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
         } else {
-          printDiscountCard(currentUser);
+          PrintDiscountCard(user);
         }
       } else if (userChoice == "5") {
-        createTicketsScreen(currentUser);
+        createTicketsScreen(user);
       } else if (userChoice == "6") {
-        printCheckinScreen(currentUser);
+        PrintCheckinScreen(user);
       } else if (userChoice == "7") {
-        welcomeInLuggageCheckin(currentUser);
+        PrintWelcomeInCheckIn(user);
       } else if (userChoice == "8") {
-        currentUser.loginAsAdmin();
+        user.LoginAsAdmin();
       }
     }
   }
