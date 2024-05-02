@@ -8,13 +8,13 @@
 #include "cryptopp/hex.h"
 #include "cryptopp/sha.h"
 
-std::string extractFileName(const std::string &path) {
+std::string ExtractFileName(const std::string &path) {
   std::filesystem::path filePath(path);
   std::string fileName = filePath.stem().string();
   return fileName;
 }
 
-void countdown(int seconds, const std::string &type) {
+void Countdown(int seconds, const std::string &type) {
   if (type == "music") {
     std::cout << "Skup się! Odtwarzanie zacznie się za: ";
   } else {
@@ -29,10 +29,10 @@ void countdown(int seconds, const std::string &type) {
   std::cout << "1" << std::endl;
 }
 
-std::string hashString(const std::string &stringToHash) {
+std::string HashString(const std::string &string_to_hash) {
   CryptoPP::SHA256 hash;
   std::string digest;
   CryptoPP::StringSource
-      s(stringToHash, true, new CryptoPP::HashFilter(hash, new CryptoPP::HexEncoder(new CryptoPP::StringSink(digest))));
+      s(string_to_hash, true, new CryptoPP::HashFilter(hash, new CryptoPP::HexEncoder(new CryptoPP::StringSink(digest))));
   return digest;
 }
