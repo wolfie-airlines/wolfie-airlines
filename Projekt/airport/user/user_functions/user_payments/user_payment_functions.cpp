@@ -4,36 +4,36 @@
 #include "../user_prints/user_prints.h"
 #include "../../../functions/main_prints/main_prints.h"
 
-void handlePaymentOption(User &user) {
+void HandlePaymentOption(User &user) {
   int answer = CreateDefaultPaymentScreen();
   if (answer == 0) {
     // zmiana na VISĘ
     if (user.payment_method_ == "visa") {
-      errorFunction("Wybrany sposób płatności jest już ustawiony.", "");
+      PrintErrorMessage("Wybrany sposób płatności jest już ustawiony.", "");
       return;
     }
 
     std::string
-        cardNumber = displayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 ostatnie cyfry karty: ");
+        cardNumber = DisplayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 ostatnie cyfry karty: ");
     std::string
-        cvv = displayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 cyfrowy kod CVV karty: ");
+        cvv = DisplayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 cyfrowy kod CVV karty: ");
 
-    user.setVisa(cardNumber, cvv);
+    user.SetVisa(cardNumber, cvv);
   } else if (answer == 1) {
-    user.setBlik("blik");
+    user.SetBlik("blik");
   } else if (answer == 2) {
     return;
   } else {
-    errorFunction("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nieprawidłowy wybór.", "Spróbuj ponownie.");
   }
 }
 
-bool paymentAuth(User &user, const std::string &paymentMethod, const std::string &titleMessage, int targetPrice) {
-  std::string price = std::to_string(targetPrice);
-  if (paymentMethod == "blik") {
+bool AuthenticatePayment(User &user, const std::string &payment_method, const std::string &title_message, int target_price) {
+  std::string price = std::to_string(target_price);
+  if (payment_method == "blik") {
     auto createBlikScreen = [&] {
       auto summary =
-          ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+          ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(title_message)}) | color(ftxui::Color::GrayDark),
                        ftxui::separator(),
                        ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")})
                            | color(ftxui::Color::LightSteelBlue),
@@ -58,47 +58,47 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
     std::cin >> blikCode;
 
     if (blikCode == "quit") {
-      errorFunction("Płatność została anulowana.", "");
+      PrintErrorMessage("Płatność została anulowana.", "");
       return false;
     }
 
     if (blikCode.length() != 6) {
-      errorFunction("Kod BLIK musi składać się z 6 cyfr.", "Spróbuj ponownie.");
+      PrintErrorMessage("Kod BLIK musi składać się z 6 cyfr.", "Spróbuj ponownie.");
       return false;
     }
 
     if (blikCode == "123456") {
-      errorFunction("Kod BLIK jest nieprawidłowy.", "Spróbuj ponownie.");
+      PrintErrorMessage("Kod BLIK jest nieprawidłowy.", "Spróbuj ponownie.");
       return false;
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("email_", user.email_),
-        bsoncxx::builder::basic::kvp("password", user.getPassword()));
+        bsoncxx::builder::basic::kvp("password", user.GetPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
 
-    mongocxx::cursor cursor_user = user.getCollection().find(filter_view_email_password);
+    mongocxx::cursor cursor_user = user.GetCollection().find(filter_view_email_password);
 
     if (cursor_user.begin() == cursor_user.end()) {
-      errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+      PrintErrorMessage("Nie udało się znaleźć użytkownika w bazie danych.", "");
       return false;
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + targetPrice))));
+            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + target_price))));
 
     bsoncxx::document::view update_view = update_builder.view();
-    user.getCollection().update_one(filter_view_email_password, update_view);
+    user.GetCollection().update_one(filter_view_email_password, update_view);
 
-    user.money_spent_ += targetPrice;
-    validFunction("Płatność została zaakceptowana! Dziękujemy!", "");
+    user.money_spent_ += target_price;
+    PrintSuccessMessage("Płatność została zaakceptowana! Dziękujemy!", "");
     return true;
-  } else if (paymentMethod == "visa") {
+  } else if (payment_method == "visa") {
     auto createVisaDigitScreen = [&] {
       auto summary =
-          ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::GrayDark),
+          ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(title_message)}) | color(ftxui::Color::GrayDark),
                        ftxui::separator(),
                        ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")})
                            | color(ftxui::Color::LightSteelBlue),
@@ -123,18 +123,18 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
     std::cin >> cardNumber;
 
     if (cardNumber == "quit") {
-      errorFunction("Płatność została anulowana.", "");
+      PrintErrorMessage("Płatność została anulowana.", "");
       return false;
     }
 
     if (cardNumber.length() != 3) {
-      errorFunction("Numer karty musi składać się z 3 cyfr.", "Spróbuj ponownie.");
+      PrintErrorMessage("Numer karty musi składać się z 3 cyfr.", "Spróbuj ponownie.");
       return false;
     }
 
     auto createVisaCVVScreen = [&] {
       auto summary = ftxui::vbox({
-                                     ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)})
+                                     ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                          | color(ftxui::Color::GrayDark),
                                      ftxui::separator(),
                                      ftxui::hbox({ftxui::paragraphAlignRight("Do zapłaty: " + price + "zł")})
@@ -156,38 +156,38 @@ bool paymentAuth(User &user, const std::string &paymentMethod, const std::string
     std::cin >> cvv;
 
     if (cvv.length() != 3) {
-      errorFunction("Kod CVV musi składać się z 3 cyfr.", "Spróbuj ponownie.");
+      PrintErrorMessage("Kod CVV musi składać się z 3 cyfr.", "Spróbuj ponownie.");
       return false;
     }
 
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("email_", user.email_),
-        bsoncxx::builder::basic::kvp("password", user.getPassword()),
+        bsoncxx::builder::basic::kvp("password", user.GetPassword()),
         bsoncxx::builder::basic::kvp("payment_method_", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("type", paymentMethod),
+            bsoncxx::builder::basic::kvp("type", payment_method),
             bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
             bsoncxx::builder::basic::kvp("cvv", cvv))));
 
     bsoncxx::document::view filter_view = filter_builder.view();
 
-    mongocxx::cursor cursor_user = user.getCollection().find(filter_view);
+    mongocxx::cursor cursor_user = user.GetCollection().find(filter_view);
 
     if (cursor_user.begin() == cursor_user.end()) {
-      errorFunction("Nie udało się znaleźć użytkownika w bazie danych.", "");
+      PrintErrorMessage("Nie udało się znaleźć użytkownika w bazie danych.", "");
       return false;
     }
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + targetPrice))));
+            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + target_price))));
     bsoncxx::document::view update_view = update_builder.view();
-    user.getCollection().update_one(filter_view, update_view);
+    user.GetCollection().update_one(filter_view, update_view);
 
-    user.money_spent_ += targetPrice;
-    validFunction("Płatność została zaakceptowana! Dziękujemy!", "");
+    user.money_spent_ += target_price;
+    PrintSuccessMessage("Płatność została zaakceptowana! Dziękujemy!", "");
     return true;
   } else {
-    errorFunction("Nieprawidłowy sposób płatności.", "Spróbuj ponownie.");
+    PrintErrorMessage("Nieprawidłowy sposób płatności.", "Spróbuj ponownie.");
     return false;
   }
 }
