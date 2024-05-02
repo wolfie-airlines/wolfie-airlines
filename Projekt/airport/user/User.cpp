@@ -209,7 +209,7 @@ void User::LoginAsAdmin() {
   std::string password_hashed = HashString(password);
 
   if (password_hashed == admin_password_hashed) {
-    PrintSuccessMessage("Zalogowano jako administrator.", "");
+    PrintSuccessMessage("Zalogowano jako administrator.", "Skorzystaj z tej opcji ponownie aby otworzyć panel administratora.");
     Admin admin = Admin(username_,
                         email_,
                         discount_,
