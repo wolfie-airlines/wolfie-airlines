@@ -50,10 +50,10 @@ add_executable(airport main.cpp
         user/discounts/discounts.cpp
         plane/plane.cpp
         plane/plane.h
-        admin/Admin.cpp
-        admin/Admin.h
-        qr-code/qrcode_prints.h
-        qr-code/qrcode_prints.cpp
+        admin/admin.cpp
+        admin/admin.h
+        qr_code/qrcode_prints.h
+        qr_code/qrcode_prints.cpp
         user/user_functions/user_tickets/user_tickets_prints.h
         user/user_functions/user_tickets/user_tickets_prints.cpp
         checkin/checkin_prints.h
