@@ -138,14 +138,14 @@ void CheckIn(User &user, int flightNumber) {
 }
 
 void PrintWelcomeInCheckIn(User &user) {
-  mongocxx::cursor cursor = user.findUserInDatabase();
+  mongocxx::cursor cursor = user.FindUserInDatabase();
   if (cursor.begin() == cursor.end()) {
     PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return;
   }
 
   bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["user_flights_"];
+  bsoncxx::document::element userFlightsElement = userView["userFlights"];
   bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
   if (userFlightsArray.begin() == userFlightsArray.end()) {
@@ -155,7 +155,7 @@ void PrintWelcomeInCheckIn(User &user) {
 
   bool allCheckedIn = true;
   for (const auto &flight : userFlightsArray) {
-    if (!flight["LuggageCheckin"].get_bool().value) {
+    if (!flight["luggageCheckin"].get_bool().value) {
       allCheckedIn = false;
       break;
     }
@@ -197,7 +197,7 @@ void PrintWelcomeInCheckIn(User &user) {
       return;
     }
 
-    if (userFlightsArray[flightNumber - 1]["LuggageCheckin"].get_bool().value) {
+    if (userFlightsArray[flightNumber - 1]["luggageCheckin"].get_bool().value) {
       PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
       return;
     }
