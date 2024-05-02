@@ -9,7 +9,7 @@
 #include "profession_handler.h"
 #include "profession_prints/profession_prints.h"
 
-void musicProfession(User &user) {
+void MusicProfession(User &user) {
   const std::string soundFiles[] = {
       "./sounds/acdc.wav",
       "./sounds/beethoven.wav",
@@ -23,53 +23,53 @@ void musicProfession(User &user) {
   int randomIndex = dist(rng);
   std::string randomSoundFile = soundFiles[randomIndex];
 
-  countdown(3, "music");
+  Countdown(3, "music");
   PlaySound(TEXT(randomSoundFile.c_str()), nullptr, SND_FILENAME | SND_ASYNC);
-  bool guessed = guessMusicAuthor(extractFileName(randomSoundFile));
+  bool guessed = GuessMusicAuthor(ExtractFileName(randomSoundFile));
   if (guessed) {
-    validAnswer("muzyk", user);
+    ValidAnswer("muzyk", user);
   } else {
-    invalidAnswer();
+    InvalidAnswer();
   }
 }
 
-void doctorProfession(User &user) {
-  countdown(3, "doctor");
-  bool questionDisplayed = guessDoctorQuestion(user);
+void DoctorProfession(User &user) {
+  Countdown(3, "doctor");
+  bool questionDisplayed = GuessDoctorQuestion(user);
   if (questionDisplayed) {
-    validAnswer("lekarz", user);
+    ValidAnswer("lekarz", user);
   } else {
-    invalidAnswer();
+    InvalidAnswer();
   }
 }
 
-void informaticProfession(User &user) {
-  countdown(3, "informatic");
-  bool questionDisplayed = guessInformaticQuestion(user);
+void InformaticProfession(User &user) {
+  Countdown(3, "informatic");
+  bool questionDisplayed = GuessInformaticQuestion(user);
   if (questionDisplayed) {
-    validAnswer("informatyk", user);
+    ValidAnswer("informatyk", user);
   } else {
-    invalidAnswer();
+    InvalidAnswer();
   }
 }
 
-void mathProfession(User &user) {
-  countdown(3, "math");
-  bool questionDisplayed = guessMathQuestion(user);
+void MathProfession(User &user) {
+  Countdown(3, "math");
+  bool questionDisplayed = GuessMathQuestion(user);
   if (questionDisplayed) {
-    validAnswer("matematyk", user);
+    ValidAnswer("matematyk", user);
     return;
   } else {
-    invalidAnswer();
+    InvalidAnswer();
     return;
   }
 }
 
-void policeProfession(User &user) {
-  bool questionDisplayed = displayPoliceProfession(user);
+void PoliceProfession(User &user) {
+  bool questionDisplayed = DisplayPoliceProfession(user);
   if (questionDisplayed) {
-    validAnswer("policjant", user);
+    ValidAnswer("policjant", user);
   } else {
-    invalidAnswer();
+    InvalidAnswer();
   }
 }

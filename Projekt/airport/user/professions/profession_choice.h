@@ -4,10 +4,10 @@
 
 #include "../user.h"
 
-void musicProfession(User &user);
-void mathProfession(User &user);
-void informaticProfession(User &user);
-void doctorProfession(User &user);
-void policeProfession(User &user);
+void MusicProfession(User &user);
+void MathProfession(User &user);
+void InformaticProfession(User &user);
+void DoctorProfession(User &user);
+void PoliceProfession(User &user);
 
 #endif  // AIRPORT_PROFESSION_CHOICE_H
