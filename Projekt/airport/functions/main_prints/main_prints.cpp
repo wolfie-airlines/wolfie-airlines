@@ -2,25 +2,25 @@
 
 #include <iostream>
 
-void printScreen(const std::shared_ptr<ftxui::Element> &screen) {
+void PrintScreen(const std::shared_ptr<ftxui::Element> &screen) {
   auto finalScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen), ftxui::Dimension::Fit(*screen));
   ftxui::Render(finalScreen, *screen);
   std::cout << finalScreen.ToString() << '\0' << std::endl;
 }
 
-void printFullWidthScreen(std::shared_ptr<ftxui::Node> container) {
+void PrintFullWidthScreen(std::shared_ptr<ftxui::Node> container) {
   auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
   ftxui::Render(userScreen, container);
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-void printNodeScreen(std::shared_ptr<ftxui::Node> container) {
+void PrintNodeScreen(std::shared_ptr<ftxui::Node> container) {
   auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(container), ftxui::Dimension::Fit(container));
   ftxui::Render(userScreen, container);
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-std::string displayMessageAndCaptureStringInput(const std::string &titleMessage, const std::string &textMessage) {
+std::string DisplayMessageAndCaptureStringInput(const std::string &titleMessage, const std::string &textMessage) {
   auto createScreen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)})
@@ -47,7 +47,7 @@ std::string displayMessageAndCaptureStringInput(const std::string &titleMessage,
   return answer;
 }
 
-double displayMessageAndCaptureDoubleInput(const std::string &titleMessage, const std::string &textMessage) {
+double DisplayMessageAndCaptureDoubleInput(const std::string &titleMessage, const std::string &textMessage) {
   auto createScreen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)})
@@ -74,7 +74,7 @@ double displayMessageAndCaptureDoubleInput(const std::string &titleMessage, cons
   return answer;
 }
 
-std::string displayWarningAndCaptureInput(const std::string &titleMessage, const std::string &textMessage) {
+std::string DisplayWarningAndCaptureInput(const std::string &titleMessage, const std::string &textMessage) {
   auto createScreen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::Red),
