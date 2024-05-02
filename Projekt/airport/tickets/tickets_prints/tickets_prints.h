@@ -8,8 +8,8 @@
 #include "../../user/user.h"
 
 int CreateTicketMenu();
-bool validChoice(const std::string &choiceTitle, const std::string &choiceText);
-void printTicketInvoice(User &user, FlightConnection &foundConnection, const std::vector<int> &selectedSeats);
-void openWebsite();
+bool ValidChoice(const std::string &choice_title, const std::string &choice_text);
+void PrintTicketInvoice(User &user, FlightConnection &found_connection, const std::vector<int> &selected_seats);
+void OpenWebsite();
 
 #endif  // TICKETS_PRINT_FUNCTIONS_H

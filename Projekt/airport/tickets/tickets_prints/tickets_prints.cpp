@@ -31,13 +31,13 @@ int CreateTicketMenu() {
   return selected;
 }
 
-bool validChoice(const std::string &choiceTitle, const std::string &choiceText) {
+bool ValidChoice(const std::string &choice_title, const std::string &choice_text) {
   auto createScreen = [&] {
     auto summary = ftxui::vbox({
-                                   ftxui::hbox({ftxui::paragraphAlignCenter(choiceTitle)})
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(choice_title)})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(choiceText) | ftxui::bold | color(ftxui::Color::Green)}),
+                                   ftxui::hbox({ftxui::text(choice_text) | ftxui::bold | color(ftxui::Color::Green)}),
                                });
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
     document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
@@ -57,8 +57,8 @@ bool validChoice(const std::string &choiceTitle, const std::string &choiceText) 
     return false;
 }
 
-void printTicketInvoice(
-    User &user, FlightConnection &foundConnection, const std::vector<int> &selectedSeats) {
+void PrintTicketInvoice(
+    User &user, FlightConnection &found_connection, const std::vector<int> &selected_seats) {
   time_t now = time(nullptr);
   tm ltm{};
   localtime_s(&ltm, &now);
@@ -66,35 +66,35 @@ void printTicketInvoice(
       std::to_string(1900 + ltm.tm_year) + "-" + std::to_string(1 + ltm.tm_mon) + "-" + std::to_string(ltm.tm_mday);
 
   std::ostringstream streamTotalPrice;
-  streamTotalPrice << std::fixed << std::setprecision(2) << foundConnection.getPrice() * selectedSeats.size();
+  streamTotalPrice << std::fixed << std::setprecision(2) << found_connection.GetPrice() * selected_seats.size();
   std::string totalPrice = streamTotalPrice.str();
 
   std::ostringstream streamDiscount;
-  streamDiscount << std::fixed << std::setprecision(2) << (foundConnection.getPrice() * selectedSeats.size()
-      - foundConnection.getPrice() * selectedSeats.size() * user.discount_);
+  streamDiscount << std::fixed << std::setprecision(2) << (found_connection.GetPrice() * selected_seats.size()
+      - found_connection.GetPrice() * selected_seats.size() * user.discount_);
   std::string howMuchDiscount = streamDiscount.str();
 
   std::ostringstream streamTargetPrice;
   streamTargetPrice << std::fixed << std::setprecision(2)
-                    << foundConnection.getPrice() * selectedSeats.size() * user.discount_;
+                    << found_connection.GetPrice() * selected_seats.size() * user.discount_;
   std::string targetPrice = streamTargetPrice.str();
 
   ftxui::Elements elements;
-  elements.reserve(selectedSeats.size());
-  for (const auto &ticket : selectedSeats) {
+  elements.reserve(selected_seats.size());
+  for (const auto &ticket : selected_seats) {
     std::string placeInPlane =
         "Rząd: " + std::to_string((ticket % 9 == 0 ? ticket / 9 : ticket / 9 + 1)) + ", Miejsce: "
             + std::to_string((ticket % 9 == 0 ? 9 : ticket % 9));
     elements.push_back(ftxui::hbox({
-                                       ftxui::paragraphAlignLeft("ID LOTU: " + foundConnection.getIdentifier())
+                                       ftxui::paragraphAlignLeft("ID LOTU: " + found_connection.GetIdentifier())
                                            | ftxui::bold | color(ftxui::Color::GrayLight),
                                        ftxui::paragraphAlignLeft(
-                                           "MIEJSCE ODLOTU: " + foundConnection.getDepartureCity()) | ftxui::bold
+                                           "MIEJSCE ODLOTU: " + found_connection.GetDepartureCity()) | ftxui::bold
                                            | color(ftxui::Color::GrayLight),
                                        ftxui::paragraphAlignLeft(
-                                           "MIEJSCE PRZYLOTU: " + foundConnection.getDestinationCity()) | ftxui::bold
+                                           "MIEJSCE PRZYLOTU: " + found_connection.GetDestinationCity()) | ftxui::bold
                                            | color(ftxui::Color::GrayLight),
-                                       ftxui::paragraphAlignLeft("CZAS WYLOTU: " + foundConnection.getDepartureTime())
+                                       ftxui::paragraphAlignLeft("CZAS WYLOTU: " + found_connection.GetDepartureTime())
                                            | ftxui::bold | color(ftxui::Color::GrayLight),
                                        ftxui::paragraphAlignLeft(placeInPlane) | ftxui::bold
                                            | color(ftxui::Color::GrayLight),
@@ -141,8 +141,8 @@ void printTicketInvoice(
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-void openWebsite() {
+void OpenWebsite() {
   std::string search_URL = "https://wolfie-airlines-webpage.vercel.app/odprawy";
-  errorFunction("Pamiętaj!", "Żeby dokonać odprawy musisz mieć zakupiony bilet.");
+  PrintErrorMessage("Pamiętaj!", "Żeby dokonać odprawy musisz mieć zakupiony bilet.");
   ShellExecuteA(NULL, "open", search_URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
