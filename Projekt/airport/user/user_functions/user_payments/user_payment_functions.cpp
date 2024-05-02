@@ -73,7 +73,7 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
     }
 
     bsoncxx::document::value filter_builder_email_password = bsoncxx::builder::basic::make_document(
-        bsoncxx::builder::basic::kvp("email_", user.email_),
+        bsoncxx::builder::basic::kvp("email", user.email_),
         bsoncxx::builder::basic::kvp("password", user.GetPassword()));
 
     bsoncxx::document::view filter_view_email_password = filter_builder_email_password.view();
@@ -87,7 +87,7 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + target_price))));
+            bsoncxx::builder::basic::kvp("moneySpent", user.money_spent_ + target_price))));
 
     bsoncxx::document::view update_view = update_builder.view();
     user.GetCollection().update_one(filter_view_email_password, update_view);
@@ -161,9 +161,9 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
     }
 
     bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
-        bsoncxx::builder::basic::kvp("email_", user.email_),
+        bsoncxx::builder::basic::kvp("email", user.email_),
         bsoncxx::builder::basic::kvp("password", user.GetPassword()),
-        bsoncxx::builder::basic::kvp("payment_method_", bsoncxx::builder::basic::make_document(
+        bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("type", payment_method),
             bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
             bsoncxx::builder::basic::kvp("cvv", cvv))));
@@ -179,7 +179,7 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
 
     bsoncxx::document::value update_builder = bsoncxx::builder::basic::make_document(
         bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(
-            bsoncxx::builder::basic::kvp("money_spent_", user.money_spent_ + target_price))));
+            bsoncxx::builder::basic::kvp("moneySpent", user.money_spent_ + target_price))));
     bsoncxx::document::view update_view = update_builder.view();
     user.GetCollection().update_one(filter_view, update_view);
 
