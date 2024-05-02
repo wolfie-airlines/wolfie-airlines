@@ -8,7 +8,7 @@
 Authentication::Authentication(const std::string &uri_str,
                                const std::string &db_name,
                                const std::string &collection_name)
-    : client_{mongocxx::uri{uri_str}}, db_{client_[db_name]}, _collection{db_[collection_name]} {}
+    : _client_{mongocxx::uri{uri_str}}, _db_{_client_[db_name]}, _collection_{_db_[collection_name]} {}
 
 std::string Authentication::HashPassword(const std::string &password) {
   CryptoPP::SHA256 hash;
@@ -24,14 +24,14 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
   std::string hashedPassword = HashPassword(password);
 
   auto usernameAlreadyExists =
-      _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
+      _collection_.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
   if (usernameAlreadyExists) {
     PrintErrorMessage("Podana nazwa użytkownika jest już zajęta.", "Wybierz inną nazwę.");
     return false;
   }
 
   auto emailAlreadyExists =
-      _collection.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email_", email)));
+      _collection_.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email_", email)));
   if (emailAlreadyExists) {
     PrintErrorMessage("Podany adres e-mail jest już zajęty.", "Wybierz inny adres e-mail.");
     return false;
@@ -39,15 +39,15 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
 
   auto document = bsoncxx::builder::basic::document{};
   document.append(bsoncxx::builder::basic::kvp("username", username));
-  document.append(bsoncxx::builder::basic::kvp("email_", email));
+  document.append(bsoncxx::builder::basic::kvp("email", email));
   document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
   document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
-  document.append(bsoncxx::builder::basic::kvp("premium_card_", "brak"));
-  document.append(bsoncxx::builder::basic::kvp("money_spent_", 0.00));
-  document.append(bsoncxx::builder::basic::kvp("money_saved_", 0.00));
-  document.append(bsoncxx::builder::basic::kvp("ticket_bought_", 0));
-  document.append(bsoncxx::builder::basic::kvp("discount_type_", "brak"));
-  document.append(bsoncxx::builder::basic::kvp("discount_", 1.00));
+  document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
+  document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
+  document.append(bsoncxx::builder::basic::kvp("moneySaved", 0.00));
+  document.append(bsoncxx::builder::basic::kvp("ticketBought", 0));
+  document.append(bsoncxx::builder::basic::kvp("discountType", "brak"));
+  document.append(bsoncxx::builder::basic::kvp("discount", 1.00));
 
 
   // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
@@ -56,7 +56,7 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
   std::stringstream ss;
   ss << std::put_time(std::localtime(&in_time_t), "%H:%M %d.%m.%Y");
   std::string dateTime = ss.str();
-  document.append(bsoncxx::builder::basic::kvp("registration_date_", dateTime));
+  document.append(bsoncxx::builder::basic::kvp("registrationDate", dateTime));
 
   auto paymentMethodDocument = bsoncxx::builder::basic::document{};
   paymentMethodDocument.append(bsoncxx::builder::basic::kvp("type", "blik"));
@@ -64,12 +64,12 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
                                                             bsoncxx::types::b_null{})); // null jako wartosci, bo do blika niepotrzebne
   paymentMethodDocument.append(bsoncxx::builder::basic::kvp("cvv", bsoncxx::types::b_null{}));
 
-  document.append(bsoncxx::builder::basic::kvp("payment_method_", paymentMethodDocument));
+  document.append(bsoncxx::builder::basic::kvp("paymentMethod", paymentMethodDocument));
 
   auto userFlights = bsoncxx::builder::basic::array{};
-  document.append(bsoncxx::builder::basic::kvp("user_flights_", userFlights));
+  document.append(bsoncxx::builder::basic::kvp("userFlights", userFlights));
 
-  auto result = _collection.insert_one(document.view());
+  auto result = _collection_.insert_one(document.view());
   return result ? true : false;
 }
 
@@ -82,20 +82,20 @@ void Authentication::AuthenticateUser(const std::string &username,
   document.append(bsoncxx::builder::basic::kvp("username", username));
   document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
 
-  auto result = _collection.find_one(document.view());
+  auto result = _collection_.find_one(document.view());
   if (result) {
     bsoncxx::document::view userView = result->view();
-    auto paymentMethodDocument = userView["payment_method_"].get_document().value;
-    auto userFlightsDocument = userView["user_flights_"].get_array().value;
-    auto email = (std::string) userView["email_"].get_string().value;
-    auto premiumCard = (std::string) userView["premium_card_"].get_string().value;
+    auto paymentMethodDocument = userView["paymentMethod"].get_document().value;
+    auto userFlightsDocument = userView["userFlights"].get_array().value;
+    auto email = (std::string) userView["email"].get_string().value;
+    auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
     auto paymentMethod = paymentMethodDocument["type"].get_string().value;
-    auto moneySpent = userView["money_spent_"].get_double().value;
-    auto moneySaved = userView["money_saved_"].get_double().value;
-    auto ticketBought = userView["ticket_bought_"].get_int32().value;
-    auto registrationDate = (std::string) userView["registration_date_"].get_string().value;
-    auto discountType = (std::string) userView["discount_type_"].get_string().value;
-    auto discount = userView["discount_"].get_double().value;
+    auto moneySpent = userView["moneySpent"].get_double().value;
+    auto moneySaved = userView["moneySaved"].get_double().value;
+    auto ticketBought = userView["ticketBought"].get_int32().value;
+    auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
+    auto discountType = (std::string) userView["discountType"].get_string().value;
+    auto discount = userView["discount"].get_double().value;
     user.username_ = username;
     user.SetPassword(password);
     user.discount_ = discount;
