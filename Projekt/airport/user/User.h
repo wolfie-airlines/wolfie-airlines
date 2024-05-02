@@ -77,7 +77,7 @@ class User {
   [[nodiscard]] bool CheckIfAdmin() const;
   void setIsAdmin(bool is_administrator) { User::is_admin_ = is_administrator; }
   void LuggageCheckin(int flight_number);
-  mongocxx::cursor findUserInDatabase();
+  mongocxx::cursor FindUserInDatabase();
 
   template<typename T>
   void UpdateUserInDatabase(
