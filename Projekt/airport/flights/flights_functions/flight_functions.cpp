@@ -1,22 +1,20 @@
 #include "flight_functions.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 
 #include "../../functions/info_prints/info_prints.h"
 #include "../../functions/main_prints/main_prints.h"
-#include "../flight_connection.h"
 #include "flight_prints/flight_prints.h"
 
 const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
 const std::string TRY_AGAIN = "Spróbuj ponownie.";
 
-void handleFlightSearchByCity(FlightConnection &flightConnection, User &user) {
+void HandleFlightSearchByCity(FlightConnection &flight_connection, User &user) {
   std::string departureCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
   std::string destinationCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
-  FlightConnection connection = flightConnection.FindConnection(departureCity, destinationCity);
+  FlightConnection connection = flight_connection.FindConnection(departureCity, destinationCity);
 
   if (connection.GetDepartureCity() == departureCity && connection.GetDestinationCity() == destinationCity) {
     CreateFoundFlightScreen(connection, user);
@@ -25,10 +23,10 @@ void handleFlightSearchByCity(FlightConnection &flightConnection, User &user) {
   }
 }
 
-void handleFlightSearchById(FlightConnection &flightConnection, User &user) {
+void HandleFlightSearchById(FlightConnection &flight_connection, User &user) {
   std::string flightId = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj identyfikator lotu: ");
 
-  FlightConnection connection = flightConnection.FindConnectionById(flightId);
+  FlightConnection connection = flight_connection.FindConnectionById(flightId);
 
   if (connection.GetIdentifier() == flightId) {
     CreateFoundFlightScreen(connection, user);
@@ -37,11 +35,11 @@ void handleFlightSearchById(FlightConnection &flightConnection, User &user) {
   }
 }
 
-void handleFlightSearchByPrice(FlightConnection &flightConnection, User &user) {
+void HandleFlightSearchByPrice(FlightConnection &flight_connection, User &user) {
   double minPrice = DisplayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj minimalną cenę: ");
   double maxPrice = DisplayMessageAndCaptureDoubleInput("SZUKAJ POŁĄCZENIA", "Podaj maksymalną cenę: ");
 
-  std::vector<FlightConnection> connections = flightConnection.FindConnectionByPrice(minPrice, maxPrice);
+  std::vector<FlightConnection> connections = flight_connection.FindConnectionByPrice(minPrice, maxPrice);
   if (connections.empty()) {
     PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
@@ -53,10 +51,10 @@ void handleFlightSearchByPrice(FlightConnection &flightConnection, User &user) {
   }
 }
 
-void handleFlightSearchByDeparture(FlightConnection &flightConnection, User &user) {
+void HandleFlightSearchByDeparture(FlightConnection &flight_connection, User &user) {
   std::string departureCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");
 
-  std::vector<FlightConnection> connections = flightConnection.FindConnectionsByDeparture(departureCity);
+  std::vector<FlightConnection> connections = flight_connection.FindConnectionsByDeparture(departureCity);
   if (connections.empty()) {
     PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
@@ -68,10 +66,10 @@ void handleFlightSearchByDeparture(FlightConnection &flightConnection, User &use
   }
 }
 
-void handleFlightSearchByDestination(FlightConnection &flightConnection, User &user) {
+void HandleFlightSearchByDestination(FlightConnection &flight_connection, User &user) {
   std::string destinationCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto przylotu: ");
 
-  std::vector<FlightConnection> connections = flightConnection.FindConnectionsByDestination(destinationCity);
+  std::vector<FlightConnection> connections = flight_connection.FindConnectionsByDestination(destinationCity);
   if (connections.empty()) {
     PrintErrorMessage(NO_FLIGHT_FOUND, TRY_AGAIN);
   } else {
@@ -90,15 +88,15 @@ void HandleFlightOptions(FlightConnection &flight_connection, User &user) {
     CreateAllFlightsScreen(connections, user);
 
   } else if (answer == 1) {
-    handleFlightSearchByCity(flight_connection, user);
+    HandleFlightSearchByCity(flight_connection, user);
   } else if (answer == 2) {
-    handleFlightSearchById(flight_connection, user);
+    HandleFlightSearchById(flight_connection, user);
   } else if (answer == 3) {
-    handleFlightSearchByPrice(flight_connection, user);
+    HandleFlightSearchByPrice(flight_connection, user);
   } else if (answer == 4) {
-    handleFlightSearchByDeparture(flight_connection, user);
+    HandleFlightSearchByDeparture(flight_connection, user);
   } else if (answer == 5) {
-    handleFlightSearchByDestination(flight_connection, user);
+    HandleFlightSearchByDestination(flight_connection, user);
   } else if (answer == 7) {
     return;
   } else {
