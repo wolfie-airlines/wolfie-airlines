@@ -2,7 +2,7 @@
 
 #include "../functions/info_prints/info_prints.h"
 #include "../functions/main_prints/main_prints.h"
-#include "../qr-code/qrcode_prints.h"
+#include "../qr_code/qrcode_prints.h"
 #include "../user/user_functions/user_tickets/user_tickets_prints.h"
 #include "ftxui/dom/elements.hpp"
 
@@ -22,14 +22,14 @@ std::shared_ptr<ftxui::Element> createCheckinScreen(const std::string &message) 
 }
 
 void PrintCheckinScreen(User &user) {
-  mongocxx::cursor cursor = user.findUserInDatabase();
+  mongocxx::cursor cursor = user.FindUserInDatabase();
   if (cursor.begin() == cursor.end()) {
     PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return;
   }
 
   bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["user_flights_"];
+  bsoncxx::document::element userFlightsElement = userView["userFlights"];
   bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
   if (userFlightsArray.begin() == userFlightsArray.end()) {
@@ -72,7 +72,7 @@ void PrintCheckinScreen(User &user) {
       return;
     }
 
-    std::string flightId = (std::string) userFlightsArray[flightNumber - 1]["flight_id"].get_string().value;
+    std::string flightId = (std::string) userFlightsArray[flightNumber - 1]["flightId"].get_string().value;
     std::vector<int> seats;
     for (const auto &seat : userFlightsArray[flightNumber - 1]["seats"].get_array().value) {
       seats.push_back(seat.get_int32().value);
