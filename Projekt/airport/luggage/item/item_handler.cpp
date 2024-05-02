@@ -41,7 +41,7 @@ std::vector<Item> GetItems(User &user) {
     double maxCount = GetDoubleValue(item, "maxCount");
     double weight = GetDoubleValue(item, "weightForOne");
     std::string profession = GetStringValue(item, "profession");
-    std::string category = GetStringValue(item, "category_");
+    std::string category = GetStringValue(item, "category");
 
     if (profession.empty()) {
       category = category.empty() ? "special" : category;
