@@ -6,29 +6,29 @@
 const int PAGE_SIZE = 4;
 
 std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
-  mongocxx::cursor cursor = user.findUserInDatabase();
+  mongocxx::cursor cursor = user.FindUserInDatabase();
   if (cursor.begin() == cursor.end()) {
     PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return {};
   }
 
   bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["user_flights_"];
+  bsoncxx::document::element userFlightsElement = userView["userFlights"];
   bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
   std::vector<FlightInfo> flightsInfo;
   for (const auto &flight : userFlightsArray) {
     FlightInfo info;
-    info.flight_id = flight["flight_id"].get_string().value;
+    info.flight_id = flight["flightId"].get_string().value;
     info.departure = flight["departure"].get_string().value;
     info.destination = flight["destination"].get_string().value;
-    info.departure_time = flight["_departureTime_"].get_string().value;
-    info.price = flight["_price_"].get_double().value;
+    info.departure_time = flight["departureTime"].get_string().value;
+    info.price = flight["price"].get_double().value;
     for (const auto &seat : flight["seats"].get_array().value) {
       info.seats.push_back(seat.get_int32().value);
     }
     info.checkin = flight["checkin"].get_bool().value;
-    info.luggage_checkin = flight["LuggageCheckin"].get_bool().value;
+    info.luggage_checkin = flight["luggageCheckin"].get_bool().value;
     flightsInfo.push_back(info);
   }
 
