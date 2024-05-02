@@ -76,31 +76,30 @@ void ProcessSeatSelectionAndPurchase(
     }
   }
 
-  auto container = vbox({
-                            hbox({text(planeId) | bold}) | color(Color::Blue) | hcenter,
-                            separator(),
-                            vbox(document) | hcenter,
-                            separator(),
-                            text("LEGENDA") | ftxui::color(ftxui::Color::BlueLight) | bold | hcenter,
-                            ftxui::vbox({
-                                            ftxui::hbox({ftxui::text("\U0001f198 "),
-                                                         ftxui::text(
-                                                             "- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)")
-                                                             | ftxui::color(ftxui::Color::Orange1)}),
-                                            ftxui::hbox({ftxui::text("\u274C "),
-                                                         ftxui::text("- zajęte miejsce")
-                                                             | ftxui::color(ftxui::Color::Red1) | ftxui::bold}),
-                                            ftxui::hbox({ftxui::text("R ") | ftxui::color(ftxui::Color::Grey84)
-                                                             | ftxui::bold,
-                                                         ftxui::text("- rząd (numer rzędu),")
-                                                             | ftxui::color(ftxui::Color::Grey84),
-                                                         ftxui::text(" M ") | ftxui::color(ftxui::Color::Grey84)
-                                                             | ftxui::bold,
-                                                         ftxui::text("- miejsce (numer miejsca)")
-                                                             | ftxui::color(ftxui::Color::Grey84)}),
-                                        }) | ftxui::hcenter,
-                        }) |
-      style;
+  auto container =
+      vbox({
+               hbox({
+                        text(planeId) | bold}) | color(Color::Blue) | hcenter,
+               separator(),
+               vbox(document) | hcenter,
+               separator(),
+               text("LEGENDA") | ftxui::color(ftxui::Color::BlueLight) | bold | hcenter,
+               ftxui::vbox({
+                               ftxui::hbox({
+                                               ftxui::text("\U0001f198 "),
+                                               ftxui::text(
+                                                   "- miejsce ewakuacyjne (wymagana znajomość angielskiego i brak zastrzeżeń lekarskich)")
+                                                   | ftxui::color(ftxui::Color::Orange1)}),
+                               ftxui::hbox({
+                                               ftxui::text("\u274C "),
+                                               ftxui::text("- zajęte miejsce") | ftxui::color(ftxui::Color::Red1)
+                                                   | ftxui::bold}),
+                               ftxui::hbox({ftxui::text("R ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                            ftxui::text("- rząd (numer rzędu),") | ftxui::color(ftxui::Color::Grey84),
+                                            ftxui::text(" M ") | ftxui::color(ftxui::Color::Grey84) | ftxui::bold,
+                                            ftxui::text("- miejsce (numer miejsca)")
+                                                | ftxui::color(ftxui::Color::Grey84)})})
+                   | ftxui::hcenter}) | style;
 
   auto userScreen = Screen::Create(Dimension::Fit(container), Dimension::Fit(container));
   Render(userScreen, container);
