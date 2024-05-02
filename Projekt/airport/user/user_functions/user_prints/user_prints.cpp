@@ -45,12 +45,12 @@ std::shared_ptr<ftxui::Element> CreateDefaultMenu() {
 std::shared_ptr<ftxui::Element> CreateUserMenu(const User &user) {
   auto summary = [&] {
     std::string usernameAndTitle = user.username_;
-    if (user.checkIfAdmin()) {
+    if (user.CheckIfAdmin()) {
       usernameAndTitle += ", Administrator";
     }
 
     ftxui::Color usernameColor = ftxui::Color::GrayDark;
-    if (user.checkIfAdmin()) {
+    if (user.CheckIfAdmin()) {
       usernameColor = ftxui::Color::Gold1;
     }
     auto content = ftxui::vbox({
@@ -176,7 +176,7 @@ void CreateProfileScreen(User &user) {
   std::string paymentMethod = user.payment_method_;
   paymentMethod[0] = std::toupper(paymentMethod[0]);
 
-  std::string discount = user.recognizeDiscount();
+  std::string discount = user.RecognizeDiscount();
 
   std::ostringstream oss2;
   oss2 << std::fixed << std::setprecision(2) << user.money_saved_;
