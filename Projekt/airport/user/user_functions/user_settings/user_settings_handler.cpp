@@ -7,7 +7,7 @@
 #include "../../../functions/main_prints/main_prints.h"
 
 void HandleSettingsOption(User &user) {
-  std::string option = CreateSettingsMenu(user);
+  std::string option = DisplaySettingsMenu(user);
 
   if (option == "1") {
     std::string

@@ -5,7 +5,7 @@
 #include "../../../functions/main_prints/main_prints.h"
 
 void HandlePaymentOption(User &user) {
-  int answer = CreateDefaultPaymentScreen();
+  int answer = DisplayDefaultPaymentScreen();
   if (answer == 0) {
     // zmiana na VISĘ
     if (user.payment_method_ == "visa") {

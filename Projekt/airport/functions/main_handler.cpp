@@ -15,6 +15,7 @@
 #include "../user/user_functions/user_tickets/user_tickets_prints.h"
 #include "info_prints/info_prints.h"
 #include "main_prints/main_prints.h"
+#include "../admin/admin_functions/admin_functions.h"
 
 void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightConnection &flight_connection) {
   while (true) {
@@ -48,7 +49,7 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
       if (user_choice == "settings") {
         HandleSettingsOption(user);
       } else if (user_choice == "profil") {
-        CreateProfileScreen(user);
+        DisplayProfileScreen(user);
       } else if (user_choice == "logout") {
         PrintLogout(user);
         is_logged_in = false;
@@ -78,7 +79,7 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
         PrintWelcomeInCheckIn(user);
       } else if (user_choice == "8") {
         if(user.is_admin_){
-          HandleAdminPanel();
+          HandleAdminDashboard(user);
         } else {
           user.LoginAsAdmin();
         }

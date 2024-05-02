@@ -8,97 +8,7 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 
-std::shared_ptr<ftxui::Element> CreateDefaultMenu() {
-  auto summary = [&] {
-    auto content = ftxui::vbox({
-                                   ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold})
-                                       | color(ftxui::Color::Blue),
-                                   ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"2. Zaloguj się   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"3. Wyszukaj połączenie   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"4. Kup bilet na podróż   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"5. Odprawy online   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-
-                                   ftxui::hbox({ftxui::text(L"quit. Zamknij aplikację   ") | ftxui::bold})
-                                       | color(ftxui::Color::DarkRed),
-                                   // ---------
-                                   ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(
-                                       L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")
-                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                               });
-    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
-  };
-
-  auto document = ftxui::vbox({summary()});
-
-  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-
-  return std::make_shared<ftxui::Element>(document);
-}
-
-std::shared_ptr<ftxui::Element> CreateUserMenu(const User &user) {
-  auto summary = [&] {
-    std::string username_and_title = user.username_;
-    if (user.CheckIfAdmin()) {
-      username_and_title += ", Administrator";
-    }
-
-    ftxui::Color username_color = ftxui::Color::GrayDark;
-    if (user.CheckIfAdmin()) {
-      username_color = ftxui::Color::Gold1;
-    }
-    auto content = ftxui::vbox({
-                                   ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold})
-                                       | color(ftxui::Color::Blue),
-                                   ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::paragraphAlignRight(username_and_title)}) | color(username_color),
-                                   ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"5. Moje bilety   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"6. Odprawa biletowa   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"7. Odprawa bagażowa   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"8. Panel administratora   ") | ftxui::bold})
-                                       | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ") | ftxui::bold})
-                                       | color(ftxui::Color::CadetBlue),
-                                   ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ") | ftxui::bold})
-                                       | color(ftxui::Color::CadetBlue),
-                                   ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ") | ftxui::bold})
-                                       | color(ftxui::Color::DarkRed),
-                                   // ---------
-                                   ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(
-                                       L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")
-                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
-                               });
-
-    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
-  };
-
-  auto document = ftxui::vbox({summary()});
-
-  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-
-  return std::make_shared<ftxui::Element>(document);
-}
-
-std::string CreateSettingsMenu(const User &user) {
+std::string DisplaySettingsMenu(const User &user) {
   auto settings_screen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" USTAWIENIA KONTA") | ftxui::bold})
@@ -139,7 +49,7 @@ std::string CreateSettingsMenu(const User &user) {
   return option;
 }
 
-int CreateDefaultPaymentScreen() {
+int DisplayDefaultPaymentScreen() {
   using namespace ftxui;
   auto screen = ScreenInteractive::TerminalOutput();
 
@@ -158,7 +68,7 @@ int CreateDefaultPaymentScreen() {
   return selected;
 }
 
-void CreateProfileScreen(User &user) {
+void DisplayProfileScreen(User &user) {
   std::string username = user.username_;
   std::transform(username.begin(), username.end(), username.begin(), ::toupper);
 
@@ -204,8 +114,8 @@ void CreateProfileScreen(User &user) {
                                                                       | ftxui::color(ftxui::Color::SkyBlue1)
                                                                                                       : (user.premium_card_
                                                             == "szara") ? ftxui::text(premium_card)
-                                                                                                          | ftxui::color(
-                                                                                                              ftxui::Color::GrayLight)
+                                                                                                            | ftxui::color(
+                                                                                                                ftxui::Color::GrayLight)
                                                                         : (user.premium_card_ == "platynowa") ?
                                                                           ftxui::text(premium_card)
                                                                               | ftxui::color(ftxui::Color::LightSteelBlue1)

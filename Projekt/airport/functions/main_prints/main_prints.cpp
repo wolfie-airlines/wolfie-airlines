@@ -102,14 +102,98 @@ std::string DisplayWarningAndCaptureInput(const std::string &title_message, cons
 }
 
 void DisplayUserMenu(User &user) {
+
+  auto summary = [&] {
+    std::string username_and_title = user.username_;
+    if (user.CheckIfAdmin()) {
+      username_and_title += ", Administrator";
+    }
+
+    ftxui::Color username_color = ftxui::Color::GrayDark;
+    if (user.CheckIfAdmin()) {
+      username_color = ftxui::Color::Gold1;
+    }
+    auto content = ftxui::vbox({
+                                   ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold})
+                                       | color(ftxui::Color::Blue),
+                                   ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::paragraphAlignRight(username_and_title)})
+                                       | color(username_color),
+                                   ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"3. Zakup kartę premium   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"4. Zarządzaj ulgami   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"5. Moje bilety   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"6. Odprawa biletowa   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"7. Odprawa bagażowa   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"8. Panel administratora   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"profil. Przejdź do swojego profilu   ") | ftxui::bold})
+                                       | color(ftxui::Color::CadetBlue),
+                                   ftxui::hbox({ftxui::text(L"settings. Przejdź do ustawień   ") | ftxui::bold})
+                                       | color(ftxui::Color::CadetBlue),
+                                   ftxui::hbox({ftxui::text(L"logout. Wyloguj się   ") | ftxui::bold})
+                                       | color(ftxui::Color::DarkRed),
+                                   // ---------
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(
+                                       L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")
+                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                               });
+
+    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+  };
+
+  auto document = ftxui::vbox({summary()});
+
+  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
   auto
-      user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(user)));
-  ftxui::Render(user_screen, *CreateUserMenu(user));
+      user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+  ftxui::Render(user_screen, document);
   std::cout << user_screen.ToString() << '\0' << std::endl;
 }
 
 void DisplayMenu() {
-  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateDefaultMenu()));
-  ftxui::Render(screen, *CreateDefaultMenu());
+  auto summary = [&] {
+    auto content = ftxui::vbox({
+                                   ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold})
+                                       | color(ftxui::Color::Blue),
+                                   ftxui::hbox({ftxui::text(L"1. Zarejestruj się   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"2. Zaloguj się   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"3. Wyszukaj połączenie   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"4. Kup bilet na podróż   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"5. Odprawy online   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+
+                                   ftxui::hbox({ftxui::text(L"quit. Zamknij aplikację   ") | ftxui::bold})
+                                       | color(ftxui::Color::DarkRed),
+                                   // ---------
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(
+                                       L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")
+                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                               });
+    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+  };
+
+  auto document = ftxui::vbox({summary()});
+
+  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
   std::cout << screen.ToString() << '\0' << std::endl;
 }
