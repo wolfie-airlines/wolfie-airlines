@@ -5,10 +5,10 @@
 
 #include "../user.h"
 
-bool guessMusicAuthor(const std::string &musicLink);
-bool guessDoctorQuestion(User &user);
-bool guessInformaticQuestion(User &user);
-bool guessMathQuestion(User &user);
-bool displayPoliceProfession(User &user);
+bool GuessMusicAuthor(const std::string &music_link);
+bool GuessDoctorQuestion(User &user);
+bool GuessInformaticQuestion(User &user);
+bool GuessMathQuestion(User &user);
+bool DisplayPoliceProfession(User &user);
 
 #endif  // AIRPORT_PROFESSION_HANDLER_H

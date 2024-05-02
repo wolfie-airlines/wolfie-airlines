@@ -12,19 +12,19 @@ bool areEqualWithTolerance(T a, T b, T tolerance = std::numeric_limits<T>::epsil
   return std::abs(a - b) < tolerance;
 }
 
-bool guessMusicAuthor(const std::string &musicLink) {
+bool GuessMusicAuthor(const std::string &music_link) {
   std::string validAnswer;
-  if (musicLink == "sinatra") {
+  if (music_link == "sinatra") {
     validAnswer = "Sinatra";
-  } else if (musicLink == "acdc") {
+  } else if (music_link == "acdc") {
     validAnswer = "AC/DC";
-  } else if (musicLink == "beethoven") {
+  } else if (music_link == "beethoven") {
     validAnswer = "Beethoven";
-  } else if (musicLink == "vacations") {
+  } else if (music_link == "vacations") {
     validAnswer = "Vacations";
-  } else if (musicLink == "vivaldi") {
+  } else if (music_link == "vivaldi") {
     validAnswer = "Vivaldi";
-  } else if (musicLink == "youngboy") {
+  } else if (music_link == "youngboy") {
     validAnswer = "Youngboy";
   } else {
     return "Nieznany wykonawca";
@@ -58,8 +58,8 @@ bool guessMusicAuthor(const std::string &musicLink) {
   return userAnswer == validAnswer;
 }
 
-bool guessDoctorQuestion(User &user) {
-  auto collection = user.getSpecificCollection("doctor-question");
+bool GuessDoctorQuestion(User &user) {
+  auto collection = user.GetSpecificCollection("doctor-question");
   auto cursor = collection.find({});
   std::vector<bsoncxx::document::view> documents;
   for (auto &&doc : cursor) {
@@ -108,8 +108,8 @@ bool guessDoctorQuestion(User &user) {
   return userAnswer == validAnswer;
 }
 
-bool guessInformaticQuestion(User &user) {
-  auto collection = user.getSpecificCollection("informatic-questions");
+bool GuessInformaticQuestion(User &user) {
+  auto collection = user.GetSpecificCollection("informatic-questions");
   auto cursor = collection.find({});
   std::vector<bsoncxx::document::view> questions;
   for (auto &&doc : cursor) {
@@ -169,8 +169,8 @@ bool guessInformaticQuestion(User &user) {
   return userAnswer == questions[randomIndex]["answer"].get_int32().value;
 }
 
-bool guessMathQuestion(User &user) {
-  auto collection = user.getSpecificCollection("math-questions");
+bool GuessMathQuestion(User &user) {
+  auto collection = user.GetSpecificCollection("math-questions");
   auto cursor = collection.find({});
   std::vector<bsoncxx::document::view> questions;
   for (auto &&doc : cursor) {
@@ -246,7 +246,7 @@ bool guessMathQuestion(User &user) {
   }
 }
 
-bool displayPoliceProfession(User &user) {
+bool DisplayPoliceProfession(User &user) {
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"Sprawdźmy Cię funkcjonariuszu") | ftxui::bold}) |
