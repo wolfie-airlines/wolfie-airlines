@@ -11,62 +11,62 @@
 class User;
 
 class Item {
-  std::string itemName;
-  std::string description;
-  std::vector<std::string> hints;
-  bool forbidden;
-  bool registeredLuggage;
-  bool handLuggage;
-  bool pilotAllowance;
-  double maxCount;
-  double weight;
-  std::string profession;
-  std::string category = "special";
+  std::string item_name_;
+  std::string description_;
+  std::vector<std::string> hints_;
+  bool forbidden_;
+  bool registered_luggage_;
+  bool hand_luggage_;
+  bool pilot_allowance_;
+  double max_count_;
+  double weight_;
+  std::string profession_;
+  std::string category_ = "special";
 
  public:
-  Item(const std::string &itemName,
+  Item(const std::string &item_name,
        const std::string &description,
        const std::vector<std::string> &hints,
        bool forbidden,
-       bool registeredLuggage,
-       bool handLuggage,
-       bool pilotAllowance,
-       double maxCount,
+       bool registered_luggage,
+       bool hand_luggage,
+       bool pilot_allowance,
+       double max_count,
        double weight,
        std::string &profession,
        std::string &category);
-  Item(const std::string &itemName,
+  Item(const std::string &item_name,
        const std::string &description,
        const std::vector<std::string> &hints,
        bool forbidden,
-       bool registeredLuggage,
-       bool handLuggage,
-       bool pilotAllowance,
-       double maxCount,
+       bool registered_luggage,
+       bool hand_luggage,
+       bool pilot_allowance,
+       double max_count,
        double weight,
        std::string &category);
 
-  [[nodiscard]] const std::string &getItemName() const;
+  [[nodiscard]] const std::string &GetItemName() const;
 
-  [[nodiscard]] const std::string &getDescription() const;
+  [[nodiscard]] const std::string &GetDescription() const;
 
-  [[nodiscard]] const std::string &getProfession() const;
+  [[nodiscard]] const std::string &GetProfession() const;
 
-  [[nodiscard]] const std::vector<std::string> &getHints() const;
+  [[nodiscard]] const std::vector<std::string> &GetHints() const;
 
-  [[nodiscard]] bool isForbidden() const;
+  [[nodiscard]] bool IsForbidden() const;
 
-  [[nodiscard]] bool isRegisteredLuggage() const;
+  [[nodiscard]] bool IsRegisteredLuggage() const;
 
-  [[nodiscard]] bool isHandLuggage() const;
+  [[nodiscard]] bool IsHandLuggage() const;
 
-  [[nodiscard]] bool isPilotAllowance() const;
+  [[nodiscard]] bool IsPilotAllowance() const;
 
-  [[nodiscard]] double getMaxCount() const;
+  [[nodiscard]] double GetMaxCount() const;
 
-  [[nodiscard]] double getWeight() const;
+  [[nodiscard]] double GetWeight() const;
 
-  [[nodiscard]] std::string getCategory() const;
+  [[nodiscard]] std::string GetCategory() const;
 };
 
 #endif  // AIRPORT_ITEM_H
