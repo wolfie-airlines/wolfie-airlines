@@ -51,7 +51,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug"
+			"value" : "c:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -491,7 +491,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -1435,11 +1435,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
-			"type" : "UNINITIALIZED",
-			"value" : "C:\\Users\\szymo\\.vcpkg-clion\\airport\\scripts\\buildsystems\\vcpkg.cmake"
+			"type" : "FILEPATH",
+			"value" : "C:/Users/szymo/.vcpkg-clion/airport/scripts/buildsystems/vcpkg.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1499,7 +1499,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps"
 		},
 		{
 			"name" : "FETCHCONTENT_FULLY_DISCONNECTED",
@@ -1743,7 +1743,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed"
 		},
 		{
 			"name" : "VCPKG_INSTALL_OPTIONS",
@@ -1999,7 +1999,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed"
 		},
 		{
 			"name" : "airport_BINARY_DIR",
@@ -2011,7 +2011,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace"
 		},
 		{
 			"name" : "airport_IS_TOP_LEVEL",
@@ -2047,7 +2047,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/bson-1.0"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/bson-1.0"
 		},
 		{
 			"name" : "bsoncxx_DIR",
@@ -2059,7 +2059,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/bsoncxx"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/bsoncxx"
 		},
 		{
 			"name" : "cryptopp_DIR",
@@ -2071,7 +2071,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/cryptopp"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/cryptopp"
 		},
 		{
 			"name" : "ftxui_BINARY_DIR",
@@ -2083,7 +2083,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-build"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-build"
 		},
 		{
 			"name" : "ftxui_IS_TOP_LEVEL",
@@ -2107,7 +2107,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/_deps/ftxui-src"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/_deps/ftxui-src"
 		},
 		{
 			"name" : "iwyu_path",
@@ -2131,7 +2131,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/mongoc-1.0"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/mongoc-1.0"
 		},
 		{
 			"name" : "mongocxx_DIR",
@@ -2143,7 +2143,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/mongocxx"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/mongocxx"
 		},
 		{
 			"name" : "unofficial-nayuki-qr-code-generator_DIR",
@@ -2155,7 +2155,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug/vcpkg_installed/x64-windows/share/unofficial-nayuki-qr-code-generator"
+			"value" : "C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace/vcpkg_installed/x64-windows/share/unofficial-nayuki-qr-code-generator"
 		}
 	],
 	"kind" : "cache",
