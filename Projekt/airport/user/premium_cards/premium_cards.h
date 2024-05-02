@@ -3,9 +3,9 @@
 
 #include "../user.h"
 
-void handlePremiumCard(User &user);
-void handleCardChoice(const std::string &card, int price, User &user);
-double getCardDiscount(const std::string &card);
-std::string recognizeDiscountCard(double discount);
+void HandlePremiumCard(User &user);
+void HandleCardChoice(const std::string &card, int price, User &user);
+double GetCardDiscount(const std::string &card);
+std::string RecognizeDiscountCard(double discount);
 
 #endif  // AIRPORT_PREMIUM_CARDS_H

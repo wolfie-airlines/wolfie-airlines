@@ -3,7 +3,7 @@
 #include "../../functions/info_prints/info_prints.h"
 #include "premium_cards_prints/premium_cards_prints.h"
 
-double getCardDiscount(const std::string &card) {
+double GetCardDiscount(const std::string &card) {
   if (card == "szara") {
     return 1;
   } else if (card == "niebieska") {
@@ -17,7 +17,7 @@ double getCardDiscount(const std::string &card) {
   }
 }
 
-std::string recognizeDiscountCard(double discount) {
+std::string RecognizeDiscountCard(double discount) {
   if (discount == 1) {
     return "szara";
   } else if (discount == 0.95) {
@@ -31,20 +31,20 @@ std::string recognizeDiscountCard(double discount) {
   }
 }
 
-void handleCardChoice(const std::string &card, int price, User &user) {
-  bool valid = validCardPayment(user, price);
+void HandleCardChoice(const std::string &card, int price, User &user) {
+  bool valid = ValidCardPayment(user, price);
   if (valid) {
-    user.setPremiumCard(user, card);
+    user.SetPremiumCard(user, card);
   } else {
     return;
   }
 }
 
-void handlePremiumCard(User &user) {
-  std::string choice = displayPremiumCardInfo();
+void HandlePremiumCard(User &user) {
+  std::string choice = DisplayPremiumCardInfo();
   std::string card;
   int price;
-  std::string premiumCard = recognizeDiscountCard(user.discount_);
+  std::string premiumCard = RecognizeDiscountCard(user.discount_);
 
   for (int i = 0; i < choice.size(); i++) {
     choice[i] = tolower(choice[i]);
@@ -55,7 +55,7 @@ void handlePremiumCard(User &user) {
   }
 
   if (choice == premiumCard) {
-    errorFunction("Posiadasz już tę kartę premium.", "");
+    PrintErrorMessage("Posiadasz już tę kartę premium.", "");
     return;
   }
 
@@ -74,5 +74,5 @@ void handlePremiumCard(User &user) {
   } else {
     return;
   }
-  handleCardChoice(card, price, user);
+  HandleCardChoice(card, price, user);
 }
