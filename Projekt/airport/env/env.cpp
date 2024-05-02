@@ -7,7 +7,7 @@
 // definicja konstruktora domyślnego -> inicjalizuje obiekt
 EnvParser::EnvParser() = default;
 
-void EnvParser::parseEnvFile() {
+void EnvParser::ParseEnvFile() {
   const std::string &filename = ".env";
   std::ifstream file(filename);
   std::string line;
@@ -26,16 +26,16 @@ void EnvParser::parseEnvFile() {
       key.erase(key.find_last_not_of(" \t") + 1);
       value.erase(value.find_last_not_of(" \t") + 1);
 
-      envMap[key] = value;
+      _env_map_[key] = value;
     }
   }
 
   file.close();
 }
 
-std::string EnvParser::getValue(const std::string &key) const {
-  auto it = envMap.find(key);
-  if (it != envMap.end()) {
+std::string EnvParser::GetValue(const std::string &key) const {
+  auto it = _env_map_.find(key);
+  if (it != _env_map_.end()) {
     return it->second;
   } else {
     return "Nie znaleziono klucza w pliku .env!";

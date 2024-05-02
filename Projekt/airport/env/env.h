@@ -6,12 +6,12 @@
 
 class EnvParser {
  private:
-  std::unordered_map<std::string, std::string> envMap;
+  std::unordered_map<std::string, std::string> _env_map_;
 
  public:
   EnvParser();
-  void parseEnvFile();
-  [[nodiscard]] std::string getValue(const std::string &key) const;
+  void ParseEnvFile();
+  [[nodiscard]] std::string GetValue(const std::string &key) const;
 };
 
 #endif  // ENVPARSER_H
