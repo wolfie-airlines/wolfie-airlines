@@ -56,9 +56,9 @@ std::string DisplayProfessionInfo() {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
   std::string option;
   std::cin >> option;
   return option;
@@ -88,7 +88,7 @@ int CreateProfessionScreen() {
 
 void ValidAnswer(const std::string &category, User &user) {
   std::string odmiana;
-  bool isPolice = false;
+  bool is_police = false;
   if (category == "muzyk") {
     odmiana = "muzyków";
   } else if (category == "lekarz") {
@@ -99,12 +99,12 @@ void ValidAnswer(const std::string &category, User &user) {
     odmiana = "informatyków";
   } else if (category == "policjant") {
     odmiana = "policjantów";
-    isPolice = true;
+    is_police = true;
   }
 
   auto summary = [&] {
     auto content = ftxui::vbox({
-                                   isPolice ? ftxui::hbox({ftxui::text(L"Witamy funkcjonariuszu!") | ftxui::bold})
+                                   is_police ? ftxui::hbox({ftxui::text(L"Witamy funkcjonariuszu!") | ftxui::bold})
                                        | color(ftxui::Color::Green) :
                                    ftxui::hbox({ftxui::text(L"Dokładnie! To poprawna odpowiedź!") | ftxui::bold})
                                        | color(ftxui::Color::Green),
@@ -118,13 +118,13 @@ void ValidAnswer(const std::string &category, User &user) {
 
   auto document = ftxui::vbox({summary()});
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
 
   user.UpdateUserInDatabase("profession", category);
   user.profession_ = category;
 
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  std::cout << screen.ToString() << '\0' << std::endl;
 }
 
 void InvalidAnswer() {
@@ -142,7 +142,7 @@ void InvalidAnswer() {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
 }

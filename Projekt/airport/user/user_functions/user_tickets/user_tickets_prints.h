@@ -18,6 +18,6 @@ struct FlightInfo {
   bool luggage_checkin;
 };
 
-std::optional<std::string> createTicketsScreen(User &user, bool is_checkin = false);
+std::optional<std::string> CreateTicketsScreen(User &user, bool is_checkin = false);
 
 #endif  // AIRPORT_USER_TICKETS_PRINT_FUNCTIONS_H

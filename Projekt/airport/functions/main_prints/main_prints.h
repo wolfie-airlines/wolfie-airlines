@@ -8,7 +8,7 @@
 void PrintScreen(const std::shared_ptr<ftxui::Element> &screen);
 void PrintFullWidthScreen(std::shared_ptr<ftxui::Node> container);
 void PrintNodeScreen(std::shared_ptr<ftxui::Node> container);
-std::string DisplayMessageAndCaptureStringInput(const std::string &titleMessage, const std::string &textMessage);
-double DisplayMessageAndCaptureDoubleInput(const std::string &titleMessage, const std::string &textMessage);
-std::string DisplayWarningAndCaptureInput(const std::string &titleMessage, const std::string &textMessage);
+std::string DisplayMessageAndCaptureStringInput(const std::string &title_message, const std::string &text_message);
+double DisplayMessageAndCaptureDoubleInput(const std::string &title_message, const std::string &text_message);
+std::string DisplayWarningAndCaptureInput(const std::string &title_message, const std::string &text_message);
 #endif  // AIRPORT_MAIN_PRINTS_H

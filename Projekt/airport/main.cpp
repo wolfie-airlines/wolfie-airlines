@@ -27,15 +27,17 @@ int main() {
     auto collection = db["connection_test"];
 
     // testowy dokument dla pingu do kolekcji
-    auto testPing = collection.insert_one(make_document(kvp("ping", 1)));
+    auto an_optional = collection.insert_one(make_document(kvp("ping", 1)));
 
-    if (!testPing) {
+    if (!an_optional) {
       std::cout << "Nie udalo sie polaczyc z baza danych..." << std::endl;
       return EXIT_FAILURE;
     }
-    User currentUser{client};
-    bool isLoggedIn = false;
-    ProcessChoice(isLoggedIn, auth, currentUser, flightConnection);
+
+    User current_user{client};
+    bool is_logged_in = false;
+    ProcessChoice(is_logged_in, auth, current_user, flightConnection);
+
   } catch (const std::exception &ex) {
     std::cout << "Blad operacji: " << ex.what() << std::endl;
     return EXIT_FAILURE;

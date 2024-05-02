@@ -10,8 +10,8 @@
 
 std::string ExtractFileName(const std::string &path) {
   std::filesystem::path filePath(path);
-  std::string fileName = filePath.stem().string();
-  return fileName;
+  std::string file_name = filePath.stem().string();
+  return file_name;
 }
 
 void Countdown(int seconds, const std::string &type) {

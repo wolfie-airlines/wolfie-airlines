@@ -5,8 +5,8 @@
 
 #include "../../user/user.h"
 
-void PrintSuccessMessage(const std::string &titleMessage, const std::string &optionalMessage);
-void PrintErrorMessage(const std::string &titleMessage, const std::string &optionalMessage);
+void PrintSuccessMessage(const std::string &title_message, const std::string &optional_message);
+void PrintErrorMessage(const std::string &title_message, const std::string &optional_message);
 void PrintLogout(User &user);
 void PrintSeeya();
 

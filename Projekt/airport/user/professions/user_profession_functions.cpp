@@ -4,7 +4,7 @@
 #include "profession_choice.h"
 #include "profession_prints/profession_prints.h"
 
-void handleProfessionChoice(int choice, User &user) {
+void HandleProfessionChoice(int choice, User &user) {
   if (choice == 0) {
     MusicProfession(user);
   } else if (choice == 1) {
@@ -24,7 +24,7 @@ void HandleProfession(User &user) {
   std::string option = DisplayProfessionInfo();
   if (option == "Tak" || option == "TAK" || option == "tak") {
     int profession = CreateProfessionScreen();
-    handleProfessionChoice(profession, user);
+    HandleProfessionChoice(profession, user);
   } else
     return;
 }

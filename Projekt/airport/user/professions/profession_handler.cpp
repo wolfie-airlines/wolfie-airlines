@@ -5,30 +5,30 @@
 #include <variant>
 
 #include "ftxui/component/component_options.hpp"
-#include "ftxui/component/screen_interactive.hpp"
 
 template<typename T>
-bool areEqualWithTolerance(T a, T b, T tolerance = std::numeric_limits<T>::epsilon()) {
+bool AreEqualWithTolerance(T a, T b, T tolerance = std::numeric_limits<T>::epsilon()) {
   return std::abs(a - b) < tolerance;
 }
 
 bool GuessMusicAuthor(const std::string &music_link) {
-  std::string validAnswer;
+  std::string valid_answer;
   if (music_link == "sinatra") {
-    validAnswer = "Sinatra";
+    valid_answer = "Sinatra";
   } else if (music_link == "acdc") {
-    validAnswer = "AC/DC";
+    valid_answer = "AC/DC";
   } else if (music_link == "beethoven") {
-    validAnswer = "Beethoven";
+    valid_answer = "Beethoven";
   } else if (music_link == "vacations") {
-    validAnswer = "Vacations";
+    valid_answer = "Vacations";
   } else if (music_link == "vivaldi") {
-    validAnswer = "Vivaldi";
+    valid_answer = "Vivaldi";
   } else if (music_link == "youngboy") {
-    validAnswer = "Youngboy";
+    valid_answer = "Youngboy";
   } else {
     return "Nieznany wykonawca";
   }
+
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(
@@ -49,13 +49,13 @@ bool GuessMusicAuthor(const std::string &music_link) {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
 
-  std::string userAnswer;
-  std::cin >> userAnswer;
-  return userAnswer == validAnswer;
+  std::string answer;
+  std::cin >> answer;
+  return answer == valid_answer;
 }
 
 bool GuessDoctorQuestion(User &user) {
@@ -76,15 +76,15 @@ bool GuessDoctorQuestion(User &user) {
   std::uniform_int_distribution<> distrib(0, documents.size() - 1);
 
   int random_index = distrib(gen);
-  std::string validAnswer = (std::string) documents[random_index]["answer"].get_string().value;
-  std::string objawy = (std::string) documents[random_index]["question"].get_string().value;
+  std::string valid_answer = (std::string) documents[random_index]["answer"].get_string().value;
+  std::string question = (std::string) documents[random_index]["question"].get_string().value;
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(
                                        L"Zdiagnozuj poniższą chorobę na podstawie objaw:") |
                                        ftxui::bold}) |
                                        color(ftxui::Color::Orange4),
-                                   ftxui::hbox({ftxui::text(objawy) | ftxui::bold}) |
+                                   ftxui::hbox({ftxui::text(question) | ftxui::bold}) |
                                        color(ftxui::Color::Orange3),
                                    ftxui::hbox({ftxui::text(
                                        L"Podpowiedź: Nazwa choroby jest zawsze jednym słowem.") |
@@ -100,12 +100,12 @@ bool GuessDoctorQuestion(User &user) {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
-  std::string userAnswer;
-  std::cin >> userAnswer;
-  return userAnswer == validAnswer;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
+  std::string answer;
+  std::cin >> answer;
+  return answer == valid_answer;
 }
 
 bool GuessInformaticQuestion(User &user) {
@@ -123,24 +123,25 @@ bool GuessInformaticQuestion(User &user) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> distrib(0, questions.size() - 1);
-  int randomIndex = distrib(gen);
+  int random_index = distrib(gen);
 
-  std::string language = (std::string) questions[randomIndex]["language"].get_string().value;
-  std::string error = (std::string) questions[randomIndex]["error"].get_string().value;
+  std::string language = (std::string) questions[random_index]["language"].get_string().value;
+  std::string error = (std::string) questions[random_index]["error"].get_string().value;
   auto code = ftxui::vbox();
-  std::string codeString = (std::string) questions[randomIndex]["code"].get_string().value;
-  std::istringstream codeStream(codeString);
+  std::string code_string = (std::string) questions[random_index]["code"].get_string().value;
+  std::istringstream code_stream(code_string);
   std::string line;
-  int lineNumber = 1;
-  while (std::getline(codeStream, line, ',')) {
-    auto lineNumberText = ftxui::text(std::to_string(lineNumber) + ". ") | color(ftxui::Color::BlueLight);
-    auto codeLine = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
-    auto numberedLine = ftxui::hbox(std::move(lineNumberText), std::move(codeLine));
-    code = ftxui::vbox(std::move(code), std::move(numberedLine));
-    lineNumber++;
-  }
-  auto answer = ftxui::text(L"W której linijce kodu znajduje się problem?");
 
+  int line_number = 1;
+  while (std::getline(code_stream, line, ',')) {
+    auto line_number_text = ftxui::text(std::to_string(line_number) + ". ") | color(ftxui::Color::BlueLight);
+    auto code_line = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
+    auto numbered_line = ftxui::hbox(std::move(line_number_text), std::move(code_line));
+    code = ftxui::vbox(std::move(code), std::move(numbered_line));
+    line_number++;
+  }
+
+  auto question_to_user = ftxui::text(L"W której linijce kodu znajduje się problem?");
   auto container = ftxui::vbox({
                                    ftxui::hbox({ftxui::text("Język programowania: " + language) | ftxui::bold}) |
                                        color(ftxui::Color::YellowLight),
@@ -151,22 +152,22 @@ bool GuessInformaticQuestion(User &user) {
                                        color(ftxui::Color::IndianRed),
                                    ftxui::hbox({ftxui::text(error) | ftxui::bold}) | color(ftxui::Color::Red),
                                    ftxui::separator(),
-                                   answer | color(ftxui::Color::BlueLight),
+                                   question_to_user | color(ftxui::Color::BlueLight),
                                });
 
   auto window = ftxui::window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), std::move(container));
 
   window = window | ftxui::size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(window), ftxui::Dimension::Fit(window));
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(window), ftxui::Dimension::Fit(window));
 
-  ftxui::Render(userScreen, window);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  ftxui::Render(screen, window);
+  std::cout << screen.ToString() << '\0' << std::endl;
 
-  int userAnswer;
-  std::cin >> userAnswer;
+  int answer;
+  std::cin >> answer;
 
-  return userAnswer == questions[randomIndex]["answer"].get_int32().value;
+  return answer == questions[random_index]["answer"].get_int32().value;
 }
 
 bool GuessMathQuestion(User &user) {
@@ -185,39 +186,39 @@ bool GuessMathQuestion(User &user) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> distrib(0, questions.size() - 1);
-  int randomIndex = distrib(gen);
+  int random_index = distrib(gen);
 
-  std::string topic = (std::string) questions[randomIndex]["problem"].get_string().value;
-  std::string description = (std::string) questions[randomIndex]["description"].get_string().value;
-  std::string hint = (std::string) questions[randomIndex]["hint"].get_string().value;
-  bsoncxx::types::bson_value::view solutionValue = questions[randomIndex]["solution"].get_value();
-  std::string userAnswer;
+  std::string topic = (std::string) questions[random_index]["problem"].get_string().value;
+  std::string description = (std::string) questions[random_index]["description"].get_string().value;
+  std::string hint = (std::string) questions[random_index]["hint"].get_string().value;
+  bsoncxx::types::bson_value::view solution_value = questions[random_index]["solution"].get_value();
+  std::string answer;
   std::string solution;
 
-  if (solutionValue.type() == bsoncxx::type::k_int32) {
-    solution = std::to_string(solutionValue.get_int32().value);
-  } else if (solutionValue.type() == bsoncxx::type::k_double) {
-    solution = std::to_string(solutionValue.get_double().value);
-  } else if (solutionValue.type() == bsoncxx::type::k_utf8) {
-    solution = solutionValue.get_string().value;
+  if (solution_value.type() == bsoncxx::type::k_int32) {
+    solution = std::to_string(solution_value.get_int32().value);
+  } else if (solution_value.type() == bsoncxx::type::k_double) {
+    solution = std::to_string(solution_value.get_double().value);
+  } else if (solution_value.type() == bsoncxx::type::k_utf8) {
+    solution = solution_value.get_string().value;
   } else {
     std::cerr << "Nieznany typ rozwiązania" << std::endl;
     return false;
   }
 
-  auto wholeProblem = ftxui::vbox();
-  std::istringstream problemStream(description);
+  auto whole_problem = ftxui::vbox();
+  std::istringstream istringstream(description);
   std::string line;
-  while (std::getline(problemStream, line, ',')) {
-    auto problemLine = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
-    wholeProblem = ftxui::vbox(std::move(wholeProblem), std::move(problemLine));
+  while (std::getline(istringstream, line, ',')) {
+    auto problem_line = ftxui::text(line) | color(ftxui::Color::NavajoWhite1);
+    whole_problem = ftxui::vbox(std::move(whole_problem), std::move(problem_line));
   }
 
   auto container = ftxui::vbox({
                                    ftxui::hbox({ftxui::text("Zadanie z działu: " + topic) | ftxui::bold})
                                        | color(ftxui::Color::YellowLight),
                                    ftxui::separator(),
-                                   wholeProblem | ftxui::border,
+                                   whole_problem | ftxui::border,
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text("Podpowiedź: ") | ftxui::bold})
                                        | color(ftxui::Color::BlueLight),
@@ -228,18 +229,17 @@ bool GuessMathQuestion(User &user) {
 
   window = window | ftxui::size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(window), ftxui::Dimension::Fit(window));
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(window), ftxui::Dimension::Fit(window));
 
-  ftxui::Render(userScreen, window);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  ftxui::Render(screen, window);
+  std::cout << screen.ToString() << '\0' << std::endl;
 
-  std::cin >> userAnswer;
+  std::cin >> answer;
 
-
-  if (solutionValue.type() == bsoncxx::type::k_double) {
-    return areEqualWithTolerance(std::stod(solution), std::stod(userAnswer));
+  if (solution_value.type() == bsoncxx::type::k_double) {
+    return AreEqualWithTolerance(std::stod(solution), std::stod(answer));
   } else {
-    return userAnswer == solution;
+    return answer == solution;
   }
 }
 
@@ -256,16 +256,16 @@ bool DisplayPoliceProfession() {
 
   auto document = ftxui::vbox({summary()});
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
 
-  int badgeNumber;
-  std::cin >> badgeNumber;
+  int badge_number;
+  std::cin >> badge_number;
 
-  if (badgeNumber < 100000 || badgeNumber > 999999) {
+  if (badge_number < 100000 || badge_number > 999999) {
     return false;
   }
 
-  return badgeNumber != 123456;
+  return badge_number != 123456;
 }

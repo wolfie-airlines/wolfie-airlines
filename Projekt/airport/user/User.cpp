@@ -77,8 +77,8 @@ mongocxx::cursor User::FindUserInDatabase() {
 
 // Ustawienia
 std::string User::GetPassword() {
-  std::string hashedPassword = HashString(_password_);
-  return hashedPassword;
+  std::string hashed_password = HashString(_password_);
+  return hashed_password;
 }
 
 void User::SetPassword(const std::string &password) {
@@ -97,15 +97,15 @@ void User::ChangePassword(const std::string &password) {
     return;
   }
 
-  std::string repeatedPassword =
+  std::string repeated_password =
       DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj ponownie nowe hasło żeby potwierdzić zmianę:");
-  if (password != repeatedPassword) {
+  if (password != repeated_password) {
     PrintErrorMessage("Podane hasła nie są takie same.", "Spróbuj ponownie.");
     return;
   }
 
-  std::string oldPassword = DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj stare hasło żebyśmy mieli 200% pewności że to ty:");
-  if (oldPassword != _password_) {
+  std::string old_password = DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj stare hasło żebyśmy mieli 200% pewności że to ty:");
+  if (old_password != _password_) {
     PrintErrorMessage("Podane hasło nie jest poprawne.", "Spróbuj ponownie.");
     return;
   }
@@ -202,13 +202,13 @@ void User::LoginAsAdmin() {
   }
   EnvParser envParser;
   envParser.ParseEnvFile();
-  std::string adminPassword = envParser.GetValue("ADMIN_PASSWORD");
-  std::string adminPasswordHashed = HashString(adminPassword);
+  std::string admin_password = envParser.GetValue("ADMIN_PASSWORD");
+  std::string admin_password_hashed = HashString(admin_password);
 
-  std::string providedPassword = DisplayMessageAndCaptureStringInput("Logowanie jako administrator", "Podaj hasło administratora: ");
-  std::string providedPasswordHashed = HashString(providedPassword);
+  std::string password = DisplayMessageAndCaptureStringInput("Logowanie jako administrator", "Podaj hasło administratora: ");
+  std::string password_hashed = HashString(password);
 
-  if (providedPasswordHashed == adminPasswordHashed) {
+  if (password_hashed == admin_password_hashed) {
     PrintSuccessMessage("Zalogowano jako administrator.", "");
     Admin admin = Admin(username_,
                         email_,
@@ -224,7 +224,7 @@ void User::LoginAsAdmin() {
                         ticket_bought_,
                         user_flights_,
                         true,
-                        adminPasswordHashed);
+                        admin_password_hashed);
     setIsAdmin(true);
   } else {
     PrintErrorMessage("Błędne hasło administratora.", "");
@@ -238,14 +238,14 @@ double User::GetDiscount() const {
 }
 
 std::string User::RecognizeDiscount() const {
-  double disc = GetDiscount();
-  if (disc == 0.05) {
+  double discount = GetDiscount();
+  if (discount == 0.05) {
     return "Weteran wojenny";
-  } else if (disc == 0.4) {
+  } else if (discount == 0.4) {
     return "Osoba niepełnosprawna";
-  } else if (disc == 0.45) {
+  } else if (discount == 0.45) {
     return "Emeryt";
-  } else if (disc == 0.49) {
+  } else if (discount == 0.49) {
     return "Student";
   } else {
     return "brak";
@@ -326,10 +326,8 @@ void User::SetBlik(const std::string &payment_method) {
     return;
   }
 
-  std::cout << "Podaj ponownie nowe hasło żeby potwierdzić zmianę: ";
-  std::string repeatedPassword;
-  std::cin >> repeatedPassword;
-  if (_password_ != repeatedPassword) {
+  std::string repeated_password = DisplayMessageAndCaptureStringInput("Zmiana metody płatności", "Podaj ponownie nowe hasło żeby potwierdzić zmianę:");
+  if (_password_ != repeated_password) {
     PrintErrorMessage("Podane hasła nie są takie same.", "Spróbuj ponownie.");
     return;
   }
@@ -412,20 +410,20 @@ void User::AddTicketToUser(const std::vector<int> &seats, const FlightConnection
     seats_array.append(seat);
   }
 
-  std::string flightId = flight_connection.GetIdentifier();
-  std::string departure = flight_connection.GetDepartureCity();
-  std::string destination = flight_connection.GetDestinationCity();
-  std::string departureTime = flight_connection.GetDepartureTime();
-  std::string arrivalTime = flight_connection.GetArrivalTime();
-  auto flightPrice = flight_connection.GetPrice();
+  std::string flight_id = flight_connection.GetIdentifier();
+  std::string departure_city = flight_connection.GetDepartureCity();
+  std::string destination_city = flight_connection.GetDestinationCity();
+  std::string departure_time = flight_connection.GetDepartureTime();
+  std::string arrival_time = flight_connection.GetArrivalTime();
+  auto flight_price = flight_connection.GetPrice();
 
   bsoncxx::document::value ticket_builder = bsoncxx::builder::basic::make_document(
-      bsoncxx::builder::basic::kvp("flightId", flightId),
-      bsoncxx::builder::basic::kvp("departure", departure),
-      bsoncxx::builder::basic::kvp("destination", destination),
-      bsoncxx::builder::basic::kvp("departureTime", departureTime),
-      bsoncxx::builder::basic::kvp("arrivalTime", arrivalTime),
-      bsoncxx::builder::basic::kvp("price", flightPrice),
+      bsoncxx::builder::basic::kvp("flightId", flight_id),
+      bsoncxx::builder::basic::kvp("departure", departure_city),
+      bsoncxx::builder::basic::kvp("destination", destination_city),
+      bsoncxx::builder::basic::kvp("departureTime", departure_time),
+      bsoncxx::builder::basic::kvp("arrivalTime", arrival_time),
+      bsoncxx::builder::basic::kvp("price", flight_price),
       bsoncxx::builder::basic::kvp("seats", seats_array),
       bsoncxx::builder::basic::kvp("checkin", false),
       bsoncxx::builder::basic::kvp("luggageCheckin", false));
@@ -477,22 +475,22 @@ void User::LuggageCheckin(int flight_number) {
     return;
   }
 
-  bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["userFlights"];
-  bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+  bsoncxx::document::view user_view = *cursor.begin();
+  bsoncxx::document::element user_flights_element = user_view["userFlights"];
+  bsoncxx::array::view user_flights = user_flights_element.get_array().value;
 
   // w całym arrayu znajdź index lotu który ma numer flight_number -1
-  int flightIndex = flight_number - 1;
+  int flight_index = flight_number - 1;
 
   // sprawdź czy bagaż dla tego lotu jest już odprawiony
-  if (userFlightsArray[flightIndex]["luggageCheckin"].get_bool().value) {
+  if (user_flights[flight_index]["luggageCheckin"].get_bool().value) {
     PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
     return;
   }
 
   // zaktualizuj wartość w tym arrayu o podanym indeksie na true
   bsoncxx::builder::basic::document update_builder;
-  std::string updateKey = "userFlights." + std::to_string(flightIndex) + ".luggageCheckin";
+  std::string updateKey = "userFlights." + std::to_string(flight_index) + ".luggageCheckin";
   update_builder.append(bsoncxx::builder::basic::kvp(updateKey, true));
   bsoncxx::document::value update = update_builder.extract();
 

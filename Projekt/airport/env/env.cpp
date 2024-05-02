@@ -22,7 +22,7 @@ void EnvParser::ParseEnvFile() {
     std::string key, value;
 
     if (std::getline(iss, key, '=') && std::getline(iss, value)) {
-      // usuniecie bialych znakow z konca jakby ktos zapomnial ich usunac
+      // Usunięcie białych znaków z klucza i wartości, gdyby ktoś zapomniał wyczyścić je w pliku .env
       key.erase(key.find_last_not_of(" \t") + 1);
       value.erase(value.find_last_not_of(" \t") + 1);
 

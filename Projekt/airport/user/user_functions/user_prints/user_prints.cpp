@@ -44,21 +44,21 @@ std::shared_ptr<ftxui::Element> CreateDefaultMenu() {
 
 std::shared_ptr<ftxui::Element> CreateUserMenu(const User &user) {
   auto summary = [&] {
-    std::string usernameAndTitle = user.username_;
+    std::string username_and_title = user.username_;
     if (user.CheckIfAdmin()) {
-      usernameAndTitle += ", Administrator";
+      username_and_title += ", Administrator";
     }
 
-    ftxui::Color usernameColor = ftxui::Color::GrayDark;
+    ftxui::Color username_color = ftxui::Color::GrayDark;
     if (user.CheckIfAdmin()) {
-      usernameColor = ftxui::Color::Gold1;
+      username_color = ftxui::Color::Gold1;
     }
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" MENU UŻYTKOWNIKA") | ftxui::bold})
                                        | color(ftxui::Color::Blue),
                                    ftxui::hbox({ftxui::paragraphAlignRight("Zalogowano jako:")})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::paragraphAlignRight(usernameAndTitle)}) | color(usernameColor),
+                                   ftxui::hbox({ftxui::paragraphAlignRight(username_and_title)}) | color(username_color),
                                    ftxui::hbox({ftxui::text(L"1. Wyszukaj połączenie   ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"2. Kup bilet na podróż   ") | ftxui::bold})
@@ -99,7 +99,7 @@ std::shared_ptr<ftxui::Element> CreateUserMenu(const User &user) {
 }
 
 std::string CreateSettingsMenu(const User &user) {
-  auto createSettingsScreen = [&] {
+  auto settings_screen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" USTAWIENIA KONTA") | ftxui::bold})
                                        | color(ftxui::Color::Blue),
@@ -130,9 +130,9 @@ std::string CreateSettingsMenu(const User &user) {
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createSettingsScreen()));
-  ftxui::Render(userScreen, *createSettingsScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*settings_screen()));
+  ftxui::Render(screen, *settings_screen());
+  std::cout << screen.ToString() << '\0' << std::endl;
 
   std::string option;
   std::cin >> option;
@@ -167,20 +167,20 @@ void CreateProfileScreen(User &user) {
 
   std::ostringstream oss;
   oss << std::fixed << std::setprecision(2) << user.money_spent_;
-  std::string moneySpent = oss.str();
-  std::string ticketBought = std::to_string(user.ticket_bought_);
+  std::string money_spent = oss.str();
+  std::string ticket_bought = std::to_string(user.ticket_bought_);
 
-  std::string premiumCard = user.premium_card_;
-  premiumCard[0] = std::toupper(premiumCard[0]);
+  std::string premium_card = user.premium_card_;
+  premium_card[0] = std::toupper(premium_card[0]);
 
-  std::string paymentMethod = user.payment_method_;
-  paymentMethod[0] = std::toupper(paymentMethod[0]);
+  std::string payment_method = user.payment_method_;
+  payment_method[0] = std::toupper(payment_method[0]);
 
   std::string discount = user.RecognizeDiscount();
 
   std::ostringstream oss2;
   oss2 << std::fixed << std::setprecision(2) << user.money_saved_;
-  std::string moneySaved = oss2.str();
+  std::string money_saved = oss2.str();
 
   auto summary = [&] {
     auto content = ftxui::vbox({
@@ -197,17 +197,17 @@ void CreateProfileScreen(User &user) {
                                                     | ftxui::bold,
                                                 (user.premium_card_ == "brak") ? ftxui::text("Brak")
                                                     | ftxui::color(ftxui::Color::GrayDark) : (user.premium_card_
-                                                    == "złota") ? ftxui::text(premiumCard)
+                                                    == "złota") ? ftxui::text(premium_card)
                                                                                                  | ftxui::color(ftxui::Color::Gold1)
                                                                 : (user.premium_card_ == "niebieska") ?
-                                                                  ftxui::text(premiumCard)
+                                                                  ftxui::text(premium_card)
                                                                       | ftxui::color(ftxui::Color::SkyBlue1)
                                                                                                       : (user.premium_card_
-                                                            == "szara") ? ftxui::text(premiumCard)
+                                                            == "szara") ? ftxui::text(premium_card)
                                                                                                           | ftxui::color(
                                                                                                               ftxui::Color::GrayLight)
                                                                         : (user.premium_card_ == "platynowa") ?
-                                                                          ftxui::text(premiumCard)
+                                                                          ftxui::text(premium_card)
                                                                               | ftxui::color(ftxui::Color::LightSteelBlue1)
                                                                                                               :
                                                                           ftxui::text("brak")
@@ -221,21 +221,21 @@ void CreateProfileScreen(User &user) {
                                                     | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                 (user.money_saved_ == 0) ? ftxui::text("Brak")
                                                     | ftxui::color(ftxui::Color::GrayDark) :
-                                                ftxui::text(moneySaved + "zł") | ftxui::color(ftxui::Color::Gold1)}),
+                                                ftxui::text(money_saved + "zł") | ftxui::color(ftxui::Color::Gold1)}),
                                    ftxui::hbox({ftxui::text("Data utworzenia konta: ")
                                                     | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
                                                 ftxui::text(user.registration_date_)
                                                     | ftxui::color(ftxui::Color::SteelBlue)}),
                                    ftxui::hbox({ftxui::text("Domyślna metoda płatności: ")
                                                     | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                ftxui::text(paymentMethod) | ftxui::color(ftxui::Color::Gold1)}),
+                                                ftxui::text(payment_method) | ftxui::color(ftxui::Color::Gold1)}),
                                    ftxui::hbox({ftxui::text("Liczba zakupionych biletów: ")
                                                     | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                ftxui::text(ticketBought) | ftxui::color(ftxui::Color::Violet)}),
+                                                ftxui::text(ticket_bought) | ftxui::color(ftxui::Color::Violet)}),
                                    ftxui::hbox({// U0001F4B8 -> 💸
                                                    ftxui::text(L"Wydanych \U0001F4B8 w WOLFIE AIRLINES: ")
                                                        | ftxui::color(ftxui::Color::GrayLight) | ftxui::bold,
-                                                   ftxui::text(moneySpent + "zł")
+                                                   ftxui::text(money_spent + "zł")
                                                        | ftxui::color(ftxui::Color::SandyBrown)}),
                                    // ---------
                                    ftxui::separator(),
@@ -261,9 +261,9 @@ void CreateProfileScreen(User &user) {
 
   std::cout << screen.ToString() << '\0' << std::endl;
 
-  std::string backOption;
-  std::cin >> backOption;
-  if (backOption == "back") {
+  std::string back_option;
+  std::cin >> back_option;
+  if (back_option == "back") {
     return;
   }
 }

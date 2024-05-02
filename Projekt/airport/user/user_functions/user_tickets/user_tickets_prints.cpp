@@ -5,19 +5,19 @@
 
 const int PAGE_SIZE = 4;
 
-std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
+std::optional<std::string> CreateTicketsScreen(User &user, bool is_checkin) {
   mongocxx::cursor cursor = user.FindUserInDatabase();
   if (cursor.begin() == cursor.end()) {
     PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return {};
   }
 
-  bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["userFlights"];
-  bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+  bsoncxx::document::view user_view = *cursor.begin();
+  bsoncxx::document::element user_flights_element = user_view["userFlights"];
+  bsoncxx::array::view user_flights = user_flights_element.get_array().value;
 
-  std::vector<FlightInfo> flightsInfo;
-  for (const auto &flight : userFlightsArray) {
+  std::vector<FlightInfo> flights_info;
+  for (const auto &flight : user_flights) {
     FlightInfo info;
     info.flight_id = flight["flightId"].get_string().value;
     info.departure = flight["departure"].get_string().value;
@@ -29,42 +29,43 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
     }
     info.checkin = flight["checkin"].get_bool().value;
     info.luggage_checkin = flight["luggageCheckin"].get_bool().value;
-    flightsInfo.push_back(info);
+    flights_info.push_back(info);
   }
 
-  int currentPage = 1;
-  int totalTickets = 0;
-  for (const auto &flightInfo : flightsInfo) {
-    totalTickets += flightInfo.seats.size();
+  int current_page = 1;
+  int total_tickets = 0;
+  for (const auto &flightInfo : flights_info) {
+    total_tickets += flightInfo.seats.size();
   }
-  int totalPages = (totalTickets + PAGE_SIZE - 1) / PAGE_SIZE;
+
+  int total_pages = (total_tickets + PAGE_SIZE - 1) / PAGE_SIZE;
 
   while (true) {
-    int startIndex = (currentPage - 1) * PAGE_SIZE;
-    int endIndex = startIndex + PAGE_SIZE;
+    int start_index = (current_page - 1) * PAGE_SIZE;
+    int end_index = start_index + PAGE_SIZE;
 
     ftxui::Elements elements;
-    int currentTicket = 0;
-    int flightNumber = 1;
-    for (auto &flightInfo : flightsInfo) {
-      flightInfo.flight_number = flightNumber;
-      flightNumber++;
-      for (const auto &seat : flightInfo.seats) {
-        if (currentTicket >= startIndex && currentTicket < endIndex) {
+    int current_ticket = 0;
+    int flight_number = 1;
+    for (auto &flight_info : flights_info) {
+      flight_info.flight_number = flight_number;
+      flight_number++;
+      for (const auto &seat : flight_info.seats) {
+        if (current_ticket >= start_index && current_ticket < end_index) {
           std::string row = std::to_string(seat % 9 == 0 ? seat / 9 : seat / 9 + 1);
-          std::string seatStr = std::to_string(seat % 9 == 0 ? 9 : seat % 9);
-          std::string placeInPlane = "Rząd: ";
-          placeInPlane += row;
-          placeInPlane += ", Miejsce: ";
-          placeInPlane += seatStr;
-          std::string checkin = flightInfo.checkin ? "✅" : "❌";
-          std::string luggageCheckin = flightInfo.luggage_checkin ? "✅" : "❌";
-          auto ticketContent = ftxui::hbox({
+          std::string seat_str = std::to_string(seat % 9 == 0 ? 9 : seat % 9);
+          std::string place_in_plane = "Rząd: ";
+          place_in_plane += row;
+          place_in_plane += ", Miejsce: ";
+          place_in_plane += seat_str;
+          std::string checkin = flight_info.checkin ? "✅" : "❌";
+          std::string luggage_checkin = flight_info.luggage_checkin ? "✅" : "❌";
+          auto ticket_content = ftxui::hbox({
                                                ftxui::vbox({
                                                                ftxui::paragraphAlignCenter("ID LOTU: ") |
                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
                                                                ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(flightInfo.flight_id) |
+                                                               ftxui::paragraphAlignCenter(flight_info.flight_id) |
                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
                                                            }),
                                                ftxui::separator(),
@@ -72,7 +73,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                                                ftxui::paragraphAlignCenter("MIEJSCE ODLOTU: ") |
                                                                    ftxui::bold | color(ftxui::Color::SteelBlue),
                                                                ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(flightInfo.departure) |
+                                                               ftxui::paragraphAlignCenter(flight_info.departure) |
                                                                    ftxui::bold | color(ftxui::Color::SteelBlue),
                                                            }),
                                                ftxui::separator(),
@@ -81,7 +82,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                                                    ftxui::bold | color(ftxui::Color::SteelBlue3),
                                                                ftxui::separator(),
                                                                ftxui::paragraphAlignCenter(
-                                                                   flightInfo.destination) |
+                                                                   flight_info.destination) |
                                                                    ftxui::bold |
                                                                    color(ftxui::Color::SteelBlue3),
                                                            }),
@@ -91,7 +92,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                                                    ftxui::bold | color(ftxui::Color::Aquamarine3),
                                                                ftxui::separator(),
                                                                ftxui::paragraphAlignCenter(
-                                                                   flightInfo.departure_time) |
+                                                                   flight_info.departure_time) |
                                                                    ftxui::bold |
                                                                    color(ftxui::Color::Aquamarine3),
                                                            }),
@@ -100,7 +101,7 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                                                ftxui::paragraphAlignCenter("MIEJSCE W SAMOLOCIE") |
                                                                    ftxui::bold | color(ftxui::Color::LightPink4),
                                                                ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(placeInPlane) |
+                                                               ftxui::paragraphAlignCenter(place_in_plane) |
                                                                    ftxui::bold | color(ftxui::Color::LightPink4),
                                                            }),
                                                ftxui::separator(),
@@ -116,19 +117,19 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                                                ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA: ") |
                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
                                                                ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(luggageCheckin) |
+                                                               ftxui::paragraphAlignCenter(luggage_checkin) |
                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
                                                            }),
                                            }) |
               ftxui::border;
-          elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flightInfo.flight_number)),
-                                    ticketContent));
+          elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flight_info.flight_number)),
+                                    ticket_content));
         }
-        currentTicket++;
+        current_ticket++;
       }
     }
 
-    auto createScreen = [&] {
+    auto screen = [&] {
       auto summary = ftxui::vbox({
                                      ftxui::hbox({ftxui::paragraphAlignCenter("TWOJE BILETY")}) |
                                          color(ftxui::Color::White),
@@ -136,14 +137,14 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
                                      ftxui::vbox(elements),
                                  });
       auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
-      if (totalPages > 1) {
+      if (total_pages > 1) {
         auto navigation = ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter("NAWIGACJA 🧭")}) |
             color(ftxui::Color::White),
                                        ftxui::separator(),
                                        ftxui::hbox({
                                                        ftxui::paragraphAlignLeft(
-                                                           "Strona: " + std::to_string(currentPage) + "/"
-                                                               + std::to_string(totalPages)) |
+                                                           "Strona: " + std::to_string(current_page) + "/"
+                                                               + std::to_string(total_pages)) |
                                                            color(ftxui::Color::White),
                                                    }),
                                        ftxui::separator(),
@@ -196,19 +197,19 @@ std::optional<std::string> createTicketsScreen(User &user, bool is_checkin) {
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()),
-                                            ftxui::Dimension::Fit(*createScreen()));
-    ftxui::Render(userScreen, *createScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen()),
+                                             ftxui::Dimension::Fit(*screen()));
+    ftxui::Render(user_screen, *screen());
+    std::cout << user_screen.ToString() << '\0' << std::endl;
 
-    if (totalPages > 1) {
+    if (total_pages > 1) {
       std::string input;
       std::cin >> input;
 
-      if (input == "next" && currentPage < totalPages) {
-        currentPage++;
-      } else if (input == "prev" && currentPage > 1) {
-        currentPage--;
+      if (input == "next" && current_page < total_pages) {
+        current_page++;
+      } else if (input == "prev" && current_page > 1) {
+        current_page--;
       } else if (input == "quit") {
         if (is_checkin) {
           return "quit";

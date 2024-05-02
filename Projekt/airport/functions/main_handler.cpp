@@ -45,9 +45,9 @@ void HandleRegistration(Authentication &auth) {
     return;
   }
 
-  bool validRegister = auth.RegisterUser(username, email, password);
+  bool valid_register = auth.RegisterUser(username, email, password);
 
-  if (validRegister) {
+  if (valid_register) {
     PrintSuccessMessage("Zarejestrowano pomyślnie.", "Zaloguj się aby kontynuować.");
   } else {
     PrintErrorMessage("Rejestracja nie powiodła się.", "Spróbuj ponownie.");
@@ -80,9 +80,9 @@ bool HandleLogin(Authentication &auth, User &user) {
   auth.AuthenticateUser(username, password, std::move(promise), user);
   std::future<bool> future = promise.get_future();
 
-  bool validLogin = future.get();
+  bool valid_login = future.get();
 
-  if (validLogin) {
+  if (valid_login) {
     return true;
   } else {
     PrintErrorMessage("Logowanie nie powiodło się.", "Spróbuj ponownie z innymi danymi.");
@@ -92,9 +92,9 @@ bool HandleLogin(Authentication &auth, User &user) {
 
 void HandleUserMenu(User &user) {
   auto
-      userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(user)));
-  ftxui::Render(userScreen, *CreateUserMenu(user));
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+      user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*CreateUserMenu(user)));
+  ftxui::Render(user_screen, *CreateUserMenu(user));
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 }
 
 void HandleMenu() {
@@ -130,26 +130,26 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
       }
     } else {
       HandleUserMenu(user);
-      std::string userChoice;
-      std::cin >> userChoice;
-      if (userChoice == "settings") {
+      std::string user_choice;
+      std::cin >> user_choice;
+      if (user_choice == "settings") {
         HandleSettingsOption(user);
-      } else if (userChoice == "profil") {
+      } else if (user_choice == "profil") {
         CreateProfileScreen(user);
-      } else if (userChoice == "logout") {
+      } else if (user_choice == "logout") {
         PrintLogout(user);
         is_logged_in = false;
-      } else if (userChoice == "1") {
+      } else if (user_choice == "1") {
         HandleFlightOptions(flight_connection, user);
-      } else if (userChoice == "2") {
+      } else if (user_choice == "2") {
         HandleTicketChoice(flight_connection, user);
-      } else if (userChoice == "3") {
+      } else if (user_choice == "3") {
         if (user.discount_type_ == "ulga") {
           PrintErrorMessage("Nie możesz zakupić karty premium.", "Posiadasz już zniżki ze zweryfikowanej ulgi.");
         } else {
           HandlePremiumCard(user);
         }
-      } else if (userChoice == "4") {
+      } else if (user_choice == "4") {
         if (user.discount_type_ == "premium") {
           PrintErrorMessage("Nie możesz starać się o ulgę.", "Posiadasz już zniżki z karty premium.");
         } else if (user.discount_type_ == "ulga") {
@@ -157,13 +157,13 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
         } else {
           PrintDiscountCard(user);
         }
-      } else if (userChoice == "5") {
-        createTicketsScreen(user);
-      } else if (userChoice == "6") {
+      } else if (user_choice == "5") {
+        CreateTicketsScreen(user);
+      } else if (user_choice == "6") {
         PrintCheckinScreen(user);
-      } else if (userChoice == "7") {
+      } else if (user_choice == "7") {
         PrintWelcomeInCheckIn(user);
-      } else if (userChoice == "8") {
+      } else if (user_choice == "8") {
         user.LoginAsAdmin();
       }
     }

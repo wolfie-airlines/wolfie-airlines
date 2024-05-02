@@ -88,9 +88,9 @@ std::string DisplayDiscountInfo() {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 200);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(user_screen, document);
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 
   std::string choice;
   std::cin >> choice;
@@ -98,44 +98,44 @@ std::string DisplayDiscountInfo() {
 }
 
 bool ValidDiscount(const std::string &discount_choice) {
-  std::string discountText;
+  std::string discount_text;
   if (discount_choice == "1") {
-    discountText = "Podaj 3 ostatnie cyfry swojej legitymacji weterana: ";
+    discount_text = "Podaj 3 ostatnie cyfry swojej legitymacji weterana: ";
   } else if (discount_choice == "2") {
-    discountText = "Podaj 3 ostatnie cyfry swojej karty inwalidzkiej: ";
+    discount_text = "Podaj 3 ostatnie cyfry swojej karty inwalidzkiej: ";
   } else if (discount_choice == "3") {
-    discountText = "Podaj 3 ostatnie cyfry swojej legitymacji emeryta: ";
+    discount_text = "Podaj 3 ostatnie cyfry swojej legitymacji emeryta: ";
   } else if (discount_choice == "4") {
-    discountText = "Podaj 3 ostatnie cyfry swojej legitymacji studenckiej: ";
+    discount_text = "Podaj 3 ostatnie cyfry swojej legitymacji studenckiej: ";
   } else {
     std::cout << "Nieprawidłowy wybór." << std::endl;
     return false;
   }
 
-  auto createDiscountScreen = [&] {
+  auto discount_screen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter("WERYFIKACJA ZNIŻKI")})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(discountText) | ftxui::bold | color(ftxui::Color::Green)}),
+                                   ftxui::hbox({ftxui::text(discount_text) | ftxui::bold | color(ftxui::Color::Green)}),
                                });
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
     document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createDiscountScreen()));
-  ftxui::Render(userScreen, *createDiscountScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*discount_screen()));
+  ftxui::Render(screen, *discount_screen());
+  std::cout << screen.ToString() << '\0' << std::endl;
 
-  std::string discountCode;
-  std::cin >> discountCode;
+  std::string discount_code;
+  std::cin >> discount_code;
 
-  if (discountCode == "123") {
+  if (discount_code == "123") {
     return false;
   }
 
-  if (discountCode.length() != 3 || !std::all_of(discountCode.begin(), discountCode.end(), ::isdigit)) {
+  if (discount_code.length() != 3 || !std::all_of(discount_code.begin(), discount_code.end(), ::isdigit)) {
     return false;
   }
 

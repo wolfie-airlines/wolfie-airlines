@@ -14,11 +14,11 @@ void HandlePaymentOption(User &user) {
     }
 
     std::string
-        cardNumber = DisplayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 ostatnie cyfry karty: ");
+        card_number = DisplayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 ostatnie cyfry karty: ");
     std::string
         cvv = DisplayMessageAndCaptureStringInput("ZMIANA SPOSOBU PŁATNOŚCI", "Podaj 3 cyfrowy kod CVV karty: ");
 
-    user.SetVisa(cardNumber, cvv);
+    user.SetVisa(card_number, cvv);
   } else if (answer == 1) {
     user.SetBlik("blik");
   } else if (answer == 2) {
@@ -50,24 +50,24 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createBlikScreen()));
-    ftxui::Render(userScreen, *createBlikScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createBlikScreen()));
+    ftxui::Render(screen, *createBlikScreen());
+    std::cout << screen.ToString() << '\0' << std::endl;
 
-    std::string blikCode;
-    std::cin >> blikCode;
+    std::string blik_code;
+    std::cin >> blik_code;
 
-    if (blikCode == "quit") {
+    if (blik_code == "quit") {
       PrintErrorMessage("Płatność została anulowana.", "");
       return false;
     }
 
-    if (blikCode.length() != 6) {
+    if (blik_code.length() != 6) {
       PrintErrorMessage("Kod BLIK musi składać się z 6 cyfr.", "Spróbuj ponownie.");
       return false;
     }
 
-    if (blikCode == "123456") {
+    if (blik_code == "123456") {
       PrintErrorMessage("Kod BLIK jest nieprawidłowy.", "Spróbuj ponownie.");
       return false;
     }
@@ -96,7 +96,7 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
     PrintSuccessMessage("Płatność została zaakceptowana! Dziękujemy!", "");
     return true;
   } else if (payment_method == "visa") {
-    auto createVisaDigitScreen = [&] {
+    auto visa_digit_screen = [&] {
       auto summary =
           ftxui::vbox({ftxui::hbox({ftxui::paragraphAlignCenter(title_message)}) | color(ftxui::Color::GrayDark),
                        ftxui::separator(),
@@ -115,24 +115,24 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createVisaDigitScreen()));
-    ftxui::Render(userScreen, *createVisaDigitScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*visa_digit_screen()));
+    ftxui::Render(screen, *visa_digit_screen());
+    std::cout << screen.ToString() << '\0' << std::endl;
 
-    std::string cardNumber;
-    std::cin >> cardNumber;
+    std::string card_number;
+    std::cin >> card_number;
 
-    if (cardNumber == "quit") {
+    if (card_number == "quit") {
       PrintErrorMessage("Płatność została anulowana.", "");
       return false;
     }
 
-    if (cardNumber.length() != 3) {
+    if (card_number.length() != 3) {
       PrintErrorMessage("Numer karty musi składać się z 3 cyfr.", "Spróbuj ponownie.");
       return false;
     }
 
-    auto createVisaCVVScreen = [&] {
+    auto visa_cvv_screen = [&] {
       auto summary = ftxui::vbox({
                                      ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                          | color(ftxui::Color::GrayDark),
@@ -148,9 +148,9 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto cvvScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createVisaCVVScreen()));
-    ftxui::Render(cvvScreen, *createVisaCVVScreen());
-    std::cout << cvvScreen.ToString() << '\0' << std::endl;
+    auto cvv_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*visa_cvv_screen()));
+    ftxui::Render(cvv_screen, *visa_cvv_screen());
+    std::cout << cvv_screen.ToString() << '\0' << std::endl;
 
     std::string cvv;
     std::cin >> cvv;
@@ -165,7 +165,7 @@ bool AuthenticatePayment(User &user, const std::string &payment_method, const st
         bsoncxx::builder::basic::kvp("password", user.GetPassword()),
         bsoncxx::builder::basic::kvp("paymentMethod", bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("type", payment_method),
-            bsoncxx::builder::basic::kvp("cardNumber", cardNumber),
+            bsoncxx::builder::basic::kvp("card_number", card_number),
             bsoncxx::builder::basic::kvp("cvv", cvv))));
 
     bsoncxx::document::view filter_view = filter_builder.view();

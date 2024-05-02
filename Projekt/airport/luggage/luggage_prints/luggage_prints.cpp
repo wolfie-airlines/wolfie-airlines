@@ -35,28 +35,28 @@ void PrintSpecificItem(Item &item) {
   std::vector<std::string> hints = item.GetHints();
 
   if (!hints.empty()) {
-    std::vector<ftxui::Element> hintElements;
+    std::vector<ftxui::Element> hint_elements;
     for (const auto &hint : hints) {
-      std::string hintWithBullet = "• " + hint;
-      hintElements.push_back(ftxui::paragraph(hintWithBullet) | ftxui::color(ftxui::Color::White));
+      std::string hint_with_bullet = "• " + hint;
+      hint_elements.push_back(ftxui::paragraph(hint_with_bullet) | ftxui::color(ftxui::Color::White));
     }
 
-    auto hintBox = ftxui::vbox(std::move(hintElements));
+    auto hint_box = ftxui::vbox(std::move(hint_elements));
 
     elements.push_back(ftxui::hbox({ftxui::text("Ważne informacje: ") | ftxui::bold
                                         | ftxui::color(ftxui::Color::DarkSeaGreen2),
-                                    hintBox}));
+                                    hint_box}));
   }
 
   const std::string &profession = item.GetProfession();
-  ftxui::Element professionElement = ftxui::hbox({});
+  ftxui::Element profession_element = ftxui::hbox({});
   if (!profession.empty()) {
-    professionElement = ftxui::hbox({ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold
+    profession_element = ftxui::hbox({ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold
                                          | ftxui::color(ftxui::Color::Gold1),
-                                     ftxui::text(profession) | ftxui::color(ftxui::Color::White)});
+                                      ftxui::text(profession) | ftxui::color(ftxui::Color::White)});
   }
 
-  auto createScreen = [&] {
+  auto create_screen = [&] {
     auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(ITEM_CARD) | ftxui::bold})
                                        | color(ftxui::Color::Orange3),
@@ -101,7 +101,7 @@ void PrintSpecificItem(Item &item) {
                                    ftxui::separator(),
                                    elements.empty() ? ftxui::hbox({}) : ftxui::hbox(elements),
                                    ftxui::separator(),
-                                   professionElement,
+                                   profession_element,
                                });
 
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
@@ -109,10 +109,10 @@ void PrintSpecificItem(Item &item) {
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen =
-      ftxui::Screen::Create(ftxui::Dimension::Fit(*createScreen()), ftxui::Dimension::Fit(*createScreen()));
-  ftxui::Render(userScreen, *createScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen =
+      ftxui::Screen::Create(ftxui::Dimension::Fit(*create_screen()), ftxui::Dimension::Fit(*create_screen()));
+  ftxui::Render(user_screen, *create_screen());
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 }
 
 void PrintAllItems(User &user) {
@@ -125,22 +125,22 @@ void PrintAllItems(User &user) {
   }
 
   std::vector<Item> items = GetItems(user);
-  int totalPages = (items.size() + 7) / 8;
+  int total_pages = (items.size() + 7) / 8;
 
   while (true) {
     std::vector<std::vector<std::string>> rows;
     for (int i = page * 8; i < (page + 1) * 8 && i < items.size(); i++) {
       const auto &item = items[i];
-      std::string isForbidden = item.IsForbidden() ? "TAK" : "NIE";
-      std::string isRegisteredLuggage = item.IsRegisteredLuggage() ? "✅" : "❌";
-      std::string isHandLuggage = item.IsHandLuggage() ? "✅" : "❌";
-      std::string isPilotAllowance = item.IsPilotAllowance() ? "✅" : "❌";
+      std::string is_forbidden_string = item.IsForbidden() ? "TAK" : "NIE";
+      std::string is_registered_luggage_string = item.IsRegisteredLuggage() ? "✅" : "❌";
+      std::string is_hand_luggage_string = item.IsHandLuggage() ? "✅" : "❌";
+      std::string is_pilot_allowance_string = item.IsPilotAllowance() ? "✅" : "❌";
       rows.push_back({std::to_string(i + 1),
                       item.GetItemName(),
-                      isForbidden,
-                      isRegisteredLuggage,
-                      isHandLuggage,
-                      isPilotAllowance});
+                      is_forbidden_string,
+                      is_registered_luggage_string,
+                      is_hand_luggage_string,
+                      is_pilot_allowance_string});
     }
 
     std::vector<std::string> header = {"NUMER", "PRZEDMIOT", "ZABRONIONY", "BAGAŻ REJESTROWANY", "BAGAŻ PODRĘCZNY",
@@ -198,7 +198,7 @@ void PrintAllItems(User &user) {
                                    table.Render(),
                                    ftxui::hbox({
                                                    ftxui::paragraphAlignRight("Strona " + std::to_string(page + 1) + "/"
-                                                                                  + std::to_string(totalPages))
+                                                                                  + std::to_string(total_pages))
                                                        | ftxui::color(ftxui::Color::YellowLight) | ftxui::bold,
                                                }),
                                    ftxui::vbox({
@@ -238,7 +238,7 @@ void PrintAllItems(User &user) {
     std::string response;
     std::cin >> response;
     if (response == "next") {
-      if (page == totalPages - 1) {
+      if (page == total_pages - 1) {
         continue;
       }
       page++;
@@ -251,9 +251,9 @@ void PrintAllItems(User &user) {
       return;
     } else {
       try {
-        int itemNumber = std::stoi(response);
-        if (itemNumber >= 1 && itemNumber <= 34) {
-          int index = itemNumber - 1;
+        int item_number = std::stoi(response);
+        if (item_number >= 1 && item_number <= 34) {
+          int index = item_number - 1;
           if (index < items.size()) {
             PrintSpecificItem(items[index]);
           }

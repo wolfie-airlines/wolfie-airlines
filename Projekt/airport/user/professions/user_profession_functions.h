@@ -3,6 +3,7 @@
 
 #include "../user.h"
 
+void HandleProfessionChoice(int choice, User &user);
 void HandleProfession(User &user);
 
 #endif  // AIRPORT_USER_PROFESSION_FUNCTIONS_H

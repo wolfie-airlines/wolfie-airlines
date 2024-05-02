@@ -16,38 +16,38 @@ void ProcessSeatSelectionAndPurchase(
     FlightConnection &found_connection,
     User &user) {
   using namespace ftxui;
-  std::string planeId = "WOLFIE PLANE #";
+  std::string plane_id = "WOLFIE PLANE #";
   std::string flight_identifier = found_connection.GetIdentifier();
   for (char c : flight_identifier) {
     if (c != '-') {
-      planeId += std::to_string(static_cast<int>(c));
+      plane_id += std::to_string(static_cast<int>(c));
     }
   }
 
-  auto seatStyle = size(WIDTH, EQUAL, 10);
+  auto seat_style = size(WIDTH, EQUAL, 10);
 
-  std::unordered_set<int> seatsTakenSet(seats_taken.begin(), seats_taken.end());
+  std::unordered_set<int> seats_taken_set(seats_taken.begin(), seats_taken.end());
 
-  auto make_seat_box = [&](int seatNumber, bool selected) {
-    int rowNumber = (seatNumber % 9 == 0 ? seatNumber / 9 : seatNumber / 9 + 1);
-    int seatInRow = (seatNumber % 9 == 0 ? 9 : seatNumber % 9);
-    std::string title = " R:" + std::to_string(rowNumber) + " M:" + std::to_string(seatInRow);
+  auto make_seat_box = [&](int seat_number, bool selected) {
+    int row_number = (seat_number % 9 == 0 ? seat_number / 9 : seat_number / 9 + 1);
+    int seat_in_row = (seat_number % 9 == 0 ? 9 : seat_number % 9);
+    std::string title = " R:" + std::to_string(row_number) + " M:" + std::to_string(seat_in_row);
 
-    if (selected || seatsTakenSet.count(seatNumber)) {
+    if (selected || seats_taken_set.count(seat_number)) {
       auto seatColor = selected ? Color::Orange1 : Color::Red1;
       return window(
-          text(title) | hcenter | bold | seatStyle,
-          text(selected ? "WYBRANE" : "\u274C") | hcenter | bold | seatStyle | color(seatColor));
+          text(title) | hcenter | bold | seat_style,
+          text(selected ? "WYBRANE" : "\u274C") | hcenter | bold | seat_style | color(seatColor));
     }
 
-    if (seatNumber == 37 || seatNumber == 45) {
+    if (seat_number == 37 || seat_number == 45) {
       return window(
-          text(title) | hcenter | bold | seatStyle,
-          text("\U0001f198") | hcenter | bold | color(Color::Orange1) | seatStyle);
+          text(title) | hcenter | bold | seat_style,
+          text("\U0001f198") | hcenter | bold | color(Color::Orange1) | seat_style);
     } else {
       return window(
-          text(title) | hcenter | bold | seatStyle,
-          text("DOSTĘPNE") | hcenter | dim | bold | color(Color::Green) | seatStyle);
+          text(title) | hcenter | bold | seat_style,
+          text("DOSTĘPNE") | hcenter | dim | bold | color(Color::Green) | seat_style);
     }
   };
 
@@ -58,8 +58,8 @@ void ProcessSeatSelectionAndPurchase(
   Elements document;
 
   for (int i = 0; i < 81; i++) {
-    int seatNumber = i + 1;
-    seats.push_back(make_seat_box(seatNumber, false));
+    int seat_number = i + 1;
+    seats.push_back(make_seat_box(seat_number, false));
   }
 
   for (size_t i = 0; i < seats.size(); i += 9) {
@@ -79,7 +79,7 @@ void ProcessSeatSelectionAndPurchase(
   auto container =
       vbox({
                hbox({
-                        text(planeId) | bold}) | color(Color::Blue) | hcenter,
+                        text(plane_id) | bold}) | color(Color::Blue) | hcenter,
                separator(),
                vbox(document) | hcenter,
                separator(),
@@ -101,43 +101,43 @@ void ProcessSeatSelectionAndPurchase(
                                                 | ftxui::color(ftxui::Color::Grey84)})})
                    | ftxui::hcenter}) | style;
 
-  auto userScreen = Screen::Create(Dimension::Fit(container), Dimension::Fit(container));
-  Render(userScreen, container);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = Screen::Create(Dimension::Fit(container), Dimension::Fit(container));
+  Render(user_screen, container);
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 
-  int ticketAmount;
+  int ticket_amount;
   while (true) {
-    std::string ticketAmountInput = DisplayMessageAndCaptureStringInput(
+    std::string amount_input = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj liczbę biletów (od 1 do 4):");
 
-    if (ticketAmountInput == "back") {
+    if (amount_input == "back") {
       PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
       return;
     }
 
     try {
-      ticketAmount = std::stoi(ticketAmountInput);
+      ticket_amount = std::stoi(amount_input);
     } catch (std::invalid_argument &e) {
       PrintErrorMessage("Niepoprawna liczba biletów.", "Podaj liczbę biletów od 1 do 4.");
       return;
     }
 
-    if (ticketAmount >= 1 && ticketAmount <= 4) {
+    if (ticket_amount >= 1 && ticket_amount <= 4) {
       break;
     }
   }
 
-  std::vector<int> selectedSeats;
+  std::vector<int> selected_seats;
 
-  for (int i = 0; i < ticketAmount; ++i) {
-    std::string rowInput = DisplayMessageAndCaptureStringInput(
+  for (int i = 0; i < ticket_amount; ++i) {
+    std::string row_input = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj rząd dla biletu " + std::to_string(i + 1) + ":");
-    int rowInputNumber;
+    int row_input_number;
     try {
-      rowInputNumber = std::stoi(rowInput);
-      if (rowInputNumber < 1 || rowInputNumber > 9) {
+      row_input_number = std::stoi(row_input);
+      if (row_input_number < 1 || row_input_number > 9) {
         PrintErrorMessage("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
         return;
       }
@@ -145,12 +145,12 @@ void ProcessSeatSelectionAndPurchase(
       PrintErrorMessage("Niepoprawny numer rzędu.", "Podaj numer rzędu od 1 do 9.");
       return;
     }
-    std::string seatInput = DisplayMessageAndCaptureStringInput(
+    std::string seat_input = DisplayMessageAndCaptureStringInput(
         "Zakup biletów",
         "Podaj miejsce dla biletu " + std::to_string(i + 1) + ":");
     int seat;
     try {
-      seat = std::stoi(seatInput);
+      seat = std::stoi(seat_input);
       if (seat < 1 || seat > 9) {
         PrintErrorMessage("Niepoprawny numer miejsca.", "Podaj numer miejsca od 1 do 9.");
         return;
@@ -160,17 +160,17 @@ void ProcessSeatSelectionAndPurchase(
       return;
     }
 
-    int selectedSeatNumber = (rowInputNumber - 1) * 9 + seat;
-    if (std::find(seats_taken.begin(), seats_taken.end(), selectedSeatNumber) != seats_taken.end()) {
+    int selected_seat_number = (row_input_number - 1) * 9 + seat;
+    if (std::find(seats_taken.begin(), seats_taken.end(), selected_seat_number) != seats_taken.end()) {
       PrintErrorMessage("Miejsce jest już zajęte.", "Wybierz inne miejsce.");
       return;
     }
 
-    selectedSeats.push_back(selectedSeatNumber);
+    selected_seats.push_back(selected_seat_number);
   }
 
   // aktualizacja zaznaczonych miejsc w samolocie
-  for (int selectedSeat : selectedSeats) {
+  for (int selectedSeat : selected_seats) {
     seats[selectedSeat - 1] = make_seat_box(selectedSeat, true);
   }
 
@@ -191,8 +191,8 @@ void ProcessSeatSelectionAndPurchase(
     }
   }
 
-  auto containerWithSelectedSeats = vbox({
-                                             hbox({text(planeId) | bold}) | color(Color::Blue) | hcenter,
+  auto container_with_selected_seats = vbox({
+                                             hbox({text(plane_id) | bold}) | color(Color::Blue) | hcenter,
                                              separator(),
                                              vbox(document) | hcenter,
                                              separator(),
@@ -202,31 +202,31 @@ void ProcessSeatSelectionAndPurchase(
                                          }) |
       style;
 
-  PrintNodeScreen(containerWithSelectedSeats);
+  PrintNodeScreen(container_with_selected_seats);
 
-  std::string confirmChoice = DisplayMessageAndCaptureStringInput(
+  std::string confirm_choice = DisplayMessageAndCaptureStringInput(
       "Zakup biletów",
       "Czy potwierdzasz wybrane miejsca? (tak)");
 
-  if (confirmChoice != "tak" && confirmChoice != "TAK" && confirmChoice != "Tak") {
+  if (confirm_choice != "tak" && confirm_choice != "TAK" && confirm_choice != "Tak") {
     PrintErrorMessage("Anulowano zakup biletów.", "Możesz spróbować ponownie.");
     return;
   }
 
-  std::string titleMessage = "Potwierdzenie zakupu biletów";
-  int price = found_connection.GetPrice() * user.discount_ * ticketAmount;
-  bool paymentSuccess = AuthenticatePayment(user, user.payment_method_, titleMessage, price);
+  std::string title_message = "Potwierdzenie zakupu biletów";
+  int price = found_connection.GetPrice() * user.discount_ * ticket_amount;
+  bool authenticate_payment = AuthenticatePayment(user, user.payment_method_, title_message, price);
 
-  if (!paymentSuccess) {
+  if (!authenticate_payment) {
     PrintErrorMessage("Nie udało się przetworzyć płatności.", "Zakup biletów został anulowany.");
     return;
   }
 
   if (user.discount_ != 1) {
-    user.UpdateMoneySaved(found_connection.GetPrice() * ticketAmount, price);
+    user.UpdateMoneySaved(found_connection.GetPrice() * ticket_amount, price);
   }
 
-  flight_connection.UpdateSeatsTaken(flight_identifier, selectedSeats);
-  user.AddTicketToUser(selectedSeats, found_connection);
-  PrintTicketInvoice(user, found_connection, selectedSeats);
+  flight_connection.UpdateSeatsTaken(flight_identifier, selected_seats);
+  user.AddTicketToUser(selected_seats, found_connection);
+  PrintTicketInvoice(user, found_connection, selected_seats);
 }

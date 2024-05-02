@@ -7,22 +7,22 @@ void CreateQr(const std::string &email,
               const std::string &username,
               const std::string &flight_id,
               std::vector<int> seats) {
-  std::string seatsString;
+  std::string seats_string;
   for (size_t i = 0; i < seats.size(); ++i) {
-    seatsString += std::to_string(seats[i]);
+    seats_string += std::to_string(seats[i]);
     if (i != seats.size() - 1) {
-      seatsString += ",";
+      seats_string += ",";
     }
   }
 
   std::string text =
       "https://wolfie-airlines-webpage.vercel.app/odprawy/" + username + "/" + email + "/" + flight_id + "/"
-          + seatsString;
+          + seats_string;
 
-  const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // im mniej, tym więcej możliwości bitów do zakodowania
+  const QrCode::Ecc kErrCorLvl = QrCode::Ecc::LOW;  // im mniej, tym więcej możliwości bitów do zakodowania
 
   std::vector<QrSegment> segs = QrSegment::makeSegments(text.c_str());
-  const QrCode qr = QrCode::encodeSegments(segs, errCorLvl, 1, 40);
+  const QrCode qr = QrCode::encodeSegments(segs, kErrCorLvl, 1, 40);
   PrintQr(qr);
 }
 

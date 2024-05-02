@@ -8,6 +8,8 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 
+const int PAGE_SIZE = 9;
+
 int CreateFlightChoiceScreen();
 void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, User &user);
 void CreateFoundFlightScreen(FlightConnection &connection, User &user);

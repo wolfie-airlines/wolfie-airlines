@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "Simplify"
 #include "authentication.h"
 #include "../functions/info_prints/info_prints.h"
 #include <future>
@@ -21,7 +23,7 @@ std::string Authentication::HashPassword(const std::string &password) {
 
 bool Authentication::RegisterUser(const std::string &username, const std::string &email, const std::string &password) {
 
-  std::string hashedPassword = HashPassword(password);
+  std::string hashed_password = HashPassword(password);
 
   auto usernameAlreadyExists =
       _collection_.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", username)));
@@ -30,9 +32,9 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
     return false;
   }
 
-  auto emailAlreadyExists =
+  auto email_already_exists =
       _collection_.find_one(bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email_", email)));
-  if (emailAlreadyExists) {
+  if (email_already_exists) {
     PrintErrorMessage("Podany adres e-mail jest już zajęty.", "Wybierz inny adres e-mail.");
     return false;
   }
@@ -40,7 +42,7 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
   auto document = bsoncxx::builder::basic::document{};
   document.append(bsoncxx::builder::basic::kvp("username", username));
   document.append(bsoncxx::builder::basic::kvp("email", email));
-  document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
+  document.append(bsoncxx::builder::basic::kvp("password", hashed_password));
   document.append(bsoncxx::builder::basic::kvp("profession", "brak"));
   document.append(bsoncxx::builder::basic::kvp("premiumCard", "brak"));
   document.append(bsoncxx::builder::basic::kvp("moneySpent", 0.00));
@@ -54,17 +56,19 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
   auto now = std::chrono::system_clock::now();
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
   std::stringstream ss;
-  ss << std::put_time(std::localtime(&in_time_t), "%H:%M %d.%m.%Y");
+  std::tm tm;
+  localtime_s(&tm, &in_time_t);
+  ss << std::put_time(&tm, "%H:%M %d.%m.%Y");
   std::string dateTime = ss.str();
   document.append(bsoncxx::builder::basic::kvp("registrationDate", dateTime));
 
-  auto paymentMethodDocument = bsoncxx::builder::basic::document{};
-  paymentMethodDocument.append(bsoncxx::builder::basic::kvp("type", "blik"));
-  paymentMethodDocument.append(bsoncxx::builder::basic::kvp("cardNumber",
+  auto payment_method_document = bsoncxx::builder::basic::document{};
+  payment_method_document.append(bsoncxx::builder::basic::kvp("type", "blik"));
+  payment_method_document.append(bsoncxx::builder::basic::kvp("cardNumber",
                                                             bsoncxx::types::b_null{})); // null jako wartosci, bo do blika niepotrzebne
-  paymentMethodDocument.append(bsoncxx::builder::basic::kvp("cvv", bsoncxx::types::b_null{}));
+  payment_method_document.append(bsoncxx::builder::basic::kvp("cvv", bsoncxx::types::b_null{}));
 
-  document.append(bsoncxx::builder::basic::kvp("paymentMethod", paymentMethodDocument));
+  document.append(bsoncxx::builder::basic::kvp("paymentMethod", payment_method_document));
 
   auto userFlights = bsoncxx::builder::basic::array{};
   document.append(bsoncxx::builder::basic::kvp("userFlights", userFlights));
@@ -77,43 +81,43 @@ void Authentication::AuthenticateUser(const std::string &username,
                                       const std::string &password,
                                       std::promise<bool> &&promise,
                                       User &user) {
-  std::string hashedPassword = HashPassword(password);
+  std::string hashed_password = HashPassword(password);
   auto document = bsoncxx::builder::basic::document{};
   document.append(bsoncxx::builder::basic::kvp("username", username));
-  document.append(bsoncxx::builder::basic::kvp("password", hashedPassword));
+  document.append(bsoncxx::builder::basic::kvp("password", hashed_password));
 
   auto result = _collection_.find_one(document.view());
   if (result) {
     bsoncxx::document::view userView = result->view();
-    auto paymentMethodDocument = userView["paymentMethod"].get_document().value;
-    auto userFlightsDocument = userView["userFlights"].get_array().value;
+    auto payment_method_document = userView["paymentMethod"].get_document().value;
+    auto user_flights_document = userView["userFlights"].get_array().value;
     auto email = (std::string) userView["email"].get_string().value;
-    auto premiumCard = (std::string) userView["premiumCard"].get_string().value;
-    auto paymentMethod = paymentMethodDocument["type"].get_string().value;
-    auto moneySpent = userView["moneySpent"].get_double().value;
-    auto moneySaved = userView["moneySaved"].get_double().value;
-    auto ticketBought = userView["ticketBought"].get_int32().value;
-    auto registrationDate = (std::string) userView["registrationDate"].get_string().value;
-    auto discountType = (std::string) userView["discountType"].get_string().value;
+    auto premium_card = (std::string) userView["premiumCard"].get_string().value;
+    auto payment_method = payment_method_document["type"].get_string().value;
+    auto money_spent = userView["moneySpent"].get_double().value;
+    auto money_saved = userView["moneySaved"].get_double().value;
+    auto ticket_bought = userView["ticketBought"].get_int32().value;
+    auto registration_date = (std::string) userView["registrationDate"].get_string().value;
+    auto discount_type = (std::string) userView["discountType"].get_string().value;
     auto discount = userView["discount"].get_double().value;
     user.username_ = username;
     user.SetPassword(password);
     user.discount_ = discount;
     user.email_ = email;
-    user.discount_type_ = discountType;
+    user.discount_type_ = discount_type;
     user.profession_ = (std::string) userView["profession"].get_string().value;
-    user.premium_card_ = premiumCard;
-    user.payment_method_ = paymentMethod;
-    user.money_spent_ = moneySpent;
-    user.money_saved_ = moneySaved;
-    user.ticket_bought_ = ticketBought;
-    user.registration_date_ = registrationDate;
-    std::vector<bsoncxx::document::value> userFlightsVector;
-    bsoncxx::array::view userFlightsArray = userFlightsDocument;
-    for (auto &&userFlight : userFlightsArray) {
-      userFlightsVector.push_back(static_cast<bsoncxx::document::value>(userFlight.get_document().value));
+    user.premium_card_ = premium_card;
+    user.payment_method_ = payment_method;
+    user.money_spent_ = money_spent;
+    user.money_saved_ = money_saved;
+    user.ticket_bought_ = ticket_bought;
+    user.registration_date_ = registration_date;
+    std::vector<bsoncxx::document::value> user_flights;
+    bsoncxx::array::view user_flights_array = user_flights_document;
+    for (auto &&userFlight : user_flights_array) {
+      user_flights.push_back(static_cast<bsoncxx::document::value>(userFlight.get_document().value));
     }
-    user.user_flights_ = userFlightsVector;
+    user.user_flights_ = user_flights;
     promise.set_value(true);
     PrintSuccessMessage("Zalogowano pomyślnie.", "Witamy w systemie.");
   } else {
@@ -121,3 +125,5 @@ void Authentication::AuthenticateUser(const std::string &username,
     promise.set_value(false);
   }
 }
+
+#pragma clang diagnostic pop

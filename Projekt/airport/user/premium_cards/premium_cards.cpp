@@ -44,17 +44,17 @@ void HandlePremiumCard(User &user) {
   std::string choice = DisplayPremiumCardInfo();
   std::string card;
   int price;
-  std::string premiumCard = RecognizeDiscountCard(user.discount_);
+  std::string premium_card = RecognizeDiscountCard(user.discount_);
 
   for (int i = 0; i < choice.size(); i++) {
     choice[i] = tolower(choice[i]);
   }
 
-  for (int i = 0; i < premiumCard.size(); i++) {
-    premiumCard[i] = tolower(premiumCard[i]);
+  for (int i = 0; i < premium_card.size(); i++) {
+    premium_card[i] = tolower(premium_card[i]);
   }
 
-  if (choice == premiumCard) {
+  if (choice == premium_card) {
     PrintErrorMessage("Posiadasz już tę kartę premium.", "");
     return;
   }

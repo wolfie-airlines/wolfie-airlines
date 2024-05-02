@@ -1,14 +1,10 @@
 #include "flight_functions.h"
 
-#include <string>
 #include <vector>
 
 #include "../../functions/info_prints/info_prints.h"
 #include "../../functions/main_prints/main_prints.h"
 #include "flight_prints/flight_prints.h"
-
-const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu.";
-const std::string TRY_AGAIN = "Spróbuj ponownie.";
 
 void HandleFlightSearchByCity(FlightConnection &flight_connection, User &user) {
   std::string departureCity = DisplayMessageAndCaptureStringInput("SZUKAJ POŁĄCZENIA", "Podaj miasto wylotu: ");

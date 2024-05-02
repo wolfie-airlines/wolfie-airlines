@@ -87,9 +87,9 @@ std::string DisplayPremiumCardInfo() {
 
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 200);
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(userScreen, document);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
 
   std::string choice;
   std::cin >> choice;
@@ -97,7 +97,7 @@ std::string DisplayPremiumCardInfo() {
 }
 
 bool ValidCardPayment(User &user, int price) {
-  std::string paymentMethod = user.payment_method_;
-  bool validPayment = AuthenticatePayment(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
-  return validPayment;
+  std::string payment_method = user.payment_method_;
+  bool authenticate_payment = AuthenticatePayment(user, payment_method, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
+  return authenticate_payment;
 }

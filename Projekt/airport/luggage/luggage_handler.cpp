@@ -34,19 +34,19 @@ void CheckIn(User &user, int flightNumber) {
     }
   }
 
-  auto finishButton = Button("Potwierdź wybór", [&] {
+  auto finish_button = Button("Potwierdź wybór", [&] {
     screen.ExitLoopClosure()();
   }) |
       ftxui::center | ftxui::bold | ftxui::borderEmpty;
 
-  normal_checkbox_components.push_back(finishButton);
+  normal_checkbox_components.push_back(finish_button);
 
-  auto specialCheckboxes = Container::Horizontal(CreateGroups(special_checkbox_components));
-  auto normalCheckboxes = Container::Horizontal(CreateGroups(normal_checkbox_components));
+  auto special_checkboxes = Container::Horizontal(CreateGroups(special_checkbox_components));
+  auto normal_checkboxes = Container::Horizontal(CreateGroups(normal_checkbox_components));
 
   auto layout = Container::Vertical({
-                                        specialCheckboxes,
-                                        normalCheckboxes,
+                                        special_checkboxes,
+                                        normal_checkboxes,
                                     });
 
   auto component = Renderer(layout, [&] {
@@ -76,7 +76,7 @@ void CheckIn(User &user, int flightNumber) {
                                 }),
                     ftxui::separator(),
                     hbox({
-                             specialCheckboxes->Render() | ftxui::center,
+                             special_checkboxes->Render() | ftxui::center,
                              separator(),
                              ftxui::vbox({
                                              ftxui::hbox({
@@ -84,7 +84,7 @@ void CheckIn(User &user, int flightNumber) {
                                                                  | ftxui::color(ftxui::Color::BlueLight) | ftxui::bold,
                                                          }),
                                              ftxui::separator(),
-                                             normalCheckboxes->Render() | ftxui::center,
+                                             normal_checkboxes->Render() | ftxui::center,
                                          }),
                          }),
                 }) |
@@ -92,24 +92,24 @@ void CheckIn(User &user, int flightNumber) {
   });
   screen.Loop(component);
 
-  std::vector<Item> selectedItems;
+  std::vector<Item> selected_items;
   for (size_t i = 0; i < items.size(); ++i) {
     if (*checkbox_states[i]) {
-      selectedItems.push_back(items[i]);
+      selected_items.push_back(items[i]);
     }
   }
 
-  if (selectedItems.empty()) {
+  if (selected_items.empty()) {
     PrintErrorMessage("Nie wybrano żadnych przedmiotów!", "Musisz wybrać co najmniej jeden przedmiot.");
     return;
   }
 
-  double totalWeight = 0;
-  for (const auto &item : selectedItems) {
-    totalWeight += item.GetWeight();
+  double total_weight = 0;
+  for (const auto &item : selected_items) {
+    total_weight += item.GetWeight();
   }
 
-  Luggage luggage(selectedItems, totalWeight);
+  Luggage luggage(selected_items, total_weight);
 
   auto result = luggage.ConfirmItems(user);
   bool confirmed = std::get<0>(result);
@@ -120,11 +120,11 @@ void CheckIn(User &user, int flightNumber) {
     if (weight > luggage.max_allowed_weight_) {
       PrintErrorMessage("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
     } else if (weight > luggage.max_weight_) {
-      double extraFee = luggage.CalculateOverweightFee(weight);
-      const std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
-      bool paymentSuccess = AuthenticatePayment(user, user.payment_method_, titleMessage, extraFee);
+      double extra_fee = luggage.CalculateOverweightFee(weight);
+      const std::string kTitleMessage = "Nadpłata za przekroczenie wagi bagażu";
+      bool authenticate_payment = AuthenticatePayment(user, user.payment_method_, kTitleMessage, extra_fee);
 
-      if (!paymentSuccess) {
+      if (!authenticate_payment) {
         PrintErrorMessage("Nie udało się przetworzyć płatności.", "Odprawa bagażowa została przerwana.");
         return;
       }
@@ -144,34 +144,34 @@ void PrintWelcomeInCheckIn(User &user) {
     return;
   }
 
-  bsoncxx::document::view userView = *cursor.begin();
-  bsoncxx::document::element userFlightsElement = userView["userFlights"];
-  bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
+  bsoncxx::document::view user_view = *cursor.begin();
+  bsoncxx::document::element user_flights_element = user_view["userFlights"];
+  bsoncxx::array::view user_flights = user_flights_element.get_array().value;
 
-  if (userFlightsArray.begin() == userFlightsArray.end()) {
+  if (user_flights.begin() == user_flights.end()) {
     PrintErrorMessage("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
     return;
   }
 
-  bool allCheckedIn = true;
-  for (const auto &flight : userFlightsArray) {
+  bool all_checked_in = true;
+  for (const auto &flight : user_flights) {
     if (!flight["luggageCheckin"].get_bool().value) {
-      allCheckedIn = false;
+      all_checked_in = false;
       break;
     }
   }
 
-  if (allCheckedIn) {
+  if (all_checked_in) {
     PrintErrorMessage("Nie posiadasz żadnych biletów do odprawienia.", "");
     return;
   }
 
-  std::optional<std::string> option = createTicketsScreen(user, true);
+  std::optional<std::string> option = CreateTicketsScreen(user, true);
   if (option == "quit") {
     PrintErrorMessage("Anulowano odprawę.",
                       "Odprawa bagażowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
   } else if (option == "wybieram") {
-    auto checkinScreen = [&] {
+    auto checkin_screen = [&] {
       auto summary = ftxui::vbox({
                                      ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA")}) |
                                          color(ftxui::Color::GrayDark),
@@ -184,25 +184,25 @@ void PrintWelcomeInCheckIn(User &user) {
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto finalCheckinScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*checkinScreen()),
-                                                    ftxui::Dimension::Fit(*checkinScreen()));
-    ftxui::Render(finalCheckinScreen, *checkinScreen());
-    std::cout << finalCheckinScreen.ToString() << '\0' << std::endl;
+    auto final_checkin_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(*checkin_screen()),
+                                                      ftxui::Dimension::Fit(*checkin_screen()));
+    ftxui::Render(final_checkin_screen, *checkin_screen());
+    std::cout << final_checkin_screen.ToString() << '\0' << std::endl;
 
-    int flightNumber;
-    std::cin >> flightNumber;
+    int flight_number;
+    std::cin >> flight_number;
 
-    if (flightNumber < 1 || flightNumber > userFlightsArray.length()) {
+    if (flight_number < 1 || flight_number > user_flights.length()) {
       PrintErrorMessage("Nie ma takiego lotu.", "Spróbuj ponownie.");
       return;
     }
 
-    if (userFlightsArray[flightNumber - 1]["luggageCheckin"].get_bool().value) {
+    if (user_flights[flight_number - 1]["luggageCheckin"].get_bool().value) {
       PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
       return;
     }
 
-    auto createScreen = [&] {
+    auto create_screen = [&] {
       auto summary = ftxui::vbox({
                                      ftxui::hbox({ftxui::text(user.username_) |
                                          color(ftxui::Color::Gold1),
@@ -244,9 +244,9 @@ void PrintWelcomeInCheckIn(User &user) {
       return std::make_shared<ftxui::Element>(document);
     };
 
-    auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-    ftxui::Render(userScreen, *createScreen());
-    std::cout << userScreen.ToString() << '\0' << std::endl;
+    auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+    ftxui::Render(user_screen, *create_screen());
+    std::cout << user_screen.ToString() << '\0' << std::endl;
 
     std::string response;
     std::cin >> response;
@@ -254,7 +254,7 @@ void PrintWelcomeInCheckIn(User &user) {
     if (response == "tak" || response == "Tak" || response == "TAK") {
       PrintAllItems(user);
     } else if (response == "nie" || response == "Nie" || response == "NIE") {
-      CheckIn(user, flightNumber);
+      CheckIn(user, flight_number);
     } else {
       return;
     }

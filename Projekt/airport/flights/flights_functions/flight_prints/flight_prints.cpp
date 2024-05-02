@@ -10,8 +10,6 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/screen/screen.hpp"
 
-const int PAGE_SIZE = 9;
-
 int CreateFlightChoiceScreen() {
   using namespace ftxui;
   auto screen = ScreenInteractive::TerminalOutput();
@@ -71,49 +69,41 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
 
   ftxui::Elements document;
 
-  int currentPage = 1;
-  int totalPages = (connections.size() + PAGE_SIZE - 1) / PAGE_SIZE;
-  std::string menuPageString = totalPages == 1 ? " " : PageSizeString(totalPages);
+  int current_page = 1;
+  int total_pages = (connections.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+  std::string menu_page_string = total_pages == 1 ? " " : PageSizeString(total_pages);
 
   while (true) {
-    int startIndex = (currentPage - 1) * PAGE_SIZE;
-    int endIndex = std::min<int>(startIndex + PAGE_SIZE, connections.size());
+    int start_index = (current_page - 1) * PAGE_SIZE;
+    int end_index = std::min<int>(start_index + PAGE_SIZE, connections.size());
 
     document.clear();
-    std::string premiumCard = user.premium_card_;
-    double userDiscount = user.discount_;
+    std::string premium_card = user.premium_card_;
+    double user_discount = user.discount_;
 
     double discount;
-    if (premiumCard == "niebieska" || premiumCard == "złota") {
+    if (premium_card == "niebieska" || premium_card == "złota") {
       discount = 0.95;
-    } else if (premiumCard == "platynowa") {
+    } else if (premium_card == "platynowa") {
       discount = 0.85;
-    } else if (userDiscount != 1) {
-      discount = userDiscount;
+    } else if (user_discount != 1) {
+      discount = user_discount;
     }
 
-    for (int i = startIndex; i < endIndex; i++) {
-      document.push_back(ftxui::hbox({
-                                         make_box("ID LOTU", 25, 5, connections[i].GetIdentifier()),
-                                         make_box("MIEJSCA", 25, 5, std::to_string(connections[i].GetAvailableSeats())),
-                                         make_box("CZAS WYLOTU", 50, 5, connections[i].GetDepartureTime()),
-                                         make_box("MIEJSCE WYLOTU", 50, 5, connections[i].GetDepartureCity()),
-                                         make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].GetDestinationCity()),
-                                         make_box("CZAS PRZYLOTU", 50, 5, connections[i].GetArrivalTime()),
-                                         (premiumCard != "brak" || userDiscount != 1) ? make_strike_box("CENA",
-                                                                                                        40,
-                                                                                                        5,
-                                                                                                        std::to_string((int) connections[i].GetPrice()),
-                                                                                                        std::to_string((int) (
-                                                                                                            connections[i].GetPrice()
-                                                                                                                * discount))
-                                                                                                            + " PLN")
-                                                                                      : make_box("CENA",
-                                                                                                 25,
-                                                                                                 5,
-                                                                                                 std::to_string((int) connections[i].GetPrice())
-                                                                                                     + " PLN"),
-                                     }));
+    for (int i = start_index; i < end_index; i++) {
+      document.push_back(
+          ftxui::hbox({
+                          make_box("ID LOTU", 25, 5, connections[i].GetIdentifier()),
+                          make_box("MIEJSCA", 25, 5, std::to_string(connections[i].GetAvailableSeats())),
+                          make_box("CZAS WYLOTU", 50, 5, connections[i].GetDepartureTime()),
+                          make_box("MIEJSCE WYLOTU", 50, 5, connections[i].GetDepartureCity()),
+                          make_box("MIEJSCE PRZYLOTU", 50, 5, connections[i].GetDestinationCity()),
+                          make_box("CZAS PRZYLOTU", 50, 5, connections[i].GetArrivalTime()),
+                          (premium_card != "brak" || user_discount != 1)
+                            ? make_strike_box("CENA",40,5,std::to_string((int) connections[i].GetPrice()),
+                                            std::to_string((int) (connections[i].GetPrice()* discount))+ " PLN")
+                            : make_box("CENA",25,5,std::to_string((int) connections[i].GetPrice())+ " PLN"),
+                      }));
     }
 
     auto container = ftxui::vbox({
@@ -122,27 +112,26 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
                                      ftxui::separator(),
                                      ftxui::vbox(document),
                                      ftxui::separator(),
-                                     totalPages != 1 ? ftxui::text(
-                                         "Strona " + std::to_string(currentPage) + "/" + std::to_string(totalPages))
+                                     total_pages != 1 ? ftxui::text(
+                                         "Strona " + std::to_string(current_page) + "/" + std::to_string(total_pages))
                                          | ftxui::bold | ftxui::hcenter : ftxui::text(" ") | ftxui::bold
                                          | ftxui::hcenter,
-                                     totalPages != 1 ? ftxui::hbox({ftxui::text(
-                                         "Przełączaj się między stronami wpisując numer strony: " + menuPageString)
+                                     total_pages != 1 ? ftxui::hbox({ftxui::text(
+                                         "Przełączaj się między stronami wpisując numer strony: " + menu_page_string)
                                                                         | ftxui::bold})
                                          | color(ftxui::Color::YellowLight) | ftxui::hcenter :
                                      ftxui::text("To wszystkie loty jakie byliśmy w stanie znaleźć.") | ftxui::bold
                                          | ftxui::hcenter,
-                                     totalPages != 1 ?
+                                     total_pages != 1 ?
                                      ftxui::hbox({ftxui::text("Możesz zamknąć menu wpisując: quit/cancel/exit")
                                                       | ftxui::bold}) | color(ftxui::Color::DarkOrange) | ftxui::hcenter
-                                                     : ftxui::text("Dziękujemy za skorzystanie z naszych usług!")
+                                                      : ftxui::text("Dziękujemy za skorzystanie z naszych usług!")
                                          | color(ftxui::Color::DarkOliveGreen2) | ftxui::bold | ftxui::hcenter,
-                                 }) |
-        style;
+                                 }) | style;
 
     PrintFullWidthScreen(container);
 
-    if (totalPages != 1) {
+    if (total_pages != 1) {
       std::string input;
       std::cin >> input;
 
@@ -151,8 +140,8 @@ void CreateAllFlightsScreen(const std::vector<FlightConnection> &connections, Us
       }
 
       try {
-        int inputPage = std::stoi(input);
-        currentPage = std::clamp(inputPage, 1, totalPages);
+        int input_page = std::stoi(input);
+        current_page = std::clamp(input_page, 1, total_pages);
       } catch (std::invalid_argument &e) {
         PrintErrorMessage("Nieprawidłowy wybór.", "Nastąpił powrót do głównego menu.");
         return;
@@ -186,17 +175,17 @@ void CreateFoundFlightScreen(FlightConnection &connection, User &user) {
 
   std::vector<ftxui::Element> boxes;
 
-  std::string premiumCard = user.premium_card_;
-  double userDiscount = user.discount_;
+  std::string premium_card = user.premium_card_;
+  double user_discount = user.discount_;
   double discount;
-  if (premiumCard == "niebieska") {
+  if (premium_card == "niebieska") {
     discount = 0.95;
-  } else if (premiumCard == "złota") {
+  } else if (premium_card == "złota") {
     discount = 0.95;
-  } else if (premiumCard == "platynowa") {
+  } else if (premium_card == "platynowa") {
     discount = 0.85;
-  } else if (userDiscount != 1) {
-    discount = userDiscount;
+  } else if (user_discount != 1) {
+    discount = user_discount;
   }
 
   auto container = ftxui::vbox({
@@ -229,7 +218,7 @@ void CreateFoundFlightScreen(FlightConnection &connection, User &user) {
                                                                             50,
                                                                             5,
                                                                             connection.GetArrivalTime()),
-                                                                   (premiumCard != "brak" || userDiscount != 1)
+                                                                   (premium_card != "brak" || user_discount != 1)
                                                                    ? make_strike_box("CENA",
                                                                                      45,
                                                                                      5,

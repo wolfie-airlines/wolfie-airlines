@@ -3,30 +3,30 @@
 #include <iostream>
 
 void PrintScreen(const std::shared_ptr<ftxui::Element> &screen) {
-  auto finalScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen), ftxui::Dimension::Fit(*screen));
-  ftxui::Render(finalScreen, *screen);
-  std::cout << finalScreen.ToString() << '\0' << std::endl;
+  auto final_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(*screen), ftxui::Dimension::Fit(*screen));
+  ftxui::Render(final_screen, *screen);
+  std::cout << final_screen.ToString() << '\0' << std::endl;
 }
 
 void PrintFullWidthScreen(std::shared_ptr<ftxui::Node> container) {
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
-  ftxui::Render(userScreen, container);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(container));
+  ftxui::Render(user_screen, container);
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 }
 
 void PrintNodeScreen(std::shared_ptr<ftxui::Node> container) {
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(container), ftxui::Dimension::Fit(container));
-  ftxui::Render(userScreen, container);
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(container), ftxui::Dimension::Fit(container));
+  ftxui::Render(user_screen, container);
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 }
 
-std::string DisplayMessageAndCaptureStringInput(const std::string &titleMessage, const std::string &textMessage) {
-  auto createScreen = [&] {
+std::string DisplayMessageAndCaptureStringInput(const std::string &title_message, const std::string &text_message) {
+  auto create_screen = [&] {
     auto summary = ftxui::vbox({
-                                   ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)})
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                        | color(ftxui::Color::White),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(textMessage) | ftxui::bold
+                                   ftxui::hbox({ftxui::text(text_message) | ftxui::bold
                                                     | color(ftxui::Color::GrayLight)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text(L"back. \U0001F519  Wróć do głównego menu.")
@@ -37,9 +37,9 @@ std::string DisplayMessageAndCaptureStringInput(const std::string &titleMessage,
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-  ftxui::Render(userScreen, *createScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+  ftxui::Render(user_screen, *create_screen());
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 
   std::string answer;
   std::cin >> answer;
@@ -47,13 +47,13 @@ std::string DisplayMessageAndCaptureStringInput(const std::string &titleMessage,
   return answer;
 }
 
-double DisplayMessageAndCaptureDoubleInput(const std::string &titleMessage, const std::string &textMessage) {
-  auto createScreen = [&] {
+double DisplayMessageAndCaptureDoubleInput(const std::string &title_message, const std::string &text_message) {
+  auto create_screen = [&] {
     auto summary = ftxui::vbox({
-                                   ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)})
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                        | color(ftxui::Color::White),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(textMessage) | ftxui::bold
+                                   ftxui::hbox({ftxui::text(text_message) | ftxui::bold
                                                     | color(ftxui::Color::GrayLight)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text(L"back. \U0001F519  Wróć do głównego menu.")
@@ -64,9 +64,9 @@ double DisplayMessageAndCaptureDoubleInput(const std::string &titleMessage, cons
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-  ftxui::Render(userScreen, *createScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+  ftxui::Render(user_screen, *create_screen());
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 
   double answer;
   std::cin >> answer;
@@ -74,12 +74,12 @@ double DisplayMessageAndCaptureDoubleInput(const std::string &titleMessage, cons
   return answer;
 }
 
-std::string DisplayWarningAndCaptureInput(const std::string &titleMessage, const std::string &textMessage) {
-  auto createScreen = [&] {
+std::string DisplayWarningAndCaptureInput(const std::string &title_message, const std::string &text_message) {
+  auto create_screen = [&] {
     auto summary = ftxui::vbox({
-                                   ftxui::hbox({ftxui::paragraphAlignCenter(titleMessage)}) | color(ftxui::Color::Red),
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(title_message)}) | color(ftxui::Color::Red),
                                    ftxui::separator(),
-                                   ftxui::hbox({ftxui::text(textMessage) | ftxui::bold
+                                   ftxui::hbox({ftxui::text(text_message) | ftxui::bold
                                                     | color(ftxui::Color::RedLight)}),
                                    ftxui::separator(),
                                    ftxui::hbox({ftxui::text(L"back. \U0001F519  Wróć do głównego menu.")
@@ -90,9 +90,9 @@ std::string DisplayWarningAndCaptureInput(const std::string &titleMessage, const
     return std::make_shared<ftxui::Element>(document);
   };
 
-  auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*createScreen()));
-  ftxui::Render(userScreen, *createScreen());
-  std::cout << userScreen.ToString() << '\0' << std::endl;
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+  ftxui::Render(user_screen, *create_screen());
+  std::cout << user_screen.ToString() << '\0' << std::endl;
 
   std::string answer;
   std::cin >> answer;
