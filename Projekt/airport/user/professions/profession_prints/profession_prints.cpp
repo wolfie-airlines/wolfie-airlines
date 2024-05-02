@@ -4,7 +4,7 @@
 #include "ftxui/component/component_options.hpp"
 #include "ftxui/component/screen_interactive.hpp"
 
-std::string displayProfessionInfo() {
+std::string DisplayProfessionInfo() {
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"UWAGA UŻYTKOWNIKU!") | ftxui::bold})
@@ -86,7 +86,7 @@ int CreateProfessionScreen() {
   return selected;
 }
 
-void validAnswer(const std::string &category, User &user) {
+void ValidAnswer(const std::string &category, User &user) {
   std::string odmiana;
   bool isPolice = false;
   if (category == "muzyk") {
@@ -121,13 +121,13 @@ void validAnswer(const std::string &category, User &user) {
   auto userScreen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
   ftxui::Render(userScreen, document);
 
-  user.updateUserInDatabase("profession", category);
+  user.UpdateUserInDatabase("profession", category);
   user.profession_ = category;
 
   std::cout << userScreen.ToString() << '\0' << std::endl;
 }
 
-void invalidAnswer() {
+void InvalidAnswer() {
   auto summary = [&] {
     auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"Niestety, Twoja odpowiedź nie jest poprawna...")
