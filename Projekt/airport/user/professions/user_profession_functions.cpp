@@ -6,22 +6,22 @@
 
 void handleProfessionChoice(int choice, User &user) {
   if (choice == 0) {
-    musicProfession(user);
+    MusicProfession(user);
   } else if (choice == 1) {
-    doctorProfession(user);
+    DoctorProfession(user);
   } else if (choice == 2) {
-    mathProfession(user);
+    MathProfession(user);
   } else if (choice == 3) {
-    informaticProfession(user);
+    InformaticProfession(user);
   } else if (choice == 4) {
-    policeProfession(user);
+    PoliceProfession(user);
   } else {
     return;
   }
 }
 
-void handleProfession(User &user) {
-  std::string option = displayProfessionInfo();
+void HandleProfession(User &user) {
+  std::string option = DisplayProfessionInfo();
   if (option == "Tak" || option == "TAK" || option == "tak") {
     int profession = CreateProfessionScreen();
     handleProfessionChoice(profession, user);
