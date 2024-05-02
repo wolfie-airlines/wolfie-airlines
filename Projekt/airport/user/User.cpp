@@ -8,11 +8,22 @@
 #include "../functions/info_prints/info_prints.h"
 #include "bsoncxx/json.hpp"
 #include "premium_cards/premium_cards.h"
+#include "../functions/main_prints/main_prints.h"
 
-User::User(std::string username, std::string email, double discount, std::string discount_type, std::string premium_card,
-           std::string payment_method, mongocxx::client &client, std::string profession,
-           std::string registration_date, double money_spent, double money_saved, int ticket_bought,
-           std::vector<bsoncxx::document::value> user_flights, bool is_admin)
+User::User(std::string username,
+           std::string email,
+           double discount,
+           std::string discount_type,
+           std::string premium_card,
+           std::string payment_method,
+           mongocxx::client &client,
+           std::string profession,
+           std::string registration_date,
+           double money_spent,
+           double money_saved,
+           int ticket_bought,
+           std::vector<bsoncxx::document::value> user_flights,
+           bool is_admin)
     : username_(std::move(username)),
       email_(std::move(email)),
       discount_(discount),
@@ -45,7 +56,6 @@ void User::Reset() {
   is_admin_ = false;
 }
 
-// Zwracanie kolekcji użytkownika/za pomocą klasy użytkownika
 mongocxx::collection &User::GetCollection() {
   return _collection_;
 }
@@ -87,18 +97,14 @@ void User::ChangePassword(const std::string &password) {
     return;
   }
 
-  //TODO: Zmienić cout/cin na ekrany ftxui
-  std::cout << "Podaj ponownie nowe hasło żeby potwierdzić zmianę: ";
-  std::string repeatedPassword;
-  std::cin >> repeatedPassword;
+  std::string repeatedPassword =
+      DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj ponownie nowe hasło żeby potwierdzić zmianę:");
   if (password != repeatedPassword) {
     PrintErrorMessage("Podane hasła nie są takie same.", "Spróbuj ponownie.");
     return;
   }
 
-  std::cout << "Podaj stare hasło żebyśmy mieli 200% pewności że to ty: ";
-  std::string oldPassword;
-  std::cin >> oldPassword;
+  std::string oldPassword = DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj stare hasło żebyśmy mieli 200% pewności że to ty:");
   if (oldPassword != _password_) {
     PrintErrorMessage("Podane hasło nie jest poprawne.", "Spróbuj ponownie.");
     return;
@@ -199,11 +205,7 @@ void User::LoginAsAdmin() {
   std::string adminPassword = envParser.GetValue("ADMIN_PASSWORD");
   std::string adminPasswordHashed = HashString(adminPassword);
 
-  // TODO: Zmienić cout/cin na ekrany ftxui
-  std::cout << "Podaj hasło administratora: ";
-  std::string providedPassword;
-  std::cin >> providedPassword;
-
+  std::string providedPassword = DisplayMessageAndCaptureStringInput("Logowanie jako administrator", "Podaj hasło administratora: ");
   std::string providedPasswordHashed = HashString(providedPassword);
 
   if (providedPasswordHashed == adminPasswordHashed) {

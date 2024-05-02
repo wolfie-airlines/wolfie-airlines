@@ -4,24 +4,20 @@
 #include "../../professions/user_profession_functions.h"
 #include "../user_payments/user_payment_functions.h"
 #include "../user_prints/user_prints.h"
+#include "../../../functions/main_prints/main_prints.h"
 
 void HandleSettingsOption(User &user) {
-  //TODO: Zmieni cout/cin na ekrany ftxui
   std::string option = CreateSettingsMenu(user);
+
   if (option == "1") {
-    std::string newUsername;
-    std::cout << "Podaj nową nazwę użytkownika: ";
-    std::cin >> newUsername;
+    std::string
+        newUsername = DisplayMessageAndCaptureStringInput("Zmiana nazwy użytkownika", "Podaj nową nazwę użytkownika:");
     user.ChangeUsername(newUsername);
   } else if (option == "2") {
-    std::string newEmail;
-    std::cout << "Podaj nowego maila: ";
-    std::cin >> newEmail;
+    std::string newEmail = DisplayMessageAndCaptureStringInput("Zmiana adresu email", "Podaj nowy adres email:");
     user.ChangeEmail(newEmail);
   } else if (option == "3") {
-    std::string newPassword;
-    std::cout << "Podaj nowe hasło: ";
-    std::cin >> newPassword;
+    std::string newPassword = DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj nowe hasło:");
     user.ChangePassword(newPassword);
   } else if (option == "4") {
     if (user.profession_ != "brak") {
