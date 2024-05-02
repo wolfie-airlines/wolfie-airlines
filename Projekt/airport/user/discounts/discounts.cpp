@@ -22,17 +22,17 @@ double getDiscount(std::string choice) {
 }
 
 void handleDiscountChoice(User &user, std::string choice) {
-  bool valid = validDiscount(choice);
+  bool valid = ValidDiscount(choice);
   if (valid) {
-    user.setDiscount(getDiscount(choice), "ulga");
+    user.SetDiscount(getDiscount(choice), "ulga");
   } else {
-    errorFunction("Nie udało się przypisać zniżki do konta.", "");
+    PrintErrorMessage("Nie udało się przypisać zniżki do konta.", "");
     return;
   }
 }
 
-void printDiscountCard(User &user) {
-  std::string choice = displayDiscountInfo();
+void PrintDiscountCard(User &user) {
+  std::string choice = DisplayDiscountInfo();
   if (choice == "back") {
     return;
   }

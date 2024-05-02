@@ -3,8 +3,8 @@
 
 #include "../user.h"
 
-double getDiscount(int choice);
-void handleDiscountChoice(User &user, int choice);
-void printDiscountCard(User &user);
+double GetDiscount(int choice);
+void HandleDiscountChoice(User &user, int choice);
+void PrintDiscountCard(User &user);
 
 #endif  // AIRPORT_DISCOUNTS_H
