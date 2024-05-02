@@ -6,7 +6,7 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
 
-std::string displayPremiumCardInfo() {
+std::string DisplayPremiumCardInfo() {
   auto summary = [&] {
     auto table = ftxui::Table({
                                   {"KARTA", "BENEFIT", "CENA"},
@@ -89,8 +89,8 @@ std::string displayPremiumCardInfo() {
   return choice;
 }
 
-bool validCardPayment(User &user, int price) {
+bool ValidCardPayment(User &user, int price) {
   std::string paymentMethod = user.payment_method_;
-  bool validPayment = paymentAuth(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
+  bool validPayment = AuthenticatePayment(user, paymentMethod, "PŁATNOŚĆ ZA KARTĘ PREMIUM", price);
   return validPayment;
 }
