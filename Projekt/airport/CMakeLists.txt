@@ -79,6 +79,8 @@ add_executable(airport main.cpp
         luggage/luggage_handler.cpp
         admin/admin_functions/admin_functions.h
         admin/admin_functions/admin_functions.cpp
+        admin/admin_prints/admin_prints.h
+        admin/admin_prints/admin_prints.cpp
 )
 
 include(FetchContent)

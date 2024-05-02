@@ -3,46 +3,8 @@
 waiting to take filesystem lock on C:\Users\szymo\.vcpkg-clion\airport\.vcpkg-root...
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
-The following packages will be built and installed:
-    cryptopp:x64-windows@8.9.0 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\cryptopp\48788514ae1e84dea9055e603527c91f92c124fb
-    curl[core,non-http,schannel,ssl,sspi]:x64-windows@8.7.1#2 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\curl\b72d99e7315d0669d227580f056f7d4ea7303a58
-  * libbson:x64-windows@1.26.1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\libbson\a5e9407add76bf33b2aa98eafc4d1bad7173f2ba
-  * mongo-c-driver:x64-windows@1.26.1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\mongo-c-driver\692416ecf8db8f3b20661a2a23a3cc37e848fe84
-    mongo-cxx-driver:x64-windows@3.10.1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\mongo-cxx-driver\1cb201479398cab55eb19e2010472c4f35b1fa50
-    nayuki-qr-code-generator:x64-windows@1.8.0#1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\nayuki-qr-code-generator\6f3345b4889287461620da1c6c3220666d8bb8f3
-  * vcpkg-cmake:x64-windows@2023-05-04 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\vcpkg-cmake\88a7058fc7fa73a9c4c99cfcae9d79e2abf87a5a
-  * vcpkg-cmake-config:x64-windows@2022-02-06#1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\vcpkg-cmake-config\8d54cc4f487d51b655abec5f9c9c3f86ca83311f
-  * zlib:x64-windows@1.3.1 -- C:\Users\szymo\.vcpkg-clion\airport\buildtrees\versioning_\versions\zlib\3f05e04b9aededb96786a911a16193cdb711f0c9
-Additional packages (*) will be modified to complete this operation.
-Restored 9 package(s) from C:\Users\szymo\AppData\Local\vcpkg\archives in 3.2 s. Use --debug to see more details.
-Installing 1/9 vcpkg-cmake-config:x64-windows@2022-02-06#1...
-Elapsed time to handle vcpkg-cmake-config:x64-windows: 9.73 ms
-vcpkg-cmake-config:x64-windows package ABI: c0c0d952981faf958ceacba505f37a2c847ca75a7dfd53b417beda2384e753b8
-Installing 2/9 vcpkg-cmake:x64-windows@2023-05-04...
-Elapsed time to handle vcpkg-cmake:x64-windows: 9.96 ms
-vcpkg-cmake:x64-windows package ABI: 7605ebd1a8421aa69014508a44f925025d1c9e0bb51d9bb34c161f1c14a7e359
-Installing 3/9 cryptopp:x64-windows@8.9.0...
-Elapsed time to handle cryptopp:x64-windows: 137 ms
-cryptopp:x64-windows package ABI: 28922ec7079222c43e7b2cab67b11cc2e0623ff8d684d6e4fc8ae7ed9cb9f7e3
-Installing 4/9 zlib:x64-windows@1.3.1...
-Elapsed time to handle zlib:x64-windows: 22 ms
-zlib:x64-windows package ABI: c2e1b11723d53e49306a49246e326568376652f108a9fd6457351d33594da641
-Installing 5/9 curl[core,non-http,schannel,ssl,sspi]:x64-windows@8.7.1#2...
-Elapsed time to handle curl:x64-windows: 47.5 ms
-curl:x64-windows package ABI: 8a593f8dd5de22e43cbfb6427d0c878d74c90bdb9a86ba6111061c2c650ee44a
-Installing 6/9 libbson:x64-windows@1.26.1...
-Elapsed time to handle libbson:x64-windows: 39.9 ms
-libbson:x64-windows package ABI: 39d01edc7365a4c4e3e8cc6dd74a7c9c93abc2e789c122081b178461370b86fd
-Installing 7/9 mongo-c-driver:x64-windows@1.26.1...
-Elapsed time to handle mongo-c-driver:x64-windows: 56.1 ms
-mongo-c-driver:x64-windows package ABI: 8df114a9d77d1decc8559a1b11e13e0fc0571e9c92588a4f1e61638ed9dd7139
-Installing 8/9 mongo-cxx-driver:x64-windows@3.10.1...
-Elapsed time to handle mongo-cxx-driver:x64-windows: 257 ms
-mongo-cxx-driver:x64-windows package ABI: 16e8e7487c85aff6933614000d00fe687b334d5d1b6e6a7c7c2cafd44502e8ce
-Installing 9/9 nayuki-qr-code-generator:x64-windows@1.8.0#1...
-Elapsed time to handle nayuki-qr-code-generator:x64-windows: 23.8 ms
-nayuki-qr-code-generator:x64-windows package ABI: d410f0b7519dba0ab4d007e8cdf9698cdf3b84228bf47c935cffa3a26c12aea4
-Total install time: 604 ms
+All requested packages are currently installed.
+Total install time: 500 ns
 cryptopp provides CMake targets:
 
   # this is heuristically generated, and may not be correct
@@ -74,18 +36,6 @@ nayuki-qr-code-generator provides CMake targets:
   target_link_libraries(main PRIVATE unofficial::nayuki-qr-code-generator::nayuki-qr-code-generator)
 
 -- Running vcpkg install - done
--- The C compiler identification is MSVC 19.39.33523.0
--- The CXX compiler identification is MSVC 19.39.33523.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- ┌─ FTXUI options ─────────────────────
 -- │ FTXUI_ENABLE_INSTALL     : ON
 -- │ FTXUI_BUILD_EXAMPLES     : OFF
@@ -97,13 +47,6 @@ nayuki-qr-code-generator provides CMake targets:
 -- │ FTXUI_DEV_WARNINGS       : OFF
 -- │ FTXUI_CLANG_TIDY         : OFF
 -- └─────────────────────────────────────
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
--- Looking for pthread_create in pthreads
--- Looking for pthread_create in pthreads - not found
--- Looking for pthread_create in pthread
--- Looking for pthread_create in pthread - not found
--- Found Threads: TRUE  
--- Configuring done (33.1s)
+-- Configuring done (12.3s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/szymo/Documents/GitHub/7b365783-gr71-repo/Projekt/airport/cmake-build-debug-event-trace
