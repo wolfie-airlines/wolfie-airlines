@@ -5,6 +5,6 @@
 
 #include "../../user.h"
 
-void handleSettingsOption(User &user);
+void HandleSettingsOption(User &user);
 
 #endif  // USER_SETTINGS_FUNCTIONS_H
