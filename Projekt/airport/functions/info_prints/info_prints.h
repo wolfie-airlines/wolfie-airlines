@@ -5,9 +5,9 @@
 
 #include "../../user/user.h"
 
-void validFunction(const std::string &titleMessage, const std::string &optionalMessage);
-void errorFunction(const std::string &titleMessage, const std::string &optionalMessage);
-void logoutFunction(User &user);
-void seeyaFunction();
+void PrintSuccessMessage(const std::string &titleMessage, const std::string &optionalMessage);
+void PrintErrorMessage(const std::string &titleMessage, const std::string &optionalMessage);
+void PrintLogout(User &user);
+void PrintSeeya();
 
 #endif  // FUNCTIONS_H

@@ -7,7 +7,7 @@
 #include "ftxui/screen/screen.hpp"
 #include "ftxui/util/ref.hpp"
 
-void validFunction(const std::string &titleMessage, const std::string &optionalMessage = "") {
+void PrintSuccessMessage(const std::string &titleMessage, const std::string &optionalMessage = "") {
   ftxui::Element response;
   if (optionalMessage.empty()) {
     response = ftxui::vbox({
@@ -27,7 +27,7 @@ void validFunction(const std::string &titleMessage, const std::string &optionalM
   std::cout << responseScreen.ToString() << '\0' << std::endl;
 }
 
-void logoutFunction(User &user) {
+void PrintLogout(User &user) {
   ftxui::Element response;
   response = ftxui::vbox({
                              ftxui::hbox({ftxui::text(L"Wylogowano pomyślnie. Mamy nadzieję, że do zobaczenia niebawem!")
@@ -38,10 +38,10 @@ void logoutFunction(User &user) {
   auto responseScreen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(responseDocument));
   Render(responseScreen, responseDocument);
   std::cout << responseScreen.ToString() << '\0' << std::endl;
-  user.reset();
+  user.Reset();
 }
 
-void seeyaFunction() {
+void PrintSeeya() {
   ftxui::Element response;
   response = ftxui::vbox({
                              ftxui::hbox({ftxui::text(
@@ -55,7 +55,7 @@ void seeyaFunction() {
   std::cout << responseScreen.ToString() << '\0' << std::endl;
 }
 
-void errorFunction(const std::string &titleMessage, const std::string &optionalMessage = "") {
+void PrintErrorMessage(const std::string &titleMessage, const std::string &optionalMessage = "") {
   ftxui::Element response;
   if (optionalMessage.empty()) {
     response = ftxui::vbox({
