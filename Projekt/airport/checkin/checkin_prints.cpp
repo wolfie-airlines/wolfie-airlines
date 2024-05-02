@@ -21,10 +21,10 @@ std::shared_ptr<ftxui::Element> createCheckinScreen(const std::string &message) 
   return std::make_shared<ftxui::Element>(document);
 }
 
-void printCheckinScreen(User &user) {
+void PrintCheckinScreen(User &user) {
   mongocxx::cursor cursor = user.findUserInDatabase();
   if (cursor.begin() == cursor.end()) {
-    errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
+    PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return;
   }
 
@@ -33,7 +33,7 @@ void printCheckinScreen(User &user) {
   bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
   if (userFlightsArray.begin() == userFlightsArray.end()) {
-    errorFunction("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
+    PrintErrorMessage("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
     return;
   }
 
@@ -47,40 +47,40 @@ void printCheckinScreen(User &user) {
   }
 
   if (allCheckedIn) {
-    errorFunction("Nie posiadasz żadnych biletów do odprawienia.", "");
+    PrintErrorMessage("Nie posiadasz żadnych biletów do odprawienia.", "");
     return;
   }
 
   std::optional<std::string> option = createTicketsScreen(user, true);
   if (option == "quit") {
-    errorFunction("Anulowano odprawę.",
-                  "Odprawa biletowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
+    PrintErrorMessage("Anulowano odprawę.",
+                      "Odprawa biletowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
   } else if (option == "wybieram") {
     auto checkinScreen = createCheckinScreen("Podaj NUMER LOTU, na który chciałbyś się odprawić:");
-    printScreen(checkinScreen);
+    PrintScreen(checkinScreen);
 
     int flightNumber;
     std::cin >> flightNumber;
 
     if (flightNumber < 1 || flightNumber > userFlightsArray.length()) {
-      errorFunction("Nie ma takiego lotu.", "Spróbuj ponownie.");
+      PrintErrorMessage("Nie ma takiego lotu.", "Spróbuj ponownie.");
       return;
     }
 
     if (userFlightsArray[flightNumber - 1]["checkin"].get_bool().value) {
-      errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
+      PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
       return;
     }
 
-    std::string flightId = (std::string) userFlightsArray[flightNumber - 1]["flightId"].get_string().value;
+    std::string flightId = (std::string) userFlightsArray[flightNumber - 1]["flight_id"].get_string().value;
     std::vector<int> seats;
     for (const auto &seat : userFlightsArray[flightNumber - 1]["seats"].get_array().value) {
       seats.push_back(seat.get_int32().value);
     }
 
     auto qrInfoScreen = createCheckinScreen("Zeskanuj poniższy kod QR żeby się odprawić. Tak! To takie proste!");
-    printScreen(qrInfoScreen);
+    PrintScreen(qrInfoScreen);
 
-    createQR(user.email_, user.username_, flightId, seats);
+    CreateQr(user.email_, user.username_, flightId, seats);
   }
 }
