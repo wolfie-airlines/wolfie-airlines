@@ -3,7 +3,7 @@
 #include "../../functions/info_prints/info_prints.h"
 #include "discounts_prints/discounts_prints.h"
 
-double getDiscount(std::string choice) {
+double GetDiscount(std::string choice) {
   if (choice == "1") {
     // weteran
     return 0.05;
@@ -21,10 +21,10 @@ double getDiscount(std::string choice) {
   }
 }
 
-void handleDiscountChoice(User &user, std::string choice) {
+void HandleDiscountChoice(User &user, std::string choice) {
   bool valid = ValidDiscount(choice);
   if (valid) {
-    user.SetDiscount(getDiscount(choice), "ulga");
+    user.SetDiscount(GetDiscount(choice), "ulga");
   } else {
     PrintErrorMessage("Nie udało się przypisać zniżki do konta.", "");
     return;
@@ -36,5 +36,5 @@ void PrintDiscountCard(User &user) {
   if (choice == "back") {
     return;
   }
-  handleDiscountChoice(user, choice);
+  HandleDiscountChoice(user, choice);
 }
