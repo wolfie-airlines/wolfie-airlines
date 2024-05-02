@@ -8,11 +8,11 @@
 #include "item/item_handler.h"
 #include "luggage_prints/luggage_prints.h"
 
-void checkIn(User &user, int flightNumber) {
+void CheckIn(User &user, int flightNumber) {
   using namespace ftxui;
   auto screen = ScreenInteractive::TerminalOutput();
 
-  std::vector<Item> items = getItems(user);
+  std::vector<Item> items = GetItems(user);
 
   std::vector<Component> special_checkbox_components;
   std::vector<Component> normal_checkbox_components;
@@ -21,13 +21,13 @@ void checkIn(User &user, int flightNumber) {
   for (size_t i = 0; i < items.size(); ++i) {
     checkbox_states[i] = std::make_shared<bool>(false);
     CheckboxOption option;
-    option.label = items[i].getItemName();
+    option.label = items[i].GetItemName();
     option.checked = checkbox_states[i].get();
     ftxui::Color itemColor =
-        items[i].isForbidden() && items[i].getProfession() != user.profession_ ? ftxui::Color::RedLight
+        items[i].IsForbidden() && items[i].GetProfession() != user.profession_ ? ftxui::Color::RedLight
                                                                                : ftxui::Color::White;
     auto checkbox = Checkbox(option) | ftxui::color(itemColor);
-    if (items[i].getCategory() == "normal") {
+    if (items[i].GetCategory() == "normal") {
       normal_checkbox_components.push_back(checkbox);
     } else {
       special_checkbox_components.push_back(checkbox);
@@ -41,8 +41,8 @@ void checkIn(User &user, int flightNumber) {
 
   normal_checkbox_components.push_back(finishButton);
 
-  auto specialCheckboxes = Container::Horizontal(createGroups(special_checkbox_components));
-  auto normalCheckboxes = Container::Horizontal(createGroups(normal_checkbox_components));
+  auto specialCheckboxes = Container::Horizontal(CreateGroups(special_checkbox_components));
+  auto normalCheckboxes = Container::Horizontal(CreateGroups(normal_checkbox_components));
 
   auto layout = Container::Vertical({
                                         specialCheckboxes,
@@ -100,47 +100,47 @@ void checkIn(User &user, int flightNumber) {
   }
 
   if (selectedItems.empty()) {
-    errorFunction("Nie wybrano żadnych przedmiotów!", "Musisz wybrać co najmniej jeden przedmiot.");
+    PrintErrorMessage("Nie wybrano żadnych przedmiotów!", "Musisz wybrać co najmniej jeden przedmiot.");
     return;
   }
 
   double totalWeight = 0;
   for (const auto &item : selectedItems) {
-    totalWeight += item.getWeight();
+    totalWeight += item.GetWeight();
   }
 
   Luggage luggage(selectedItems, totalWeight);
 
-  auto result = luggage.confirmItems(user);
+  auto result = luggage.ConfirmItems(user);
   bool confirmed = std::get<0>(result);
   std::string message = std::get<1>(result);
 
   if (confirmed) {
-    double weight = luggage.processItemsAndGetWeight();
-    if (weight > luggage.maxAllowedWeight) {
-      errorFunction("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
-    } else if (weight > luggage.maxWeight) {
-      double extraFee = luggage.calculateOverweightFee(weight);
+    double weight = luggage.ProcessItemsAndGetWeight();
+    if (weight > luggage.max_allowed_weight_) {
+      PrintErrorMessage("Bagaż przekracza dozwoloną wagę!", "Maksymalna waga bagażu to 32 kg.");
+    } else if (weight > luggage.max_weight_) {
+      double extraFee = luggage.CalculateOverweightFee(weight);
       const std::string titleMessage = "Nadpłata za przekroczenie wagi bagażu";
-      bool paymentSuccess = paymentAuth(user, user.payment_method_, titleMessage, extraFee);
+      bool paymentSuccess = AuthenticatePayment(user, user.payment_method_, titleMessage, extraFee);
 
       if (!paymentSuccess) {
-        errorFunction("Nie udało się przetworzyć płatności.", "Odprawa bagażowa została przerwana.");
+        PrintErrorMessage("Nie udało się przetworzyć płatności.", "Odprawa bagażowa została przerwana.");
         return;
       }
-      user.luggageCheckin(flightNumber);
+      user.LuggageCheckin(flightNumber);
     } else {
-      user.luggageCheckin(flightNumber);
+      user.LuggageCheckin(flightNumber);
     }
   } else {
-    errorFunction("Przerwano odprawę bagażu!", message);
+    PrintErrorMessage("Przerwano odprawę bagażu!", message);
   }
 }
 
-void welcomeInLuggageCheckin(User &user) {
+void PrintWelcomeInCheckIn(User &user) {
   mongocxx::cursor cursor = user.findUserInDatabase();
   if (cursor.begin() == cursor.end()) {
-    errorFunction("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
+    PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
     return;
   }
 
@@ -149,27 +149,27 @@ void welcomeInLuggageCheckin(User &user) {
   bsoncxx::array::view userFlightsArray = userFlightsElement.get_array().value;
 
   if (userFlightsArray.begin() == userFlightsArray.end()) {
-    errorFunction("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
+    PrintErrorMessage("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
     return;
   }
 
   bool allCheckedIn = true;
   for (const auto &flight : userFlightsArray) {
-    if (!flight["luggageCheckin"].get_bool().value) {
+    if (!flight["LuggageCheckin"].get_bool().value) {
       allCheckedIn = false;
       break;
     }
   }
 
   if (allCheckedIn) {
-    errorFunction("Nie posiadasz żadnych biletów do odprawienia.", "");
+    PrintErrorMessage("Nie posiadasz żadnych biletów do odprawienia.", "");
     return;
   }
 
   std::optional<std::string> option = createTicketsScreen(user, true);
   if (option == "quit") {
-    errorFunction("Anulowano odprawę.",
-                  "Odprawa bagażowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
+    PrintErrorMessage("Anulowano odprawę.",
+                      "Odprawa bagażowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
   } else if (option == "wybieram") {
     auto checkinScreen = [&] {
       auto summary = ftxui::vbox({
@@ -193,12 +193,12 @@ void welcomeInLuggageCheckin(User &user) {
     std::cin >> flightNumber;
 
     if (flightNumber < 1 || flightNumber > userFlightsArray.length()) {
-      errorFunction("Nie ma takiego lotu.", "Spróbuj ponownie.");
+      PrintErrorMessage("Nie ma takiego lotu.", "Spróbuj ponownie.");
       return;
     }
 
-    if (userFlightsArray[flightNumber - 1]["luggageCheckin"].get_bool().value) {
-      errorFunction("Ten lot został już odprawiony.", "Wybierz inny lot.");
+    if (userFlightsArray[flightNumber - 1]["LuggageCheckin"].get_bool().value) {
+      PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
       return;
     }
 
@@ -252,9 +252,9 @@ void welcomeInLuggageCheckin(User &user) {
     std::cin >> response;
 
     if (response == "tak" || response == "Tak" || response == "TAK") {
-      printAllItems(user);
+      PrintAllItems(user);
     } else if (response == "nie" || response == "Nie" || response == "NIE") {
-      checkIn(user, flightNumber);
+      CheckIn(user, flightNumber);
     } else {
       return;
     }
