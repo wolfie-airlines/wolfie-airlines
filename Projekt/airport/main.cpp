@@ -12,10 +12,10 @@ int main() {
   using bsoncxx::builder::basic::kvp;
   using bsoncxx::builder::basic::make_document;
   EnvParser parser;
-  parser.parseEnvFile();
+  parser.ParseEnvFile();
 
   try {
-    const auto uri_str = parser.getValue("DATABASE_URL");
+    const auto uri_str = parser.GetValue("DATABASE_URL");
     auto uri = mongocxx::uri{uri_str};
 
     mongocxx::client client{uri};
@@ -35,7 +35,7 @@ int main() {
     }
     User currentUser{client};
     bool isLoggedIn = false;
-    processChoice(isLoggedIn, auth, currentUser, flightConnection);
+    ProcessChoice(isLoggedIn, auth, currentUser, flightConnection);
   } catch (const std::exception &ex) {
     std::cout << "Blad operacji: " << ex.what() << std::endl;
     return EXIT_FAILURE;
