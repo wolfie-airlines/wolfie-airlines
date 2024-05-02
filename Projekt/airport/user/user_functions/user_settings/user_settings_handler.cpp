@@ -6,6 +6,7 @@
 #include "../user_prints/user_prints.h"
 
 void HandleSettingsOption(User &user) {
+  //TODO: Zmieni cout/cin na ekrany ftxui
   std::string option = CreateSettingsMenu(user);
   if (option == "1") {
     std::string newUsername;
