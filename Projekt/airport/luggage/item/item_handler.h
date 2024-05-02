@@ -6,9 +6,9 @@
 #include "../../user/user.h"
 #include "item.h"
 
-double getDoubleValue(const bsoncxx::document::view &item, const std::string &key);
-std::vector<std::string> getArrayValue(const bsoncxx::document::view &item, const std::string &key);
-std::string getStringValue(const bsoncxx::document::view &item, const std::string &key);
-std::vector<Item> getItems(User &user);
+double GetDoubleValue(const bsoncxx::document::view &item, const std::string &key);
+std::vector<std::string> GetArrayValue(const bsoncxx::document::view &item, const std::string &key);
+std::string GetStringValue(const bsoncxx::document::view &item, const std::string &key);
+std::vector<Item> GetItems(User &user);
 
 #endif  // ITEM_HANDLER_H
