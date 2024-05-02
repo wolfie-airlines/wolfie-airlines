@@ -6,7 +6,7 @@
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
 
-std::string displayDiscountInfo() {
+std::string DisplayDiscountInfo() {
   auto summary = [&] {
     auto table = ftxui::Table({
                                   {"Numer ulgi", "TYP ULGI", "WYMAGANIA WERYFIKACJI", "ZNIŻKA DLA ULGI"},
@@ -90,15 +90,15 @@ std::string displayDiscountInfo() {
   return choice;
 }
 
-bool validDiscount(const std::string &discountChoice) {
+bool ValidDiscount(const std::string &discount_choice) {
   std::string discountText;
-  if (discountChoice == "1") {
+  if (discount_choice == "1") {
     discountText = "Podaj 3 ostatnie cyfry swojej legitymacji weterana: ";
-  } else if (discountChoice == "2") {
+  } else if (discount_choice == "2") {
     discountText = "Podaj 3 ostatnie cyfry swojej karty inwalidzkiej: ";
-  } else if (discountChoice == "3") {
+  } else if (discount_choice == "3") {
     discountText = "Podaj 3 ostatnie cyfry swojej legitymacji emeryta: ";
-  } else if (discountChoice == "4") {
+  } else if (discount_choice == "4") {
     discountText = "Podaj 3 ostatnie cyfry swojej legitymacji studenckiej: ";
   } else {
     std::cout << "Nieprawidłowy wybór." << std::endl;

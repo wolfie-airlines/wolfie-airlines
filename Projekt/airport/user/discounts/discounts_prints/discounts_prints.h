@@ -3,7 +3,7 @@
 
 #include <string>
 
-std::string displayDiscountInfo();
-bool validDiscount(const std::string &discountChoice);
+std::string DisplayDiscountInfo();
+bool ValidDiscount(const std::string &discount_choice);
 
 #endif  // AIRPORT_DISCOUNTS_PRINTS_H
