@@ -21,6 +21,9 @@ class Admin : public User {
         bool is_admin,
         std::string hashed_admin_password);
 
+  Admin(const User &user)
+      : User(user), hashed_admin_password_("") {}
+
   std::string hashed_admin_password_;  // Haszowane hasło administratora
   // Metody dla admina
   void AddFlight();                // Dodawanie lotów
