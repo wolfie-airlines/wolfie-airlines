@@ -5,7 +5,6 @@
 #include "../authentication/auth_functions/user_authentication.h"
 #include "../checkin/checkin_prints.h"
 #include "../flights/flights_functions/flight_functions.h"
-#include "../luggage/luggage_handler.h"
 #include "../tickets/tickets.h"
 #include "../tickets/tickets_prints/tickets_prints.h"
 #include "../user/discounts/discounts.h"
@@ -17,6 +16,7 @@
 #include "main_prints/main_prints.h"
 #include "../admin/admin_functions/admin_functions.h"
 #include "../admin/admin.h"
+#include "../luggage/luggage_prints/luggage_prints.h"
 
 void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightConnection &flight_connection) {
   while (true) {
@@ -82,7 +82,7 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
         Admin* admin = user.LoginAsAdmin();
         if(admin != nullptr){
           HandleAdminDashboard(*admin, user);
-          delete admin; // Pamiętaj o usunięciu obiektu po użyciu
+          delete admin;
         }
       }
     }

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <sstream>
 
-// definicja konstruktora domyślnego -> inicjalizuje obiekt
 EnvParser::EnvParser() = default;
 
 void EnvParser::ParseEnvFile() {

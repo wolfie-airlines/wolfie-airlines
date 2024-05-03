@@ -125,7 +125,7 @@ void User::ChangePassword(const std::string &password) {
 }
 
 void User::ChangeUsername(const std::string &username) {
-  // sprawdzenie czy nazwa jest zajeta
+  // sprawdzenie, czy nazwa jest zajeta
   bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
       bsoncxx::builder::basic::kvp("username", username));
 
@@ -159,7 +159,7 @@ void User::ChangeUsername(const std::string &username) {
 }
 
 void User::ChangeEmail(const std::string &email) {
-  // sprawdzanie czy email_ jest zajety
+  // sprawdzanie, czy email jest zajety
   bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
       bsoncxx::builder::basic::kvp("email", email));
 
@@ -362,7 +362,7 @@ void User::SetVisa(const std::string &card_number, const std::string &card_cvv) 
     return;
   }
 
-  // sprawdzenie czy taka karta już istnieje
+  // sprawdzenie, czy taka karta już istnieje
   bsoncxx::document::value filter_builder_card_cvv = bsoncxx::builder::basic::make_document(
       bsoncxx::builder::basic::kvp("paymentMethod.cardNumber", card_number),
       bsoncxx::builder::basic::kvp("paymentMethod.cvv", card_cvv));
@@ -485,10 +485,9 @@ void User::LuggageCheckin(int flight_number) {
   bsoncxx::document::element user_flights_element = user_view["userFlights"];
   bsoncxx::array::view user_flights = user_flights_element.get_array().value;
 
-  // w całym arrayu znajdź index lotu który ma numer flight_number -1
   int flight_index = flight_number - 1;
 
-  // sprawdź czy bagaż dla tego lotu jest już odprawiony
+  // sprawdź, czy bagaż dla tego lotu jest już odprawiony
   if (user_flights[flight_index]["luggageCheckin"].get_bool().value) {
     PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
     return;

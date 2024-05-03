@@ -3,8 +3,6 @@
 #include "../../../functions/info_prints/info_prints.h"
 #include "ftxui/dom/elements.hpp"
 
-const int PAGE_SIZE = 4;
-
 std::optional<std::string> CreateTicketsScreen(User &user, bool is_checkin) {
   mongocxx::cursor cursor = user.FindUserInDatabase();
   if (cursor.begin() == cursor.end()) {
@@ -61,66 +59,66 @@ std::optional<std::string> CreateTicketsScreen(User &user, bool is_checkin) {
           std::string checkin = flight_info.checkin ? "✅" : "❌";
           std::string luggage_checkin = flight_info.luggage_checkin ? "✅" : "❌";
           auto ticket_content = ftxui::hbox({
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("ID LOTU: ") |
-                                                                   ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(flight_info.flight_id) |
-                                                                   ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("MIEJSCE ODLOTU: ") |
-                                                                   ftxui::bold | color(ftxui::Color::SteelBlue),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(flight_info.departure) |
-                                                                   ftxui::bold | color(ftxui::Color::SteelBlue),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("MIEJSCE PRZYLOTU: ") |
-                                                                   ftxui::bold | color(ftxui::Color::SteelBlue3),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(
-                                                                   flight_info.destination) |
-                                                                   ftxui::bold |
-                                                                   color(ftxui::Color::SteelBlue3),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("CZAS WYLOTU: ") |
-                                                                   ftxui::bold | color(ftxui::Color::Aquamarine3),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(
-                                                                   flight_info.departure_time) |
-                                                                   ftxui::bold |
-                                                                   color(ftxui::Color::Aquamarine3),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("MIEJSCE W SAMOLOCIE") |
-                                                                   ftxui::bold | color(ftxui::Color::LightPink4),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(place_in_plane) |
-                                                                   ftxui::bold | color(ftxui::Color::LightPink4),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("ODPRAWIONY: ") |
-                                                                   ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(checkin) |
-                                                                   ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                           }),
-                                               ftxui::separator(),
-                                               ftxui::vbox({
-                                                               ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA: ") |
-                                                                   ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                               ftxui::separator(),
-                                                               ftxui::paragraphAlignCenter(luggage_checkin) |
-                                                                   ftxui::bold | color(ftxui::Color::PaleGreen3),
-                                                           }),
-                                           }) |
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("ID LOTU: ") |
+                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(flight_info.flight_id) |
+                                                                    ftxui::bold | color(ftxui::Color::DarkSeaGreen4),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("MIEJSCE ODLOTU: ") |
+                                                                    ftxui::bold | color(ftxui::Color::SteelBlue),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(flight_info.departure) |
+                                                                    ftxui::bold | color(ftxui::Color::SteelBlue),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("MIEJSCE PRZYLOTU: ") |
+                                                                    ftxui::bold | color(ftxui::Color::SteelBlue3),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(
+                                                                    flight_info.destination) |
+                                                                    ftxui::bold |
+                                                                    color(ftxui::Color::SteelBlue3),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("CZAS WYLOTU: ") |
+                                                                    ftxui::bold | color(ftxui::Color::Aquamarine3),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(
+                                                                    flight_info.departure_time) |
+                                                                    ftxui::bold |
+                                                                    color(ftxui::Color::Aquamarine3),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("MIEJSCE W SAMOLOCIE") |
+                                                                    ftxui::bold | color(ftxui::Color::LightPink4),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(place_in_plane) |
+                                                                    ftxui::bold | color(ftxui::Color::LightPink4),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("ODPRAWIONY: ") |
+                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(checkin) |
+                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                            }),
+                                                ftxui::separator(),
+                                                ftxui::vbox({
+                                                                ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA: ") |
+                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                                ftxui::separator(),
+                                                                ftxui::paragraphAlignCenter(luggage_checkin) |
+                                                                    ftxui::bold | color(ftxui::Color::PaleGreen3),
+                                                            }),
+                                            }) |
               ftxui::border;
           elements.push_back(window(ftxui::paragraphAlignCenter("LOT #" + std::to_string(flight_info.flight_number)),
                                     ticket_content));

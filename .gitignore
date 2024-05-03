@@ -407,3 +407,5 @@ FodyWeavers.xsd
 /Projekt/airport/.idea
 Projekt/airport/server/.env
 Projekt/airport/cmake-build-debug/.env
+Projekt/airport/cmake-build-debug/.ninja_deps
+Projekt/airport/cmake-build-debug/.ninja_log

@@ -7,9 +7,8 @@
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/dom/elements.hpp"
 #include "ftxui/dom/table.hpp"
-
-const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";
-const std::string ITEM_CARD = "KARTA PRZEDMIOTU";
+#include "../../user/user_functions/user_tickets/user_tickets_prints.h"
+#include "../luggage_handler.h"
 
 std::vector<ftxui::Component> CreateGroups(const std::vector<ftxui::Component> &checkbox_components) {
   std::vector<ftxui::Component> vertical_containers;
@@ -52,7 +51,7 @@ void PrintSpecificItem(Item &item) {
   ftxui::Element profession_element = ftxui::hbox({});
   if (!profession.empty()) {
     profession_element = ftxui::hbox({ftxui::text("Dostępny w każdej ilości dla zawodu: ") | ftxui::bold
-                                         | ftxui::color(ftxui::Color::Gold1),
+                                          | ftxui::color(ftxui::Color::Gold1),
                                       ftxui::text(profession) | ftxui::color(ftxui::Color::White)});
   }
 
@@ -264,6 +263,130 @@ void PrintAllItems(User &user) {
       } catch (std::invalid_argument &e) {
         continue;
       }
+    }
+  }
+}
+
+void PrintWelcomeInCheckIn(User &user) {
+  mongocxx::cursor cursor = user.FindUserInDatabase();
+  if (cursor.begin() == cursor.end()) {
+    PrintErrorMessage("Nie znaleziono użytkownika w bazie danych.", "Zaloguj się ponownie.");
+    return;
+  }
+
+  bsoncxx::document::view user_view = *cursor.begin();
+  bsoncxx::document::element user_flights_element = user_view["userFlights"];
+  bsoncxx::array::view user_flights = user_flights_element.get_array().value;
+
+  if (user_flights.begin() == user_flights.end()) {
+    PrintErrorMessage("Nie posiadasz żadnych biletów.", "Zakup je już teraz korzystając z opcji 2!");
+    return;
+  }
+
+  bool all_checked_in = true;
+  for (const auto &flight : user_flights) {
+    if (!flight["luggageCheckin"].get_bool().value) {
+      all_checked_in = false;
+      break;
+    }
+  }
+
+  if (all_checked_in) {
+    PrintErrorMessage("Nie posiadasz żadnych biletów do odprawienia.", "");
+    return;
+  }
+
+  std::optional<std::string> option = CreateTicketsScreen(user, true);
+  if (option == "quit") {
+    PrintErrorMessage("Anulowano odprawę.",
+                      "Odprawa bagażowa została anulowana. Zawsze możesz wrócić do niej kiedy indziej.");
+  } else if (option == "wybieram") {
+    auto checkin_screen = [&] {
+      auto summary = ftxui::vbox({
+                                     ftxui::hbox({ftxui::paragraphAlignCenter("ODPRAWA BAGAŻOWA")}) |
+                                         color(ftxui::Color::GrayDark),
+                                     ftxui::separator(),
+                                     ftxui::hbox({ftxui::paragraphAlignRight(
+                                         "Podaj NUMER LOTU, na który chciałbyś odprawić swój bagaż:")}) |
+                                         color(ftxui::Color::LightSteelBlue),
+                                 });
+      auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+      return std::make_shared<ftxui::Element>(document);
+    };
+
+    auto final_checkin_screen = ftxui::Screen::Create(ftxui::Dimension::Fit(*checkin_screen()),
+                                                      ftxui::Dimension::Fit(*checkin_screen()));
+    ftxui::Render(final_checkin_screen, *checkin_screen());
+    std::cout << final_checkin_screen.ToString() << '\0' << std::endl;
+
+    int flight_number;
+    std::cin >> flight_number;
+
+    if (flight_number < 1 || flight_number > user_flights.length()) {
+      PrintErrorMessage("Nie ma takiego lotu.", "Spróbuj ponownie.");
+      return;
+    }
+
+    if (user_flights[flight_number - 1]["luggageCheckin"].get_bool().value) {
+      PrintErrorMessage("Ten lot został już odprawiony.", "Wybierz inny lot.");
+      return;
+    }
+
+    auto create_screen = [&] {
+      auto summary = ftxui::vbox({
+                                     ftxui::hbox({ftxui::text(user.username_) |
+                                         color(ftxui::Color::Gold1),
+                                                  ftxui::text(", witamy w odprawie bagażowej!")}) |
+                                         ftxui::bold | ftxui::center,
+                                     ftxui::separator(),
+                                     ftxui::vbox({ftxui::paragraphAlignCenter(
+                                         "Przed rozpoczęciem masz możliwość wyświetlenia listy wszystkich dozwolonych i zabronionych rzeczy do wzięcia do bagażu.")
+                                                      |
+                                                          ftxui::bold | color(ftxui::Color::YellowLight),
+                                                  ftxui::paragraphAlignCenter("Chcesz to zrobić? ") |
+                                                      ftxui::bold | color(ftxui::Color::Khaki3)}),
+                                     ftxui::separator(),
+                                     ftxui::vbox({
+                                                     ftxui::hbox({
+                                                                     ftxui::text(
+                                                                         "tak. Wyświetla listę wszystkich przedmiotów")
+                                                                         |
+                                                                             ftxui::color(
+                                                                                 ftxui::Color::CadetBlue) |
+                                                                         ftxui::bold,
+                                                                 }),
+                                                     ftxui::hbox({
+                                                                     ftxui::text(
+                                                                         "nie. Przenosi do następnego ekranu odprawy") |
+                                                                         ftxui::color(
+                                                                             ftxui::Color::DarkOliveGreen2) |
+                                                                         ftxui::bold,
+                                                                 }),
+                                                     ftxui::hbox({ftxui::text(
+                                                         "quit. \U0001f51a Kończy odprawę") |
+                                                         ftxui::color(
+                                                             ftxui::Color::RedLight) |
+                                                         ftxui::bold}),
+                                                 }),
+                                 });
+      auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+      document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+      return std::make_shared<ftxui::Element>(document);
+    };
+
+    auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+    ftxui::Render(user_screen, *create_screen());
+    std::cout << user_screen.ToString() << '\0' << std::endl;
+
+    std::string response;
+    std::cin >> response;
+
+    if (response == "tak" || response == "Tak" || response == "TAK") {
+      PrintAllItems(user);
+    } else if (response == "nie" || response == "Nie" || response == "NIE") {
+      CheckIn(user, flight_number);
+    } else {
+      return;
     }
   }
 }

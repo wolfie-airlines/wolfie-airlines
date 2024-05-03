@@ -52,7 +52,7 @@ bool Authentication::RegisterUser(const std::string &username, const std::string
   document.append(bsoncxx::builder::basic::kvp("discount", 1.00));
 
 
-  // Pobieranie daty i godziny rejestracji - potrzebne do statystyk w profilu
+  // Pobieranie daty i godziny rejestracji (potrzebne do statystyk w profilu)
   auto now = std::chrono::system_clock::now();
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
   std::stringstream ss;

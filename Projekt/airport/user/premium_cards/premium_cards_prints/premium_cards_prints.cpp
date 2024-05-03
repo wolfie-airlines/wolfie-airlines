@@ -25,7 +25,7 @@ std::string DisplayPremiumCardInfo() {
     table.SelectColumn(1).Border(ftxui::LIGHT);
     table.SelectColumn(2).Border(ftxui::LIGHT);
 
-    // Pierwszy rząd na grubo żeby było widać że to nagłówek
+    // Pierwszy rząd na grubo, żeby było widać, że to nagłówek
     table.SelectRow(0).Decorate(ftxui::bold);
     table.SelectRow(0).SeparatorVertical(ftxui::LIGHT);
     table.SelectRow(0).Border(ftxui::LIGHT);

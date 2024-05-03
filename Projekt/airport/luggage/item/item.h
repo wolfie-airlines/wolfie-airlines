@@ -1,7 +1,3 @@
-//
-// Created by szymo on 26.04.2024.
-//
-
 #ifndef AIRPORT_ITEM_H
 #define AIRPORT_ITEM_H
 

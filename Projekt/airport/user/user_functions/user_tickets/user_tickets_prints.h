@@ -6,6 +6,8 @@
 
 #include "../../user.h"
 
+const int PAGE_SIZE = 4;
+
 struct FlightInfo {
   int flight_number;
   std::string flight_id;

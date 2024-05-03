@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "item/item.h"
+
 class User;
 
 class Luggage {
