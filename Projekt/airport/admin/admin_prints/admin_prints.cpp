@@ -131,7 +131,32 @@ std::string DisplayAdminMessageAndCaptureInput(const std::string &title_message,
   return answer;
 }
 
+std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, const std::string &text_message) {
+  auto create_screen = [&] {
+    auto summary = ftxui::vbox({
+                                   ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
+                                       | color(ftxui::Color::White),
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(text_message) | ftxui::bold
+                                                    | color(ftxui::Color::GrayLight)}),
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(L"back. \U0001F519  Wróć do panelu administratora.")
+                                                    | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold}),
+                               });
+    auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});
+    document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+    return std::make_shared<ftxui::Element>(document);
+  };
 
+  auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
+  ftxui::Render(user_screen, *create_screen());
+  std::cout << user_screen.ToString() << '\0' << std::endl;
+
+  std::string answer;
+  std::getline(std::cin >> std::ws, answer);
+
+  return answer;
+}
 
 
 
