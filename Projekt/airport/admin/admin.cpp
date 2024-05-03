@@ -2,6 +2,7 @@
 #include "../functions/info_prints/info_prints.h"
 #include "../functions/main_prints/main_prints.h"
 #include "admin_functions/admin_functions.h"
+#include "admin_prints/admin_prints.h"
 
 #include <utility>
 
@@ -183,7 +184,68 @@ void Admin::AddVerificationQuestion(User &user) {
 }
 
 void Admin::ManageUsers(User &user) {
-  // TODO
+  DisplayManageUsersMenu();
+  std::string option;
+  std::cin >> option;
+
+  while (option != "quit") {
+    std::string username = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nazwę użytkownika:", ValidateNonEmpty);
+    if (username.empty() || username == "back") return;
+
+    std::string email = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj e-mail użytkownika:", ValidateNonEmpty);
+    if (email.empty() || email == "back") return;
+
+    auto collection = user.GetSpecificCollection("users");
+    bsoncxx::document::value filter_builder = bsoncxx::builder::basic::make_document(
+        bsoncxx::builder::basic::kvp("username", username),
+        bsoncxx::builder::basic::kvp("email", email));
+
+    bsoncxx::document::view filter_view = filter_builder.view();
+    mongocxx::cursor cursor = collection.find(filter_view);
+    if (cursor.begin() == cursor.end()) {
+      PrintErrorMessage("Nie znaleziono użytkownika o podanej nazwie i e-mailu.", "Spróbuj ponownie.");
+      return;
+    }
+
+    if (option == "1") {
+      std::string new_username = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nową nazwę użytkownika:", ValidateNonEmpty);
+      if (new_username.empty() || new_username == "back") return;
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("username", new_username)))));
+    } else if (option == "2") {
+      std::string new_email = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nowy e-mail użytkownika:", ValidateNonEmpty);
+      if (new_email.empty() || new_email == "back") return;
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("email", new_email)))));
+    } else if (option == "3") {
+      std::string new_profession = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nowy zawód użytkownika:", ValidateNonEmpty);
+      if (new_profession.empty() || new_profession == "back") return;
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("profession", new_profession)))));
+    } else if (option == "4") {
+      std::string new_premium_card = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nową kartę premium użytkownika:", ValidateNonEmpty);
+      if (new_premium_card.empty() || new_premium_card == "back") return;
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("premium_card", new_premium_card)))));
+    } else if (option == "5") {
+      std::string new_discount_type = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nowy typ zniżki użytkownika (ulga/premium):", [](const std::string &input) {
+        return input == "ulga" || input == "premium" || input == "back";
+      });
+      if (new_discount_type.empty() || new_discount_type == "back") return;
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("discount_type", new_discount_type)))));
+    } else if (option == "6") {
+      std::string new_discount = CaptureInputWithValidation("Zarządzanie użytkownikami", "Podaj nową zniżkę użytkownika:", ValidatePrice);
+      if (new_discount.empty() || new_discount == "back") return;
+      double new_discount_double = std::stod(new_discount);
+      if (new_discount_double > 1) {
+        PrintErrorMessage("Zniżka nie może być większa niż 1.", "Spróbuj ponownie.");
+        return;
+      }
+      collection.update_one(filter_view, bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("$set", bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("discount", new_discount_double)))));
+    } else {
+      PrintErrorMessage("Nieprawidłowy wybór.", "Spróbuj ponownie.");
+    }
+
+    PrintSuccessMessage("Dane użytkownika zostały zaktualizowane pomyślnie", "");
+    DisplayManageUsersMenu();
+    std::cin >> option;
+  }
 }
 
 void Admin::AddLuggageItem(User &user) {

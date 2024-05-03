@@ -160,5 +160,39 @@ std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, 
   return answer;
 }
 
+void DisplayManageUsersMenu() {
+  auto summary = [&] {
+    auto content = ftxui::vbox({
+                                   ftxui::hbox({ftxui::text(L" ZARZĄDZANIE UŻYTKOWNIKAMI") | ftxui::bold})
+                                       | color(ftxui::Color::Blue),
+                                   ftxui::hbox({ftxui::text(L"1. Zmień nazwę użytkownika wybranego użytkownika  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"2. Zmień adres e-mail wybranego użytkownika   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"3. Zmień zawód wybranego użytkownika   ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"4. Zmień kartę premium wybranego użytkownika  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"5. Zmień typ zniżki wybranego użytkownika  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"6. Zmień zniżkę wybranego użytkownika (wartość zniżki)  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"quit. Wróć do panelu administratora  ") | ftxui::bold})
+                                       | color(ftxui::Color::DarkRed),
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(
+                                       L"Wprowadź akcję (bądź jej numer), którą chcesz wykonać poniżej:")
+                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                               });
+    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+  };
 
+  auto document = ftxui::vbox({summary()});
+
+  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+  ftxui::Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
+}
 
