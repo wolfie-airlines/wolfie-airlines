@@ -104,3 +104,17 @@ bool ValidateSolution(const std::string &solution) {
     }
   }
 }
+
+std::optional<bool> CaptureBoolWithValidation(const std::string &title, const std::string &message) {
+  while (true) {
+    std::string input = CaptureInputWithValidation(title, message, [](const std::string &input) {
+      return input == "tak" || input == "nie" || input == "back";
+    });
+    if (input == "back") {
+      PrintErrorMessage("Przerwano dodawanie przedmiotu", "Nastąpił powrót do panelu.");
+      return std::nullopt;
+    }
+    if (input == "tak") return true;
+    if (input == "nie") return false;
+  }
+}

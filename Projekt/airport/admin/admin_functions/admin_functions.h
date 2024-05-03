@@ -24,4 +24,5 @@ bool ValidateTime(const std::string &time);
 bool ValidatePrice(const std::string &price);
 bool ValidateNonEmpty(const std::string &input);
 bool ValidateSolution(const std::string &solution);
+std::optional<bool> CaptureBoolWithValidation(const std::string &title, const std::string &message);
 #endif //AIRPORT_ADMIN_ADMIN_FUNCTIONS_ADMIN_FUNCTIONS_H_
