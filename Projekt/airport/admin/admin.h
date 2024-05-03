@@ -28,8 +28,9 @@ class Admin : public User {
 
   // Metody dla admina
   void AddFlight(User &user);
-  void AddVerificationQuestion();
-  void ManageUsers();
+  void AddVerificationQuestion(User &user);
+  void ManageUsers(User &user);
+  void AddLuggageItem(User &user);
 };
 
 #endif  // AIRPORT_ADMIN_H

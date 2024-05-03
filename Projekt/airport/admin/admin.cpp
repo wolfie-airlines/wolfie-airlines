@@ -104,10 +104,88 @@ void Admin::AddFlight(User &user) {
   }
 }
 
-void Admin::AddVerificationQuestion() {
+void Admin::AddVerificationQuestion(User &user) {
+  std::string domain = CaptureInputWithValidation("Dodawanie pytania",
+                                                  "Wybierz dziedzinę (doktor, informatyk, matematyk):",
+                                                  [](const std::string &input) {
+                                                    return input == "doktor" || input == "informatyk"
+                                                        || input == "matematyk";
+                                                  });
+  if (domain.empty() || domain == "back") return;
+
+  std::string collection_name;
+  bsoncxx::builder::basic::document question_builder{};
+
+  if (domain == "doktor") {
+    collection_name = "doctor-question";
+    std::string question = CaptureLineWithValidation("Dodawanie pytania", "Podaj treść pytania:", ValidateNonEmpty);
+    if (question.empty() || question == "back") return;
+    std::string answer = CaptureLineWithValidation("Dodawanie pytania", "Podaj odpowiedź:", ValidateNonEmpty);
+    if (answer.empty() || answer == "back") return;
+
+    question_builder.append(bsoncxx::builder::basic::kvp("question", question),
+                            bsoncxx::builder::basic::kvp("answer", answer));
+  } else if (domain == "informatyk") {
+    collection_name = "informatic-questions";
+    std::string
+        language = CaptureInputWithValidation("Dodawanie pytania", "Podaj język programowania:", ValidateNonEmpty);
+    if (language.empty() || language == "back") return;
+    std::string error = CaptureLineWithValidation("Dodawanie pytania", "Podaj błąd w kodzie:", ValidateNonEmpty);
+    if (error.empty() || error == "back") return;
+    std::string wrong_code = CaptureLineWithValidation("Dodawanie pytania", "Podaj BŁĘDNY kod:", ValidateNonEmpty);
+    if (wrong_code.empty() || wrong_code == "back") return;
+    std::string
+        answer_str = CaptureInputWithValidation("Dodawanie pytania", "Podaj odpowiedź (numer linii):", ValidatePrice);
+    if (answer_str.empty() || answer_str == "back") return;
+
+    int answer = std::stoi(answer_str);
+
+    question_builder.append(bsoncxx::builder::basic::kvp("language", language),
+                            bsoncxx::builder::basic::kvp("error", error),
+                            bsoncxx::builder::basic::kvp("code", wrong_code),
+                            bsoncxx::builder::basic::kvp("answer", answer));
+  } else if (domain == "matematyk") {
+    collection_name = "math-questions";
+    std::string
+        problem_title = CaptureLineWithValidation("Dodawanie pytania", "Podaj tytuł problemu:", ValidateNonEmpty);
+    if (problem_title.empty() || problem_title == "back") return;
+    std::string
+        problem_description = CaptureLineWithValidation("Dodawanie pytania", "Podaj opis problemu:", ValidateNonEmpty);
+    if (problem_description.empty() || problem_description == "back") return;
+    std::string
+        hint = CaptureLineWithValidation("Dodawanie pytania", "Podaj podpowiedź:", ValidateNonEmpty);
+    if (hint.empty() || hint == "back") return;
+
+    std::string solution = CaptureLineWithValidation("Dodawanie pytania", "Podaj rozwiązanie:", ValidateSolution);
+    if (solution.empty() || solution == "back") return;
+
+    question_builder.append(bsoncxx::builder::basic::kvp("problem", problem_title),
+                            bsoncxx::builder::basic::kvp("description", problem_description),
+                            bsoncxx::builder::basic::kvp("hint", hint));
+
+    try {
+      int solution_int = std::stoi(solution);
+      question_builder.append(bsoncxx::builder::basic::kvp("solution", solution_int));
+    } catch (std::invalid_argument &e) {
+      try {
+        double solution_double = std::stod(solution);
+        question_builder.append(bsoncxx::builder::basic::kvp("solution", solution_double));
+      } catch (std::invalid_argument &e) {
+        question_builder.append(bsoncxx::builder::basic::kvp("solution", solution));
+      }
+    }
+  }
+
+  auto collection = user.GetSpecificCollection(collection_name);
+  collection.insert_one(question_builder.view());
+
+  PrintSuccessMessage("Pytanie zostało dodane pomyślnie", "");
+}
+
+void Admin::ManageUsers(User &user) {
   // TODO
 }
 
-void Admin::ManageUsers() {
+void Admin::AddLuggageItem(User &user) {
   // TODO
 }
