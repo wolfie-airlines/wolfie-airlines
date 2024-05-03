@@ -81,7 +81,7 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
       } else if (user_choice == "8") {
         Admin* admin = user.LoginAsAdmin();
         if(admin != nullptr){
-          HandleAdminDashboard(*admin);
+          HandleAdminDashboard(*admin, user);
           delete admin; // Pamiętaj o usunięciu obiektu po użyciu
         }
       }
