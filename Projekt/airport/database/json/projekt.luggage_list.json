@@ -1,0 +1,523 @@
+[{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f0f"
+  },
+  "item": "Napoje alkoholowe",
+  "description": "Napoje alkoholowe w opakowaniach detalicznych, zawierające więcej, niż 24%, ale nie więcej niż 70% alkoholu objętościowo.",
+  "hints": [
+    "Można przewozić jedynie 0.5L butelki;Pojemniki nie mogą przekraczać łącznie 5L;Max 5L netto na osobę"
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 10,
+  "weightForOne": 0.5,
+  "question": "Ile butelek zamierzasz wziąć?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f10"
+  },
+  "item": "Amunicja",
+  "description": "Magazynki broni w bezpiecznym opakowaniu, na użytek tylko tej osoby.",
+  "hints": [
+    "Max 625 sztuk na osobę;Bez amunicji z materiałami wybuchowymi czy samo odpalających się pocisków"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": false,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 625,
+  "weightForOne": 0.008,
+  "question": "Ile sztuk naboi posiadasz?",
+  "profession": "policjant"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f11"
+  },
+  "item": "Zestaw do ratownictwa",
+  "description": "Zestaw do ratownictwa lawinowego.",
+  "hints": [
+    "Zestaw powinien być zapakowany w sposób uniemożliwiający jego przypadkową aktywację;Max 1 na osobę;Poduszki powietrzne wewnątrz zestawu muszą być wyposażone w spustowy zawór ciśnieniowy"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 3,
+  "question": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f12"
+  },
+  "item": "Bagaż z bateriami litowymi",
+  "description": "Bagaż z zainstalowanymi bateriami litowymi/niewymiennymi bateriami.",
+  "hints": [
+    "Nie może przekroczyć 0.3g litu metalicznego lub 2.7Wh."
+  ],
+  "forbidden": true,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.002,
+  "question": "Ile zamierzasz zabrać bagaży z bateriami litowymi?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f13"
+  },
+  "item": "Kuchenki turystyczne i zbiorniki z paliwem",
+  "hints": [
+    "Mogą być przewożone jeżeli zbiorniki paliwa kuchenek turystycznych i/lub pojemniki na paliwo zostały całkowicie opróżnione z paliwa"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 1
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f14"
+  },
+  "item": "Detektor środków chemicznych",
+  "description": "Przewożony przez członków Organizacji do spraw Zakazu Broni Chemicznej, w trakcie oficjalnej podróży.",
+  "hints": [
+    "Wymagane wylegitymowanie na lotnisku"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.25,
+  "question": "Ile detektorów środków chemicznych zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f15"
+  },
+  "item": "Urządzenia obezwładniające",
+  "description": "np. Gaz pieprzowy itp. zawierające substancje drażniące lub obezwładniające są zabronione zarówno w bagażu podręcznym, rejestrowanym jak i w posiadaniu przy sobie",
+  "hints": [],
+  "forbidden": true,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 0,
+  "weightForOne": 0,
+  "profession": "policjant"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f16"
+  },
+  "item": "Suchy lód",
+  "description": "Jeżeli został wykorzystany do pakowania towarów łatwo psujących się, nie podlegających tym przepisom, można przewozić w bagażu podręcznym.",
+  "hints": [
+    "Max 2.5kg na osobę;Opakowanie musi umożliwiać wydalanie dwutlenku węgla;Przewóz w bagażu odprawionym wymaga zgody Wolfie Airlines i musi być oznaczona -dry ice- lub -carbon dioxide solid-"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2.5,
+  "weightForOne": 0.5,
+  "question": "Ile kg suchego lodu zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f17"
+  },
+  "item": "E-papierosy",
+  "description": " \"Waporyzatory zawierające baterie muszą być indywidualnie zabezpieczone przed przypadkowym uruchomieniem.\"",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.5,
+  "question": "Ile e-papierosów zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f18"
+  },
+  "item": "Ogniwa paliwowe",
+  "description": "Zasilające przenośne urządzenia elektroniczne (np. aparaty fotograficzne, telefony komórkowe, laptopy, komputery i kamery)",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 5,
+  "weightForOne": 0.5,
+  "question": "Ile ogniwek paliwowych zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f19"
+  },
+  "item": "Wkłady do ogniw paliwowych",
+  "description": "Wkłady do ogniw paliwowych, zapasowe do przenośnych urządzeń elektronicznych",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 5,
+  "weightForOne": 0.5,
+  "question": "Ile wkładów do ogniw paliwowych zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1a"
+  },
+  "item": "Małe naboje z niepalnym gazem",
+  "description": "Małe naboje zawierające dwutlenek węgla lub inny odpowiedni gazów.",
+  "hints": [
+    "Do 2 małych naboi będących na wyposażeniu kamizelki ratunkowej;Do 2 zapasowych naboi na pasażera"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2,
+  "weightForOne": 0.25,
+  "question": "Ile małych naboi z niepalnym gazem zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1b"
+  },
+  "item": "Naboje do pracy kończyn",
+  "description": "Naboje z niepalnym, nietoksycznym gazem, wykorzystywane do pracy sztucznych kończyn.",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2,
+  "weightForOne": 0.25,
+  "question": "Ile naboi do pracy kończyn zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1c"
+  },
+  "item": "Sprzęt do stylizacji włosów",
+  "description": "Sprzęt do stylizacji włosów zawierający nabój z gazem węglowodorowym.",
+  "hints": [
+    "1 na pasażera;Osłona bezpieczeństwa jest bezpiecznie zamocowana na elemencie grzejnym;Sprzęt nie może być używany na pokładzie samolotu;Zapasowe naboje gazowe do sprzętu do stylizacji włosów są niedozwolone w bagażu rejestrowanym lub podręcznym"
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.5
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1d"
+  },
+  "item": "Opakowania chłodnicze",
+  "description": "Opakowania chłodnicze, zawierające schłodzony płynny azot w pełni zaabsorbowany w porowatym materiale i wykorzystywany do transportu niezastrzeżonych artykułów",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 1
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1e"
+  },
+  "item": "Silniki spalinowe",
+  "description": "Silniki spalinowe lub na ogniwa paliwowe.",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 5
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f1f"
+  },
+  "item": "Baterie litowe",
+  "description": "Przenośne urządzenia elektryczne (PED) zawierające litowo-metalowe lub litowo-jonowe komórki lub baterie (kamery, telefony komórkowe, laptopy i tablety).",
+  "hints": [
+    "Dla baterii litowo-metalowych zawartość litowo-metalowa nie może przekraczać 2 g a dla baterii litowo-jonowych wydajność nie może przekraczać 100 Wh; Urządzenia przewożone w bagażu odprawionym muszą być całkowicie wyłączone i osłonięte przed uszkodzeniami;Każda osoba może przewozić maksymalnie 15 PED;Bagaż wyposażony w baterię litową - inną niż ogniwa litowe- musi mieć wyjętą baterię"
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 15,
+  "weightForOne": 0.5,
+  "question": "Ile przenośnych urządzeń elektrycznych zamierzasz zabrać?",
+  "profession": "informatyk"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f20"
+  },
+  "item": "Urządzenia zasilane bateriami litowymi",
+  "description": "Litowo-jonowe baterie dla przenośnych urządzeń elektrycznych (w tym medycznych) o wydajności powyżej 100Wh, ale nie przekraczającej 160 Wh.",
+  "hints": [
+    "Wyłącznie dla przenośnych urządzeń medycznych - baterie litowo-metalowe z zawartością litowometalową przekraczającą 2 g ale nie przekraczającą 8 g. Urządzenia w bagażu odprawionym muszą być całkowicie wyłączone oraz osłonięte przed uszkodzeniami"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2,
+  "weightForOne": 1,
+  "question": "Ile urządzeń zasilanych bateriami litowymi zamierzasz zabrać?",
+  "profession": "informatyk"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f21"
+  },
+  "item": "Zapasowe baterie litowo-jonowe",
+  "description": "Zapasowe baterie litowo-jonowe o wydajności powyżej 100 Wh, ale nie przekraczające 160 Wh, używane do konsumenckich urządzeń elektronicznych oraz PMED lub z zawartością litowo-metalową między 2 g, a 8 g wyłącznie dla urządzeń PMED.",
+  "hints": [
+    "Maksymalnie dwie zapasowe baterie mogą być przewożone wyłącznie w bagażu podręcznym;Każda z tych baterii musi być osobno zabezpieczona aby chronić przed zwarciem"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2,
+  "weightForOne": 1,
+  "question": "Ile zapasowych baterii litowo-jonowych zamierzasz zabrać?",
+  "profession": "informatyk"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f22"
+  },
+  "item": "Zapałki bezpieczne",
+  "description": "Zapałki bezpieczne lub mała zapalniczka do papierosów. ",
+  "hints": [
+    "Jedno małe opakowanie na osobę;Płyn do zapalniczek i wkłady do zapalniczek nie są dozwolone jako rzecz przy sobie - w bagażu odprawionym lub podręcznym;Zapałki zapalające się w wyniku potarcia o dowolną powierzchnię: Zapalniczki „Blue flame” oraz zapalniczki do cygar lub zapalniczki zasilane baterią litową bez zabezpieczeń zakazane"
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.05,
+  "question": "Ile opakowań zapałek bezpiecznych zamierzasz zabrać?"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f23"
+  },
+  "item": "Pomoce mobilności",
+  "description": "Zasilane akumulatorami wózki inwalidzkie lub inne urządzenia ułatwiające poruszanie się zasilane nie wyciekającymi akumulatorami lub akumulatorami",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": false,
+  "pilotAllowance": true,
+  "maxCount": 1,
+  "weightForOne": 5
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f24"
+  },
+  "item": "Pomoce mobilności",
+  "description": "Składane urządzenia ułatwiające poruszanie się zasilane bateriami litowo jonowymi",
+  "hints": [
+    "Bateria litowo-jonowa musi być wymontowana i przewożona w przedziale pasażerskim"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": true,
+  "maxCount": 1,
+  "weightForOne": 5
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f25"
+  },
+  "item": "Artykuły medyczne",
+  "description": "Nieradioaktywne artykuły medyczne i toaletowe (lakiery do włosów, perfumy, wody kolońskie oraz medyczne artykuły zawierające alkohol) lub niepalne, nietoksyczne aerozole, bez dodatkowego zagrożenia, do użytku sportowego lub domowego.",
+  "hints": [
+    "Całkowita masa netto niepalnych aerozoli oraz nieradioaktywnych artykułów medycznych i toaletowych nie może przekraczać 2 kg;Waga netto pojedynczego artykułu nie może przekraczać 0.5 kg;Zawory spustowe na aerozolach muszą być zabezpieczone nasadką lub innym odpowiednim mechanizmem zabezpieczającym nieumyślny wypływ zawartości."
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 2,
+  "weightForOne": 0.5,
+  "question": "Ile kg artykułów medycznych zamierzasz zabrać?",
+  "profession": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f26"
+  },
+  "item": "Tlen",
+  "description": "Tlen lub powietrze, stan lotny, małe butle do zastosowań medycznych.",
+  "hints": [
+    "Butla nie może przekroczyć 5 kg wago brutto;Układy płynnego tlenu są zakazane"
+  ],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": true,
+  "maxCount": 1,
+  "weightForOne": 5,
+  "profession": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f27"
+  },
+  "item": "Rozruszniki serca",
+  "description": "Radioizotopowe rozruszniki serca lub inne urządzenia, w tym zasilane bateriami litowymi, wszczepiane osobie lub przymocowane na zewnątrz.",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 1,
+  "profession": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f28"
+  },
+  "item": "Baterie litowo-jonowe",
+  "description": "Przyrządy do kontroli bezpieczeństwa zawierające baterie litowe",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": true,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.5
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f29"
+  },
+  "item": "Walizki z towarami niebezpiecznymi",
+  "description": "Walizki, kasetki, torby na gotówkę itp. zawierające towary niebezpieczne, takie jak baterie litowe i/lub materiały pirotechniczne, są całkowicie zabronione",
+  "hints": [],
+  "forbidden": true,
+  "operatorAllowance": false,
+  "registeredLuggage": false,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 0,
+  "weightForOne": 0
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f2a"
+  },
+  "item": "Próbki medyczne",
+  "description": "Niezakaźne próbki medyczne zapakowane z małymi ilościami cieczy łatwopalnej",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": true,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.5,
+  "profession": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f2b"
+  },
+  "item": "Medyczne termometry",
+  "description": "Medyczne lub kliniczne termometry zawierające rtęć",
+  "hints": [
+    "Maksymalnie 1 na pasażera do celów osobistych;Obowiązkowy przewóz w etui ochronnym"
+  ],
+  "forbidden": false,
+  "operatorAllowance": false,
+  "registeredLuggage": true,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 1,
+  "weightForOne": 0.025,
+  "profession": "lekarz"
+},
+{
+  "_id": {
+    "$oid": "662ae1456d9a8990126c6f2c"
+  },
+  "item": "Barometry",
+  "description": "Barometry i termometry rtęciowe przewożone przez przedstawiciela rządowej instytucji ds. pogody lub podobnej oficjalnej instytucji",
+  "hints": [],
+  "forbidden": false,
+  "operatorAllowance": true,
+  "registeredLuggage": false,
+  "handLuggage": true,
+  "pilotAllowance": true,
+  "maxCount": 1,
+  "weightForOne": 0.025
+},
+{
+  "_id": {
+    "$oid": "662ae1496d9a8990126c6f2d"
+  },
+  "item": "Broń paraliżująca",
+  "description": "Np. paralizatory, zawierająca materiały niebezpieczne, takie jak materiały wybuchowe, gazy sprężone, baterie litowe itp, są zabronione w bagażu podręcznym, rejestrowanym oraz jako rzecz posiadana przy sobie.",
+  "hints": [],
+  "forbidden": true,
+  "registeredLuggage": false,
+  "handLuggage": false,
+  "pilotAllowance": false,
+  "maxCount": 0,
+  "weightForOne": 0
+}]

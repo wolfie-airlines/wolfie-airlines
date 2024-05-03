@@ -1,0 +1,182 @@
+[{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46014"
+  },
+  "question": "Gorączka, ból mięśni, katar",
+  "answer": "Grypa"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46016"
+  },
+  "question": "Ból głowy, światłowstręt, nudności",
+  "answer": "Migrena"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46018"
+  },
+  "question": "Ból gardła, trudności w połykaniu, wysoka gorączka",
+  "answer": "Angina"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46020"
+  },
+  "question": "Zmiany skórne, swędzenie, pieczenie",
+  "answer": "Łuszczyca"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46023"
+  },
+  "question": "Ból w jamie brzusznej, zgaga, uczucie pełności",
+  "answer": "Wrzody"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46027"
+  },
+  "question": "Ból podczas oddawania moczu, częste oddawanie moczu, ból w dolnej części brzucha",
+  "answer": "Zapalenie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4602a"
+  },
+  "question": "Utrata przytomności, drgawki, utrata pamięci",
+  "answer": "Padaczka"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4602b"
+  },
+  "question": "Problemy z oddychaniem, sinica, kołatanie serca",
+  "answer": "Zawał"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46019"
+  },
+  "question": "Krwawienie z nosa, uczucie zmęczenia, bladość skóry",
+  "answer": "Anemia"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46021"
+  },
+  "question": "Uporczywe bóle głowy, zaburzenia widzenia, nudności",
+  "answer": "Tarczycy"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46024"
+  },
+  "question": "Ból w okolicy nerki, krwiomocz, gorączka",
+  "answer": "Zapalenie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46025"
+  },
+  "question": "Zmiany w widzeniu, migrena, bóle w okolicy oczu",
+  "answer": "Jaskra"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46028"
+  },
+  "question": "Oparzenie skóry, zaczerwienienie, pęcherze",
+  "answer": "Oparzenie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46029"
+  },
+  "question": "Utrata apetytu, utrata wagi, osłabienie",
+  "answer": "Nowotwór"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601a"
+  },
+  "question": "Ból pleców, osłabienie mięśni, sztywność rano",
+  "answer": "Reumatyzm"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601b"
+  },
+  "question": "Kłujący ból w okolicach serca, duszności, omdlenia",
+  "answer": "Niedokrwienie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601c"
+  },
+  "question": "Ból w klatce piersiowej, duszności, obrzęk nóg",
+  "answer": "Niewydolność"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601d"
+  },
+  "question": "Ból w podbrzuszu, nieregularne miesiączki, trudności z zajściem w ciążę",
+  "answer": "Endometrioza"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601e"
+  },
+  "question": "Uporczywy kaszel, odkrztuszanie plwociny, gorączka",
+  "answer": "Zapalenie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46015"
+  },
+  "question": "Ból brzucha, nudności, wymioty",
+  "answer": "Zatrucie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46017"
+  },
+  "question": "Kaszel, duszność, świszczący oddech",
+  "answer": "Astma"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4601f"
+  },
+  "question": "Uczucie ucisku w klatce piersiowej, duszności, osłabienie",
+  "answer": "Zator"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46022"
+  },
+  "question": "Wysypka, swędzenie, zaczerwienienie skóry",
+  "answer": "Świerzb"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b46026"
+  },
+  "question": "Uporczywe bóle stawów, sztywność rano, zmęczenie",
+  "answer": "Reumatyzm"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4602c"
+  },
+  "question": "Ból w okolicy pępka, wzdęcia, niestrawność",
+  "answer": "Zapalenie"
+},
+{
+  "_id": {
+    "$oid": "6611856201dbe1c8f6b4602d"
+  },
+  "question": "Ból w okolicy bioder, trudności w chodzeniu, sztywność",
+  "answer": "Zapalenie"
+}]

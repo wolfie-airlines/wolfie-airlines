@@ -1,0 +1,18 @@
+{
+  "name" : "airport",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "3c76dc55f8bd2b7f4824bcd860055094bfbbb9ea",
+  "dependencies" : [ {
+    "name" : "mongo-cxx-driver",
+    "version>=" : "3.10.1"
+  }, {
+    "name" : "cryptopp",
+    "version>=" : "8.9.0"
+  }, {
+    "name" : "nayuki-qr-code-generator",
+    "version>=" : "1.8.0#1"
+  }, {
+    "name" : "curl",
+    "version>=" : "8.7.1#2"
+  } ]
+}
