@@ -7,6 +7,8 @@
 #include "../luggage/luggage.h"
 #include "mongocxx/client.hpp"
 
+class Admin;
+
 class User {
  private:
   mongocxx::database _db_;
@@ -73,7 +75,7 @@ class User {
   [[nodiscard]] std::string RecognizeDiscount() const;
   void AddTicketToUser(const std::vector<int> &seats, const FlightConnection &flight_connection);
   void UpdateMoneySaved(double normal_price, double discount_price);
-  void LoginAsAdmin();
+  Admin *LoginAsAdmin();
   [[nodiscard]] bool CheckIfAdmin() const;
   void setIsAdmin(bool is_administrator) { User::is_admin_ = is_administrator; }
   void LuggageCheckin(int flight_number);
