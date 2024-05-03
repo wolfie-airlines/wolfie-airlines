@@ -228,7 +228,7 @@ Admin *User::LoginAsAdmin() {
                              user_flights_,
                              true,
                              admin_password_hashed);
-    setIsAdmin(true);
+    SetIsAdmin(true);
     return admin;
   } else {
     PrintErrorMessage("Logowanie nie powiodło się.", "Wprowadzono błędne hasło administratora.");
