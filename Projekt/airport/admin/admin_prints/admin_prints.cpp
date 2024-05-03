@@ -13,6 +13,8 @@ void DisplayAdminMenu() {
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"3. Zarządzaj użytkownikami   ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"4. Dodaj nowy przedmiot  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"quit. Wyjdź z panelu administratora   ") | ftxui::bold})
                                        | color(ftxui::Color::DarkRed),
                                    ftxui::separator(),

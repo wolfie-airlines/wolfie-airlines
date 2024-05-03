@@ -109,7 +109,7 @@ void Admin::AddVerificationQuestion(User &user) {
                                                   "Wybierz dziedzinę (doktor, informatyk, matematyk):",
                                                   [](const std::string &input) {
                                                     return input == "doktor" || input == "informatyk"
-                                                        || input == "matematyk";
+                                                        || input == "matematyk" || input == "back";
                                                   });
   if (domain.empty() || domain == "back") return;
 
@@ -187,5 +187,71 @@ void Admin::ManageUsers(User &user) {
 }
 
 void Admin::AddLuggageItem(User &user) {
-  // TODO
+  std::string
+      item_name = CaptureLineWithValidation("Dodawanie przedmiotu", "Podaj nazwę przedmiotu:", ValidateNonEmpty);
+  if (item_name.empty() || item_name == "back") return;
+
+  std::string
+      item_description = CaptureLineWithValidation("Dodawanie przedmiotu", "Podaj opis przedmiotu:", ValidateNonEmpty);
+  if (item_description.empty() || item_description == "back") return;
+
+  std::string hints_str =
+      CaptureLineWithValidation("Dodawanie przedmiotu", "Podaj ważne informacje (oddzielone średnikiem) (jeśli brak: wpisz \"brak\")", ValidateNonEmpty);
+  std::vector<std::string> hints;
+  if (!hints_str.empty() && hints_str != "back" && hints_str != "brak") {
+    std::stringstream ss(hints_str);
+    std::string hint;
+    while (std::getline(ss, hint, ';')) {
+      hints.push_back(hint);
+    }
+  }
+
+  std::optional<bool> is_banned = CaptureBoolWithValidation("Dodawanie przedmiotu",
+                                                            "Czy przedmiot jest zabroniony w transporcie lotniczym? (tak/nie):");
+  if (!is_banned.has_value()) return;
+  std::optional<bool> requires_approval =
+      CaptureBoolWithValidation("Dodawanie przedmiotu", "Czy przedmiot wymaga zgody przewoźnika? (tak/nie):");
+  if (!requires_approval.has_value()) return;
+  std::optional<bool> in_checked_luggage = CaptureBoolWithValidation("Dodawanie przedmiotu",
+                                                                     "Czy przedmiot może być przewożony w bagażu rejestrowanym? (tak/nie):");
+  if (!in_checked_luggage.has_value()) return;
+  std::optional<bool> in_hand_luggage = CaptureBoolWithValidation("Dodawanie przedmiotu",
+                                                                  "Czy przedmiot może być przewożony w bagażu podręcznym? (tak/nie):");
+  if (!in_hand_luggage.has_value()) return;
+  std::optional<bool> inform_pilot = CaptureBoolWithValidation("Dodawanie przedmiotu",
+                                                               "Czy pilot musi zostać poinformowany o przewożeniu tego przedmiotu? (tak/nie):");
+  if (!inform_pilot.has_value()) return;
+
+  std::string max_quantity_str =
+      CaptureInputWithValidation("Dodawanie przedmiotu", "Podaj maksymalną ilość na osobę:", ValidatePrice);
+  if (max_quantity_str.empty() || max_quantity_str == "back") return;
+  int max_quantity = std::stoi(max_quantity_str);
+
+  std::string avg_weight_str = CaptureInputWithValidation("Dodawanie przedmiotu",
+                                                          "Podaj uśrednioną wagę jednego przedmiotu takiego typu:",
+                                                          ValidatePrice);
+  if (avg_weight_str.empty() || avg_weight_str == "back") return;
+  double avg_weight = std::stod(avg_weight_str);
+
+  bsoncxx::builder::basic::array hints_builder{};
+  for (const auto &hint : hints) {
+    hints_builder.append(hint);
+  }
+
+  bsoncxx::builder::basic::document item_builder{};
+  item_builder.append(bsoncxx::builder::basic::kvp("item", item_name),
+                      bsoncxx::builder::basic::kvp("description", item_description),
+                      bsoncxx::builder::basic::kvp("hints", hints_builder),
+                      bsoncxx::builder::basic::kvp("forbidden", is_banned.value()),
+                      bsoncxx::builder::basic::kvp("operatorAllowance", requires_approval.value()),
+                      bsoncxx::builder::basic::kvp("registeredLuggage", in_checked_luggage.value()),
+                      bsoncxx::builder::basic::kvp("handLuggage", in_hand_luggage.value()),
+                      bsoncxx::builder::basic::kvp("pilotAllowance", inform_pilot.value()),
+                      bsoncxx::builder::basic::kvp("maxCount", max_quantity),
+                      bsoncxx::builder::basic::kvp("weightForOne", avg_weight));
+
+  auto collection = user.GetSpecificCollection("luggage_list");
+  collection.insert_one(item_builder.view());
+
+  PrintSuccessMessage("Przedmiot został dodany pomyślnie", "");
 }
