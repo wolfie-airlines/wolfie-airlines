@@ -104,7 +104,8 @@ void User::ChangePassword(const std::string &password) {
     return;
   }
 
-  std::string old_password = DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj stare hasło żebyśmy mieli 200% pewności że to ty:");
+  std::string old_password =
+      DisplayMessageAndCaptureStringInput("Zmiana hasła", "Podaj stare hasło żebyśmy mieli 200% pewności że to ty:");
   if (old_password != _password_) {
     PrintErrorMessage("Podane hasło nie jest poprawne.", "Spróbuj ponownie.");
     return;
@@ -195,39 +196,43 @@ bool User::CheckIfAdmin() const {
   return is_admin_;
 }
 
-void User::LoginAsAdmin() {
+Admin *User::LoginAsAdmin() {
   if (is_admin_) {
-    PrintErrorMessage("Jesteś już zalogowany jako administrator.", "");
-    return;
+    Admin *admin = new Admin(*this);
+    return admin;
   }
   EnvParser envParser;
   envParser.ParseEnvFile();
   std::string admin_password = envParser.GetValue("ADMIN_PASSWORD");
   std::string admin_password_hashed = HashString(admin_password);
 
-  std::string password = DisplayMessageAndCaptureStringInput("Logowanie jako administrator", "Podaj hasło administratora: ");
+  std::string
+      password = DisplayMessageAndCaptureStringInput("Logowanie jako administrator", "Podaj hasło administratora: ");
   std::string password_hashed = HashString(password);
 
   if (password_hashed == admin_password_hashed) {
-    PrintSuccessMessage("Zalogowano jako administrator.", "Skorzystaj z tej opcji ponownie aby otworzyć panel administratora.");
-    Admin admin = Admin(username_,
-                        email_,
-                        discount_,
-                        discount_type_,
-                        premium_card_,
-                        payment_method_,
-                        _client,
-                        profession_,
-                        registration_date_,
-                        money_spent_,
-                        money_saved_,
-                        ticket_bought_,
-                        user_flights_,
-                        true,
-                        admin_password_hashed);
+    PrintSuccessMessage("Zalogowano jako administrator.",
+                        "Witamy Cię serdecznie. Korzystaj ze swojej władzy rozważnie.");
+    Admin *admin = new Admin(username_,
+                             email_,
+                             discount_,
+                             discount_type_,
+                             premium_card_,
+                             payment_method_,
+                             _client,
+                             profession_,
+                             registration_date_,
+                             money_spent_,
+                             money_saved_,
+                             ticket_bought_,
+                             user_flights_,
+                             true,
+                             admin_password_hashed);
     setIsAdmin(true);
+    return admin;
   } else {
-    PrintErrorMessage("Błędne hasło administratora.", "");
+    PrintErrorMessage("Logowanie nie powiodło się.", "Wprowadzono błędne hasło administratora.");
+    return nullptr;
   }
 }
 
@@ -326,7 +331,8 @@ void User::SetBlik(const std::string &payment_method) {
     return;
   }
 
-  std::string repeated_password = DisplayMessageAndCaptureStringInput("Zmiana metody płatności", "Podaj ponownie nowe hasło żeby potwierdzić zmianę:");
+  std::string repeated_password = DisplayMessageAndCaptureStringInput("Zmiana metody płatności",
+                                                                      "Podaj ponownie nowe hasło żeby potwierdzić zmianę:");
   if (_password_ != repeated_password) {
     PrintErrorMessage("Podane hasła nie są takie same.", "Spróbuj ponownie.");
     return;
