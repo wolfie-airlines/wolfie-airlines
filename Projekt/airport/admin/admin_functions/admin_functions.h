@@ -3,7 +3,7 @@
 
 #include "../../user/user.h"
 
-void HandleAdminDashboard(User &user);
+void HandleAdminDashboard(Admin &admin);
 
 void AddFlight(User &user);
 
