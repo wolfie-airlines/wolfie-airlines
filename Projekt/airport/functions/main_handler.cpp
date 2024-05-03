@@ -16,6 +16,7 @@
 #include "info_prints/info_prints.h"
 #include "main_prints/main_prints.h"
 #include "../admin/admin_functions/admin_functions.h"
+#include "../admin/admin.h"
 
 void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightConnection &flight_connection) {
   while (true) {
@@ -78,11 +79,11 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
       } else if (user_choice == "7") {
         PrintWelcomeInCheckIn(user);
       } else if (user_choice == "8") {
-//        if(user.is_admin_){
-//          HandleAdminDashboard(user);
-//        } else {
-//          user.LoginAsAdmin();
-//        }
+        Admin* admin = user.LoginAsAdmin();
+        if(admin != nullptr){
+          HandleAdminDashboard(*admin);
+          delete admin; // Pamiętaj o usunięciu obiektu po użyciu
+        }
       }
     }
   }
