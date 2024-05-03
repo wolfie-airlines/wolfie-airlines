@@ -406,3 +406,4 @@ FodyWeavers.xsd
 /airport/vcpkg_installed/*
 /Projekt/airport/.idea
 Projekt/airport/server/.env
+Projekt/airport/cmake-build-debug/.env
