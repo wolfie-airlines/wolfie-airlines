@@ -2,6 +2,7 @@
 #define AIRPORT_ADMIN_ADMIN_FUNCTIONS_ADMIN_FUNCTIONS_H_
 
 #include "../../user/user.h"
+#include "../admin.h"
 
 void HandleAdminDashboard(Admin &admin);
 

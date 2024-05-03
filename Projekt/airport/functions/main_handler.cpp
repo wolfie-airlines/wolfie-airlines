@@ -78,11 +78,11 @@ void ProcessChoice(bool is_logged_in, Authentication &auth, User &user, FlightCo
       } else if (user_choice == "7") {
         PrintWelcomeInCheckIn(user);
       } else if (user_choice == "8") {
-        if(user.is_admin_){
-          HandleAdminDashboard(user);
-        } else {
-          user.LoginAsAdmin();
-        }
+//        if(user.is_admin_){
+//          HandleAdminDashboard(user);
+//        } else {
+//          user.LoginAsAdmin();
+//        }
       }
     }
   }
