@@ -24,11 +24,12 @@ class Admin : public User {
   Admin(const User &user)
       : User(user), hashed_admin_password_("") {}
 
-  std::string hashed_admin_password_;  // Haszowane hasło administratora
+  std::string hashed_admin_password_;
+
   // Metody dla admina
-  void AddFlight();                // Dodawanie lotów
-  void AddVerificationQuestion();  // Dodawanie pytań dla weryfikacji zawodu użytkownika
-  void ManageUsers();              // Zarządzanie wszystkimi użytkownikami
+  void AddFlight(User &user);
+  void AddVerificationQuestion();
+  void ManageUsers();
 };
 
 #endif  // AIRPORT_ADMIN_H
