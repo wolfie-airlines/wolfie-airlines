@@ -19,35 +19,46 @@ void HandleAdminDashboard(Admin &admin, User &user) {
     if (option == "1") {
       admin.AddFlight(user);
     } else if (option == "2") {
-      admin.AddVerificationQuestion();
+      admin.AddVerificationQuestion(user);
     } else if (option == "3") {
-      admin.ManageUsers();
+      admin.ManageUsers(user);
+    } else if (option == "4") {
+      admin.AddLuggageItem(user);
     } else {
       PrintErrorMessage("Nieprawidłowy wybór.", "Spróbuj ponownie.");
     }
     DisplayAdminMenu();
     std::cin >> option;
   }
-  // 2. Obsługa wyboru
-  // 3. Implementacja funkcji
-  // ^ Wszystko w pętli while
-  // I. Funkcja dodająca loty
-  // II. Funkcja dodająca pytania weryfikacyjne (dla danych zawodów)
-  // III. Funkcja zarządzająca użytkownikami (usuwanie, blokowanie, zmiana konkretnej rzeczy w bazie danych: zawodu, zniżki, hasła, karty premium, itp.)
 }
 
 std::string CaptureInputWithValidation(
     const std::string &title,
     const std::string &message,
-    const std::function<bool(const std::string&)>& validator) {
+    const std::function<bool(const std::string &)> &validator) {
   std::string input = DisplayAdminMessageAndCaptureInput(title, message);
   while (!validator(input)) {
     PrintErrorMessage("Niepoprawne dane", message);
     if (input == "back") {
-      PrintErrorMessage("Przerwano dodawanie lotu", "");
+      PrintErrorMessage("Przerwano działanie administratora.", "Nastąpił powrót do panelu.");
       return "";
     }
     input = DisplayAdminMessageAndCaptureInput(title, message);
+  }
+  return input;
+}
+
+std::string CaptureLineWithValidation(const std::string &title,
+                                      const std::string &message,
+                                      const std::function<bool(const std::string &)> &validator) {
+  std::string input = DisplayAdminMessageAndCaptureLine(title, message);
+  while (!validator(input)) {
+    PrintErrorMessage("Niepoprawne dane", message);
+    if (input == "back") {
+      PrintErrorMessage("Przerwano działanie administratora.", "Nastąpił powrót do panelu.");
+      return "";
+    }
+    input = DisplayAdminMessageAndCaptureLine(title, message);
   }
   return input;
 }
@@ -74,5 +85,22 @@ bool ValidatePrice(const std::string &price) {
     return price_int >= 0;
   } catch (std::invalid_argument &e) {
     return false;
+  }
+}
+
+bool ValidateNonEmpty(const std::string &input) {
+  return !input.empty();
+}
+
+bool ValidateSolution(const std::string &solution) {
+  try {
+    return std::stoi(solution) == std::stoi(solution);
+  } catch (std::invalid_argument &e) {
+    try {
+      double solution_double = std::stod(solution);
+      return solution_double == solution_double;
+    } catch (std::invalid_argument &e) {
+      return !solution.empty();
+    }
   }
 }
