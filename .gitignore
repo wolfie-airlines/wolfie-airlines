@@ -409,3 +409,9 @@ Projekt/airport/server/.env
 Projekt/airport/cmake-build-debug/.env
 Projekt/airport/cmake-build-debug/.ninja_deps
 Projekt/airport/cmake-build-debug/.ninja_log
+.env
+/cmake-build-debug
+/Projekt/airport/cmake-build-debug-event-trace
+/vcpkg_installed
+/.idea
+/.vscode
