@@ -83,6 +83,7 @@ add_executable(airport main.cpp
         admin/admin_prints/admin_prints.cpp
         admin/admin_functions/validators.h
         admin/admin_functions/validators.cpp
+        resources.rc
 )
 
 include(FetchContent)
