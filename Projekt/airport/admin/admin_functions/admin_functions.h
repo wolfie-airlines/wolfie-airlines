@@ -3,12 +3,18 @@
 
 #include "../../user/user.h"
 
-void HandleAdminDashboard(Admin &admin);
+void HandleAdminDashboard(Admin &admin, User &user);
 
-void AddFlight(User &user);
+std::string ProcessAddingFlight();
 
-void AddVerificationQuestion(User &user);
+std::string CaptureInputWithValidation(
+    const std::string &title,
+    const std::string &message,
+    const std::function<bool(const std::string &)> &validator);
 
-void ManageUsers(User &user);
-
+bool ValidateFlightId(const std::string &flight_id);
+bool ValidateCity(const std::string &city);
+bool ValidateDate(const std::string &date);
+bool ValidateTime(const std::string &time);
+bool ValidatePrice(const std::string &price);
 #endif //AIRPORT_ADMIN_ADMIN_FUNCTIONS_ADMIN_FUNCTIONS_H_
