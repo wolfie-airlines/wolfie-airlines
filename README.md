@@ -405,28 +405,106 @@ Ktoś może zadać sobie pytanie: Czemu w odprawie bagażowej w ogóle uwzględn
   - `ZARZĄDZANIE UŻYTKOWNIKAMI` - zmiana nazwy użytkownika, e-mailu, wydanych pieniędzy, daty założenia konta, liczby zakupionych biletów, itd.
   - `DODAWANIE NOWYCH PRZEDMIOTÓW` - nowe przedmioty do tabeli przedmiotów w odprawie bagażowej
  </details>
-  
+
  </details>
 
-## Requirements
-Opisane w pliku [package.json](https://github.com/wolfie-airlines/wolfie-airlines-server/blob/main/package.json).
+## Wymagania (dla własnego użycia)
+- [vcpkg](https://vcpkg.io/en/) - Menadżer pakietów, moja rada: używanie środowiska [CLion](https://www.jetbrains.com/clion/), które posiada go wbudowanego
+- [CMake](https://cmake.org/) - Software Build System, ponownie zalecam używania w/w środowiska.
+- [FTXUI](https://github.com/ArthurSonzogni/FTXUI) - Biblioteka stylistyczna
+- [MongoDB Cluster](https://www.mongodb.com/resources/products/fundamentals/clusters) - Cluster dla bazy danych MongoDB
+- [mongo-cxx-driver](https://github.com/mongodb/mongo-cxx-driver) - Sterownik C++ MongoDB
+- [mongo-c-driver](https://github.com/mongodb/mongo-c-driver) - Sterownik C MongoDB używany do buildowania sterownika dla `mongo-cxx`
+- [cryptopp](https://cryptopp.com/) - Biblioteka kryptograficzna, używana w tym projekcie do hashowania hasła użytkownika
+- [QR-Code-Generator](https://github.com/nayuki/QR-Code-generator) - Biblioteka zapewniająca wszystkie potrzebne funkcje do generowania kodu QR, *potrzebnego do odprawy online*
 
-## Self-hosting
+## Self-hosting & self-building
 1. Sklonuj repozytorium, bądź utwórz forka.
-2. W folderze sklonowanego projetku uruchom komendę
-   ```npm install```
-3. Żeby wystartować projekt na localhoście (domyślny port to **5000**) wpisz komendę ```node index.js```
+2. Zainstaluj i skonfiguruj `vcpkg managera` w sklonowanym projekcie.
+3. Pobierz wszystkie wymagane biblioteki za pomocą `vcpkg managera`.
+4. Zmodyfikuj plik `.env.example`:
+  - Zmień jego nazwę na `.env`
+  - Wypełnij `DATABASE_URL` używając swojego pełnego adresu do połączenia się z clusterem MongoDB. *Przykładowy link*: `mongodb+srv://username:password@testcluster.taymr.mongodb.net/test`
+  - Wypełnij `ADMIN_PASSWORD` używając swojego hasła administratora. Możesz je wymyślić, jest tutaj absolutna dowolność.
+5. Przeładuj projekt używając narzędzia CMake (`Reload CMake project with existing CMakeLists.txt`)
+6. Zbuduj projekt używając dowolnego środowiska lub narzędzia do kompilacji.
+7. Uruchomienie projektu to prosta sprawa:
+  Do uruchomienia projektu polecam terminalu wspierającego polskie znaki (np. **Powershella**), bądź sklonowanie [angielskiego forka](link-do-angielskiego-forka).
+  - Jeśli nie została zmieniona nazwa projektu, uruchom go następująco:
+    ```bash
+    ./airport.exe
+    ```
+  - Jeśli nazwa projektu uległa zmianie:
+    ```bash
+    ./nazwa_projektu.exe
+    ```
+### Ważne informacje
+Jeśli używasz środowiska [CLion](https://www.jetbrains.com/clion/), stworzy się folder `cmake-debug-build`, jeśli obecnie pracujesz na trybie **debug**. Jest on domyślnie ustawiony, więc jest na to 99% szans.
+Żeby poprawnie uruchomić ten projekt, należy przenieść do niego plik `.env` oraz cały folder `sounds` żeby zapewnić poprawne działanie aplikacji.
 
-## Commity
-Pełny opis commitów znajduje się w [głównym repozytorium projektu](https://github.com/wolfie-airlines/wolfie-airlines).
-Konkretne i szczegółowe committy związane z serwerem w repozytorium projektu to:
-- [a5f1dd5](https://github.com/wolfie-airlines/wolfie-airlines/commit/a5f1dd5013b1226b092d7d1ca6aefdbca0003163)
-- [0add627](https://github.com/wolfie-airlines/wolfie-airlines/commit/0add627f8dc71bc8d102228b97814b36e811985a)
-- [f28a724](https://github.com/wolfie-airlines/wolfie-airlines/commit/f28a724ca747aa3d71035a862983adb9a1ea44de)
-- [970400e](https://github.com/wolfie-airlines/wolfie-airlines/commit/970400e8666cd91c28debffeda302a09fdea3d5b)
-oraz:
-- [efb4adc](https://github.com/wolfie-airlines/wolfie-airlines-server/commit/efb4adc2227bbf6b0f8cbb14e4a8e5cacdfa6b0b)
-- [1d55131](https://github.com/wolfie-airlines/wolfie-airlines-server/commit/1d55131a7e7ee768a9501a4e3ad5cb68dcd00af8)
+## Gwiazdki
+Jeśli spodobał Ci się mój projekt, daj mu gwiazdkę, będzie mi bardzo miło.
+
+## Błędy i problemy
+Jeśli jest jakiś widoczny błąd w kodzie, bądź konkretnym repozytorium, proszę stworzyć `New Issue` klikając tutaj: [Utwórz new issue](https://github.com/wolfie-airlines/wolfie-airlines/issues).
+
+## Wszystkie linki
+- [Wolfie Airlines](https://github.com/wolfie-airlines)
+- [Repozytorium głównego projektu](https://github.com/wolfie-airlines/wolfie-airlines)
+- [Repozytorium strony projektu](https://github.com/wolfie-airlines/wolfie-airlines-webpage)
+- [Strona główna projektu](https://wolfie-airlines-webpage.vercel.app/)
+- [Repozytorium serwera projektu](https://github.com/wolfie-airlines/wolfie-airlines-server)
+- [Serwer projektu](https://wolfie-airlines-server.vercel.app/)
+- [Moje portfolio](https://szymon-wilczek.pl)
+- [Mój GitHub](https://github.com/szymonwilczek)
+
+## Licencja
+<details>
+  <summary>
+    Licencja projektu
+  </summary>
+
+`WOLFIE Szymon Wilczek`
+Wszelkie prawa zastrzeżone
+
+### Definicje:
+
+1. **"Projekt"** oznacza oprogramowanie i wszelkie związane z nim materiały znajdujące się w **organizacji** GitHub pod nazwą "Wolfie Airlines" - [Organizacja](https://github.com/wolfie-airlines/).
+
+2. **"Autor"** oznacza WOLFIE Szymon Wilczek - [szymonwilczek](https://github.com/szymonwilczek).
+
+### Warunki licencji:
+
+1. **Prawa autorskie:** 
+    a. Autor zastrzega sobie wszystkie prawa autorskie do fundamentalnych funkcji zawartych w Projekcie.
+    b. Użytkownik otrzymuje licencję na korzystanie z fundamentalnych funkcji Projektu na zasadach określonych poniżej.
+
+2. **Uprawnienia użytkownika:**
+    a. Użytkownik może kopiować, modyfikować i rozpowszechniać Projekt lub jego fragmenty.
+    b. Każde kopiowanie lub modyfikacja Projektu musi zawierać w uznaniu dodanie Autora, tj. "WOLFIE Szymon Wilczek", wraz z linkiem do oryginalnego repozytorium na GitHubie.
+    c. Rozpowszechnianie Projektu lub jego fragmentów jest dozwolone wyłącznie z wyraźną kredytacją Autora w opisie.
+
+3. **Zakazane działania:**
+    a. Kopiowanie lub wykorzystywanie Projektu lub jego fragmentów bez dodania Autora w uznaniu.
+    b. Usuwanie lub modyfikowanie istniejących informacji o prawach autorskich lub kredytacji Autora.
+
+4. **Brak gwarancji:**
+    Projekt jest udostępniany "tak jak jest", bez jakiejkolwiek gwarancji. Autor nie ponosi odpowiedzialności za ewentualne szkody wynikłe z korzystania z Projektu.
+
+5. **Zgoda:**
+    Korzystając z Projektu, Użytkownik akceptuje warunki niniejszej licencji.
+
+### Zakończenie licencji:
+
+1. Licencja ta obowiązuje od 2024 roku, chyba że zostanie wcześniej odwołana przez Autora.
+2. Po zakończeniu obowiązywania licencji, Użytkownik jest zobowiązany do przestrzegania zasad dotyczących praw autorskich i kredytacji Autora.
+
+Dane kontaktowe:
+
+WOLFIE Szymon Wilczek  
+szymonwilczek@icloud.com
+szymonwilczek@outlook.com
+</details>
 
 </details>
 
