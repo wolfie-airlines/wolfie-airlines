@@ -433,7 +433,7 @@ Ktoś może zadać sobie pytanie: Czemu w odprawie bagażowej w ogóle uwzględn
 5. Przeładuj projekt używając narzędzia CMake (`Reload CMake project with existing CMakeLists.txt`)
 6. Zbuduj projekt używając dowolnego środowiska lub narzędzia do kompilacji.
 7. Uruchomienie projektu to prosta sprawa:
-  Do uruchomienia projektu polecam terminalu wspierającego polskie znaki (np. **Powershella**), bądź sklonowanie [angielskiego forka](link-do-angielskiego-forka).
+  Do uruchomienia projektu polecam terminalu wspierającego polskie znaki (np. **Powershella**), bądź sklonowanie [angielskiego forka](https://github.com/wolfie-airlines/wolfie-airlines/tree/english).
   - Jeśli nie została zmieniona nazwa projektu, uruchom go następująco:
     ```bash
     ./airport.exe
