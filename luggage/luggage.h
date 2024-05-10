@@ -44,7 +44,7 @@ class Luggage {
    */
   std::tuple<bool, std::string> ConfirmItems(User &user);
 
-  const double overweight_fee_per_kg_ = 2.0; ///< Opłata za nadbagaż na kg.
+  const double overweight_fee_per_kg_ = 10; ///< Opłata za nadbagaż na kg w euro.
   const double euro_to_pln_ = 4.32; ///< Kurs wymiany euro na pln.
   const double max_allowed_weight_ = 32.0; ///< Maksymalna dozwolona waga.
   double max_weight_ = 20.0; ///< Maksymalna waga.
