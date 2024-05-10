@@ -135,7 +135,7 @@ void HandleFlightById(FlightConnection &flight_connection, User &user) {
     return;
   }
   std::string premium_card = user.premium_card_;
-  if (premium_card == "platynowa") {
+  if (premium_card == "platynowa" || premium_card == "złota") {
     ProcessSeatSelectionAndPurchase(seats_taken, flight_connection, found_connection, user);
   } else {
     ProcessPurchase(flight_connection, found_connection, user);
@@ -179,7 +179,7 @@ void HandleFlightByData(FlightConnection &flight_connection, User &user) {
     return;
   }
   std::string premium_card = user.premium_card_;
-  if (premium_card == "platynowa") {
+  if (premium_card == "platynowa" || premium_card == "złota") {
     ProcessSeatSelectionAndPurchase(seats_taken, flight_connection, found_connection, user);
   } else {
     ProcessPurchase(flight_connection, found_connection, user);
