@@ -419,7 +419,7 @@ Ktoś może zadać sobie pytanie: Czemu w odprawie bagażowej w ogóle uwzględn
 - [mongo-cxx-driver](https://github.com/mongodb/mongo-cxx-driver) - Sterownik C++ MongoDB
 - [mongo-c-driver](https://github.com/mongodb/mongo-c-driver) - Sterownik C MongoDB używany do buildowania sterownika dla `mongo-cxx`
 - [cryptopp](https://cryptopp.com/) - Biblioteka kryptograficzna, używana w tym projekcie do hashowania hasła użytkownika
-- [QR-Code-Generator](https://github.com/nayuki/QR-Code-generator) - Biblioteka zapewniająca wszystkie potrzebne funkcje do generowania kodu QR, *potrzebnego do odprawy online*
+- [QR-Code-Generator](https://github.com/nayuki/QR-Code-generator) - Biblioteka zapewniająca wszystkie potrzebne funkcje do generowania kodu QR, *potrzebne do odprawy online*
 - wypełnienie bazy danych plikami podstawowymi, żeby program miał z czego czytać dane. Pliki, z których ja korzystałem, są dostępne w folderze [database](https://github.com/wolfie-airlines/wolfie-airlines/tree/main/database/json) w formacie `JSON`.
 
 ## Self-hosting & self-building
