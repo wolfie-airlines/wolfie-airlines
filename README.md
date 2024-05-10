@@ -28,7 +28,7 @@ Wolfie Airlines to projekt lotniska oraz linii lotniczych powstały na potrzeby 
     🧭 MENU STARTOWE
   </summary>
   
-  Użytkownik może korzystać z aplikacji bez możliwości zakładania konta ani logowania się, ale ma oczywiście ograniczone funkcje.
+  Użytkownik może korzystać z aplikacji bez konieczności zakładania konta ani logowania się, ale ma oczywiście ograniczone funkcje.
   <img src="https://i.imgur.com/OYHkDLv.png"/>
 </details>
 
