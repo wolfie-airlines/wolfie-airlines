@@ -370,7 +370,7 @@ Ktoś może zadać sobie pytanie: Czemu w odprawie bagażowej w ogóle uwzględn
   `Waga przedmiotów naliczana jest automatycznie`. Każdy przedmiot ma swoją odgórnie określoną wagę, żeby odprawy bagażowe odbywały się sprawniej.
   
   Jak widać na załączonym zdjęciu, bagaż do **20kg** włącznie, jest bagażem odprawianym od razu, za darmo, bez konieczności żadnej dopłaty.
-  ~~Jeśli użytkownik przekroczy limit wagowy **20kg**, ale nie przekroczy **32kg**, naliczana jest nadpłata za nadbagaż, według oficjalnych danych [Ryanair](https://www.ryanair.com/pl/pl), to jest: `2 euro za każdy przekroczony kilogram`.~~
+  Jeśli użytkownik przekroczy limit wagowy **20kg**, ale nie przekroczy **32kg**, naliczana jest nadpłata za nadbagaż, ~~według oficjalnych danych [Ryanair](https://www.ryanair.com/pl/pl), to jest: `2 euro za każdy przekroczony kilogram`.~~
   ^ Projekt został zaktualizowany pod poprawne dane, w których [opłata](https://www.ryanair.com/pl/pl/Przydatne-informacje/centrum-pomocy/oplaty) za nadbagaż wynosi `10€ za kilogram`. Zrzut ekranu z płacenia za nadbagaż nie uległ zmianie i pozostał stary.
   Nadpłata jest obliczana w złotówkach, po kursie ustalonym z góry (nie jest on aktualizowany, jest to stałe `4.3zł`)
  </details>
