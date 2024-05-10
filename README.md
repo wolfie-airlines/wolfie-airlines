@@ -210,6 +210,7 @@ Wolfie Airlines to projekt lotniska oraz linii lotniczych powstały na potrzeby 
   </summary>
 
   Powiedzmy, że wybraliśmy już lot, który nas interesuje korzystając z wcześniej opisanej opcji. Czas zakupić na niego bilet!
+  
   <img src="https://i.imgur.com/s9lZpxS.png"/>
 
   Skorzystajmy na potrzeby prezentacji z dokładniejszej funkcji (dokładniejszej, ponieważ każdy lot ma swój unikalny `identyfikator`, tak więc, korzystanie z opcji numer *1*, zawsze zwróci nam poprawne połączenie.
