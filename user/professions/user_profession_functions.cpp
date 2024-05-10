@@ -5,26 +5,26 @@
 #include "profession_prints/profession_prints.h"
 
 void HandleProfessionChoice(int choice, User &user) {
-  if (choice == 0) {
-    MusicProfession(user);
-  } else if (choice == 1) {
-    DoctorProfession(user);
-  } else if (choice == 2) {
-    MathProfession(user);
-  } else if (choice == 3) {
-    InformaticProfession(user);
-  } else if (choice == 4) {
-    PoliceProfession(user);
-  } else {
-    return;
-  }
+    if (choice == 0) {
+        MusicProfession(user);
+    } else if (choice == 1) {
+        DoctorProfession(user);
+    } else if (choice == 2) {
+        MathProfession(user);
+    } else if (choice == 3) {
+        InformaticProfession(user);
+    } else if (choice == 4) {
+        PoliceProfession(user);
+    } else {
+        return;
+    }
 }
 
 void HandleProfession(User &user) {
-  std::string option = DisplayProfessionInfo();
-  if (option == "Tak" || option == "TAK" || option == "tak") {
-    int profession = CreateProfessionScreen();
-    HandleProfessionChoice(profession, user);
-  } else
-    return;
+    std::string option = DisplayProfessionInfo();
+    if (option == "Yes" || option == "YES" || option == "yes") {
+        int profession = CreateProfessionScreen();
+        HandleProfessionChoice(profession, user);
+    } else
+        return;
 }

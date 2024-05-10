@@ -11,8 +11,8 @@
 #include "../../user/user.h"
 #include "../flight_connection.h"
 
-const std::string NO_FLIGHT_FOUND = "Nie znaleziono takiego lotu."; ///< Message displayed when no flight is found.
-const std::string TRY_AGAIN = "Spróbuj ponownie."; ///< Message prompting the user to try again.
+const std::string NO_FLIGHT_FOUND = "No such flight was found.";  ///< Message displayed when no flight is found.
+const std::string TRY_AGAIN = "Try again.";                       ///< Message prompting the user to try again.
 
 /**
  * @brief Handles flight search by city.

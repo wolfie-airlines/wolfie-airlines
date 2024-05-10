@@ -10,8 +10,8 @@
 #include "../item/item.h"
 #include "ftxui/component/component.hpp"
 
-const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈"; ///< The name of the airport.
-const std::string ITEM_CARD = "KARTA PRZEDMIOTU"; ///< The item card.
+const std::string AIRPORT_NAME = "WOLFI AIRPORT ️ ✈";  ///< The name of the airport.
+const std::string ITEM_CARD = "ITEM CARD";            ///< The item card.
 
 /**
  * @brief Creates groups of components.
