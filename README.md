@@ -417,6 +417,7 @@ Ktoś może zadać sobie pytanie: Czemu w odprawie bagażowej w ogóle uwzględn
 - [mongo-c-driver](https://github.com/mongodb/mongo-c-driver) - Sterownik C MongoDB używany do buildowania sterownika dla `mongo-cxx`
 - [cryptopp](https://cryptopp.com/) - Biblioteka kryptograficzna, używana w tym projekcie do hashowania hasła użytkownika
 - [QR-Code-Generator](https://github.com/nayuki/QR-Code-generator) - Biblioteka zapewniająca wszystkie potrzebne funkcje do generowania kodu QR, *potrzebnego do odprawy online*
+- wypełnienie bazy danych plikami podstawowymi, żeby program miał z czego czytać dane. Pliki, z których ja korzystałem, są dostępne w folderze [database](https://github.com/wolfie-airlines/wolfie-airlines/tree/main/database/json) w formacie `JSON`.
 
 ## Self-hosting & self-building
 1. Sklonuj repozytorium, bądź utwórz forka.
@@ -917,6 +918,7 @@ Someone may ask: Why include prohibited items in the baggage check-in at all? Th
 - [mongo-c-driver](https://github.com/mongodb/mongo-c-driver) - C MongoDB driver used to build driver for `mongo-cxx`
 - [cryptopp](https://cryptopp.com/) - Cryptographic library, used in this project to hash a user's password
 - [QR-Code-Generator](https://github.com/nayuki/QR-Code-generator) - A library that provides all the necessary functionality to generate a QR code, *needed for online check-in*.
+- filling the database with core files so that the program has something to read data from. The files I used are available in the [database](https://github.com/wolfie-airlines/wolfie-airlines/tree/main/database/json) folder in `JSON` format.
 
 ## Self-hosting & self-building
 1. clone the repository, or create a fork.
