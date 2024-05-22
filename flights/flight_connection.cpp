@@ -243,3 +243,10 @@ void FlightConnection::UpdateSeatsTaken(const std::string &flight_identifier, co
   bsoncxx::document::view update_view = update_builder.view();
   _collection_.update_one(filter_view, update_view);
 }
+FlightConnection::FlightConnection(const std::string &uri_str,
+                                   const std::string &db_name,
+                                   const std::string &collection_name) {
+    _client_ = mongocxx::client{mongocxx::uri{uri_str}};
+    _db_ = _client_[db_name];
+    _collection_ = _db_[collection_name];
+}
