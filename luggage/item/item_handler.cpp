@@ -35,10 +35,10 @@ std::vector<Item> GetItems(User &user) {
     std::string description = GetStringValue(item, "description");
     std::vector<std::string> hints = GetArrayValue(item, "hints");
     bool forbidden = item["forbidden"].get_bool().value;
-    bool registered_luggage = item["registered_luggage"].get_bool().value;
-    bool hand_luggage = item["hand_luggage"].get_bool().value;
-    bool pilot_allowance = item["pilot_allowance"].get_bool().value;
-    double max_count = GetDoubleValue(item, "max_count");
+    bool registered_luggage = item["registeredLuggage"].get_bool().value;
+    bool hand_luggage = item["handLuggage"].get_bool().value;
+    bool pilot_allowance = item["pilotAllowance"].get_bool().value;
+    double max_count = GetDoubleValue(item, "maxCount");
     double weight = GetDoubleValue(item, "weightForOne");
     std::string profession = GetStringValue(item, "profession");
     std::string category = GetStringValue(item, "category");

@@ -196,7 +196,7 @@ std::vector<int> FlightConnection::GetSeatsTaken(const std::string &flight_ident
 
   for (auto &&doc : cursor) {
     bsoncxx::document::view view = doc;
-    auto seats = view["seats_taken"].get_array().value;
+    auto seats = view["seatsTaken"].get_array().value;
     for (auto &&seat : seats) {
       seats_taken.push_back(seat.get_int32().value);
     }

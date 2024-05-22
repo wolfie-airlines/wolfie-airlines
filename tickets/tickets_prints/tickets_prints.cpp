@@ -128,7 +128,7 @@ void PrintTicketInvoice(
                                    ftxui::hbox({ftxui::paragraphAlignRight("Zapłacono: " + target_price + " PLN")
                                                     | ftxui::bold | color(ftxui::Color::Gold1)}),
                                    ftxui::hbox({ftxui::text(
-                                       L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Przejdź do zakładki 'Moje bilety'!")
+                                       L"ODPRAW SIĘ ONLINE JUŻ TERAZ! Przejdź do zakładki 'Odprawy online'!")
                                                     | ftxui::color(ftxui::Color::CadetBlue) | ftxui::bold}),
                                });
     auto document = ftxui::vbox({window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), summary)});

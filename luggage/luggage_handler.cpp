@@ -34,7 +34,7 @@ void CheckIn(User &user, int flightNumber) {
     }
   }
 
-  auto finish_button = Button("Potwierdź wybór", [&] {
+  auto finish_button = Button("Potwierdź", [&] {
     screen.ExitLoopClosure()();
   }) |
       ftxui::center | ftxui::bold | ftxui::borderEmpty;
