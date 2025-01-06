@@ -17,10 +17,10 @@ std::optional<std::string> CreateTicketsScreen(User &user, bool is_checkin) {
   std::vector<FlightInfo> flights_info;
   for (const auto &flight : user_flights) {
     FlightInfo info;
-    info.flight_id = flight["flightId"].get_string().value;
-    info.departure = flight["departure"].get_string().value;
-    info.destination = flight["destination"].get_string().value;
-    info.departure_time = flight["departureTime"].get_string().value;
+    info.flight_id = static_cast<std::string>(flight["flightId"].get_string().value);
+    info.departure = static_cast<std::string>(flight["departure"].get_string().value);
+    info.destination = static_cast<std::string>(flight["destination"].get_string().value);
+    info.departure_time =static_cast<std::string>( flight["departureTime"].get_string().value);
     info.price = flight["price"].get_double().value;
     for (const auto &seat : flight["seats"].get_array().value) {
       info.seats.push_back(seat.get_int32().value);

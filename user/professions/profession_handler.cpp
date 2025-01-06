@@ -199,8 +199,8 @@ bool GuessMathQuestion(User &user) {
     solution = std::to_string(solution_value.get_int32().value);
   } else if (solution_value.type() == bsoncxx::type::k_double) {
     solution = std::to_string(solution_value.get_double().value);
-  } else if (solution_value.type() == bsoncxx::type::k_utf8) {
-    solution = solution_value.get_string().value;
+  } else if (solution_value.type() == bsoncxx::type::k_string) {
+    solution = static_cast<std::string>(solution_value.get_string().value);
   } else {
     std::cerr << "Nieznany typ rozwiązania" << std::endl;
     return false;

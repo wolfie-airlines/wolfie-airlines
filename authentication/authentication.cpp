@@ -105,9 +105,9 @@ void Authentication::AuthenticateUser(const std::string &username,
     user.discount_ = discount;
     user.email_ = email;
     user.discount_type_ = discount_type;
-    user.profession_ = (std::string) userView["profession"].get_string().value;
+    user.profession_ = static_cast<std::string>(userView["profession"].get_string().value);
     user.premium_card_ = premium_card;
-    user.payment_method_ = payment_method;
+    user.payment_method_ = static_cast<std::string>(payment_method);
     user.money_spent_ = money_spent;
     user.money_saved_ = money_saved;
     user.ticket_bought_ = ticket_bought;
