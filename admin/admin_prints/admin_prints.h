@@ -37,4 +37,9 @@ std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, 
  */
 void DisplayManageUsersMenu();
 
+/**
+ * @brief Wyświetla menu pomyślnej serializacji lotów.
+ */
+void DisplaySerializeMenu();
+
 #endif //AIRPORT_ADMIN_ADMIN_PRINTS_ADMIN_PRINTS_H_

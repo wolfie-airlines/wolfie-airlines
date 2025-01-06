@@ -4,7 +4,7 @@
 
 void DisplayAdminMenu() {
   auto summary = [&] {
-    auto content = ftxui::vbox({
+      const auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" PANEL ADMINISTRATORA") | ftxui::bold})
                                        | color(ftxui::Color::Blue),
                                    ftxui::hbox({ftxui::text(L"1. Dodaj nowy lot   ") | ftxui::bold})
@@ -14,6 +14,12 @@ void DisplayAdminMenu() {
                                    ftxui::hbox({ftxui::text(L"3. Zarządzaj użytkownikami   ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"4. Dodaj nowy przedmiot  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"5. Dodaj nowy lot  ") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"6. Usuń lot") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::hbox({ftxui::text(L"7. Wyszukaj lot za pomocą ID") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"quit. Wyjdź z panelu administratora   ") | ftxui::bold})
                                        | color(ftxui::Color::DarkRed),
@@ -30,13 +36,13 @@ void DisplayAdminMenu() {
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
   auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
-  ftxui::Render(screen, document);
+  Render(screen, document);
   std::cout << screen.ToString() << '\0' << std::endl;
 }
 
 void DisplayAddingFlightInfo() {
   auto summary = [&] {
-    auto content = ftxui::vbox({
+      const auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L"UWAGA ADMINISTRATORZE!") | ftxui::bold})
                                        | color(ftxui::Color::YellowLight),
                                    ftxui::hbox({ftxui::text(L"Dodawanie lotu to nie lada bajka.")
@@ -102,13 +108,13 @@ void DisplayAddingFlightInfo() {
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 120);
 
   auto screen = ftxui::Screen::Create(ftxui::Dimension::Fit(document), ftxui::Dimension::Fit(document));
-  ftxui::Render(screen, document);
+  Render(screen, document);
   std::cout << screen.ToString() << '\0' << std::endl;
 }
 
 std::string DisplayAdminMessageAndCaptureInput(const std::string &title_message, const std::string &text_message) {
   auto create_screen = [&] {
-    auto summary = ftxui::vbox({
+      const auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                        | color(ftxui::Color::White),
                                    ftxui::separator(),
@@ -124,7 +130,7 @@ std::string DisplayAdminMessageAndCaptureInput(const std::string &title_message,
   };
 
   auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
-  ftxui::Render(user_screen, *create_screen());
+  Render(user_screen, *create_screen());
   std::cout << user_screen.ToString() << '\0' << std::endl;
 
   std::string answer;
@@ -135,7 +141,7 @@ std::string DisplayAdminMessageAndCaptureInput(const std::string &title_message,
 
 std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, const std::string &text_message) {
   auto create_screen = [&] {
-    auto summary = ftxui::vbox({
+      const auto summary = ftxui::vbox({
                                    ftxui::hbox({ftxui::paragraphAlignCenter(title_message)})
                                        | color(ftxui::Color::White),
                                    ftxui::separator(),
@@ -151,7 +157,7 @@ std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, 
   };
 
   auto user_screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(*create_screen()));
-  ftxui::Render(user_screen, *create_screen());
+  Render(user_screen, *create_screen());
   std::cout << user_screen.ToString() << '\0' << std::endl;
 
   std::string answer;
@@ -162,7 +168,7 @@ std::string DisplayAdminMessageAndCaptureLine(const std::string &title_message, 
 
 void DisplayManageUsersMenu() {
   auto summary = [&] {
-    auto content = ftxui::vbox({
+      const auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" ZARZĄDZANIE UŻYTKOWNIKAMI") | ftxui::bold})
                                        | color(ftxui::Color::Blue),
                                    ftxui::hbox({ftxui::text(L"1. Zmień nazwę użytkownika wybranego użytkownika  ") | ftxui::bold})
@@ -192,7 +198,31 @@ void DisplayManageUsersMenu() {
   document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
 
   auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
-  ftxui::Render(screen, document);
+  Render(screen, document);
+  std::cout << screen.ToString() << '\0' << std::endl;
+}
+
+void DisplaySerializeMenu() {
+  auto summary = [&] {
+      const auto content = ftxui::vbox({
+                                   ftxui::hbox({ftxui::text(L" WYEKSPORTOWANE DANE LOTNICZE") | ftxui::bold})
+                                       | color(ftxui::Color::Blue),
+                                   ftxui::hbox({ftxui::text(L"Dane lotnicze zostały wyeksportowane do pliku \"flights.txt\".") | ftxui::bold})
+                                       | color(ftxui::Color::GrayDark),
+                                   ftxui::separator(),
+                                   ftxui::hbox({ftxui::text(
+                                       L"Plik znajduje się w katalogu cmake-build-debug")
+                                                    | ftxui::bold}) | color(ftxui::Color::YellowLight),
+                               });
+    return window(ftxui::paragraphAlignCenter("WOLFI AIRPORT ️ ✈"), content);
+  };
+
+  auto document = ftxui::vbox({summary()});
+
+  document = document | size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
+
+  auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+  Render(screen, document);
   std::cout << screen.ToString() << '\0' << std::endl;
 }
 
