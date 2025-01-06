@@ -102,8 +102,8 @@ target_link_libraries(airport
 )
 
 
-find_package(mongocxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/wolfie-airlines/packages/mongo-cxx-driver_x64-windows")
-find_package(bsoncxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/wolfie-airlines/packages/mongo-cxx-driver_x64-windows")
+find_package(mongocxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/vcpkg/packages/mongo-cxx-driver_x64-windows")
+find_package(bsoncxx REQUIRED HINTS "C:/Users/szymo/.vcpkg-clion/vcpkg/packages/mongo-cxx-driver_x64-windows")
 
 find_package(cryptopp CONFIG REQUIRED)
 target_link_libraries(airport PRIVATE cryptopp::cryptopp)
