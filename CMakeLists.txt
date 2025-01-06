@@ -84,6 +84,8 @@ add_executable(airport main.cpp
         admin/admin_functions/validators.h
         admin/admin_functions/validators.cpp
         resources.rc
+        admin/admin_functions/managing_flights/flight_binary_tree.h
+        admin/admin_functions/managing_flights/custom_flight.h
 )
 
 include(FetchContent)
