@@ -7,19 +7,19 @@ void DisplayAdminMenu() {
       const auto content = ftxui::vbox({
                                    ftxui::hbox({ftxui::text(L" PANEL ADMINISTRATORA") | ftxui::bold})
                                        | color(ftxui::Color::Blue),
-                                   ftxui::hbox({ftxui::text(L"1. Dodaj nowy lot   ") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"1. Dodaj nowe pytanie weryfikacyjne   ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"2. Dodaj nowe pytanie weryfikacyjne   ") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"2. Zarządzaj użytkownikami   ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"3. Zarządzaj użytkownikami   ") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"3. Dodaj nowy przedmiot  ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"4. Dodaj nowy przedmiot  ") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"4. Dodaj nowy lot  ") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"5. Dodaj nowy lot  ") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"5. Usuń lot") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"6. Usuń lot") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"6. Wyszukaj lot za pomocą ID") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
-                                   ftxui::hbox({ftxui::text(L"7. Wyszukaj lot za pomocą ID") | ftxui::bold})
+                                   ftxui::hbox({ftxui::text(L"7. Wyeksportuj dane lotnicze") | ftxui::bold})
                                        | color(ftxui::Color::GrayDark),
                                    ftxui::hbox({ftxui::text(L"quit. Wyjdź z panelu administratora   ") | ftxui::bold})
                                        | color(ftxui::Color::DarkRed),

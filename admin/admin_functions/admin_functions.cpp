@@ -91,15 +91,13 @@ void HandleAdminDashboard(Admin &admin, User &user, FlightConnection &flight_con
   BinaryTree flightTree{};
 
   while (option != "quit") {
-    if (option == "1") {
-      admin.AddFlight(user);
-    } else if (option == "2") {
+     if (option == "1") {
       admin.AddVerificationQuestion(user);
-    } else if (option == "3") {
+    } else if (option == "2") {
       admin.ManageUsers(user);
-    } else if (option == "4") {
+    } else if (option == "3") {
       admin.AddLuggageItem(user);
-    } else if (option == "5") {
+    } else if (option == "4") {
       if (std::string choice = ProcessAddingFlight(); choice == "dalej") {
     AddFlightToDatabase(user, flightTree);
   } else if (choice == "quit") {
@@ -109,12 +107,12 @@ void HandleAdminDashboard(Admin &admin, User &user, FlightConnection &flight_con
     PrintErrorMessage("Nieprawidłowy wybór", "Nastąpił powrót do menu administratora.");
     return;
   }
-    } else if (option == "6") {
+    } else if (option == "5") {
       DeleteFlight(flightTree);
-    } else if (option == "7") {
+    } else if (option == "6") {
 
       SearchFlight(flightTree, user, flight_connection);
-    } else if (option == "8") {
+    } else if (option == "7") {
       flightTree.serialize("flights.txt");
       DisplaySerializeMenu();
     } else {
