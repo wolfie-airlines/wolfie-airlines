@@ -53,8 +53,8 @@ class Admin : public User {
    * @brief Konstruuje nowy obiekt Admin z obiektu User.
    * @param user Obiekt User.
    */
-  Admin(const User &user)
-      : User(user), hashed_admin_password_("") {}
+  explicit Admin(const User &user)
+      : User(user) {}
 
   std::string hashed_admin_password_; ///< Zaszyfrowane hasło admina.
 
@@ -62,25 +62,24 @@ class Admin : public User {
    * @brief Dodaje lot.
    * @param user Użytkownik, do którego dodawany jest lot.
    */
-  void AddFlight(User &user);
 
   /**
    * @brief Dodaje pytanie weryfikacyjne.
    * @param user Użytkownik, do którego dodawane jest pytanie weryfikacyjne.
    */
-  void AddVerificationQuestion(User &user);
+  static void AddVerificationQuestion(User &user);
 
   /**
    * @brief Zarządza użytkownikami.
    * @param user Użytkownik do zarządzania.
    */
-  void ManageUsers(User &user);
+  static void ManageUsers(User &user);
 
   /**
    * @brief Dodaje przedmiot bagażu.
    * @param user Użytkownik, do którego dodawany jest przedmiot bagażu.
    */
-  void AddLuggageItem(User &user);
+  static void AddLuggageItem(User &user);
 };
 
 #endif  // AIRPORT_ADMIN_H
