@@ -104,13 +104,6 @@ public:
 
     void addFlight(const std::shared_ptr<Flight>& flight) {
         addFlightToTree(root, flight);
-        std::cout << "Flight id: " << flight->flight_id << std::endl;
-        std::cout << "Departure city: " << flight->departure_city << std::endl;
-        std::cout << "Destination city: " << flight->destination_city << std::endl;
-        std::cout << "Departure time: " << flight->departure_time << std::endl;
-        std::cout << "Arrival time: " << flight->arrival_time << std::endl;
-        std::cout << "Price: " << flight->price << std::endl;
-        std::cout << "Available seats: " << flight->available_seats << std::endl;
 
         bsoncxx::builder::basic::document flight_builder{};
         flight_builder.append(
