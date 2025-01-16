@@ -14,7 +14,7 @@ std::string ProcessAddingFlight() {
   return input;
 }
 
-void AddFlightToDatabase(User &user, BinaryTree &flightTree) {
+void AddFlightToDatabase(User &user, BinaryTree<Flight> &flightTree) {
   auto collection = user.GetSpecificCollection("flight_connections");
     std::string flight_id = CaptureInputWithValidation("Dodawanie lotu", "Podaj ID lotu:", ValidateFlightId);
     if (flight_id.empty()) return;
@@ -58,14 +58,14 @@ void AddFlightToDatabase(User &user, BinaryTree &flightTree) {
 
     auto new_flight = std::make_shared<Flight>(flight_id, departure, arrival, departure_date + " " + departure_time, arrival_date + " " + arrival_time, available_seats, price_int);
 
-    flightTree.addFlight(new_flight);
+    flightTree.addData(new_flight);
 
     PrintSuccessMessage("Lot został dodany pomyślnie", "");
 }
 
-void SearchFlight(const BinaryTree &flightTree, User &user, FlightConnection &flight_connection) {
+void SearchFlight(const BinaryTree<Flight> &flightTree, User &user, FlightConnection &flight_connection) {
   const std::string search_id = CaptureInputWithValidation("Wyszukiwanie lotu", "Podaj ID lotu:", ValidateFlightId);
-  if (const auto found_flight = flightTree.findFlightById(search_id)) {
+  if (const auto found_flight = flightTree.findDataById(search_id)) {
     PrintSuccessMessage("Znaleziono lot", "");
     auto found_connection = flight_connection.FindConnectionById(found_flight->flight_id);
     CreateFoundFlightScreen(found_connection, user);
@@ -74,10 +74,10 @@ void SearchFlight(const BinaryTree &flightTree, User &user, FlightConnection &fl
   }
 }
 
-void DeleteFlight(BinaryTree &flightTree) {
+void DeleteFlight(BinaryTree<Flight> &flightTree) {
   const std::string search_id = CaptureInputWithValidation("Usuwanie lotu", "Podaj ID lotu:", ValidateFlightId);
-  if (const auto found_flight = flightTree.findFlightById(search_id)) {
-    flightTree.removeFlight(found_flight->flight_id);
+  if (const auto found_flight = flightTree.findDataById(search_id)) {
+    flightTree.removeData(found_flight->flight_id);
     PrintSuccessMessage("Usunięto lot", "Lot " + found_flight->flight_id + " został pomyślnie usunięty.");
   } else {
     PrintErrorMessage("Nie znaleziono lotu", "");
@@ -88,15 +88,15 @@ void HandleAdminDashboard(Admin &admin, User &user, FlightConnection &flight_con
   DisplayAdminMenu();
   std::string option;
   std::cin >> option;
-  BinaryTree flightTree{};
+  BinaryTree<Flight> flightTree{user};
 
   while (option != "quit") {
      if (option == "1") {
-      admin.AddVerificationQuestion(user);
+      Admin::AddVerificationQuestion(user);
     } else if (option == "2") {
-      admin.ManageUsers(user);
+      Admin::ManageUsers(user);
     } else if (option == "3") {
-      admin.AddLuggageItem(user);
+      Admin::AddLuggageItem(user);
     } else if (option == "4") {
       if (std::string choice = ProcessAddingFlight(); choice == "dalej") {
     AddFlightToDatabase(user, flightTree);
