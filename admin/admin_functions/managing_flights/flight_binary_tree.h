@@ -7,6 +7,7 @@
 #include <bsoncxx/builder/basic/kvp.hpp>
 
 #include "custom_flight.h"
+#include "custom_stack.h"
 #include "../../../user/user.h"
 
 template<typename T>
@@ -46,14 +47,6 @@ class BinaryTree {
         return findDataInTree(node->right, id);
     }
 
-    void inOrderTraversal(const std::unique_ptr<Node>& node, std::ofstream& file) const {
-        if (!node) return;
-        inOrderTraversal(node->left, file);
-        file << node->data->flight_id << " " << node->data->departure_city << " " << node->data->destination_city << " "
-             << node->data->departure_time << " " << node->data->arrival_time << " " << node->data->price << "\n";
-        inOrderTraversal(node->right, file);
-    }
-
     void removeDataFromTree(std::unique_ptr<Node>& node, const std::string& id) {
         if (!node) return;
         if (id < node->data->flight_id) {
@@ -73,6 +66,7 @@ class BinaryTree {
         }
     }
 
+    // ReSharper disable once CppDFAUnreachableFunctionCall
     static Node* findMin(const std::unique_ptr<Node>& node) {
         Node* current = node.get();
         while (current && current->left) {
@@ -132,62 +126,69 @@ public:
 
     void serialize(const std::string& filename) const {
         std::ofstream file(filename);
-        inOrderTraversal(root, file);
+        for (auto it = begin(); it != end(); ++it) {
+            auto data = *it;
+            file << data->flight_id << " " << data->departure_city << " " << data->destination_city << " "
+                 << data->departure_time << " " << data->arrival_time << " " << data->price << "\n";
+        }
     }
 
     class Iterator {
-        struct StackNode {
-            Node* node;
-            StackNode* next;
-        };
-
-        StackNode* stackTop;
-
-        void push(Node* node) {
-            auto* newNode = new StackNode{node, stackTop};
-            stackTop = newNode;
-        }
-
-        Node* pop() {
-            if (!stackTop) return nullptr;
-            StackNode* topNode = stackTop;
-            stackTop = stackTop->next;
-            Node* node = topNode->node;
-            delete topNode;
-            return node;
-        }
+        Node* current;
+        Stack<Node*> stack;
 
         void pushLeft(Node* node) {
             while (node) {
-                push(node);
+                stack.push(node);
                 node = node->left.get();
             }
         }
 
     public:
-        explicit Iterator(Node* root) : stackTop(nullptr) {
-            pushLeft(root);
-        }
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = T;
+        using difference_type = std::ptrdiff_t;
+        using pointer = T*;
+        using reference = T&;
 
-        ~Iterator() {
-            while (stackTop) {
-                pop();
+        explicit Iterator(Node* root) : current(nullptr) {
+            pushLeft(root);
+            if (!stack.isEmpty()) {
+                current = stack.pop();
             }
         }
 
-        [[nodiscard]] bool hasNext() const {
-            return stackTop != nullptr;
+        Iterator& operator++() {
+            if (current) {
+                pushLeft(current->right.get());
+                if (!stack.isEmpty()) {
+                    current = stack.pop();
+                } else {
+                    current = nullptr;
+                }
+            }
+            return *this;
         }
 
-        std::shared_ptr<T> next() {
-            Node* node = pop();
-            pushLeft(node->right.get());
-            return node->data;
+        std::shared_ptr<T> operator*() const {
+            return current->data;
+        }
+
+        bool operator==(const Iterator& other) const {
+            return current == other.current;
+        }
+
+        bool operator!=(const Iterator& other) const {
+            return !(*this == other);
         }
     };
 
-    Iterator begin() {
+    Iterator begin() const {
         return Iterator(root.get());
+    }
+
+    Iterator end() const {
+        return Iterator(nullptr);
     }
 };
 
