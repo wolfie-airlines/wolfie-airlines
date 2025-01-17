@@ -10,11 +10,10 @@
 
 /**
  * @brief Obsługuje panel administratora.
- * @param admin Obiekt administratora.
  * @param user Obiekt użytkownika.
  * @param flight_connection Obiekt połączenia lotniczego.
  */
-void HandleAdminDashboard(Admin &admin, User &user, FlightConnection &flight_connection);
+void HandleAdminDashboard(User &user, FlightConnection &flight_connection);
 
 /**
  * @brief Przetwarza dodanie lotu.

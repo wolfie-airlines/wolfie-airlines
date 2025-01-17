@@ -84,7 +84,7 @@ void DeleteFlight(BinaryTree<Flight> &flightTree) {
   }
 }
 
-void HandleAdminDashboard(Admin &admin, User &user, FlightConnection &flight_connection) {
+void HandleAdminDashboard(User &user, FlightConnection &flight_connection) {
   DisplayAdminMenu();
   std::string option;
   std::cin >> option;
