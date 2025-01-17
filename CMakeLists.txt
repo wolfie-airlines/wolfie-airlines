@@ -86,6 +86,7 @@ add_executable(airport main.cpp
         resources.rc
         admin/admin_functions/managing_flights/flight_binary_tree.h
         admin/admin_functions/managing_flights/custom_flight.h
+        admin/admin_functions/managing_flights/custom_stack.h
 )
 
 include(FetchContent)
